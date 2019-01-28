@@ -1,0 +1,33 @@
+.btn_3d{
+    background: #084c6f;
+    border-bottom: 5px solid #05354e;
+    border-radius: 50%;
+    box-shadow: 6px 6px 6px #999;
+    color: #fff;
+    cursor: pointer;
+    display: block;  
+    font-family: 'Raleway', Arial, Helvetica;
+    font-size: 28px;
+    height: 40px;
+    margin: 0px auto;
+    padding: 0px 0px;
+    text-align: center;
+    transition: all 0.2s ease 0s;
+    width: 40px;
+    position: absolute;
+    left: 1%;
+    
+}
+
+.btn_3d:hover{
+   background: #052535;
+}
+
+.btn_3d:active {
+    box-shadow: 2px 2px 2px #777, 0px 0px 35px 0px #00b7f8;
+    border-bottom:1px solid #0045A6;
+    text-shadow:  0px 0px 5px #fff, 0px 0px 5px #fff;
+    transform: translateY(4px);
+    transition: all 0.1s ease 0s;
+    margin: 0px auto 76px auto;
+}

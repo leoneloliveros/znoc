@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<!-- <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'> -->
+<link href='../lib/fullcalendar.min.css' rel='stylesheet' />
+<link href='../lib/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+<link href='../scheduler.min.css' rel='stylesheet' />
+<script src='../lib/moment.min.js'></script>
+<script src='../lib/jquery.min.js'></script>
+<script src='../lib/jquery-ui.min.js'></script>
+<script src='../lib/fullcalendar.min.js'></script>
+<script src='../scheduler.min.js'></script>
+<script src='js/theme-chooser.js'></script>
+</head>
+<body>
+		
+<script>
+  $(function(){
+    var ids = 0;
+    function eventos_externos(){
+      $('#external-events .fc-event').each(function() {
+        ids++;
+        // store data so the calendar knows to render an event upon drop
+        $(this).data('event', {
+          color: $.trim($(this).data('color')),
+          id: ids,
+          title: $.trim($(this).text()), // use the element's text as the event title
+          stick: true // maintain when user navigates (see docs on the renderEvent method)
+        });
+        // make the event draggable using jQuery UI
+        $(this).draggable({
+          zIndex: 999,
+          revert: true,      // will cause the event to go back to its
+          revertDuration: 0  //  original position after the drag
+        });
+      });
+    }
+    eventos_externos();
+
+    // llenar ingenieros desde la base de datos
+    function llenarIngenieros(e){
+     return [
+            { id: 'a', title: 'Ingeniero A'},
+            { id: 'b', title: 'Ingeniero B'},
+            { id: 'c', title: 'Ingeniero C'}
+          ];
+    }
+
+
+    initThemeChooser({
+      init: function(themeSystem) {
+        $('#calendar').fullCalendar({
+          // now: '2018-08-05', // FECHA DONDE SE VA A POSICIONAR AL CARGARSE EL DOCUMENTO
+          // lang: 'es',
+          editable: true,
+          aspectRatio: 1.8,
+          droppable: true,
+          scrollTime: '00:00',
+          header: {
+            left: 'today prev,next',
+            center: 'title',
+            right: ''
+          },
+          selectable: true,
+          defaultView: 'timelineMonth',
+          resources: llenarIngenieros(),
+
+          // Agreagar manualmente el listado de las personas
+          /*[
+            { id: 'a', title: 'Ingeniero A'},
+            { id: 'b', title: 'Ingeniero B'},
+            { id: 'c', title: 'Ingeniero C'}
+          ],*/
+          // se agran los eventos manualmente
+          /*events: [ 
+            { id: '1', resourceId: 'a', start: '2018-08-05T02:00:00', end: '2018-08-08T07:00:00', title: 'event 1' },
+            { id: '2', resourceId: 'b', start: '2018-08-05T05:00:00', end: '2018-08-10T22:00:00', title: 'event 2' },
+            { id: '3', resourceId: 'c', start: '2018-08-05T02:00:00', end: '2018-08-06T22:00:00', title: 'event 3' },
+          ],*/
+          // ********************FUNCIONES DE EVENTOS********************
+          // al darle click a la celda (dia)
+          dayClick: function(date, jsEvent, view, resource) {
+            alert('clicked ' + date.format() + ' on resource ' + resource.title);
+          },
+          // cuando se seleccionan varias celdas con espacio vacio  arrastrando
+          select: function(startDate, endDate, jsEvent, view, resource) {
+            alert('desde ' + startDate.format() + ' hasta ' + endDate.format() + ' on resource ' + resource.title);
+            alert('nose' + jsEvent.title);
+          },
+          // al darle click al evento
+          eventClick: function(event, jsEvent, view){
+            console.log("id", event.id);
+            // console.log("event", event);
+            // console.log(startDate);
+            // console.log(endDate);
+            var inicio = new Date(event.start);
+            console.log("inicio", inicio);
+            var fin = new Date(event.end);
+            console.log("fin", fin);
+            // alert('selecciono este evento'+ inicio + ' hasta ' + fin);
+          },
+          // al arrastrar un evento externo al calendario
+          drop: function(date, jsEvent, ui, resourceId) {
+            // console.log("resourceId", resourceId);
+            // console.log("ui", ui);
+            // console.log("jsEvent", jsEvent);
+            eventos_externos();
+            // console.log("dateeee", date._d);
+            // console.log('drop', date.format(), resourceId);
+            console.log('evento drop');
+
+            // evento externo no se regenera
+            if ($('#drop-remove').is(':checked')) {
+              // if so, remove the element from the "Draggable Events" list
+              $(this).remove();
+            }
+          },
+          // aparentemente igual a la funcion drop
+          eventReceive: function(event) { // called when a proper external event is dropped
+           // console.log('eventReceive', event);
+          },
+          // al mover algo en el calendario
+          eventDrop: function(event) { // called when an event (already on the calendar) is moved
+            console.log('eventDrop', event);
+          },
+          // al soltar un evento que se está moviendo
+          eventDragStop: function(event,jsEvent) {
+            //para calcular la coordenada donde se suelta el evento (papelera7 borrar)
+            if( (130 <= jsEvent.pageX) & (jsEvent.pageX <= 270) & (350 <= jsEvent.pageY) & (jsEvent.pageY <= 394)){
+              $('#calendar').fullCalendar('removeEvents', event.id);
+            }
+          }
+        });
+        },
+        // al cambiar el tema
+        change: function(themeSystem) {
+          $('#calendar').fullCalendar('option', 'themeSystem', themeSystem);
+        }
+    });
+  });
+</script>
+
+<style>
+
+  body {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 14px;
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+  }
+    
+  #wrap {
+    width: 1100px;
+    margin: 0 auto;
+  }
+    
+  #external-events {
+    float: left;
+    width: 150px;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    background: #eee;
+    text-align: left;
+  }
+    
+  #external-events h4 {
+    font-size: 16px;
+    margin-top: 0;
+    padding-top: 1em;
+  }
+    
+  #external-events .fc-event {
+    margin: 10px 0;
+    cursor: pointer;
+  }
+    
+  #external-events p {
+    margin: 1.5em 0;
+    font-size: 11px;
+    color: #666;
+  }
+    
+  #external-events p input {
+    margin: 0;
+    vertical-align: middle;
+  }
+
+  #calendar {
+    float: right;
+    width: 900px;
+
+  }
+
+</style>
+</head>
+<body>
+  <div id='top'>
+    <div class='left'>
+      <div id='theme-system-selector' class='selector'>
+        Theme System:
+        <select>
+          <option value='bootstrap4' selected>Bootstrap 4</option>
+          <option value='bootstrap3'>Bootstrap 3</option>
+          <option value='jquery-ui'>jQuery UI</option>
+          <option value='standard'>unthemed</option>
+        </select>
+      </div>
+      <div data-theme-system="bootstrap3" class='selector' style='display:none'>
+        Theme Name:
+        <select>
+          <option value='' selected>Default</option>
+          <option value='cosmo'>Cosmo</option>
+          <option value='cyborg'>Cyborg</option>
+          <option value='darkly'>Darkly</option>
+          <option value='flatly'>Flatly</option>
+          <option value='journal'>Journal</option>
+          <option value='lumen'>Lumen</option>
+          <option value='paper'>Paper</option>
+          <option value='readable'>Readable</option>
+          <option value='sandstone'>Sandstone</option>
+          <option value='simplex'>Simplex</option>
+          <option value='slate'>Slate</option>
+          <option value='solar'>Solar</option>
+          <option value='spacelab'>Spacelab</option>
+          <option value='superhero'>Superhero</option>
+          <option value='united'>United</option>
+          <option value='yeti'>Yeti</option>
+        </select>
+      </div>
+      <div data-theme-system="jquery-ui" class='selector' style='display:none'>
+        Theme Name:
+        <select>
+          <option value='black-tie'>Black Tie</option>
+          <option value='blitzer'>Blitzer</option>
+          <option value='cupertino' selected>Cupertino</option>
+          <option value='dark-hive'>Dark Hive</option>
+          <option value='dot-luv'>Dot Luv</option>
+          <option value='eggplant'>Eggplant</option>
+          <option value='excite-bike'>Excite Bike</option>
+          <option value='flick'>Flick</option>
+          <option value='hot-sneaks'>Hot Sneaks</option>
+          <option value='humanity'>Humanity</option>
+          <option value='le-frog'>Le Frog</option>
+          <option value='mint-choc'>Mint Choc</option>
+          <option value='overcast'>Overcast</option>
+          <option value='pepper-grinder'>Pepper Grinder</option>
+          <option value='redmond'>Redmond</option>
+          <option value='smoothness'>Smoothness</option>
+          <option value='south-street'>South Street</option>
+          <option value='start'>Start</option>
+          <option value='sunny'>Sunny</option>
+          <option value='swanky-purse'>Swanky Purse</option>
+          <option value='trontastic'>Trontastic</option>
+          <option value='ui-darkness'>UI Darkness</option>
+          <option value='ui-lightness'>UI Lightness</option>
+          <option value='vader'>Vader</option>
+        </select>
+      </div>
+      <span id='loading' style='display:none'>loading theme...</span>
+    </div>
+    <div class='right'>
+      <span class='credits' data-credit-id='bootstrap-standard' style='display:none'>
+        <a href='https://getbootstrap.com/docs/3.3/' target='_blank'>Theme by Bootstrap</a>
+      </span>
+      <span class='credits' data-credit-id='bootstrap-custom' style='display:none'>
+        <a href='https://bootswatch.com/' target='_blank'>Theme by Bootswatch</a>
+      </span>
+      <span class='credits' data-credit-id='jquery-ui' style='display:none'>
+        <a href='http://jqueryui.com/themeroller/' target='_blank'>Theme by jQuery UI</a>
+      </span>
+    </div>
+    <div class='clear'></div>
+  </div>
+  <div id='wrap'>
+    <div id='external-events'>
+      <h4>Malla entre semana</h4>
+      <div class='fc-event' style="background: yellow; color: black;" id="event_a" data-color="yellow">Horario A</div>
+      <div class='fc-event' style="background: blue; color: white;" id="event_b" data-color="blue">Horario B</div>
+      <h4>Malla fin de semana</h4>
+      <div class='fc-event' style="background: red; color: white;" id="event_a_f" data-color="red">Horario A</div>
+      <div class='fc-event' style="background: green; color: white;" id="event_b_f" data-color="green">Horario B</div>
+      <p>
+        <input type='checkbox' id='drop-remove' />
+        <label for='drop-remove'>remove after drop</label>
+      </p>
+      <div id="calendarTrash" class="calendar-trash"><img width="50px" height="50px" src="http://www.fireebok.com/images/resource/bettertrash/bettertrashicon_256.png" /></div>
+    </div>
+    <div id='calendar'></div>
+  </div>
+</body>
+</html>

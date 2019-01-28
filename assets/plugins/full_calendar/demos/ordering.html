@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<link href='../lib/fullcalendar.min.css' rel='stylesheet' />
+<link href='../lib/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+<link href='../scheduler.min.css' rel='stylesheet' />
+<script src='../lib/moment.min.js'></script>
+<script src='../lib/jquery.min.js'></script>
+<script src='../lib/fullcalendar.min.js'></script>
+<script src='../scheduler.min.js'></script>
+<script>
+
+  $(function() { // document ready
+
+    $('#calendar').fullCalendar({
+      now: '2018-04-07',
+      editable: true,
+      aspectRatio: 1.8,
+      scrollTime: '00:00',
+      header: {
+        left: 'today prev,next',
+        center: 'title',
+        right: 'timelineMonth,agendaWeek,month'
+      },
+      defaultView: 'timelineMonth',
+      views: {
+        timelineThreeDays: {
+          type: 'timeline',
+        }
+      },
+      resourceAreaWidth: '30%',
+      resourceColumns: [
+        {
+          labelText: 'Ingenieros',
+          field: 'title'
+        }
+      ],
+      resourceOrder: '-occupancy,title', // when occupancy tied, order by title
+      resources: [
+        { id: 'a', title: 'Ingeniero A', eventColor: 'ligth blue' },
+        { id: 'b', title: 'Ingeniero B', eventColor: 'green' },
+        { id: 'c', title: 'Ingeniero C', eventColor: 'orange' },
+        { id: 'd', title: 'Ingeniero D' },
+        { id: 'e', title: 'Ingeniero E' },
+        { id: 'f', title: 'Ingeniero F', eventColor: 'red' },
+        { id: 'g', title: 'Ingeniero G' },
+        { id: 'h', title: 'Ingeniero H' },
+        { id: 'i', title: 'Ingeniero I' },
+        { id: 'j', title: 'Ingeniero J' },
+        { id: 'k', title: 'Ingeniero K' },
+        { id: 'l', title: 'Ingeniero L' },
+        { id: 'm', title: 'Ingeniero M' },
+        { id: 'n', title: 'Ingeniero N' },
+        { id: 'o', title: 'Ingeniero O' },
+        { id: 'p', title: 'Ingeniero P' },
+        { id: 'q', title: 'Ingeniero Q' },
+        { id: 'r', title: 'Ingeniero R' },
+        { id: 's', title: 'Ingeniero S' },
+        { id: 't', title: 'Ingeniero T' },
+        { id: 'u', title: 'Ingeniero U' },
+        { id: 'v', title: 'Ingeniero V' },
+        { id: 'w', title: 'Ingeniero W' },
+        { id: 'x', title: 'Ingeniero X' },
+        { id: 'y', title: 'Ingeniero Y' },
+        { id: 'z', title: 'Ingeniero Z' }
+      ],
+      // events: [
+      //   { id: '1', resourceId: 'b', start: '2018-04-07T02:00:00', end: '2018-04-07T07:00:00', title: 'event 1' },
+      //   { id: '2', resourceId: 'c', start: '2018-04-07T05:00:00', end: '2018-04-07T22:00:00', title: 'event 2' },
+      //   { id: '3', resourceId: 'd', start: '2018-04-06', end: '2018-04-08', title: 'event 3' },
+      //   { id: '4', resourceId: 'e', start: '2018-04-07T03:00:00', end: '2018-04-07T08:00:00', title: 'event 4' },
+      //   { id: '5', resourceId: 'f', start: '2018-04-07T00:30:00', end: '2018-04-07T02:30:00', title: 'event 5' }
+      // ]
+    });
+  });
+</script>
+<script>
+  $('#calendar').fullCalendar({
+    dayClick: function(date, jsEvent, view, resource) {
+      alert('clicked ' + date.format() + ' on resource ' + resource.id);
+    },
+    select: function(startDate, endDate, jsEvent, view, resource) {
+      alert('selected ' + startDate.format() + ' to ' + endDate.format() + ' on resource ' + resource.id);
+    }
+  });
+</script>                       
+<style>
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+    font-size: 14px;
+  }
+
+  p {
+    text-align: center;
+  }
+
+  #calendar {
+    max-width: 900px;
+    margin: 50px auto;
+  }
+
+</style>
+</head>
+<body>
+
+  <p>Ordered by occupancy (descending)</p>
+
+  <div id='calendar'></div>
+
+</body>
+</html>
