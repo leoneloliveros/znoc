@@ -120,6 +120,15 @@
         <script src="<?= base_url("assets/js/modules/ingeniero.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
 
+<!-- js para cambios en perfil del usuario -->
+<?php if ($this->uri->segment(1) == 'User' && $this->uri->segment(2) == 'perfil'): ?>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js'></script>
+        <script src="<?= base_url("assets/js/utils/knockout-file-bindings.js") ?>"></script>
+        <script src="<?= base_url("assets/js/modules/perfil_usuario.js?v=" . validarEnProduccion()) ?>"></script>
+<?php endif ?>
+
+
+
 <!-- **********************************************datatables plus (excel ... ) *********************************************-->
 <?php if ($this->uri->segment(1) == 'User' && $this->uri->segment(2) == 'principal'): ?>
     <script type="text/javascript" src="<?= base_url("assets/plugins/datatables/js/dataTables.buttons.min.js") ?>"></script>

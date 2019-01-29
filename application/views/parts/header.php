@@ -22,8 +22,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/formulario_crear.css') ?>">
   <?php endif ?>
 
-    <?php if ($this->uri->segment(1) == 'User'): ?>
+  <?php if ($this->uri->segment(1) == 'User'): ?>
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/datatables_camilo.css?v=' . validarEnProduccion()); ?>">
+  <?php endif ?>
+
+
+  <?php if ($this->uri->segment(2) == 'perfil'): ?>
+    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/knockout-file-bindings.css'); ?>">
+    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/formulario_crear.css') ?>">
   <?php endif ?>
 
 
@@ -200,7 +206,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat"><i class="fa fa-gears"> </i> Perfil</a>
+                  <a href="<?= base_url('User/perfil') ?>" class="btn btn-default btn-flat"><i class="fa fa-gears"> </i> Perfil</a>
                 </div>
                 <div class="pull-right">
                   <a href="<?= base_url('User/logout'); ?>" class="btn btn-default btn-flat">Sign out</a>

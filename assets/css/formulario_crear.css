@@ -6,6 +6,7 @@
 	box-shadow: 0 0 20px 1px rgba(0,0,0,0.3);
 	position: relative;
 	margin-top: 30px;
+	min-height: 200px;
 }
 .formulario_titulo {
 	text-align: center;

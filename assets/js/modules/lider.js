@@ -52,7 +52,7 @@ $(function() {
                 {title: "Fecha Asignación", data: "fecha_asignacion"},
                 {title: "Solicitante Remedy", data: "solicitante_remedy"},
                 {title: "Subred", data: "subred"},
-                {title: "Fecha ültimo Seguimiento", data: "fecha_ultimo_seguimiento"},
+                {title: "Fecha último Seguimiento", data: "fecha_ultimo_seguimiento"},
                 {title: "estado", data:  function(obj){ return (lider.lista[obj.estado_tarea])? lider.lista[obj.estado_tarea] : '';  }},
                 {title: "Motivo", data:  function(obj){ return (lider.lista[obj.motivo_estado]) ? lider.lista[obj.motivo_estado] : ''; }},
                 {title: "Ingeniero BO TX", data: "ingeniero"},

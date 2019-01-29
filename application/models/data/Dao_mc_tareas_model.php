@@ -79,7 +79,8 @@ class Dao_mc_tareas_model extends CI_Model {
 	}
 
 	// Retorna todas las tareas completas
-	public function get_todas_las_tareas(){
+	public function get_todas_las_tareas($role){
+		$where_ingeniero = ($role == 'ingeniero') ? "WHERE t.ingeniero_bo_tx = " . $this->session->userdata('id') : "";
 		$query = $this->db->query("
 			SELECT
 			t.id_tarea_crq,
@@ -103,7 +104,9 @@ class Dao_mc_tareas_model extends CI_Model {
 			INNER JOIN mc_crqs_mw AS crq ON t.crq = crq.crq
 			INNER JOIN mc_tipo_tareas AS ti ON t.id_tipo_tareas = ti.id_tipo_tareas
 			LEFT JOIN mc_subredes AS sr ON crq.id_subred = sr.id_subred
-			LEFT JOIN usuarios AS u ON t.ingeniero_bo_tx = u.id_usuario
+			LEFT JOIN usuarios AS u ON t.ingeniero_bo_tx = u.id_usuario 
+			$where_ingeniero
+
 
 		");
 		return $query->result();

@@ -138,4 +138,22 @@ class User extends CI_Controller {
         echo json_encode($idUser);
     }
 
+    // Vista para cambiar opciones del usuario
+    public function perfil(){
+         if (!$this->session->userdata('id')) {header('location: ' . base_url());}
+
+        $config_page = array(
+            'active_sidebar' => true,
+            'title'          => 'ZOLID | Perfil',
+            'active'         => 'earch-btn',
+            'header'         => array('Perfil', 'cambiar perfil')
+        );
+
+        $this->load->view('parts/header', $config_page);
+        $this->load->view("perfil_usuario");
+        $this->load->view('parts/footer');
+    }
+
+
+
 }

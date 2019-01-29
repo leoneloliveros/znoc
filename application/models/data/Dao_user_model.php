@@ -42,7 +42,7 @@ class Dao_user_model extends CI_Model {
     //trae la contraseña del usuario en sesion
 	public function get_pass_by_id($user){
 		$query = $this->db->query("
-				SELECT contrasena FROM usuario WHERE id_usuario = $user;
+				SELECT contrasena FROM usuarios WHERE id_usuario = $user;
 			");
 		return $query->row();
 	}

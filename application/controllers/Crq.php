@@ -49,9 +49,6 @@ class Crq extends CI_Controller {
 
     // retorna false si ya existia ese crq sino lo crea
     private function crear_en_tabla_crq($post) {
-        echo '<pre>';
-        print_r($post);
-        echo '</pre>';
         $existe = $this->Dao_crq_model->getByCrq($post['crq']);
         if ($existe) {
             return false;
@@ -103,7 +100,7 @@ class Crq extends CI_Controller {
     // Retorna el listado de todas las tareas
     public function js_getListTotal(){
     	$response = array(
-    		'total' => $this->Dao_mc_tareas_model->get_todas_las_tareas()
+    		'total' => $this->Dao_mc_tareas_model->get_todas_las_tareas($this->session->userdata('role'))
     	);
 
     	echo json_encode($response);
