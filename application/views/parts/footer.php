@@ -115,6 +115,11 @@
         <script src="<?= base_url("assets/js/modules/lider.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
 
+<!-- js para ingeniero -->
+<?php if ($this->uri->segment(1) == 'User' && $this->uri->segment(2) == 'principal' && $this->session->userdata('role') == 'ingeniero'): ?>
+        <script src="<?= base_url("assets/js/modules/ingeniero.js?v=" . validarEnProduccion()) ?>"></script>
+<?php endif ?>
+
 <!-- **********************************************datatables plus (excel ... ) *********************************************-->
 <?php if ($this->uri->segment(1) == 'User' && $this->uri->segment(2) == 'principal'): ?>
     <script type="text/javascript" src="<?= base_url("assets/plugins/datatables/js/dataTables.buttons.min.js") ?>"></script>
@@ -124,6 +129,7 @@
     <script type="text/javascript" src="<?= base_url("assets/plugins/datatables/js/buttons.html5.min.js") ?>"></script>
     <script type="text/javascript" src="<?= base_url("assets/plugins/datatables/js/buttons.print.min.js") ?>"></script>
     <script type="text/javascript" src="<?= base_url("assets/plugins/datatables/js/dataTables.select.min.js") ?>"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 <?php endif ?>
 
 <!-- js para lider -->
@@ -139,6 +145,7 @@
   $('#<?= $active ?>').addClass('active');
   const base_url = "<?php echo base_url(); ?>";
   const formato_fecha = new Date();
+  const fecha_actual = formato_fecha.getDate() + "-" + formato_fecha.getMonth() + "-" + formato_fecha.getFullYear();
 </script>
 
 </body>

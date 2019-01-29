@@ -65,6 +65,22 @@ $(function() {
             })
         },
 
+        // Alerta de cargando gif, PARA SER CERRADO DEBE USARSE EL METODO swal.close()
+        alertLoading: function(title = 'Por favor!', msj = 'No cierre ni actualice esta ventana hasta que termine el proceso' , gif = true){
+            const imge = (gif) ? `<img src="${base_url}/assets/images/cargando.gif" alt="" />` : '';
+            swal({
+                title: title,
+                html: `<h4>${msj}</h4>
+                 ${imge}
+                `,
+                onOpen: () => {
+                    swal.showLoading();
+                },
+                allowOutsideClick: false // al darle clic fuera se cierra el alert
+            });
+        },
+
+
         // Función que permite pintar la tabla con los campos de busqueda
         // Los parametros son: Data que recibe los datos, columns: los números de columns en la tabla, IdTabke: Es el id de la tabla a pintar
         // ordenColumn:posicion para organizar las columnas y el ordenBy: la informacion se va a organizar de forma ascendente

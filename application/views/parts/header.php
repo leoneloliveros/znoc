@@ -22,6 +22,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/formulario_crear.css') ?>">
   <?php endif ?>
 
+    <?php if ($this->uri->segment(1) == 'User'): ?>
+    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/datatables_camilo.css?v=' . validarEnProduccion()); ?>">
+  <?php endif ?>
+
 
 
 
@@ -55,7 +59,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>Z</b>TE</span>
       <!-- logo for regular state and mobile devices -->
@@ -247,7 +251,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <li class="header">MENÚ DE NAVEGACIÓN</li>
         <!-- Optionally, you can add icons to the links -->
         <li id="principal"><a href="<?= base_url("User/principal/$rol_user_session") ?>"><i class="fa fa-home"></i> <span>Principal</span></a></li>
-        <li id="menu_crear"><a href="<?= base_url("Crq/crear") ?>"><i class="fa fa-ticket"></i> <span>Crear</span></a></li>
+        <?php if ($rol_user_session == 'lider'): ?>
+          <li id="menu_crear"><a href="<?= base_url("Crq/crear") ?>"><i class="fa fa-ticket"></i> <span>Crear</span></a></li>
+        <?php endif ?>
+
         <li><a href="#"><i class="fa fa-id-badge"></i> <span>Agenda</span></a></li>
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
