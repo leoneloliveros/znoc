@@ -85,4 +85,13 @@ class Dao_user_model extends CI_Model {
         }
     }
 
+
+       function cambiar($id, $data){
+        $this->db->where('id_usuario',$id);
+        $this->db->update('usuarios',array('contrasena'=>$data));
+        return $this->db->affected_rows();
+    }
+
+
+
 }

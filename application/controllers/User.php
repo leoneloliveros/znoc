@@ -28,25 +28,31 @@ class User extends CI_Controller {
         if ($val_user != null) {
             $val_pass = $this->Dao_user_model->validatePass($pass, $val_user->id_usuario);
             if ($val_pass != null) {
-
-                $data = array(
-                    'role'     => $val_user->rol,
-                    'id'       => $val_user->id_usuario,
-                    'name'     => explode(" ", $val_user->nombres)[0] . " " . explode(" ", $val_user->apellidos)[0],
-                    'email'    => $val_user->email,
-                    'proyecto' => $val_user->proyecto,
-                    'imagen'   => $val_user->imagen,
-
+                if ($pass === 'abc123' || strlen($pass) <= 6) {
+                    $data['usuario'] = $val_user;
+                    $this->load->view('cambiarContrasena', $data);
+                }else{
+                    $data = array(
+                    'role' => $val_user->rol,
+                    'id' => $val_user->id_usuario,
+                    'name' => $val_user->nombres . " " . $val_user->apellidos,
+                    'email'=> $val_user->email
                 );
 
                 $this->session->set_userdata($data);
                 header('location: ' . base_url() . "User/principal/$val_user->rol");
+                }
             } else {
-                $response['error'] = "error";
+                $response['mensaje'] = 'Error de autentificación!';
+                $response['texto'] = 'La contraseña es errónea';
+                $response['tipo'] = 'error';
                 $this->load->view('login', $response);
             }
+
         } else {
-            $response['error'] = "error";
+            $response['mensaje'] = 'Error de autentificación!';
+            $response['texto'] = 'El No. de documento es desconocido!';
+            $response['tipo'] = 'error';
             $this->load->view('login', $response);
         }
     }
@@ -216,5 +222,21 @@ class User extends CI_Controller {
 
         return true;          
     }
+
+    function CambioContra(){
+		$inpCambio =  $this->input->post('inputDos');
+		 $id = $this->input->post('id');
+		 if($this->Dao_user_model->cambiar($id, $inpCambio) == 1){
+			 $data['mensaje'] = 'Contraseña Actualizada!';
+			 $data['texto'] = 'Por favor, ingrese con su nueva contraseña';
+			 $data['tipo'] = 'success';
+			 $this->load->view('login',$data);
+		 }else{
+			 $data['mensaje'] = 'Error de actualización';
+			 $data['texto'] = 'Por favor, intente nuevamente el cambiado de contraseña';
+			 $data['tipo'] = 'error';
+			 $this->load->view('login',$data);
+		 }
+	 }
 
 }
