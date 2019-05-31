@@ -57,6 +57,7 @@ $(function() {
                 {title: "Motivo", data:  function(obj){ return (lider.lista[obj.motivo_estado]) ? lider.lista[obj.motivo_estado] : ''; }},
                 {title: "Ingeniero BO TX", data: "ingeniero"},
                 {title: "Area Asignada", data: function(obj){ return (lider.lista[obj.area_asignada]) ? lider.lista[obj.area_asignada] : ''; }},
+                {title: "opc", data: function(obj){ return helper.getButtonOpcTable('cerrar', "fa-pencil-square-o", 'cerrar-crq'); } },
             ], 'tabla_asignadas', '', '', ''));
         },
 

@@ -70,6 +70,8 @@ $(function () {
                 {title: "Motivo", data:  function(obj){ return (ingeniero.lista[obj.motivo_estado]) ? ingeniero.lista[obj.motivo_estado] : ''; }},
                 // {title: "Ingeniero BO TX", data: "ingeniero"},
                 {title: "Area Asignada", data: function(obj){ return (ingeniero.lista[obj.area_asignada]) ? ingeniero.lista[obj.area_asignada] : ''; }},
+                {title: "opc", data: function(obj){ return helper.getButtonOpcTable('cerrar', "fa-pencil-square-o", 'cerrar-crq'); } },
+                
             ], 'tabla_asignadas', '', '', ''));
 
             

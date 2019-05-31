@@ -56,10 +56,11 @@ class User extends CI_Controller {
         if (!$this->session->userdata('id')) {header('location: ' . base_url());}
 
         $config_page = array(
+            'subproyecto'    => 'Microondas',
             'active_sidebar' => false,
             'title'          => 'ZOLID | Principal',
             'active'         => 'principal',
-            'header'         => array('PRINCIPAL', 'Bandeja principal')
+            'header'         => array('PRINCIPAL', 'Bandeja principal'),
         );
 
         $this->load->view('parts/header', $config_page);
@@ -139,14 +140,15 @@ class User extends CI_Controller {
     }
 
     // Vista para cambiar opciones del usuario
-    public function perfil(){
-         if (!$this->session->userdata('id')) {header('location: ' . base_url());}
+    public function perfil() {
+        if (!$this->session->userdata('id')) {header('location: ' . base_url());}
 
         $config_page = array(
+            'subproyecto'    => 'Microondas',
             'active_sidebar' => true,
             'title'          => 'ZOLID | Perfil',
             'active'         => 'earch-btn',
-            'header'         => array('Perfil', 'cambiar perfil')
+            'header'         => array('Perfil', 'cambiar perfil'),
         );
 
         $this->load->view('parts/header', $config_page);
@@ -154,6 +156,65 @@ class User extends CI_Controller {
         $this->load->view('parts/footer');
     }
 
+    // cambiar configuraciones de perfil
+    public function configurar_perfil() {
 
+
+        // logica para subida de archivos
+        $id_user = $this->session->userdata('id');
+        $field         = 'form_file'; // The name attribute of the file input control.
+        $realizado = true;
+        if ( isset($_FILES[$field]) && isset($_FILES[$field]['name']) && $_FILES[$field]['name'] != '') {
+            $realizado = $this->subir_archivo();
+           if (!$realizado) {
+                $this->session->set_flashdata('msj', array('title' => 'Error', 'cuerpo' => 'Error al actualizar la imagen', 'tipo' => 'error'));
+           }
+
+        }
+
+        // Logica para cambio de password
+        $new_pass = $this->input->post('new_password');
+        $conf_pass = $this->input->post('new_password_2');
+        if ($new_pass != '' && $conf_pass != '') {
+            if (!$this->Dao_user_model->update_usuarios($id_user, array('contrasena' => $new_pass)) > 0) {
+                $realizado = false;
+                $this->session->set_flashdata('msj', array('title' => 'Error', 'cuerpo' => 'Error al actualizar contraseña', 'tipo' => 'error'));
+
+            }
+        }
+
+        if ($realizado) {
+             $this->session->set_flashdata('msj', array('title' => 'OK', 'cuerpo' => 'Cambios Realizados', 'tipo' => 'success'));
+        } 
+
+        header('location: ' . base_url('User/perfil'));
+
+    }
+
+    // funcion para mover archivos de los usuarios
+    private function subir_archivo(){
+        $id_user = $this->session->userdata('id');
+
+        $mi_archivo              = $_FILES['form_file'];
+        $config['upload_path']   = "assets2/dist/img/usuarios/";
+        $config['file_name']     = $id_user;
+        $config['allowed_types'] = "*";
+        $config['max_size']      = "50000";
+        $config['max_width']     = "2000";
+        $config['max_height']    = "2000";
+        $config['overwrite']     = true;
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('form_file')) {
+            echo $this->upload->display_errors();
+            return false;
+        }    
+
+
+        $this->Dao_user_model->update_usuarios($id_user, array('imagen' => $id_user));
+        
+
+        return true;          
+    }
 
 }

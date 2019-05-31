@@ -74,4 +74,15 @@ class Dao_user_model extends CI_Model {
         return $query->row();
     }
 
+    // actualizar campo de la tabla de usuario
+    public function update_usuarios($id, $data){
+        $this->db->where_in('id_usuario', $id);
+        $this->db->update('usuarios', $data);
+        if ($this->db->affected_rows() > 0) {
+            return $this->db->affected_rows();
+        } else {
+            return 0;
+        }
+    }
+
 }

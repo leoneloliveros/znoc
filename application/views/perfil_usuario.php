@@ -3,7 +3,7 @@
 		display: inline-block;
 	}
 </style>
-<form method="POST" action="<?= base_url('User/configurar_perfil') ?>" class="formulario" id="form_configurar_perfil">
+<form method="POST" action="<?= base_url('User/configurar_perfil') ?>" class="formulario" id="form_configurar_perfil" enctype="multipart/form-data">
 	<h1 class="formulario_titulo">Configurar Perfil</h1>
 	<div class="col-md-8">
 		<input type="password" class="formulario_input" id="old_password" name="old_password">
@@ -43,7 +43,7 @@
 		            </div>
 		        </div>
 		        <div class="col-md-6">
-		            <input type="file" data-bind="fileInput: fileData, customFileInput: {
+		            <input name="form_file" id="form_file" type="file" data-bind="fileInput: fileData, customFileInput: {
 		              buttonClass: 'btn btn-success',
 		              fileNameClass: 'disabled form-control',
 		              onClear: onClear,
@@ -53,17 +53,14 @@
 		    </div>
 		</div>
 
-		<input class="formulario_submit" type="button" value="enviar"  onclick="form_configurar_perfil.submit()"></input>
+		<input class="formulario_submit" type="button" value="enviar" id="send_form"></input>
 	</div>
 </form>
 
+<script src="<?= base_url("assets/plugins/sweetalert2/sweetalert2.all.js") ?>"></script>
 
-<!-- <style type="text/css">
-	.container {
-		  max-width: 750px;
-		  padding: 15px;
-		}
-</style> -->
-<div class="container">
+<?php $msj =$this->session->flashdata('msj'); ?>
 	
-</div>
+<?php if (isset($msj)): ?>
+	<script> swal("<?= $msj['title'] ?>", "<?= $msj['cuerpo'] ?>", "<?= $msj['tipo'] ?>"); </script>	
+<?php endif ?>

@@ -15,6 +15,7 @@ class Crq extends CI_Controller {
         if (!$this->session->userdata('id')) {header('location: ' . base_url());}
 
         $config_page = array(
+            'subproyecto'    => 'Microondas',
             'active_sidebar' => true,
             'title'          => 'ZOLID | Crear',
             'active'         => 'menu_crear',
@@ -120,5 +121,57 @@ class Crq extends CI_Controller {
     	$data = array_column($this->Dao_mc_tareas_model->get_option_list(), 'valores', 'id_lista');
     	echo json_encode($data);
     }
+
+    // Retorna para js los listados de reginal redes y subredes separados
+    public function js_get_listas(){
+        $data = array(
+            'subredes' => $this->Dao_crq_model->get_all_subredes(),
+            'regiones' => $this->Dao_crq_model->get_lists_regiones(),
+            'estados' => $this->Dao_crq_model->get_lists_estados(),
+            'motivos' => $this->Dao_crq_model->get_lists_motivos(),
+            'areas_asignadas' => $this->Dao_crq_model->get_lists_area_asignada()
+        );
+        echo json_encode($data);
+    }
+
+    // Retorna a js listado de red sugun la region post
+    public function js_get_red_by_region(){
+        $region = $this->input->post('region');
+        $redes = $this->Dao_crq_model->get_list_red_by_region($region);
+        echo json_encode($redes);
+    }
+
+    // Retorna listado de sub red segun la red post
+    public function js_get_subred_by_red(){
+        $red = $this->input->post('red');
+        $subredes = $this->Dao_crq_model->get_list_subred_by_red($red);
+        echo json_encode($subredes);
+        
+    }
+
+    // Guardar la informacion editada de cierre
+    public function js_save_cierre_crq(){
+        $post = array_column($this->input->post()['data'], 'value', 'name');
+        $fecha_asignacion = date('Y-m-d');
+
+        if (isset($post['id_subred'])) {
+            $this->Dao_crq_model->update_crq( array( 'id_subred' => $post['id_subred'],'fecha_asignacion' => $fecha_asignacion), $post['crq'] );
+        } 
+
+        $data = array(
+            'estado_tarea'             => $post['estado_tarea'],
+            'motivo_estado'            => $post['motivo_estado'],
+            'motivo_estado'            => $post['motivo_estado'],
+            'area_asignada'            => $post['area_asignada'],
+            'fecha_ultimo_seguimiento' => $fecha_asignacion,
+        );
+
+        $res = $this->Dao_mc_tareas_model->update_tareas_crq($data, $post['crq'], $post['id_tipo_tareas']);
+
+        echo json_encode(($res > 0));
+
+
+    }
+
 
 }

@@ -421,3 +421,15 @@ a.link-normal:hover{
 .f-s-15{
     font-size: 15px;
 }
+
+
+/*MAX-WIDTH*/
+.m-w-100{
+    max-width: 100%;
+}
+
+
+.input_ex{
+    width: -webkit-fill-available !important;
+    margin-bottom: 6px;
+}

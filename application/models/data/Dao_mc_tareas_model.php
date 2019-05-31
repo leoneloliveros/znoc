@@ -112,6 +112,18 @@ class Dao_mc_tareas_model extends CI_Model {
 		return $query->result();
 	}
 
+	// Actualizar de la tabla tarea segun su crq y id_tipo_tarea
+	public function update_tareas_crq($data, $crq, $id_tipo_tarea){
+		$this->db->where('crq', $crq);
+		$this->db->where('id_tipo_tareas', $id_tipo_tarea);
+        $this->db->update('mc_tareas_crqs', $data);
+        if ($this->db->affected_rows() > 0) {
+            return $this->db->affected_rows();
+        } else {
+            return 0;
+        }
+	}
+
 
 
 

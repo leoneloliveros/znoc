@@ -16,6 +16,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title><?= $title ?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/helper-class.css') ?>">
 
 
   <?php if ($this->uri->segment(2) == 'crear'): ?>
@@ -79,7 +80,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <span class="sr-only">Toggle navigation</span>
       </a>
   
-      <span class="title-proyect"><b>TRANSMISIONES</b></span>
+      <span class="title-proyect"><b>TRANSMISIONES - <?= $subproyecto ?></b></span>
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">

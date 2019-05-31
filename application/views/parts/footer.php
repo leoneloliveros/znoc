@@ -13,6 +13,11 @@
     <strong>Copyright &copy; 2019 <a href="#">ZTE Colombia</a>.</strong> All rights reserved.
   </footer>
 
+<script type="text/javascript">
+  const base_url = "<?php echo base_url(); ?>";
+  const formato_fecha = new Date();
+  const fecha_actual = formato_fecha.getDate() + "-" + formato_fecha.getMonth() + "-" + formato_fecha.getFullYear();
+</script>
 
   <!--******************************* SIDEBAR DE LA DERECHA******************************* -->
   <!-- Control Sidebar -->
@@ -111,13 +116,15 @@
 
 
 <!-- js para lider -->
-<?php if ($this->uri->segment(1) == 'User' && $this->uri->segment(2) == 'principal' && $this->session->userdata('role') == 'lider'): ?>
+<?php if ($this->uri->segment(1) == 'User' && $this->uri->segment(2) == 'principal' && $this->session->userdata('role') == 'lider' && $this->session->userdata('proyecto') == 'microondas' ): ?>
         <script src="<?= base_url("assets/js/modules/lider.js?v=" . validarEnProduccion()) ?>"></script>
+        <script src="<?= base_url("assets/js/modules/cerrar_crq_microondas.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
 
 <!-- js para ingeniero -->
-<?php if ($this->uri->segment(1) == 'User' && $this->uri->segment(2) == 'principal' && $this->session->userdata('role') == 'ingeniero'): ?>
+<?php if ($this->uri->segment(1) == 'User' && $this->uri->segment(2) == 'principal' && $this->session->userdata('role') == 'ingeniero' && $this->session->userdata('proyecto') == 'microondas' ): ?>
         <script src="<?= base_url("assets/js/modules/ingeniero.js?v=" . validarEnProduccion()) ?>"></script>
+        <script src="<?= base_url("assets/js/modules/cerrar_crq_microondas.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
 
 <!-- js para cambios en perfil del usuario -->
@@ -152,9 +159,6 @@
 <script type="text/javascript"> 
   // para ponerle active al li seleccionado 
   $('#<?= $active ?>').addClass('active');
-  const base_url = "<?php echo base_url(); ?>";
-  const formato_fecha = new Date();
-  const fecha_actual = formato_fecha.getDate() + "-" + formato_fecha.getMonth() + "-" + formato_fecha.getFullYear();
 </script>
 
 </body>
