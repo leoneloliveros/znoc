@@ -26,21 +26,34 @@ class User extends CI_Controller {
         // print_r($_POST);
         $val_user = $this->Dao_user_model->getUserByUsername($idUser);
         if ($val_user != null) {
-            $val_pass = $this->Dao_user_model->validatePass($pass, $val_user->id_usuario);
+            $val_pass = $this->Dao_user_model->validatePass($pass, $val_user->id_users);
             if ($val_pass != null) {
                 if ($pass === 'abc123' || strlen($pass) <= 6) {
                     $data['usuario'] = $val_user;
                     $this->load->view('cambiarContrasena', $data);
                 }else{
                     $data = array(
-                    'role' => $val_user->rol,
-                    'id' => $val_user->id_usuario,
+                    // 'role' => $val_user->rol,
+                    'id' => $val_user->id_users,
                     'name' => $val_user->nombres . " " . $val_user->apellidos,
                     'email'=> $val_user->email
                 );
 
                 $this->session->set_userdata($data);
-                header('location: ' . base_url() . "User/principal/$val_user->rol");
+
+                if (!$this->session->userdata('id')) {header('location: ' . base_url());}
+
+                $config_page = array(
+                    'subproyecto'    => 'Microondas',
+                    'active_sidebar' => false,
+                    'title'          => 'ZOLID | Principal',
+                    'active'         => 'principal',
+                    'header'         => array('PRINCIPAL', 'Bandeja principal'),
+                );
+        
+                $this->load->view('parts/header', $config_page);
+                $this->load->view('principal');
+                $this->load->view('parts/footer');
                 }
             } else {
                 $response['mensaje'] = 'Error de autentificación!';
