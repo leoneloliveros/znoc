@@ -36,21 +36,22 @@ class User extends CI_Controller {
                     // 'role' => $val_user->rol,
                     'id' => $val_user->id_users,
                     'name' => $val_user->nombres . " " . $val_user->apellidos,
-                    'email'=> $val_user->email
+                    'email'=> $val_user->email,
+                    'imagen'=> $val_user->imagen
                 );
 
                 $this->session->set_userdata($data);
 
                 if (!$this->session->userdata('id')) {header('location: ' . base_url());}
 
+                
                 $config_page = array(
-                    'subproyecto'    => 'Microondas',
                     'active_sidebar' => false,
                     'title'          => 'ZOLID | Principal',
                     'active'         => 'principal',
                     'header'         => array('PRINCIPAL', 'Bandeja principal'),
                 );
-        
+                
                 $this->load->view('parts/header', $config_page);
                 $this->load->view('principal');
                 $this->load->view('parts/footer');
@@ -71,11 +72,10 @@ class User extends CI_Controller {
     }
 
     // Carga la vista ppal segun el roll
-    public function principal($role) {
+    public function principal() {
         if (!$this->session->userdata('id')) {header('location: ' . base_url());}
 
         $config_page = array(
-            'subproyecto'    => 'Microondas',
             'active_sidebar' => false,
             'title'          => 'ZOLID | Principal',
             'active'         => 'principal',
@@ -83,7 +83,7 @@ class User extends CI_Controller {
         );
 
         $this->load->view('parts/header', $config_page);
-        $this->load->view("$role");
+        $this->load->view("principal");
         $this->load->view('parts/footer');
     }
 
