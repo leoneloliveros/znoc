@@ -97,18 +97,6 @@
   immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
-<!-- jQuery 3 -->
-<script src="<?= base_url('assets2/bower_components/jquery/dist/jquery.min.js'); ?>"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="<?= base_url('assets2/bower_components/bootstrap/dist/js/bootstrap.min.js'); ?>"></script>
-<!-- AdminLTE App -->
-<script src="<?= base_url('assets2/dist/js/adminlte.min.js'); ?>"></script>
-
-
-
-<!-- **********************************************datatables *********************************************-->
-<script src="<?= base_url('assets/plugins/datatables/DataTables-1.10.16/js/jquery.dataTables.min.js') ?>"></script>
-<script src="<?= base_url('assets/plugins/datatables/js/dataTables.bootstrap.js?v=1.0') ?>"></script>
 
 <script src="<?= base_url("assets/plugins/sweetalert2/sweetalert2.all.js") ?>"></script>
 <!-- ********************************************** HELPER FUNCVIONES GLOBALES *********************************************-->
@@ -153,12 +141,25 @@
         <script src="<?= base_url("assets/js/modules/crear_crq.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
 
+<!-- **********************************************BITACORAS CCIHFC********************************************** -->
+<?php if($this->uri->segment(2) == 'ccihfc') :?>
+  <script src="<?=base_url("assets/js/modules/bitacoras.js")?>"></script>
+<?php endif ?>
+<!-- **********************************************END BITACORAS CCIHFC********************************************** -->
 
-
+<!-- **********************************************BITACORAS FRONTOFFICE********************************************** -->
+<?php if ($this->uri->segment(2) === "frontEndBookLogs"):?>
+  <script type="text/javascript" src="<?= base_url('assets/js/modules/frontEndBookLog.js'); ?>"></script>
+<?php endif ?>
+<!-- **********************************************END BITACORAS FRONTOFFICE********************************************** -->
 
 <script type="text/javascript"> 
   // para ponerle active al li seleccionado 
   $('#<?= $active ?>').addClass('active');
+  if ('<?= $sub_bar[0] ?>') {
+    $('#<?= $sub_bar[1] ?>').addClass('active');
+    
+  }
 </script>
 
 </body>
