@@ -63,7 +63,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="icon" href="<?= base_url('assets/img/logo_zte.png'); ?>">
   <link rel="stylesheet" href="<?= base_url('assets2/bower_components/bootstrap/dist/css/bootstrap.min.css'); ?>">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?= base_url('assets2/bower_components/font-awesome/css/font-awesome.min.css'); ?>">
+  <link rel="stylesheet" href="<?= base_url('assets2/bower_components/fontawesome-free-5.9.0/css/all.css'); ?>">
   <!-- Ionicons -->
   <link rel="stylesheet" href="<?= base_url('assets2/bower_components/Ionicons/css/ionicons.min.css'); ?>">
   <!-- Theme style -->
@@ -95,7 +95,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Header Navbar -->
       <nav class="navbar navbar-static-top" role="navigation" style="text-align: center">
         <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <a href="#" class="fas fa-align-justify" data-toggle="push-menu" role="button" style="color:white;float:left;margin: 18px 12px 0px;">
           <span class="sr-only">Toggle navigation</span>
         </a>
 
@@ -226,7 +226,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Menu Footer-->
                 <li class="user-footer">
                   <div class="pull-left">
-                    <a href="<?= base_url('User/perfil') ?>" class="btn btn-default btn-flat"><i class="fa fa-gears"> </i> Perfil</a>
+                    <a href="<?= base_url('User/perfil') ?>" class="btn btn-default btn-flat"><i class="fas fa-cogs"></i> </i> Perfil</a>
                   </div>
                   <div class="pull-right">
                     <a href="<?= base_url('User/logout'); ?>" class="btn btn-default btn-flat">Sign out</a>
@@ -236,7 +236,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
             <!-- Control Sidebar Toggle Button -->
             <li>
-              <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+              <a href="#" data-toggle="control-sidebar"><i class="fas fa-cogs"></i></i></a>
             </li>
           </ul>
         </div>
@@ -281,20 +281,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <li id="menu_crear"><a href="<?= base_url("Crq/crear") ?>"><i class="fa fa-ticket"></i> <span>Crear</span></a></li>
           <?php endif ?>
 
-          <li><a href="#"><i class="fa fa-id-badge"></i> <span>Agenda</span></a></li>
-          <li class="treeview">
+          <!-- <li><a href="#"><i class="fa fa-id-badge"></i> <span>Agenda</span></a></li> -->
+          <!-- <li class="treeview">
             <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="#">Link in level 2</a></li>
-              <li><a href="#">Link in level 2</a></li>
-            </ul>
-          </li>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#">Link in level 2</a></li>
+            <li><a href="#">Link in level 2</a></li>
+          </ul>
+        </li> -->
+          <li id="voltria"><a href="<?= base_url('Reportes/volumetria') ?>"><i class="fab fa-audible"></i><span>Volumetrías</span></a></li>
           <li class="treeview" id="bitac">
-            <a href="#"><i class="fa fa-eye"></i> <span>Crear Bitácoras</span>
+            <a href="#"><i class="fas fa-clipboard-list"></i></i> <span>Crear Bitácoras</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>

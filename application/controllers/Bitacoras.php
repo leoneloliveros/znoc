@@ -12,6 +12,8 @@
 
       public function ccihfc()
       {
+
+
          $data = array(
             'active_sidebar' => false,
             'title'          => 'Creación de Bitacoras',
@@ -34,11 +36,10 @@
       
       public function frontEndBookLogs()
       {
-         $data['title'] = 'Bitacoras Front Office';
-         $data['header'] = array('XXXX','yyy');
+         
          $data = array(
             'active_sidebar' => false,
-            'title'          => 'Creación de Bitacoras',
+            'title'          => 'Bitacoras Front Office',
             'active'         => 'bitac',
             'header'         => array('Creación de Actividades','Front Office'),
             'sub_bar'        => array(true,'fOli'),

@@ -12,11 +12,13 @@ $(function() {
         // convierte una fecha al formato yyy-mm-dd
         formatDate: function(date) {
             var d = new Date(date),
-                month = '' + (d.getMonth() + 1),
-                day = '' + d.getDate(),
-                year = d.getFullYear();
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
             // console.log("day", day);
             // console.log("month", month);
+
+
 
             // if (month.length == '2' && day.length == '2') {
             //     day = parseInt(day) + 1;
@@ -63,21 +65,6 @@ $(function() {
             })
         },
 
-        // Alerta de cargando gif, PARA SER CERRADO DEBE USARSE EL METODO swal.close()
-        alertLoading: function(title = 'Por favor!', msj = 'No cierre ni actualice esta ventana hasta que termine el proceso', gif = true) {
-            const imge = (gif) ? `<img src="${base_url}/assets/images/cargando.gif" alt="" />` : '';
-            swal({
-                title: title,
-                html: `<h4>${msj}</h4>
-                 ${imge}
-                `,
-                onOpen: () => {
-                    swal.showLoading();
-                },
-                allowOutsideClick: false // al darle clic fuera se cierra el alert
-            });
-        },
-
         // Función que permite pintar la tabla con los campos de busqueda
         // Los parametros son: Data que recibe los datos, columns: los números de columns en la tabla, IdTabke: Es el id de la tabla a pintar
         // ordenColumn:posicion para organizar las columnas y el ordenBy: la informacion se va a organizar de forma ascendente
@@ -115,50 +102,47 @@ $(function() {
                     "url": base_url + "/assets/plugins/datatables/lang/es.json"
                 },
                 dom: 'Blfrtip',
-                buttons: [{
-                    text: 'Excel <span class="fa fa-file-excel-o"></span>',
-                    className: 'btn-cami_cool',
-                    extend: 'excel',
-                    title: 'ZOLID EXCEL',
-                    filename: 'zolid ' + fecha_actual
-                }, {
-                    text: 'Imprimir <span class="fa fa-print"></span>',
-                    className: 'btn-cami_cool',
-                    extend: 'print',
-                    title: 'Reporte Zolid',
-                }],
-                select: true,
-                "lengthMenu": [
-                    [10, 25, 50, -1],
-                    [10, 25, 50, "All"]
+                buttons: [
+                    {
+                        text: 'Excel <span class="fa fa-file-excel-o"></span>',
+                        className: 'btn-cami_cool',
+                        extend: 'excel',
+                        title: 'ZOLID EXCEL',
+                        filename: 'zolid ' + fecha_actual
+                    },
+                    {
+                        text: 'Imprimir <span class="fa fa-print"></span>',
+                        className: 'btn-cami_cool',
+                        extend: 'print',
+                        title: 'Reporte Zolid',
+                    }
                 ],
+                select: true,
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 ordering: true,
                 columnDefs: [{
-                    // targets: -1,
-                    // visible: false,
-                    defaultContent: "",
-                    // targets: -1,
-                    orderable: false,
-                }],
+                        // targets: -1,
+                        // visible: false,
+                        defaultContent: "",
+                        // targets: -1,
+                        orderable: false,
+                    }],
 
                 // si no se envia la columna ni la direccion de ordenamiento se ordenará como viene por defecto los datos de la consulta
-                order: (ordenColumn == '' && ordenBy == '') ? [] : [
-                    [ordenColumn, ordenBy]
+                order: (ordenColumn == '' && ordenBy == '') ? [] : [[ordenColumn, ordenBy]],
+
+                "aoColumnDefs": [
+                    {"sType": "numeric", "aTargets": [numeric]}
                 ],
 
-                "aoColumnDefs": [{
-                    "sType": "numeric",
-                    "aTargets": [numeric]
-                }],
-
-            }
+        }
         },
 
         // yyyy-mm-dd
         sumar_o_restar_dias_a_fecha: function(fecha, dias = 1) {
             const cant_dias = dias * 86400000;
             const separado = fecha.split('-');
-            const fecha_base = new Date(separado[0], separado[1] - 1, separado[2]);
+            const fecha_base = new Date(separado[ 0 ], separado[ 1 ] - 1, separado[ 2 ]);
             return new Date(fecha_base.getTime() + cant_dias);
         },
 
@@ -167,16 +151,16 @@ $(function() {
         // si no se le envia un argumento retorna todos los valores
         inSession: function(clave = false) {
             var retornar;
-            $.ajaxSetup({
-                async: false
-            });
-            $.post(base_url + '/User/getSessionValues', {
-                    clave: clave
-                },
-                function(data) {
-                    const res = JSON.parse(data);
-                    retornar = res;
-                });
+            $.ajaxSetup({async: false});
+            $.post(base_url + '/User/getSessionValues',
+                    {
+                        clave: clave
+                    }
+            ,
+                    function(data) {
+                        const res = JSON.parse(data);
+                        retornar = res;
+                    });
             return retornar;
         },
 
@@ -203,89 +187,104 @@ $(function() {
             return html;
         },
 
-        // retorna un mini boton, usualmente usado para opciones de Datatables
-        getButtonOpcTable: function(title = 'Editar', fa = 'fa-pencil-square-o', clase = 'editar') {
-            const boton = `
-                <div class="btn-group">
-                    <a class="btn btn-default btn-xs ${clase} btn_datatable_cami" title="${title}"><span class="fa fa-fw ${fa}"></span></a>
-                </div>
-            `;
-            return boton;
-        },
-
-        // Validar inputs requeridos de un formulario,
-        // Pinta con un borde rojo los inputs que se enviaron vacios requeridos
-        // retorna true si existe al menos un input requerido si se envio vacio
-        // Los inputs requeridos deben tener la clase validar_required
-        // a la funcion debe pasarsele el id del contenedor de los inputs.(puede ser un modal o un forulario etc)
-        validar_inputs_requeridos: function(contenedor) {
-            let flag = true;
-            const inputs = $(`#${contenedor} .validar_required`);
-            $.each(inputs, function(i, input) {
-                if (input.value == '') {
-                    input.style.boxShadow = "0 0 5px rgba(253, 1, 1)";
-                    flag = false;
-                } else {
-                    input.style.boxShadow = "none";
-                }
+        miniAlertN: function(title = 'Acción Cancelada', tipo = 'error', time = '1500') {
+            Swal.fire({
+                position: 'top-end',
+                type: tipo,
+                title: title,
+                showConfirmButton: false,
+                timer: time
             });
-
-            return flag;
         },
 
-        // Funcion que retorna formulario armado.. completar documentacion
-        crear_formulario: function(obj) {
-            // console.log("obj", obj[0]);
-            const total = obj.length;
-            let form = '';
-            form += `
-            <div class="probar" style="border: 1px solid #307095;border-radius: 12px;background: #60a4cc;padding: 12px 0px;">
-                <div class="container m-w-100">
-            <form class="${obj[0].class_form}" id="${obj[0].id_form}" action="${obj[0].action}" role="form">`;
-            // recorre la cantidad de inputs    
-            for (let i = 1; i < total; i++) {
+        // cierra el modal de alerta de carga
+        // si se le pasa la clase, aplicalá los estilos al determinado selectdor
+        // si se el e
+        hideLoading: function(segundos = '.8') {
+            if (segundos[ 0 ] == '.') {
+                var miliseg = segundos.split('.')[ 1 ] + '00';
+            } else {
+                var miliseg = segundos * 1000;
+            }
+            $(".loadingInfo").css({'animation': segundos + 's ocultar ease', 'border-top-left-radius': '5px', 'border-top': '1px solid black'});
+            $(".loadingInfo span").css('border-top-left-radius', '5px');
+            setTimeout(() => {
+                $(".loadingInfo").remove();
+            }, miliseg);
+        },
 
-                let str_attr = '';
-                // recorrer los atributos de cada input
-                $.each(obj[i], function(atributo, valor) {
-                    str_attr += `${atributo}="${valor}" `;
-                });
+        // muestra el mensaje de cargando
+        // el mensaje que se mostrará en la ventana emergente
+        showLoading: function(msj = 'Cargando...') {
+            if (!$('.loadingInfo').length) {
+                $('body').append(`
+            <div class="loadingInfo">
+                <!-- MODAL DE ALERTA DE CARGA, SE ACCEDE A EL USANDO  EL $(".loadingInfo").show(); -->
+                <!-- PARA CERRARLO, USAR helper.hideLoading() -->
+                <span></span>
+                <i class="fab fa-gg-circle fa-fw fa-spin" aria-hidden="true"></i>
+            </div>`);
+                $(".loadingInfo span").html(msj)
+            } else {
+                alert("se está intentando abrir más de una ventana emergente de animación de carga");
+        }
+        },
 
-                switch (obj[i].type) {
-                    case 'select':
-                    case 'textarea':
-                        form += `
-                            <div class="form-group col-xs-12 col-sm-6">
-                                <label for="${obj[i].id}" class="col-xs-4">${obj[i].label}</label>
-                                <div class="col-xs-8">
-                                <${obj[i].type} ${str_attr}>
-                                    ${(obj[i].type == 'select')? '<option value="">SELECCIONE</option>': ''  }
-                                </${obj[i].type}>
-                                </div>
-                            </div>
-                        `;
+        // nos dirá cuantos días tiene un mes
+        // se le pasa el número del mes que se quiere saber el No. de Días
+        numDiasSegunMes: function(numMes, anio = new Date().getFullYear()) {
+
+            var dias = 0;
+            var divisible = anio % 4;
+
+            // (año divisible por 4) Y ((año no divisible por 100) O (año divisible por 400)
+            switch (parseInt(numMes)) {
+                case 1: // Enero
+                case 3: // Marzo
+                case 5: // Mayo
+                case 7: // Julio
+                case 8: // Agosto
+                case 10: // Octubre
+                case 12: // Diciembre
+                    dias = 31;
+                    break;
+                case 2: // Febrero
+                    if (divisible == 0 && (divisible != 100 || anio % 400 == 0)) {
+                        dias = 29; //es bisiesto el año
+                    } else {
+                        dias = 28; //no es bisiesto el año
+                    }
+                    break;
 
 
-                        break;
-                    default:
-                        form += `
-                            <div class="form-group col-xs-12 col-sm-6">
-                              <label for="${obj[i].id}" class="col-xs-4">${obj[i].label}</label>
-                              <div class="col-xs-8 m-b-5">
-                                <input ${str_attr} style="color:#000;">
-                              </div>
-                            </div>
-                        `;
-                }
-
-
+                case 4: // Abril
+                case 6: // Junio
+                case 9: // Septiembre
+                case 11: // Noviembre
+                    dias = 30;
+                    break;
+                default:
+                    dias = "no se ingresó un número de mes Válido"
+                    break;
             }
 
-            form += `</form></div></div>`;
-
-            return form;
-
+            return dias;
         },
+
+        // calcula cuánto tiempo ha pasado de una fecha a otra
+        // se le pasan las fechas la cuales desea hacer la conversion
+        // el rango de tiempo es para especificar en qué formato quiere que se lo devuelva (DIAS, MESES, ETC)
+        calcularRangoDeFechas: function(fDesde, fHasta, rangoTiempo) {
+            switch (rangoTiempo) {
+                case 'dias':
+                    var fechaini = new Date(fDesde);
+                    var fechafin = new Date(fHasta);
+                    var diasdif = fechafin.getTime() - fechaini.getTime();
+                    var contdias = Math.round(diasdif / (1000 * 60 * 60 * 24));
+                    break;
+            }
+            return contdias;
+        }
 
     };
     helper.init();
