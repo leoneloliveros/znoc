@@ -2,7 +2,7 @@
 
 
 defined('BASEPATH') or exit('No direct script access allowed');
-
+ini_set('memory_limit',-1);
 class Reportes extends CI_Controller
 { 
   function __construct(){

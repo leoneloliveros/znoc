@@ -13,7 +13,7 @@ class Dao_reportes_model extends CI_Model {
     $this->db->or_where('DESCRIPTION LIKE "%FEE:%"');
     $this->db->or_where('DESCRIPTION LIKE "%FI:%"');
     $this->db->or_where('DESCRIPTION LIKE "%FOIP:%")');
-    $this->db->where("CREATIONDATE BETWEEN '$fi' AND '$ff'");
+    $this->db->where("DATE_FORMAT(`CREATIONDATE`, '%Y-%m-%d') BETWEEN '$fi' AND '$ff'");
     $this->db->order_by('DESCRIPTION','DESC');
     $query = $this->db->get('maximo.INCIDENT');
     // echo '<pre>'; print_r($this->db->last_query()); echo '</pre>';
