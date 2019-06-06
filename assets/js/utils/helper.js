@@ -222,7 +222,7 @@ $(function() {
                 <!-- MODAL DE ALERTA DE CARGA, SE ACCEDE A EL USANDO  EL $(".loadingInfo").show(); -->
                 <!-- PARA CERRARLO, USAR helper.hideLoading() -->
                 <span></span>
-                <i class="fa fa-superpowers fa-fw fa-spin" aria-hidden="true"></i>
+                <i class="fab fa-gg-circle fa-fw fa-spin" aria-hidden="true"></i>
             </div>`);
                 $(".loadingInfo span").html(msj)
             } else {

@@ -2,7 +2,7 @@
 
 
 defined('BASEPATH') or exit('No direct script access allowed');
-
+ini_set('memory_limit',-1);
 class Reportes extends CI_Controller
 { 
   function __construct(){
@@ -16,7 +16,7 @@ class Reportes extends CI_Controller
     $data = array(
         'active_sidebar' => false,
         'title'          => 'Volumetrías',
-        'active'         => "voltria",
+        'active'         => "areali",
         'header'         => array('Actividades','Volumetría'),
         'sub_bar'        => array(false,''),
         'f_actual'       => date('Y-m-d')

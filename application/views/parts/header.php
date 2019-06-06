@@ -19,20 +19,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/helper-class.css') ?>">
 
-  
 
-<!-- jQuery 3 -->
-<script src="<?= base_url('assets2/bower_components/jquery/dist/jquery.min.js'); ?>"></script>
-<!-- jQuery Mask -->
-<script src="<?= base_url('assets/plugins/jQuery-Mask/src/jquery.mask.js'); ?>"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="<?= base_url('assets2/bower_components/bootstrap/dist/js/bootstrap.min.js'); ?>"></script>
-<!-- AdminLTE App -->
-<script src="<?= base_url('assets2/dist/js/adminlte.min.js'); ?>"></script>
 
-<!-- **********************************************datatables *********************************************-->
-<script src="<?= base_url('assets/plugins/datatables/DataTables-1.10.16/js/jquery.dataTables.min.js') ?>"></script>
-<script src="<?= base_url('assets/plugins/datatables/js/dataTables.bootstrap.js?v=1.0') ?>"></script>
+  <!-- jQuery 3 -->
+  <script src="<?= base_url('assets2/bower_components/jquery/dist/jquery.min.js'); ?>"></script>
+  <!-- jQuery Mask -->
+  <script src="<?= base_url('assets/plugins/jQuery-Mask/src/jquery.mask.js'); ?>"></script>
+  <!-- Bootstrap 3.3.7 -->
+  <script src="<?= base_url('assets2/bower_components/bootstrap/dist/js/bootstrap.min.js'); ?>"></script>
+  <!-- AdminLTE App -->
+  <script src="<?= base_url('assets2/dist/js/adminlte.min.js'); ?>"></script>
+
+  <!-- **********************************************datatables *********************************************-->
+  <script src="<?= base_url('assets/plugins/datatables/DataTables-1.10.16/js/jquery.dataTables.min.js') ?>"></script>
+  <script src="<?= base_url('assets/plugins/datatables/js/dataTables.bootstrap.js?v=1.0') ?>"></script>
 
   <?php if ($this->uri->segment(2) == 'crear') : ?>
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/formulario_crear.css') ?>">
@@ -49,7 +49,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <?php endif ?>
 
   <?php if ($this->uri->segment(1) == 'Bitacoras') : ?>
-    <link rel="stylesheet" href="<?= base_url("assets/css/bitacoras.css")?>">
+    <link rel="stylesheet" href="<?= base_url("assets/css/bitacoras.css") ?>">
   <?php endif ?>
 
 
@@ -63,7 +63,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="icon" href="<?= base_url('assets/img/logo_zte.png'); ?>">
   <link rel="stylesheet" href="<?= base_url('assets2/bower_components/bootstrap/dist/css/bootstrap.min.css'); ?>">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?= base_url('assets2/bower_components/font-awesome/css/font-awesome.min.css'); ?>">
+  <link rel="stylesheet" href="<?= base_url('assets2/bower_components/fontawesome-free-5.9.0/css/all.css'); ?>">
   <!-- Ionicons -->
   <link rel="stylesheet" href="<?= base_url('assets2/bower_components/Ionicons/css/ionicons.min.css'); ?>">
   <!-- Theme style -->
@@ -95,7 +95,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Header Navbar -->
       <nav class="navbar navbar-static-top" role="navigation" style="text-align: center">
         <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <a href="#" class="fas fa-align-justify" data-toggle="push-menu" role="button" style="color:white;float:left;margin: 18px 12px 0px;">
           <span class="sr-only">Toggle navigation</span>
         </a>
 
@@ -226,7 +226,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Menu Footer-->
                 <li class="user-footer">
                   <div class="pull-left">
-                    <a href="<?= base_url('User/perfil') ?>" class="btn btn-default btn-flat"><i class="fa fa-gears"> </i> Perfil</a>
+                    <a href="<?= base_url('User/perfil') ?>" class="btn btn-default btn-flat"><i class="fas fa-cogs"></i> </i> Perfil</a>
                   </div>
                   <div class="pull-right">
                     <a href="<?= base_url('User/logout'); ?>" class="btn btn-default btn-flat">Sign out</a>
@@ -236,7 +236,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
             <!-- Control Sidebar Toggle Button -->
             <li>
-              <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+              <a href="#" data-toggle="control-sidebar"><i class="fas fa-cogs"></i></i></a>
             </li>
           </ul>
         </div>
@@ -276,27 +276,107 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">MENÚ DE NAVEGACIÓN</li>
           <!-- Optionally, you can add icons to the links -->
-          <li id="principal"><a href="<?= base_url("User/principal/$rol_user_session") ?>"><i class="fa fa-home"></i> <span>Principal</span></a></li>
+          <li id="principal">
+            <a href="<?= base_url("User/principal/$rol_user_session") ?>">
+              <i class="fa fa-home"></i>
+              <span>Principal</span>
+            </a>
+          </li>
+
           <?php if ($rol_user_session == 'lider') : ?>
-            <li id="menu_crear"><a href="<?= base_url("Crq/crear") ?>"><i class="fa fa-ticket"></i> <span>Crear</span></a></li>
+            <li id="menu_crear">
+              <a href="<?= base_url("Crq/crear") ?>">
+                <i class="fa fa-ticket"></i>
+                <span>Crear</span>
+              </a>
+            </li>
           <?php endif ?>
 
           <!-- <li><a href="#"><i class="fa fa-id-badge"></i> <span>Agenda</span></a></li> -->
-          <!-- <li class="treeview">
-            <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#">Link in level 2</a></li>
-            <li><a href="#">Link in level 2</a></li>
-          </ul>
-        </li> -->
-          <li id="voltria"><a href="<?= base_url('Reportes/volumetria') ?>"><i class="fa fa-calendar"></i> <span>Volumetrías</span></a></li>
-          <li id="voltria"><a href="<?= base_url('Reportes/reporte_sla') ?>"><i class="fa fa-calendar"></i> <span>Reporte SLAs</span></a></li>
+
+          <li class="treeview">
+            <a href="#">
+              <i class="fab fa-adn"></i>
+              <span>Área</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="treeview">
+                <a href="#">
+                  <i class="fab fa-buromobelexperte"></i>&nbsp;&nbsp;
+                  <span>Front Office</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a href="<?= base_url('Reportes/volumetria') ?>">
+                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                      <span>Volumetrías</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="<?= base_url('Reportes/reporte_sla') ?>">
+                      <i class="fas fa-calendar"></i>&nbsp;&nbsp;
+                      <span>SLA</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <!-- *****************SUB NIVEL***************** -->
+              <li>
+                <li class="treeview">
+                  <a href="#">
+                    <i class="fas fa-tools"></i>&nbsp;&nbsp;
+                    <span>Customer Care</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li>
+                      <a href="<?= base_url('Reportes/volumetria') ?>">
+                        <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                        <span>Volumetrías</span></a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <i class="fab fa-audible"></i>&nbsp;&nbsp;  
+                        SLA
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </li>
+            </ul>
+          </li>
+
+          <!-- <li class="treeview" id="areali">
+            <a href="">
+              <i class="fab fa-buromobelexperte"></i>
+              <span>nombre</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li id="">
+                <a href=""><span></span>
+              </li>
+              <li id="">
+                <a href=""><span></span>
+              </li>
+            </ul>
+          </li> -->
+
+          <!-- <i class="fab fa-audible"></i>&nbsp;&nbsp; -->
           <li class="treeview" id="bitac">
-            <a href="#"><i class="fa fa-eye"></i> <span>Crear Bitácoras</span>
+            <a href="#">
+              <i class="fas fa-clipboard-list"></i>
+              <span>Crear Bitácoras</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>

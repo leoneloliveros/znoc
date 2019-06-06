@@ -41,57 +41,156 @@
         </th>
       </thead>
       <thead>
-        <th>T1</th>
-        <th>T2</th>
-        <th>T3</th>
-        <th>T11</th>
-        <th>T1</th>
-        <th>T2</th>
-        <th>T3</th>
-        <th>T11</th>
-        <th>T1</th>
-        <th>T2</th>
-        <th>T3</th>
-        <th>T11</th>
-        <th>T1</th>
-        <th>T2</th>
-        <th>T3</th>
-        <th>T11</th>
-        <th>T1</th>
-        <th>T2</th>
-        <th>T3</th>
-        <th>T11</th>
-        <th>T1</th>
-        <th>T2</th>
-        <th>T3</th>
-        <th>T11</th>
+        <th>
+          <span>T1</span>
+        </th>
+        <th>
+          <span>T2</span>
+        </th>
+        <th>
+          <span>T3</span>
+        </th>
+        <th>
+          <span>T11</span>
+        </th>
+        <th>
+          <span>T1</span>
+        </th>
+        <th>
+          <span>T2</span>
+        </th>
+        <th>
+          <span>T3</span>
+        </th>
+        <th>
+          <span>T11</span>
+        </th>
+        <th>
+          <span>T1</span>
+        </th>
+        <th>
+          <span>T2</span>
+        </th>
+        <th>
+          <span>T3</span>
+        </th>
+        <th>
+          <span>T11</span>
+        </th>
+        <th>
+          <span>T1</span>
+        </th>
+        <th>
+          <span>T2</span>
+        </th>
+        <th>
+          <span>T3</span>
+        </th>
+        <th>
+          <span>T11</span>
+        </th>
+        <th>
+          <span>T1</span>
+        </th>
+        <th>
+          <span>T2</span>
+        </th>
+        <th>
+          <span>T3</span>
+        </th>
+        <th>
+          <span>T11</span>
+        </th>
+        <th>
+          <span>T1</span>
+        </th>
+        <th>
+          <span>T2</span>
+        </th>
+        <th>
+          <span>T3</span>
+        </th>
+        <th>
+          <span>T11</span>
+        </th>
+      </thead>
+      <thead>
+      <th>
+        <span id="T1faoc" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+      </th>
+      <th>
+        <span id="T2faoc" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T3faoc" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T11faoc" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T1faob" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T2faob" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T3faob" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T11faob" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T1fapp" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T2fapp" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T3fapp" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T11fapp" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T1fee" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T2fee" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T3fee" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T11fee" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T1fi" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T2fi" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T3fi" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T11fi" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T1foip" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T2foip" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T3foip" class="badge timesT">x</span>
+      </th>
+      <th>
+        <span id="T11foip" class="badge timesT">x</span>
+      </th>
       </thead>
       <tbody>
 
       </tbody>
     </table>
   </div>
-</div>
-<div class="row fontInherit">
-    <div class="col-sm-4">
-        <label for="">Total Actividades Asiganadas: </label>
-        <span class="badge" id="totalAsiganadas" style="padding: 7px 16px;
-        font-size: 18px;background: #0aa1d4;">
-        
-      </span>
-    </div>
-    <div class="col-sm-4">
-        <label for="">Total Actividades Ejecutadas: </label>
-        <span class="badge" id="totalActExecuted" style="padding: 7px 16px;
-        font-size: 18px;background: #57e057cc;">
-        
-      </span>
-    </div>
-    <div class="col-sm-4">
-        <label for="">Total Actividades Sin Ejecutar: </label>
-        <span class="badge" id="totalActNoExc" style="padding: 7px 16px;
-        font-size: 18px; background: #ff4747bf;">
-        
-      </span>
-    </div>
 </div>
