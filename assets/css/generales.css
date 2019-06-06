@@ -79,8 +79,8 @@ table thead tr th{
 }
 
 table thead tr th span.badge{
-    padding: 1px 18px;
-    font-size: 18px;
+    padding: 1px 10px;
+    font-size: 16px;
     background: white;
     color: #000;
     vertical-align: bottom;
