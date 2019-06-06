@@ -158,6 +158,12 @@
 <script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria.js'); ?>"></script>
 <?php endif ?>
 <!-- **********************************************FIN VOLUMETRÍAS********************************************** -->
+
+<!-- **********************************************REPORTE SLAS********************************************** -->
+<?php if ($this->uri->segment(2) === "reporte_sla"):?>
+<script type="text/javascript" src="<?= base_url('assets/js/modules/reporte_sla.js'); ?>"></script>
+<?php endif ?>
+<!-- **********************************************FIN REPORTE SLAS********************************************** -->
 <script type="text/javascript"> 
   // para ponerle active al li seleccionado 
   $('#<?= $active ?>').addClass('active');

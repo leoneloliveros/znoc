@@ -294,6 +294,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </ul>
         </li> -->
           <li id="voltria"><a href="<?= base_url('Reportes/volumetria') ?>"><i class="fa fa-calendar"></i> <span>Volumetrías</span></a></li>
+          <li id="voltria"><a href="<?= base_url('Reportes/reporte_sla') ?>"><i class="fa fa-calendar"></i> <span>Reporte SLAs</span></a></li>
           <li class="treeview" id="bitac">
             <a href="#"><i class="fa fa-eye"></i> <span>Crear Bitácoras</span>
               <span class="pull-right-container">
