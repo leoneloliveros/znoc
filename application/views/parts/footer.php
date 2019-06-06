@@ -149,10 +149,15 @@
 
 <!-- **********************************************BITACORAS FRONTOFFICE********************************************** -->
 <?php if ($this->uri->segment(2) === "frontEndBookLogs"):?>
-  <script type="text/javascript" src="<?= base_url('assets/js/modules/frontEndBookLog.js'); ?>"></script>
+<script type="text/javascript" src="<?= base_url('assets/js/modules/frontEndBookLog.js'); ?>"></script>
 <?php endif ?>
 <!-- **********************************************END BITACORAS FRONTOFFICE********************************************** -->
 
+<!-- **********************************************VOLUMETRÍAS********************************************** -->
+<?php if ($this->uri->segment(2) === "volumetria"):?>
+<script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria.js'); ?>"></script>
+<?php endif ?>
+<!-- **********************************************FIN VOLUMETRÍAS********************************************** -->
 <script type="text/javascript"> 
   // para ponerle active al li seleccionado 
   $('#<?= $active ?>').addClass('active');

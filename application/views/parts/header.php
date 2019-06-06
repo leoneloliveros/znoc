@@ -281,18 +281,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <li id="menu_crear"><a href="<?= base_url("Crq/crear") ?>"><i class="fa fa-ticket"></i> <span>Crear</span></a></li>
           <?php endif ?>
 
-          <li><a href="#"><i class="fa fa-id-badge"></i> <span>Agenda</span></a></li>
-          <li class="treeview">
+          <!-- <li><a href="#"><i class="fa fa-id-badge"></i> <span>Agenda</span></a></li> -->
+          <!-- <li class="treeview">
             <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="#">Link in level 2</a></li>
-              <li><a href="#">Link in level 2</a></li>
-            </ul>
-          </li>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#">Link in level 2</a></li>
+            <li><a href="#">Link in level 2</a></li>
+          </ul>
+        </li> -->
+          <li id="voltria"><a href="<?= base_url('Reportes/volumetria') ?>"><i class="fa fa-calendar"></i> <span>Volumetrías</span></a></li>
           <li class="treeview" id="bitac">
             <a href="#"><i class="fa fa-eye"></i> <span>Crear Bitácoras</span>
               <span class="pull-right-container">
