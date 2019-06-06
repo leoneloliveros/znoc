@@ -293,6 +293,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <?php endif ?>
 
           <!-- <li><a href="#"><i class="fa fa-id-badge"></i> <span>Agenda</span></a></li> -->
+
           <li class="treeview">
             <a href="#">
               <i class="fab fa-adn"></i>
@@ -318,7 +319,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a href="<?= base_url('Reportes/reporte_sla') ?>">
                       <i class="fas fa-calendar"></i>&nbsp;&nbsp;
                       <span>SLA</span>
                     </a>
@@ -372,7 +373,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li> -->
 
           <!-- <i class="fab fa-audible"></i>&nbsp;&nbsp; -->
-
           <li class="treeview" id="bitac">
             <a href="#">
               <i class="fas fa-clipboard-list"></i>
