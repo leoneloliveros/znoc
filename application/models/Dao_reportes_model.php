@@ -48,6 +48,7 @@ class Dao_reportes_model extends CI_Model {
                         WHEN DESCRIPTION LIKE '%FEE%' THEN 'FEE'
                         WHEN DESCRIPTION LIKE '%FI%' THEN 'FI'
                         WHEN DESCRIPTION LIKE '%FOIP%' THEN 'FOIP'
+                        ELSE 'Sin coordinación'
                     END)
         ");
         return $query->result();
