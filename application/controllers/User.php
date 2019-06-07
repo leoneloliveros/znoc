@@ -31,7 +31,7 @@ class User extends CI_Controller {
                 if ($pass === 'abc123' || strlen($pass) <= 6) {
                     $data['usuario'] = $val_user;
                     $this->load->view('cambiarContrasena', $data);
-                }else{
+                 }else{
                     $data = array(
                     // 'role' => $val_user->rol,
                     'id' => $val_user->id_users,
@@ -169,7 +169,8 @@ class User extends CI_Controller {
             'subproyecto'    => 'Microondas',
             'active_sidebar' => true,
             'title'          => 'ZOLID | Perfil',
-            'active'         => 'earch-btn',
+            'active'         => 'perLi',
+            'sub_bar'         => false,
             'header'         => array('Perfil', 'cambiar perfil'),
         );
 

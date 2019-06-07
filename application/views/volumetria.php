@@ -177,5 +177,11 @@
 
       </tbody>
     </table>
+    <div class="row">
+      <div class="col-sm-12">
+        <button id="excelVol"><i class="far fa-file-excel"></i> Generar Excel</button>
+        <!-- Reportes/excelVolumetrias -->
+      </div>
+    </div>
   </div>
 </div>
