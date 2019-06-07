@@ -65,6 +65,18 @@ $(function () {
                 "language": {
                     "url": base_url + "/assets/plugins/datatables/lang/es.json"
                 },
+                dom: 'Blfrtip',
+                "searching": false,
+                "paging":   false,
+                "ordering": false,
+                "info":     false,
+                buttons: [
+                    {
+                        text: 'Excel <i class="fas fa-file-excel"></i>',
+                        className: 'btn-cami_cool btn-special',
+                        action: slas.downloadReportSlas,
+                    },
+                ],
                 columnDefs: [{
                         defaultContent: "",
                         targets: -1,
@@ -75,6 +87,10 @@ $(function () {
                 ],
                 drawCallback: onDraw
             }
+        },
+        
+        downloadReportSlas: function() {
+            window.location.href = baseurl + "/OtPadre/c_downloadAllReportAct";
         },
     }
     slas.init();
