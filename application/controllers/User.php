@@ -37,6 +37,7 @@ class User extends CI_Controller {
                     'id' => $val_user->id_users,
                     'name' => $val_user->nombres . " " . $val_user->apellidos,
                     'email'=> $val_user->email,
+                    'role'=> $val_user->role,
                     'imagen'=> $val_user->imagen
                 );
 
@@ -50,6 +51,7 @@ class User extends CI_Controller {
                     'title'          => 'ZOLID | Principal',
                     'active'         => 'principal',
                     'header'         => array('PRINCIPAL', 'Bandeja principal'),
+                    'sub_bar'         => false,
                 );
                 
                 $this->load->view('parts/header', $config_page);
@@ -80,6 +82,7 @@ class User extends CI_Controller {
             'title'          => 'ZOLID | Principal',
             'active'         => 'principal',
             'header'         => array('PRINCIPAL', 'Bandeja principal'),
+            'sub_bar'         => false,
         );
 
         $this->load->view('parts/header', $config_page);

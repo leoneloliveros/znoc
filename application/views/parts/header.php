@@ -52,14 +52,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="<?= base_url("assets/css/bitacoras.css") ?>">
   <?php endif ?>
 
-
-
-
-
-
-
-
-
   <link rel="icon" href="<?= base_url('assets/img/logo_zte.png'); ?>">
   <link rel="stylesheet" href="<?= base_url('assets2/bower_components/bootstrap/dist/css/bootstrap.min.css'); ?>">
   <!-- Font Awesome -->
@@ -277,23 +269,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <li class="header">MENÚ DE NAVEGACIÓN</li>
           <!-- Optionally, you can add icons to the links -->
           <li id="principal">
-            <a href="<?= base_url("User/principal/$rol_user_session") ?>">
+            <a href="<?= base_url("User/principal") ?>">
               <i class="fa fa-home"></i>
               <span>Principal</span>
             </a>
           </li>
 
-          <?php if ($rol_user_session == 'lider') : ?>
-            <li id="menu_crear">
-              <a href="<?= base_url("Crq/crear") ?>">
-                <i class="fa fa-ticket"></i>
-                <span>Crear</span>
-              </a>
-            </li>
-          <?php endif ?>
-
           <!-- <li><a href="#"><i class="fa fa-id-badge"></i> <span>Agenda</span></a></li> -->
-          <li class="treeview">
+          <li class="treeview" id="areali">
             <a href="#">
               <i class="fab fa-adn"></i>
               <span>Área</span>
@@ -327,33 +310,82 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
               <!-- *****************SUB NIVEL***************** -->
               <li>
-                <li class="treeview">
-                  <a href="#">
-                    <i class="fas fa-tools"></i>&nbsp;&nbsp;
-                    <span>Customer Care</span>
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li>
-                      <a href="<?= base_url('Reportes/volumetria') ?>">
-                        <i class="fab fa-audible"></i>&nbsp;&nbsp;
-                        <span>Volumetrías</span></a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="fab fa-audible"></i>&nbsp;&nbsp;  
-                        SLA
-                      </a>
-                    </li>
-                  </ul>
-                </li>
+              <li class="treeview">
+                <a href="#">
+                  <i class="fas fa-tools"></i>&nbsp;&nbsp;
+                  <span>Customer Care</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li id="ccpyr_prueb">
+                    <a href="<?= base_url('Reportes/care/ccpyr_prueb') ?>">
+                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                      <span>CCPYR_PRUEB</span></a>
+                  </li>
+                  <li id="ccpyr_lider">
+                    <a href="<?= base_url('Reportes/care/ccpyr_lider') ?>">
+                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                      <span>CCPYR_LIDER</span></a>
+                  </li>
+                  <li id="ccpyr_rutin">
+                    <a href="<?= base_url('Reportes/care/ccpyr_rutin') ?>">
+                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                      <span>CCPYR_RUTIN</span></a>
+                  </li>
+                  <li id="cccom_reg">
+                    <a href="<?= base_url('Reportes/care/cccom_reg') ?>">
+                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                      <span>CCCOM_REG</span></a>
+                  </li>
+                  <li id="torreGest">
+                    <a href="<?= base_url('Reportes/care/torreGest') ?>">
+                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                      <span>Notas (seguimiento) CC Torre de Gestión y Reportes TG:S, TGR:, TGT11S: (para T11), TGT11R: (para T11) , TGT5S: (para T5), TGT5R: (para T5)</span></a>
+                  </li>
+                  <li id="cccom_mail">
+                    <a href="<?= base_url('Reportes/care/cccom_mail') ?>">
+                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                      <span>CCCOM_MAIL:</span></a>
+                  </li>
+                  <li id="cccom_chats">
+                    <a href="<?= base_url('Reportes/care/cccom_chats') ?>">
+                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                      <span>CCCOM_CHATS:</span></a>
+                  </li>
+                  <li id="ccrec_rec">
+                    <a href="<?= base_url('Reportes/care/ccrec_rec') ?>">
+                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                      <span>CCREC_REC:</span></a>
+                  </li>
+                  <li id="ccrec_cci">
+                    <a href="<?= base_url('Reportes/care/ccrec_cci') ?>">
+                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                      <span>CCREC_CCI</span></a>
+                  </li>
+                  <li id="ccie">
+                    <a href="<?= base_url('Reportes/care/ccie') ?>">
+                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                      <span>CCIE:</span></a>
+                  </li>
+                  <li id="ccrec_oop">
+                    <a href="<?= base_url('Reportes/care/ccrec_oop') ?>">
+                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                      <span>CCREC_OOP, CCREC_SON</span></a>
+                  </li>
+                  <li id="ccrec_pqr">
+                    <a href="<?= base_url('Reportes/care/ccrec_pqr') ?>">
+                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                      <span>CCREC_PQR</span></a>
+                  </li>
+                </ul>
               </li>
-            </ul>
           </li>
+        </ul>
+        </li>
 
-          <!-- <li class="treeview" id="areali">
+        <!-- <li class="treeview" id="areali">
             <a href="">
               <i class="fab fa-buromobelexperte"></i>
               <span>nombre</span>
@@ -371,25 +403,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
           </li> -->
 
-          <!-- <i class="fab fa-audible"></i>&nbsp;&nbsp; -->
+        <!-- <i class="fab fa-audible"></i>&nbsp;&nbsp; -->
 
-          <li class="treeview" id="bitac">
-            <a href="#">
-              <i class="fas fa-clipboard-list"></i>
-              <span>Crear Bitácoras</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li id="ccili">
-                <a href="<?= base_url('Bitacoras/ccihfc') ?>"><span>CCI Y HFC</span>
-              </li>
-              <li id="fOli">
-                <a href="<?= base_url('Bitacoras/frontEndBookLogs') ?>"><span>FrontOffice</span>
-              </li>
-            </ul>
-          </li>
+        <li class="treeview" id="bitac">
+          <a href="#">
+            <i class="fas fa-clipboard-list"></i>
+            <span>Crear Bitácoras</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li id="ccili">
+              <a href="<?= base_url('Bitacoras/ccihfc') ?>"><span>CCI Y HFC</span></a>
+            </li>
+            <li id="fOli">
+              <a href="<?= base_url('Bitacoras/frontEndBookLogs') ?>"><span>FrontOffice</span></a>
+            </li>
+          </ul>
+        </li>
+
         </ul>
         <!-- /.sidebar-menu -->
       </section>
@@ -405,7 +438,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <small><?= $header[1] ?></small>
         </h1>
         <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> <?= $title ?></a></li>
+          <li><a href="#"><i class="fas fa-tachometer-alt"></i> <?= $title ?></a></li>
           <li class="active">Here</li>
         </ol>
       </section>

@@ -20,7 +20,7 @@
 <body>
     <div class="contenedor">
         <div class="encabezado">
-            <h3> <?= strtoupper($usuario->rol) . ' ' . $usuario->nombres . ' ' . $usuario->apellidos ?></h3>
+            <h3> <?= strtoupper($usuario->role) . ' ' . $usuario->nombres . ' ' . $usuario->apellidos ?></h3>
         </div>
         <div class="fomulario">
             <form action="CambioContra" onsubmit="return validacion()" method="POST">
@@ -33,7 +33,7 @@
                     <span class="showPass"><i class="fa fa-eye" aria-hidden="true"></i></span>
                 </div>
                 <input type="submit" value="Cambiar Contraseña">
-                <input type="hidden" name="id" value="<?= $usuario->id_usuario ?>">
+                <input type="hidden" name="id" value="<?= $usuario->id_users ?>">
                 <p id="recom"><b> RECOMENDACIÓN: </b> Clave mínimo de 8 caracteres, el uso de numeros y mayusculas hara su contraseña mas segura.</p>
             </form>
         </div>

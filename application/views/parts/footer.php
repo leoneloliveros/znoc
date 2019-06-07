@@ -21,7 +21,7 @@
 
   <!--******************************* SIDEBAR DE LA DERECHA******************************* -->
   <!-- Control Sidebar -->
-  <!-- <aside class="control-sidebar control-sidebar-dark">
+  <aside class="control-sidebar control-sidebar-dark">
     Create the tabs
     <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
       <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
@@ -91,8 +91,8 @@
       </div>
       /.tab-pane
     </div>
-  </aside> -->
-  <!-- /.control-sidebar -->
+  </aside>
+  /.control-sidebar
   <!-- Add the sidebar's background. This div must be placed
   immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
@@ -155,16 +155,22 @@
 
 <!-- **********************************************VOLUMETRÍAS********************************************** -->
 <?php if ($this->uri->segment(2) === "volumetria"):?>
-<script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria.js'); ?>"></script>
+  <script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria.js'); ?>"></script>
 <?php endif ?>
 <!-- **********************************************FIN VOLUMETRÍAS********************************************** -->
+
+<!-- **********************************************CARE********************************************** -->
+<?php if ($this->uri->segment(2) === "volumetria"):?>
+  <script type="text/javascript" src="<?= base_url('assets/js/modules/care.js'); ?>"></script>
+<?php endif ?>
+<!-- **********************************************FIN CARE********************************************** -->
 <script type="text/javascript"> 
   // para ponerle active al li seleccionado 
-  $('#<?= $active ?>').addClass('active');
-  if ('<?= $sub_bar[0] ?>') {
-    $('#<?= $sub_bar[1] ?>').addClass('active');
-    
+  if ('<?= $sub_bar ?>') {
+    $('#<?= $active ?>').parents('li').addClass('active');
   }
+    $('#<?= $active ?>').addClass('active');
+  
 </script>
 
 </body>

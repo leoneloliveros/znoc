@@ -74,7 +74,7 @@ class Dao_user_model extends CI_Model {
     }
 
     // actualizar campo de la tabla de usuario
-    public function update_users($id, $data){
+    public function update_usuarios($id, $data){
         $this->db->where_in('id_users', $id);
         $this->db->update('users', $data);
         if ($this->db->affected_rows() > 0) {
@@ -87,7 +87,7 @@ class Dao_user_model extends CI_Model {
 
        function cambiar($id, $data){
         $this->db->where('id_users',$id);
-        $this->db->update('usersy',array('contrasena'=>$data));
+        $this->db->update('users',array('contrasena'=>$data));
         return $this->db->affected_rows();
     }
 
