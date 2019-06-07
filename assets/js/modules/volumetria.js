@@ -63,7 +63,7 @@ $(function(){
               }
               
             });           
-            console.log(volumetria.dataVoltria);
+            
             
 
             $('#FAOCBadge').text(Object.keys(volumetria.dataVoltria.faoc.T1).length+Object.keys(volumetria.dataVoltria.faoc.T2).length+Object.keys(volumetria.dataVoltria.faoc.T3).length+Object.keys(volumetria.dataVoltria.faoc.T11).length);
@@ -130,7 +130,7 @@ $(function(){
 
     
     createExcel: function(){
-      console.log(volumetria.dataVoltria);
+      
       // window.open(base_url + "Reportes/excelVolumetrias");
       $.post(base_url + "Reportes/enviarDatosExcel", {
         data: JSON.stringify(volumetria.dataVoltria),
