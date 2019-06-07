@@ -300,8 +300,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <span>Volumetrías</span>
                     </a>
                   </li>
-                  <li>
-                    <a href="#">
+                  <li id="slali">
+                    <a href="<?= base_url('Reportes/reporte_sla') ?>">
                       <i class="fas fa-calendar"></i>&nbsp;&nbsp;
                       <span>SLA</span>
                     </a>

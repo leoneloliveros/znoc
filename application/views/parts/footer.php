@@ -164,6 +164,11 @@
   <script type="text/javascript" src="<?= base_url('assets/js/modules/care.js'); ?>"></script>
 <?php endif ?>
 <!-- **********************************************FIN CARE********************************************** -->
+<!-- **********************************************REPORTE SLAS********************************************** -->
+<?php if ($this->uri->segment(2) === "reporte_sla"):?>
+<script type="text/javascript" src="<?= base_url('assets/js/modules/reporte_sla.js'); ?>"></script>
+<?php endif ?>
+<!-- **********************************************FIN REPORTE SLAS********************************************** -->
 <script type="text/javascript"> 
   // para ponerle active al li seleccionado 
   if ('<?= $sub_bar ?>') {
