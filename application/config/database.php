@@ -94,3 +94,25 @@ $db['local'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+$db['servidor'] = array(
+	'dsn' => '',
+	'hostname' => '10.60.64.172',
+	'username' => 'ECM7162D',
+	'password' => 'cu$t0m3r',
+	'database' => 'dilo',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => FALSE,
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
