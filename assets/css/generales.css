@@ -12,7 +12,7 @@
     margin: 2em;
   }
 
-.datesRange button{
+.datesRange button,.exportExcel{
     background: #24648a;
     color: white;
     border: unset;
@@ -22,12 +22,12 @@
     transition: .3s;
 }
 
-.datesRange button:hover{
+.datesRange button:hover,.exportExcel:hover{
     background: #234d65;
     box-shadow: 3px 2px 2px 1px #306786;
 }
 
-.datesRange button:active{
+.datesRange button:active,.exportExcel:active{
     background: #1b2f3a;
     box-shadow: 3px 1px 1px -2px #300786;
 }

@@ -2,6 +2,10 @@
 
 
 defined('BASEPATH') or exit('No direct script access allowed');
+require_once APPPATH.'libraries/spout/src/Spout/Autoloader/autoload.php';
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
+use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
+use Box\Spout\Common\Entity\Style\Color;
 ini_set('memory_limit',-1);
 class Reportes extends CI_Controller
 { 
@@ -79,6 +83,88 @@ class Reportes extends CI_Controller
     $this->load->view('parts/datesRange');
     $this->load->view('Care');
     $this->load->view('parts/footer'); 
+  }
+  
+  public function enviarDatosExcel()
+  {
+    $data = json_decode($this->input->post('data'));
+    $_SESSION['x'] = $data;
+  }
+
+  public function excelVolumetrias()
+  {
+    // $data = json_decode($this->input->post('data'));
+    $data = $_SESSION['x'];
+    // echo '<pre>'; print_r((array)$data->faoc[1][0]); echo '</pre>';
+    $excel = WriterEntityFactory::createXLSXWriter();
+    $excel->openToBrowser('Volumetrias('.date('Y-m-d').').xlsx');
+    // $wrapText = (new StyleBuilder())->setShouldWrapText(false)->build();
+
+    $titles = array('TICKETID','ZONA_TKT','TIPO_TKT','CREATIONDATE','CLOSEDATE','ACTUALFINISH','STATUS','INTERNALPRIORITY','URGENCY','CREATEDBY','CHANGEDATE','OWNERGROUP','LOCATION','MUN100','AFECTACION_TOTAL_CORE','INCEXCLUIR','PROVEEDORES','TICKET_EXT','DESCRIPTION','EXTERNALSYSTEM','RUTA_TKT','INC_ALARMA','INCSOLUCION','GERENTE','REGIONAL','PROBLEM_CODE','PROBLEM_DESCRIPTION','CAUSE_CODE','CAUSE_DESCRIPTION','REMEDY_CODE','REMEDY_DESCRIPTION','TIEMPO_VIDA_TKT','TIEMPO_RESOLUCION_TKT','TIEMPO_DETECCION','TIEMPO_ESCALA','TIEMPO_FALLA');
+
+    $header = WriterEntityFactory::createRowFromArray($titles);
+
+    
+    $faoc = $excel->getCurrentSheet();
+    $faoc->setName('FAOC');
+    $excel->addRow($header);
+
+    foreach ($data->faoc[1] as $volumetrias) {
+        $row = WriterEntityFactory::createRowFromArray((array)$volumetrias);
+        $excel->addRow($row);
+    }
+    // // $ejmplo = WriterEntityFactory::createRowFromArray(array("hola",'qie','pex'));
+    
+    $faob = $excel->addNewSheetAndMakeItCurrent();
+    $faob->setName('FAOB');
+    $excel->addRow($header);
+    
+    foreach ($data->faob[1] as $volumetrias) {
+      $row = WriterEntityFactory::createRowFromArray((array)$volumetrias);
+      $excel->addRow($row);
+    }
+
+    $fapp = $excel->addNewSheetAndMakeItCurrent();
+    $fapp->setName('FAPP');
+    $excel->addRow($header);
+    
+
+    
+    foreach ($data->fapp[1] as $volumetrias) {
+      $row = WriterEntityFactory::createRowFromArray((array)$volumetrias);
+      $excel->addRow($row);
+    }
+
+    $fee = $excel->addNewSheetAndMakeItCurrent();
+    $fee->setName('FEE');
+    $excel->addRow($header);
+    
+    
+    foreach ($data->fee[1] as $volumetrias) {
+      $row = WriterEntityFactory::createRowFromArray((array)$volumetrias);
+      $excel->addRow($row);
+    }
+
+    $fi = $excel->addNewSheetAndMakeItCurrent();
+    $fi->setName('FI');
+    $excel->addRow($header);
+
+    
+    foreach ($data->fi[1] as $volumetrias) {
+      $row = WriterEntityFactory::createRowFromArray((array)$volumetrias);
+      $excel->addRow($row);
+    }
+
+    $foip = $excel->addNewSheetAndMakeItCurrent();
+    $foip->setName('FOIP');
+    $excel->addRow($header);
+    
+    
+    foreach ($data->foip[1] as $volumetrias) {
+      $row = WriterEntityFactory::createRowFromArray((array)$volumetrias);
+      $excel->addRow($row);
+    }
+    $excel->close();
   }
 
 }
