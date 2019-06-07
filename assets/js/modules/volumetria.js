@@ -15,6 +15,7 @@ $(function(){
         $("#newDate,#fDesde, #fHasta").attr('disabled', true);
         $("#fDesde, #fHasta").css({ 'border-color': '#cccccc', 'box-shadow': 'unset' });
         helper.showLoading();
+        $("span.badge").html('<i class="fas fa-spinner fa-spin"></i>');
         $.post(base_url + "Reportes/c_getNemonicosAccordingDate", {
           desde: $(`#fDesde`).val(),
           hasta: $(`#fHasta`).val(),
@@ -22,91 +23,80 @@ $(function(){
           function (data) {
             const obj = JSON.parse(data);
             volumetria.dataVoltria = {
-              'faoc': [{'T1':0,'T2':0,'T3':0,'T11':0},[]],
-              'faob': [{'T1':0,'T2':0,'T3':0,'T11':0},[]],
-              'fapp': [{'T1':0,'T2':0,'T3':0,'T11':0},[]],
-              'fee': [{'T1':0,'T2':0,'T3':0,'T11':0},[]],
-              'fi': [{'T1':0,'T2':0,'T3':0,'T11':0},[]],
-              'foip': [{'T1':0,'T2':0,'T3':0,'T11':0},[]],
+              'faoc': {'T1':[],'T2':[],'T3':[],'T11':[]},
+              'faob': {'T1':[],'T2':[],'T3':[],'T11':[]},
+              'fapp': {'T1':[],'T2':[],'T3':[],'T11':[]},
+              'fee': {'T1':[],'T2':[],'T3':[],'T11':[]},
+              'fi': {'T1':[],'T2':[],'T3':[],'T11':[]},
+              'foip': {'T1':[],'T2':[],'T3':[],'T11':[]},
             }
-            // volumetria.faoc[0]= 0, volumetria.faob[0]=0, volumetria.fapp[0]=0, volumetria.fee[0]=0, volumetria.fi[0]=0, volumetria.foip[0]=0;
-            // volumetria.faoc[1]={'T1':[],'T2':[],'T3':[],'T11':[]};
-            // volumetria.faob[1]={'T1':[],'T2':[],'T3':[],'T11':[]};
-            // volumetria.fapp[1]={'T1':[],'T2':[],'T3':[],'T11':[]};
-            // volumetria.fee[1]={'T1':[],'T2':[],'T3':[],'T11':[]};
-            // volumetria.fi[1]={'T1':[],'T2':[],'T3':[],'T11':[]};
-            // volumetria.foip[1]={'T1':[],'T2':[],'T3':[],'T11':[]};
 
             var nel = [];
             $.each(obj, function (i, val) { 
               
               if(val.DESCRIPTION.toUpperCase().includes('FAOC:')){
                   const horario = volumetria.getSchedule(val.CREATIONDATE.substr(11,5),val.CREATEDBY);
-                  // volumetria.faoc[1][horario].push(val.CREATIONDATE.substr(11,5));
-                  volumetria.dataVoltria.faoc[0][horario] += 1;
-                  volumetria.dataVoltria.faoc[1].push(val);
+                  val['tipoT'] = horario;
+                  volumetria.dataVoltria.faoc[horario].push(val);
               }else if(val.DESCRIPTION.toUpperCase().includes('FAOB:')){
                   const horario = volumetria.getSchedule(val.CREATIONDATE.substr(11,5),val.CREATEDBY);
-                  // volumetria.faob[1][horario].push(val.CREATIONDATE.substr(11,5));
-                  volumetria.dataVoltria.faob[0][horario] += 1;
-                  volumetria.dataVoltria.faob[1].push(val);
+                  val['tipoT'] = horario;
+                  volumetria.dataVoltria.faob[horario].push(val);
               }else if(val.DESCRIPTION.toUpperCase().includes('FAPP:')){
                   const horario = volumetria.getSchedule(val.CREATIONDATE.substr(11,5),val.CREATEDBY);
-                  // volumetria.fapp[1][horario].push(val.CREATIONDATE.substr(11,5));
-                  volumetria.dataVoltria.fapp[0][horario] += 1;
-                  volumetria.dataVoltria.fapp[1].push(val);
+                  val['tipoT'] = horario;
+                  volumetria.dataVoltria.fapp[horario].push(val);
               }else if(val.DESCRIPTION.toUpperCase().includes('FOIP:')){
                   const horario = volumetria.getSchedule(val.CREATIONDATE.substr(11,5),val.CREATEDBY);
-                  // volumetria.foip[1][horario].push(val.CREATIONDATE.substr(11,5));
-                  volumetria.dataVoltria.foip[0][horario] += 1;
-                  volumetria.dataVoltria.foip[1].push(val);
+                  val['tipoT'] = horario;
+                  volumetria.dataVoltria.foip[horario].push(val);
               }else if(val.DESCRIPTION.toUpperCase().includes('FEE:')){
                   const horario = volumetria.getSchedule(val.CREATIONDATE.substr(11,5),val.CREATEDBY);
-                  // volumetria.fee[1][horario].push(val.CREATIONDATE.substr(11,5));
-                  volumetria.dataVoltria.fee[0][horario] += 1;
-                  volumetria.dataVoltria.fee[1].push(val);
+                  val['tipoT'] = horario;
+                  volumetria.dataVoltria.fee[horario].push(val);
               }else if(val.DESCRIPTION.toUpperCase().includes('FI:')){
                   const horario = volumetria.getSchedule(val.CREATIONDATE.substr(11,5),val.CREATEDBY);
-                  // volumetria.fi[1][horario].push(val.CREATIONDATE.substr(11,5));
-                  volumetria.dataVoltria.fi[0][horario] += 1;
-                  volumetria.dataVoltria.fi[1].push(val);
+                  val['tipoT'] = horario;
+                  volumetria.dataVoltria.fi[horario].push(val);
               }else{
                 nel.push(val.DESCRIPTION);
               }
               
             });           
+            console.log(volumetria.dataVoltria);
+            
 
-            $('#FAOCBadge').text(volumetria.dataVoltria.faoc[1].length);
-            $('#FAOBBadge').text(volumetria.dataVoltria.faob[1].length);
-            $('#FAPPBadge').text(volumetria.dataVoltria.fapp[1].length);
-            $('#FEEBadge').text(volumetria.dataVoltria.fee[1].length);
-            $('#FIBadge').text(volumetria.dataVoltria.fi[1].length);
-            $('#FOIPBadge').text(volumetria.dataVoltria.foip[1].length);
-
-            $('#T1faoc').text(volumetria.dataVoltria.faoc[0].T1);
-            $('#T2faoc').text(volumetria.dataVoltria.faoc[0].T2);
-            $('#T3faoc').text(volumetria.dataVoltria.faoc[0].T3);
-            $('#T11faoc').text(volumetria.dataVoltria.faoc[0].T11);
-            $('#T1faob').text(volumetria.dataVoltria.faob[0].T1);
-            $('#T2faob').text(volumetria.dataVoltria.faob[0].T2);
-            $('#T3faob').text(volumetria.dataVoltria.faob[0].T3);
-            $('#T11faob').text(volumetria.dataVoltria.faob[0].T11);
-            $('#T1fapp').text(volumetria.dataVoltria.fapp[0].T1);
-            $('#T2fapp').text(volumetria.dataVoltria.fapp[0].T2);
-            $('#T3fapp').text(volumetria.dataVoltria.fapp[0].T3);
-            $('#T11fapp').text(volumetria.dataVoltria.fapp[0].T11);
-            $('#T1fee').text(volumetria.dataVoltria.fee[0].T1);
-            $('#T2fee').text(volumetria.dataVoltria.fee[0].T2);
-            $('#T3fee').text(volumetria.dataVoltria.fee[0].T3);
-            $('#T11fee').text(volumetria.dataVoltria.fee[0].T11);
-            $('#T1fi').text(volumetria.dataVoltria.fi[0].T1);
-            $('#T2fi').text(volumetria.dataVoltria.fi[0].T2);
-            $('#T3fi').text(volumetria.dataVoltria.fi[0].T3);
-            $('#T11fi').text(volumetria.dataVoltria.fi[0].T11);
-            $('#T1foip').text(volumetria.dataVoltria.foip[0].T1);
-            $('#T2foip').text(volumetria.dataVoltria.foip[0].T2);
-            $('#T3foip').text(volumetria.dataVoltria.foip[0].T3);
-            $('#T11foip').text(volumetria.dataVoltria.foip[0].T11);
+            $('#FAOCBadge').text(Object.keys(volumetria.dataVoltria.faoc.T1).length+Object.keys(volumetria.dataVoltria.faoc.T2).length+Object.keys(volumetria.dataVoltria.faoc.T3).length+Object.keys(volumetria.dataVoltria.faoc.T11).length);
+            $('#FAOBBadge').text(Object.keys(volumetria.dataVoltria.faob.T1).length+Object.keys(volumetria.dataVoltria.faob.T2).length+Object.keys(volumetria.dataVoltria.faob.T3).length+Object.keys(volumetria.dataVoltria.faob.T11).length);
+            $('#FAPPBadge').text(Object.keys(volumetria.dataVoltria.fapp.T1).length+Object.keys(volumetria.dataVoltria.fapp.T2).length+Object.keys(volumetria.dataVoltria.fapp.T3).length+Object.keys(volumetria.dataVoltria.fapp.T11).length);
+            $('#FEEBadge').text(Object.keys(volumetria.dataVoltria.fee.T1).length+Object.keys(volumetria.dataVoltria.fee.T2).length+Object.keys(volumetria.dataVoltria.fee.T3).length+Object.keys(volumetria.dataVoltria.fee.T11).length);
+            $('#FIBadge').text(Object.keys(volumetria.dataVoltria.fi.T1).length+Object.keys(volumetria.dataVoltria.fi.T2).length+Object.keys(volumetria.dataVoltria.fi.T3).length+Object.keys(volumetria.dataVoltria.fi.T11).length);
+            $('#FOIPBadge').text(Object.keys(volumetria.dataVoltria.foip.T1).length+Object.keys(volumetria.dataVoltria.foip.T2).length+Object.keys(volumetria.dataVoltria.foip.T3).length+Object.keys(volumetria.dataVoltria.foip.T11).length);
+            
+            $('#T1faoc').text(Object.keys(volumetria.dataVoltria.faoc.T1).length);
+            $('#T2faoc').text(Object.keys(volumetria.dataVoltria.faoc.T2).length);
+            $('#T3faoc').text(Object.keys(volumetria.dataVoltria.faoc.T3).length);
+            $('#T11faoc').text(Object.keys(volumetria.dataVoltria.faoc.T11).length);
+            $('#T1faob').text(Object.keys(volumetria.dataVoltria.faob.T1).length);
+            $('#T2faob').text(Object.keys(volumetria.dataVoltria.faob.T2).length);
+            $('#T3faob').text(Object.keys(volumetria.dataVoltria.faob.T3).length);
+            $('#T11faob').text(Object.keys(volumetria.dataVoltria.faob.T11).length);
+            $('#T1fapp').text(Object.keys(volumetria.dataVoltria.fapp.T1).length);
+            $('#T2fapp').text(Object.keys(volumetria.dataVoltria.fapp.T2).length);
+            $('#T3fapp').text(Object.keys(volumetria.dataVoltria.fapp.T3).length);
+            $('#T11fapp').text(Object.keys(volumetria.dataVoltria.fapp.T11).length);
+            $('#T1fee').text(Object.keys(volumetria.dataVoltria.fee.T1).length);
+            $('#T2fee').text(Object.keys(volumetria.dataVoltria.fee.T2).length);
+            $('#T3fee').text(Object.keys(volumetria.dataVoltria.fee.T3).length);
+            $('#T11fee').text(Object.keys(volumetria.dataVoltria.fee.T11).length);
+            $('#T1fi').text(Object.keys(volumetria.dataVoltria.fi.T1).length);
+            $('#T2fi').text(Object.keys(volumetria.dataVoltria.fi.T2).length);
+            $('#T3fi').text(Object.keys(volumetria.dataVoltria.fi.T3).length);
+            $('#T11fi').text(Object.keys(volumetria.dataVoltria.fi.T11).length);
+            $('#T1foip').text(Object.keys(volumetria.dataVoltria.foip.T1).length);
+            $('#T2foip').text(Object.keys(volumetria.dataVoltria.foip.T2).length);
+            $('#T3foip').text(Object.keys(volumetria.dataVoltria.foip.T3).length);
+            $('#T11foip').text(Object.keys(volumetria.dataVoltria.foip.T11).length);
             
             $(`#totalNemonicos`).text(Object.keys(obj).length);
             
