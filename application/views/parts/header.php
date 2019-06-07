@@ -182,7 +182,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
             <!-- User Account Menu -->
-            <li class="dropdown user user-menu">
+            <li class="dropdown user user-menu" id="perLi">
               <!-- Menu Toggle Button -->
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <!-- The user image in the navbar-->
@@ -288,7 +288,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="treeview">
                 <a href="#">
                   <i class="fab fa-buromobelexperte"></i>&nbsp;&nbsp;
-                  <span>Front Office</span>
+                  <span>Front Office Móvil</span>
                   <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>
