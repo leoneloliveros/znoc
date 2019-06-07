@@ -31,12 +31,13 @@ class User extends CI_Controller {
                 if ($pass === 'abc123' || strlen($pass) <= 6) {
                     $data['usuario'] = $val_user;
                     $this->load->view('cambiarContrasena', $data);
-                }else{
+                 }else{
                     $data = array(
                     // 'role' => $val_user->rol,
                     'id' => $val_user->id_users,
                     'name' => $val_user->nombres . " " . $val_user->apellidos,
                     'email'=> $val_user->email,
+                    'role'=> $val_user->role,
                     'imagen'=> $val_user->imagen
                 );
 
@@ -50,6 +51,7 @@ class User extends CI_Controller {
                     'title'          => 'ZOLID | Principal',
                     'active'         => 'principal',
                     'header'         => array('PRINCIPAL', 'Bandeja principal'),
+                    'sub_bar'         => false,
                 );
                 
                 $this->load->view('parts/header', $config_page);
@@ -80,6 +82,7 @@ class User extends CI_Controller {
             'title'          => 'ZOLID | Principal',
             'active'         => 'principal',
             'header'         => array('PRINCIPAL', 'Bandeja principal'),
+            'sub_bar'         => false,
         );
 
         $this->load->view('parts/header', $config_page);
@@ -166,7 +169,8 @@ class User extends CI_Controller {
             'subproyecto'    => 'Microondas',
             'active_sidebar' => true,
             'title'          => 'ZOLID | Perfil',
-            'active'         => 'earch-btn',
+            'active'         => 'perLi',
+            'sub_bar'         => false,
             'header'         => array('Perfil', 'cambiar perfil'),
         );
 

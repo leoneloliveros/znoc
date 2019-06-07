@@ -17,9 +17,9 @@
          $data = array(
             'active_sidebar' => false,
             'title'          => 'Creación de Bitacoras',
-            'active'         => 'bitac',
+            'active'         => 'ccili',
             'header'         => array('Creación de Actividades','CCI y HFC'),
-            'sub_bar'        => array(true,'ccili'),
+            'sub_bar'        => true,
          );
 
          $this->load->view('parts/header', $data);
@@ -40,9 +40,9 @@
          $data = array(
             'active_sidebar' => false,
             'title'          => 'Bitacoras Front Office',
-            'active'         => 'bitac',
+            'active'         => 'fOli',
             'header'         => array('Creación de Actividades','Front Office'),
-            'sub_bar'        => array(true,'fOli'),
+            'sub_bar'        => true,
          );
          $this->load->view('parts/header', $data);
          $this->load->view('BitFrontEnd');
