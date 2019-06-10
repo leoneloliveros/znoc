@@ -35,7 +35,7 @@ $(function () {
             }
         },
         printTableReportSlas: function (data) {
-             if (slas.table_slas) {
+            if (slas.table_slas) {
                 var tabla = slas.table_slas;
                 tabla.clear().draw();
                 tabla.rows.add(data);
@@ -57,7 +57,7 @@ $(function () {
                 {title: "Total incidentes", data: "total_incidentes"},
             ]));
         },
-        
+
         configTableSimple: function (data, columns, onDraw) {
             return {
                 data: data,
@@ -67,9 +67,9 @@ $(function () {
                 },
                 dom: 'Blfrtip',
                 "searching": false,
-                "paging":   false,
+                "paging": false,
                 "ordering": false,
-                "info":     false,
+                "info": false,
                 buttons: [
                     {
                         text: 'Excel <i class="fas fa-file-excel"></i>',
@@ -88,9 +88,11 @@ $(function () {
                 drawCallback: onDraw
             }
         },
-        
-        downloadReportSlas: function() {
-            window.location.href = baseurl + "/OtPadre/c_downloadAllReportAct";
+
+        downloadReportSlas: function () {
+            var desde = $('#fDesde').val();
+            var hasta = $('#fHasta').val();
+            window.location.href = base_url + "/Reportes/excelTiempoEscalamientoMovil/" + desde + "/" + hasta;
         },
     }
     slas.init();
