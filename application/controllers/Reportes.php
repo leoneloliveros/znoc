@@ -32,12 +32,37 @@ class Reportes extends CI_Controller
     $this->load->view('parts/footer');
     
   }
+  public function volumetria_cc()
+  {
+    
+    $data = array(
+        'active_sidebar' => false,
+        'title'          => 'Volumetrías',
+        'active'         => "areali",
+        'header'         => array('Customer Care','Volumetría'),
+        'sub_bar'        => true,
+        'f_actual'       => date('Y-m-d')
+    );
+
+    $this->load->view('parts/header', $data);
+    $this->load->view('parts/datesRange');
+    $this->load->view('volumetria_cc');
+    $this->load->view('parts/footer');
+    
+  }
 
   public function c_getNemonicosAccordingDate()
   {
     $fdesde = $this->input->post('desde');
     $fhasta = $this->input->post('hasta');
     $data = $this->Dao_reportes_model->getNemonicosAccordingDate($fdesde,$fhasta);
+    echo json_encode($data);
+  }
+  public function c_getNemonicosCCAccordingDate()
+  {
+    $fdesde = $this->input->post('desde');
+    $fhasta = $this->input->post('hasta');
+    $data = $this->Dao_reportes_model->getNemonicosCCAccordingDate($fdesde,$fhasta);
     echo json_encode($data);
   }
   
@@ -66,23 +91,6 @@ class Reportes extends CI_Controller
     $fhasta = $this->input->post('hasta');
     $data = $this->Dao_reportes_model->getInfoReportSlas($fdesde, $fhasta);
     echo json_encode($data);
-  }
-
-  public function care($tipo)
-  {
-    $data = array(
-      'active_sidebar' => true,
-      'title'          => 'Customer Care',
-      'active'         => $tipo,
-      'header'         => array('Customer Care', strtoupper($tipo)),
-      'sub_bar'        => true,
-      'f_actual'       => date('Y-m-d')
-  );
-
-    $this->load->view('parts/header', $data);
-    $this->load->view('parts/datesRange');
-    $this->load->view('Care');
-    $this->load->view('parts/footer'); 
   }
   
   public function enviarDatosExcel()

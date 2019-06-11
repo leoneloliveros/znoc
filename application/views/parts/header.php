@@ -319,65 +319,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li id="ccpyr_prueb">
-                    <a href="<?= base_url('Reportes/care/ccpyr_prueb') ?>">
+                  <li id="volumetria_cc">
+                    <a href="<?= base_url('Reportes/volumetria_cc') ?>">
                       <i class="fab fa-audible"></i>&nbsp;&nbsp;
-                      <span>CCPYR_PRUEB</span></a>
-                  </li>
-                  <li id="ccpyr_lider">
-                    <a href="<?= base_url('Reportes/care/ccpyr_lider') ?>">
-                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
-                      <span>CCPYR_LIDER</span></a>
-                  </li>
-                  <li id="ccpyr_rutin">
-                    <a href="<?= base_url('Reportes/care/ccpyr_rutin') ?>">
-                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
-                      <span>CCPYR_RUTIN</span></a>
-                  </li>
-                  <li id="cccom_reg">
-                    <a href="<?= base_url('Reportes/care/cccom_reg') ?>">
-                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
-                      <span>CCCOM_REG</span></a>
-                  </li>
-                  <li id="torreGest">
-                    <a href="<?= base_url('Reportes/care/torreGest') ?>">
-                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
-                      <span>Notas (seguimiento) CC Torre de Gestión y Reportes TG:S, TGR:, TGT11S: (para T11), TGT11R: (para T11) , TGT5S: (para T5), TGT5R: (para T5)</span></a>
-                  </li>
-                  <li id="cccom_mail">
-                    <a href="<?= base_url('Reportes/care/cccom_mail') ?>">
-                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
-                      <span>CCCOM_MAIL:</span></a>
-                  </li>
-                  <li id="cccom_chats">
-                    <a href="<?= base_url('Reportes/care/cccom_chats') ?>">
-                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
-                      <span>CCCOM_CHATS:</span></a>
-                  </li>
-                  <li id="ccrec_rec">
-                    <a href="<?= base_url('Reportes/care/ccrec_rec') ?>">
-                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
-                      <span>CCREC_REC:</span></a>
-                  </li>
-                  <li id="ccrec_cci">
-                    <a href="<?= base_url('Reportes/care/ccrec_cci') ?>">
-                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
-                      <span>CCREC_CCI</span></a>
-                  </li>
-                  <li id="ccie">
-                    <a href="<?= base_url('Reportes/care/ccie') ?>">
-                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
-                      <span>CCIE:</span></a>
-                  </li>
-                  <li id="ccrec_oop">
-                    <a href="<?= base_url('Reportes/care/ccrec_oop') ?>">
-                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
-                      <span>CCREC_OOP, CCREC_SON</span></a>
-                  </li>
-                  <li id="ccrec_pqr">
-                    <a href="<?= base_url('Reportes/care/ccrec_pqr') ?>">
-                      <i class="fab fa-audible"></i>&nbsp;&nbsp;
-                      <span>CCREC_PQR</span></a>
+                      <span>Volumetría</span></a>
                   </li>
                 </ul>
               </li>

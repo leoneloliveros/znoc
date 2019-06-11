@@ -21,6 +21,19 @@ class Dao_reportes_model extends CI_Model {
     return $query->result();
     // echo '<pre>'; print_r($query->result()); echo '</pre>';
   }
+  public function getNemonicosCCAccordingDate($fi,$ff)
+  {
+    $this->db->where(' (DESCRIPTION LIKE "%CCPYR_PRUEB%"');
+    $this->db->or_where('DESCRIPTION LIKE "%CCPYR_LIDER%"');
+    $this->db->or_where('DESCRIPTION LIKE "%CCPYR_RUTIN%"');
+    $this->db->or_where('DESCRIPTION LIKE "%CCCOM_REG%"');
+    $this->db->or_where('DESCRIPTION LIKE "%CCREC_REC%"');
+    $this->db->or_where('DESCRIPTION LIKE "%FOIP:%")');
+    $this->db->where("DATE_FORMAT(`CREATIONDATE`, '%Y-%m-%d') BETWEEN '$fi' AND '$ff'");
+    $this->db->order_by('DESCRIPTION','DESC');
+    $query = $this->db->get('maximo.INCIDENT');
+    return $query->result();
+  }
   
   //Retorna el nombre del trabajo, el subestado, y los puntos de acuerdo al id de las tablas puntos, tipo_trabajo y subestado --jc
     public function getInfoReportSlas($fdesde,$fhasta){
