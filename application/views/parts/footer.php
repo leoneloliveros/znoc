@@ -157,13 +157,10 @@
 <?php if ($this->uri->segment(2) === "volumetria"):?>
   <script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria.js'); ?>"></script>
 <?php endif ?>
-<!-- **********************************************FIN VOLUMETRÍAS********************************************** -->
-
-<!-- **********************************************CARE********************************************** -->
-<?php if ($this->uri->segment(2) === "volumetria"):?>
-  <script type="text/javascript" src="<?= base_url('assets/js/modules/care.js'); ?>"></script>
+<?php if ($this->uri->segment(2) === "volumetria_cc"):?>
+  <script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria_cc.js'); ?>"></script>
 <?php endif ?>
-<!-- **********************************************FIN CARE********************************************** -->
+<!-- **********************************************FIN VOLUMETRÍAS********************************************** -->
 <!-- **********************************************REPORTE SLAS********************************************** -->
 <?php if ($this->uri->segment(2) === "reporte_sla"):?>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>

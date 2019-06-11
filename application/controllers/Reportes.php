@@ -7,7 +7,7 @@ use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 use Box\Spout\Common\Entity\Style\Color;
 
-ini_set('memory_limit', -1);
+ini_set('memory_limit',-1);
 
 class Reportes extends CI_Controller {
 
