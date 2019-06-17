@@ -158,7 +158,7 @@
   <script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria.js'); ?>"></script>
 <?php endif ?>
 <?php if ($this->uri->segment(2) === "volumetria_cc"):?>
-  <script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria_cc.js'); ?>"></script>
+  <script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria_cc.js?v=' . validarEnProduccion()); ?>"></script>
 <?php endif ?>
 <!-- **********************************************FIN VOLUMETRÍAS********************************************** -->
 <!-- **********************************************REPORTE SLAS********************************************** -->

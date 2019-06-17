@@ -45,16 +45,11 @@ $(function () {
             // nombramos la variable para la tabla y llamamos la configuiracion que se encuentra en /assets/js/modules/helper.js
             slas_customer.table_slas_customer = $('#table_slas_customer').DataTable(slas_customer.configTableSimple(data, [
                 {title: "coordinación", data: "coordinacion"},
-                {title: "Urgencia alta, impacto alto<br>< = 20 min", data: "alta_alta_20_min"},
-                {title: "Urgencia alta, impacto alto<br>> 20 min", data: "alta_alta_20_max"},
-                {title: "Urgencia alta, impacto medio<br><= 40 min ", data: "alta_media_40_min"},
-                {title: "Urgencia alta, impacto medio<br>> 40 min ", data: "alta_media_40_max"},
-                {title: "Medias<br><= 60 Min", data: "medias_60_min"},
-                {title: "Medias<br>> 60 Min", data: "medias_60_max"},
-                {title: "Bajas<br><= 80 min", data: "bajas_80_min"},
-                {title: "Bajas<br>> 80 min", data: "bajas_80_max"},
-                {title: "Sin prioridad", data: "nulos"},
-                {title: "Total incidentes", data: "total_incidentes"},
+                {title: "Mayor 5 días", data: "mayor_5_dias"},
+                {title: "Menor 5 días", data: "menor_5_dias"},
+                {title: "Mayor 3 días", data: "mayor_3_dias"},
+                {title: "menor 3 días", data: "menor_3_dias"},
+                {title: "Total Incidentes", data: "total_incidentes"},
             ]));
         },
 

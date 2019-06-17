@@ -7,7 +7,7 @@ use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 use Box\Spout\Common\Entity\Style\Color;
 
-ini_set('memory_limit',-1);
+ini_set('memory_limit', -1);
 
 class Reportes extends CI_Controller {
 
@@ -33,10 +33,33 @@ class Reportes extends CI_Controller {
         $this->load->view('parts/footer');
     }
 
+    public function volumetria_cc() {
+
+        $data = array(
+            'active_sidebar' => false,
+            'title' => 'Volumetrías',
+            'active' => "areali",
+            'header' => array('Customer Care', 'Volumetría'),
+            'sub_bar' => true,
+            'f_actual' => date('Y-m-d')
+        );
+        $this->load->view('parts/header', $data);
+        $this->load->view('parts/datesRange');
+        $this->load->view('volumetria_cc');
+        $this->load->view('parts/footer');
+    }
+
     public function c_getNemonicosAccordingDate() {
         $fdesde = $this->input->post('desde');
         $fhasta = $this->input->post('hasta');
         $data = $this->Dao_reportes_model->getNemonicosAccordingDate($fdesde, $fhasta);
+        echo json_encode($data);
+    }
+
+    public function c_getNemonicosCCAccordingDate() {
+        $fdesde = $this->input->post('desde');
+        $fhasta = $this->input->post('hasta');
+        $data = $this->Dao_reportes_model->getNemonicosCCAccordingDate($fdesde, $fhasta);
         echo json_encode($data);
     }
 
@@ -238,7 +261,7 @@ class Reportes extends CI_Controller {
         }
         $excel->close();
     }
-    
+
     public function reporte_sla_customer() {
 
         $data = array(
@@ -255,11 +278,18 @@ class Reportes extends CI_Controller {
         $this->load->view('reporte_sla_customer');
         $this->load->view('parts/footer');
     }
-    
+
     public function c_getInfoReportSlasCustomer() {
         $fdesde = $this->input->post('desde');
         $fhasta = $this->input->post('hasta');
         $data = $this->Dao_reportes_model->getInfoReportSlasCustomer($fdesde, $fhasta);
+        echo json_encode($data);
+    }
+    
+    public function c_getNemonicosCCAccordingDateV2() {
+        $fdesde = $this->input->post('desde');
+        $fhasta = $this->input->post('hasta');
+        $data = $this->Dao_reportes_model->getNemonicosCCAccordingDateV2($fdesde, $fhasta);
         echo json_encode($data);
     }
 
