@@ -109,3 +109,27 @@ table{
     width: 100%;
     color: white;
 }
+
+.btn-cami_cool {
+    background: transparent;
+    border-radius: 0;
+    border: 1px solid #084c6f;
+    color: #084c6f;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 6px 35px;
+    transition: all 0.4s ease-in-out;
+}
+.btn-cami_cool:hover {
+    background: #084c6f;
+    color: #ffffff;
+}
+.btn-rpt_act {
+    font-size: 11px;
+    padding: 10px 19px 8px;
+    letter-spacing: 0;
+}
+.btn-special{
+    margin-bottom: 20px;
+    margin-left: 45%;
+}

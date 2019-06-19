@@ -95,109 +95,115 @@ class Reportes extends CI_Controller
   {
     // $data = json_decode($this->input->post('data'));
     $data = $_SESSION['x'];
-    // echo '<pre>'; print_r((array)$data->faoc[1][0]); echo '</pre>';
-echo 'Versión actual de PHP: ' . phpversion('zip');
+    // echo '<pre>'; print_r($data->faoc); echo '</pre>';
+    // echo '<pre>'; print_r("lol"); echo '</pre>';
 
-$excel = WriterEntityFactory::createXLSXWriter();
-$excel->openToBrowser('Volumetrias('.date('Y-m-d').').xlsx');
-$wrapText = (new StyleBuilder())->setShouldWrapText(false)->build();
+    $excel = WriterEntityFactory::createXLSXWriter();
+    $excel->openToBrowser('Volumetrias('.date('Y-m-d').').xlsx');
+    $wrapText = (new StyleBuilder())->setShouldWrapText(false)->build();
 
-$titles = array('TICKETID','ZONA_TKT','TIPO_TKT','CREATIONDATE','CLOSEDATE','ACTUALFINISH','STATUS','INTERNALPRIORITY','URGENCY','CREATEDBY','CHANGEDATE','OWNERGROUP','LOCATION','MUN100','AFECTACION_TOTAL_CORE','INCEXCLUIR','PROVEEDORES','TICKET_EXT','DESCRIPTION','EXTERNALSYSTEM','RUTA_TKT','INC_ALARMA','INCSOLUCION','GERENTE','REGIONAL','PROBLEM_CODE','PROBLEM_DESCRIPTION','CAUSE_CODE','CAUSE_DESCRIPTION','REMEDY_CODE','REMEDY_DESCRIPTION','TIEMPO_VIDA_TKT','TIEMPO_RESOLUCION_TKT','TIEMPO_DETECCION','TIEMPO_ESCALA','TIEMPO_FALLA','TIPO TURNO');
-$styleHeader = (new StyleBuilder())
-->setBackgroundColor(Color::rgb(12, 65, 117))
-->setFontColor(Color::WHITE)
-->build();
+    $titles = array('TICKETID','ZONA_TKT','TIPO_TKT','CREATIONDATE','CLOSEDATE','ACTUALFINISH','STATUS','INTERNALPRIORITY','URGENCY','CREATEDBY','CHANGEDATE','OWNERGROUP','LOCATION','MUN100','AFECTACION_TOTAL_CORE','INCEXCLUIR','PROVEEDORES','TICKET_EXT','DESCRIPTION','EXTERNALSYSTEM','RUTA_TKT','INC_ALARMA','INCSOLUCION','GERENTE','REGIONAL','PROBLEM_CODE','PROBLEM_DESCRIPTION','CAUSE_CODE','CAUSE_DESCRIPTION','REMEDY_CODE','REMEDY_DESCRIPTION','TIEMPO_VIDA_TKT','TIEMPO_RESOLUCION_TKT','TIEMPO_DETECCION','TIEMPO_ESCALA','TIEMPO_FALLA','TIPO TURNO');
+    $styleHeader = (new StyleBuilder())
+      ->setBackgroundColor(Color::rgb(12, 65, 117))
+      ->setFontColor(Color::WHITE)
+      ->build();
 
-$header = WriterEntityFactory::createRowFromArray($titles,$styleHeader);
+    $header = WriterEntityFactory::createRowFromArray($titles,$styleHeader);
 
-$faoc = $excel->getCurrentSheet();
-$faoc->setName('FAOC');
-$excel->addRow($header);
-foreach ($data->faoc as $turnos) {
-foreach ($turnos as $row) {
-  $celdas = array();
 
-  foreach ($row as $value) {
-    array_push($celdas,WriterEntityFactory::createCell($value, $wrapText));
-  }
+    $faoc = $excel->getCurrentSheet();
+    $faoc->setName('FAOC');
+    $excel->addRow($header);
 
-    $row = WriterEntityFactory::createRow($celdas);
-    $excel->addRow($row);
-}
-}
-// // $ejmplo = WriterEntityFactory::createRowFromArray(array("hola",'qie','pex'));
+    foreach ($data->faoc as $turnos) {
+      foreach ($turnos as $row) {
+        $celdas = array();
 
-$faob = $excel->addNewSheetAndMakeItCurrent();
-$faob->setName('FAOB');
-$excel->addRow($header);
+        foreach ($row as $value) {
+          array_push($celdas,WriterEntityFactory::createCell($value, $wrapText));
+        }
 
-foreach ($data->faob as $turnos) {
-foreach ($turnos as  $row) {
-  $celdas = array();
-  foreach ($row as $value) {
-    array_push($celdas,WriterEntityFactory::createCell($value, $wrapText));
-  }
-    $row = WriterEntityFactory::createRow($celdas);
-    $excel->addRow($row);
-}
-}
-$fapp = $excel->addNewSheetAndMakeItCurrent();
-$fapp->setName('FAPP');
-$excel->addRow($header);
+          $row = WriterEntityFactory::createRow($celdas);
+          $excel->addRow($row);
+      }
+    }
+    // // $ejmplo = WriterEntityFactory::createRowFromArray(array("hola",'qie','pex'));
 
-foreach ($data->fapp as $turnos) {
-foreach ($turnos as  $row) {
-  $celdas = array();
-  foreach ($row as $value) {
-    array_push($celdas,WriterEntityFactory::createCell($value, $wrapText));
-  }
-    $row = WriterEntityFactory::createRow($celdas);
-    $excel->addRow($row);
-}
-}
-$fee = $excel->addNewSheetAndMakeItCurrent();
-$fee->setName('FEE');
-$excel->addRow($header);
+    $faob = $excel->addNewSheetAndMakeItCurrent();
+    $faob->setName('FAOB');
+    $excel->addRow($header);
 
-foreach ($data->fee as $turnos) {
-foreach ($turnos as  $row) {
-  $celdas = array();
-  foreach ($row as $value) {
-    array_push($celdas,WriterEntityFactory::createCell($value, $wrapText));
-  }
-    $row = WriterEntityFactory::createRow($celdas);
-    $excel->addRow($row);
-}
-}
-$fi = $excel->addNewSheetAndMakeItCurrent();
-$fi->setName('FI');
-$excel->addRow($header);
+    foreach ($data->faob as $turnos) {
+      foreach ($turnos as  $row) {
+        $celdas = array();
+        foreach ($row as $value) {
+          array_push($celdas,WriterEntityFactory::createCell($value, $wrapText));
+        }
+          $row = WriterEntityFactory::createRow($celdas);
+          $excel->addRow($row);
+      }
+    }
 
-foreach ($data->fi as $turnos) {
-foreach ($turnos as  $row) {
-  $celdas = array();
-  foreach ($row as $value) {
-    array_push($celdas,WriterEntityFactory::createCell($value, $wrapText));
-  }
-    $row = WriterEntityFactory::createRow($celdas);
-    $excel->addRow($row);
-}
-}
-$foip = $excel->addNewSheetAndMakeItCurrent();
-$foip->setName('FOIP');
-$excel->addRow($header);
+    $fapp = $excel->addNewSheetAndMakeItCurrent();
+    $fapp->setName('FAPP');
+    $excel->addRow($header);
 
-foreach ($data->foip as $turnos) {
-foreach ($turnos as  $row) {
-  $celdas = array();
-  foreach ($row as $value) {
-    array_push($celdas,WriterEntityFactory::createCell($value, $wrapText));
-  }
-    $row = WriterEntityFactory::createRow($celdas);
-    $excel->addRow($row);
-}
-}
-$excel->close();
+    foreach ($data->fapp as $turnos) {
+      foreach ($turnos as  $row) {
+        $celdas = array();
+        foreach ($row as $value) {
+          array_push($celdas,WriterEntityFactory::createCell($value, $wrapText));
+        }
+          $row = WriterEntityFactory::createRow($celdas);
+          $excel->addRow($row);
+      }
+    }
+
+    $fee = $excel->addNewSheetAndMakeItCurrent();
+    $fee->setName('FEE');
+    $excel->addRow($header);
+
+    foreach ($data->fee as $turnos) {
+      foreach ($turnos as  $row) {
+        $celdas = array();
+        foreach ($row as $value) {
+          array_push($celdas,WriterEntityFactory::createCell($value, $wrapText));
+        }
+          $row = WriterEntityFactory::createRow($celdas);
+          $excel->addRow($row);
+      }
+    }
+
+    $fi = $excel->addNewSheetAndMakeItCurrent();
+    $fi->setName('FI');
+    $excel->addRow($header);
+
+    foreach ($data->fi as $turnos) {
+      foreach ($turnos as  $row) {
+        $celdas = array();
+        foreach ($row as $value) {
+          array_push($celdas,WriterEntityFactory::createCell($value, $wrapText));
+        }
+          $row = WriterEntityFactory::createRow($celdas);
+          $excel->addRow($row);
+      }
+    }
+
+    $foip = $excel->addNewSheetAndMakeItCurrent();
+    $foip->setName('FOIP');
+    $excel->addRow($header);
+
+    foreach ($data->foip as $turnos) {
+      foreach ($turnos as  $row) {
+        $celdas = array();
+        foreach ($row as $value) {
+          array_push($celdas,WriterEntityFactory::createCell($value, $wrapText));
+        }
+          $row = WriterEntityFactory::createRow($celdas);
+          $excel->addRow($row);
+      }
+    }
+    $excel->close();
   }
 
 }

@@ -101,76 +101,76 @@
       </thead>
       <thead>
       <th>
-        <span id="T1faoc" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T1faoc" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T2faoc" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T2faoc" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T3faoc" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T3faoc" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T11faoc" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T11faoc" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T1faob" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T1faob" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T2faob" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T2faob" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T3faob" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T3faob" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T11faob" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T11faob" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T1fapp" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T1fapp" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T2fapp" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T2fapp" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T3fapp" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T3fapp" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T11fapp" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T11fapp" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T1fee" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T1fee" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T2fee" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T2fee" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T3fee" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T3fee" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T11fee" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T11fee" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T1fi" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T1fi" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T2fi" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T2fi" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T3fi" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T3fi" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T11fi" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T11fi" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T1foip" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T1foip" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T2foip" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T2foip" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T3foip" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T3foip" class="badge timesT"></span>
       </th>
       <th>
-        <span id="T11foip" class="badge timesT"><i class="fas fa-spinner fa-spin"></i></span>
+        <span id="T11foip" class="badge timesT"></span>
       </th>
       </thead>
       <tbody>
