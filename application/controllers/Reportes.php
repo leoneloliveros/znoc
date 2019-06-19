@@ -8,7 +8,7 @@ use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 use Box\Spout\Common\Entity\Style\Color;
 ini_set('memory_limit',-1);
 class Reportes extends CI_Controller
-{ 
+{
   function __construct(){
     parent::__construct();
     $this->load->model('Dao_reportes_model');
@@ -16,7 +16,7 @@ class Reportes extends CI_Controller
 
   public function volumetria()
   {
-    
+
     $data = array(
         'active_sidebar' => false,
         'title'          => 'Volumetrías',
@@ -30,7 +30,7 @@ class Reportes extends CI_Controller
     $this->load->view('parts/datesRange');
     $this->load->view('volumetria');
     $this->load->view('parts/footer');
-    
+
   }
 
   public function c_getNemonicosAccordingDate()
@@ -40,10 +40,10 @@ class Reportes extends CI_Controller
     $data = $this->Dao_reportes_model->getNemonicosAccordingDate($fdesde,$fhasta);
     echo json_encode($data);
   }
-  
+
   public function reporte_sla()
   {
-    
+
     $data = array(
         'active_sidebar' => false,
         'title'          => 'Reporte SLAs',
@@ -57,9 +57,9 @@ class Reportes extends CI_Controller
     $this->load->view('parts/header', $data);
     $this->load->view('reporte_sla');
     $this->load->view('parts/footer');
-    
+
   }
-  
+
   public function c_getInfoReportSlas()
   {
     $fdesde = $this->input->post('desde');
@@ -82,9 +82,9 @@ class Reportes extends CI_Controller
     $this->load->view('parts/header', $data);
     $this->load->view('parts/datesRange');
     $this->load->view('Care');
-    $this->load->view('parts/footer'); 
+    $this->load->view('parts/footer');
   }
-  
+
   public function enviarDatosExcel()
   {
     $data = json_decode($this->input->post('data'));
@@ -96,75 +96,108 @@ class Reportes extends CI_Controller
     // $data = json_decode($this->input->post('data'));
     $data = $_SESSION['x'];
     // echo '<pre>'; print_r((array)$data->faoc[1][0]); echo '</pre>';
-    $excel = WriterEntityFactory::createXLSXWriter();
-    $excel->openToBrowser('Volumetrias('.date('Y-m-d').').xlsx');
-    // $wrapText = (new StyleBuilder())->setShouldWrapText(false)->build();
+echo 'Versión actual de PHP: ' . phpversion('zip');
 
-    $titles = array('TICKETID','ZONA_TKT','TIPO_TKT','CREATIONDATE','CLOSEDATE','ACTUALFINISH','STATUS','INTERNALPRIORITY','URGENCY','CREATEDBY','CHANGEDATE','OWNERGROUP','LOCATION','MUN100','AFECTACION_TOTAL_CORE','INCEXCLUIR','PROVEEDORES','TICKET_EXT','DESCRIPTION','EXTERNALSYSTEM','RUTA_TKT','INC_ALARMA','INCSOLUCION','GERENTE','REGIONAL','PROBLEM_CODE','PROBLEM_DESCRIPTION','CAUSE_CODE','CAUSE_DESCRIPTION','REMEDY_CODE','REMEDY_DESCRIPTION','TIEMPO_VIDA_TKT','TIEMPO_RESOLUCION_TKT','TIEMPO_DETECCION','TIEMPO_ESCALA','TIEMPO_FALLA');
+$excel = WriterEntityFactory::createXLSXWriter();
+$excel->openToBrowser('Volumetrias('.date('Y-m-d').').xlsx');
+$wrapText = (new StyleBuilder())->setShouldWrapText(false)->build();
 
-    $header = WriterEntityFactory::createRowFromArray($titles);
+$titles = array('TICKETID','ZONA_TKT','TIPO_TKT','CREATIONDATE','CLOSEDATE','ACTUALFINISH','STATUS','INTERNALPRIORITY','URGENCY','CREATEDBY','CHANGEDATE','OWNERGROUP','LOCATION','MUN100','AFECTACION_TOTAL_CORE','INCEXCLUIR','PROVEEDORES','TICKET_EXT','DESCRIPTION','EXTERNALSYSTEM','RUTA_TKT','INC_ALARMA','INCSOLUCION','GERENTE','REGIONAL','PROBLEM_CODE','PROBLEM_DESCRIPTION','CAUSE_CODE','CAUSE_DESCRIPTION','REMEDY_CODE','REMEDY_DESCRIPTION','TIEMPO_VIDA_TKT','TIEMPO_RESOLUCION_TKT','TIEMPO_DETECCION','TIEMPO_ESCALA','TIEMPO_FALLA','TIPO TURNO');
+$styleHeader = (new StyleBuilder())
+->setBackgroundColor(Color::rgb(12, 65, 117))
+->setFontColor(Color::WHITE)
+->build();
 
-    
-    $faoc = $excel->getCurrentSheet();
-    $faoc->setName('FAOC');
-    $excel->addRow($header);
+$header = WriterEntityFactory::createRowFromArray($titles,$styleHeader);
 
-    foreach ($data->faoc[1] as $volumetrias) {
-        $row = WriterEntityFactory::createRowFromArray((array)$volumetrias);
-        $excel->addRow($row);
-    }
-    // // $ejmplo = WriterEntityFactory::createRowFromArray(array("hola",'qie','pex'));
-    
-    $faob = $excel->addNewSheetAndMakeItCurrent();
-    $faob->setName('FAOB');
-    $excel->addRow($header);
-    
-    foreach ($data->faob[1] as $volumetrias) {
-      $row = WriterEntityFactory::createRowFromArray((array)$volumetrias);
-      $excel->addRow($row);
-    }
+$faoc = $excel->getCurrentSheet();
+$faoc->setName('FAOC');
+$excel->addRow($header);
+foreach ($data->faoc as $turnos) {
+foreach ($turnos as $row) {
+  $celdas = array();
 
-    $fapp = $excel->addNewSheetAndMakeItCurrent();
-    $fapp->setName('FAPP');
-    $excel->addRow($header);
-    
+  foreach ($row as $value) {
+    array_push($celdas,WriterEntityFactory::createCell($value, $wrapText));
+  }
 
-    
-    foreach ($data->fapp[1] as $volumetrias) {
-      $row = WriterEntityFactory::createRowFromArray((array)$volumetrias);
-      $excel->addRow($row);
-    }
+    $row = WriterEntityFactory::createRow($celdas);
+    $excel->addRow($row);
+}
+}
+// // $ejmplo = WriterEntityFactory::createRowFromArray(array("hola",'qie','pex'));
 
-    $fee = $excel->addNewSheetAndMakeItCurrent();
-    $fee->setName('FEE');
-    $excel->addRow($header);
-    
-    
-    foreach ($data->fee[1] as $volumetrias) {
-      $row = WriterEntityFactory::createRowFromArray((array)$volumetrias);
-      $excel->addRow($row);
-    }
+$faob = $excel->addNewSheetAndMakeItCurrent();
+$faob->setName('FAOB');
+$excel->addRow($header);
 
-    $fi = $excel->addNewSheetAndMakeItCurrent();
-    $fi->setName('FI');
-    $excel->addRow($header);
+foreach ($data->faob as $turnos) {
+foreach ($turnos as  $row) {
+  $celdas = array();
+  foreach ($row as $value) {
+    array_push($celdas,WriterEntityFactory::createCell($value, $wrapText));
+  }
+    $row = WriterEntityFactory::createRow($celdas);
+    $excel->addRow($row);
+}
+}
+$fapp = $excel->addNewSheetAndMakeItCurrent();
+$fapp->setName('FAPP');
+$excel->addRow($header);
 
-    
-    foreach ($data->fi[1] as $volumetrias) {
-      $row = WriterEntityFactory::createRowFromArray((array)$volumetrias);
-      $excel->addRow($row);
-    }
+foreach ($data->fapp as $turnos) {
+foreach ($turnos as  $row) {
+  $celdas = array();
+  foreach ($row as $value) {
+    array_push($celdas,WriterEntityFactory::createCell($value, $wrapText));
+  }
+    $row = WriterEntityFactory::createRow($celdas);
+    $excel->addRow($row);
+}
+}
+$fee = $excel->addNewSheetAndMakeItCurrent();
+$fee->setName('FEE');
+$excel->addRow($header);
 
-    $foip = $excel->addNewSheetAndMakeItCurrent();
-    $foip->setName('FOIP');
-    $excel->addRow($header);
-    
-    
-    foreach ($data->foip[1] as $volumetrias) {
-      $row = WriterEntityFactory::createRowFromArray((array)$volumetrias);
-      $excel->addRow($row);
-    }
-    $excel->close();
+foreach ($data->fee as $turnos) {
+foreach ($turnos as  $row) {
+  $celdas = array();
+  foreach ($row as $value) {
+    array_push($celdas,WriterEntityFactory::createCell($value, $wrapText));
+  }
+    $row = WriterEntityFactory::createRow($celdas);
+    $excel->addRow($row);
+}
+}
+$fi = $excel->addNewSheetAndMakeItCurrent();
+$fi->setName('FI');
+$excel->addRow($header);
+
+foreach ($data->fi as $turnos) {
+foreach ($turnos as  $row) {
+  $celdas = array();
+  foreach ($row as $value) {
+    array_push($celdas,WriterEntityFactory::createCell($value, $wrapText));
+  }
+    $row = WriterEntityFactory::createRow($celdas);
+    $excel->addRow($row);
+}
+}
+$foip = $excel->addNewSheetAndMakeItCurrent();
+$foip->setName('FOIP');
+$excel->addRow($header);
+
+foreach ($data->foip as $turnos) {
+foreach ($turnos as  $row) {
+  $celdas = array();
+  foreach ($row as $value) {
+    array_push($celdas,WriterEntityFactory::createCell($value, $wrapText));
+  }
+    $row = WriterEntityFactory::createRow($celdas);
+    $excel->addRow($row);
+}
+}
+$excel->close();
   }
 
 }

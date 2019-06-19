@@ -422,6 +422,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
           </ul>
         </li>
+        <li class="" id="Incidencias">
+
+          <a href="<?= base_url('Incidencias') ?>">
+
+            <i class="fas fa-indent"></i>
+            <span>Insidencias</span>
+          </a>
+
+        </li>
 
         </ul>
         <!-- /.sidebar-menu -->
