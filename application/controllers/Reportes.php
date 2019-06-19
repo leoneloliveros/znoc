@@ -292,6 +292,106 @@ class Reportes extends CI_Controller {
         $data = $this->Dao_reportes_model->getNemonicosCCAccordingDateV2($fdesde, $fhasta);
         echo json_encode($data);
     }
+    
+    public function volumetria_fija() {
+
+        $data = array(
+            'active_sidebar' => false,
+            'title' => 'Volumetrías',
+            'active' => "vol_fija",
+            'header' => array('Actividades', 'Volumetría Fija'),
+            'sub_bar' => true,
+            'f_actual' => date('Y-m-d'),
+            'f_inicio' => date('Y-m') . '-01'
+        );
+
+        $this->load->view('parts/header', $data);
+        $this->load->view('volumetria_fija');
+        $this->load->view('parts/footer');
+    }
+    
+    public function c_getNemonicosFixedAccordingDate() {
+        $fdesde = $this->input->post('desde');
+        $fhasta = $this->input->post('hasta');
+        $data = $this->Dao_reportes_model->getNemonicosFixedAccordingDate($fdesde, $fhasta);
+        echo json_encode($data);
+    }
+    
+    public function enviarDatosExcelVolumetriasFija() {
+        $data = json_decode($this->input->post('data'));
+        $_SESSION['VolumetriasFija'] = $data;
+    }
+    
+    public function excelVolumetriasFija() {
+        // $data = json_decode($this->input->post('data'));
+        $data = $_SESSION['VolumetriasFija'];
+        // echo '<pre>'; print_r((array)$data->faoc[1][0]); echo '</pre>';
+        $excel = WriterEntityFactory::createXLSXWriter();
+        $excel->openToBrowser('Volumetrias Front Office Fija(' . date('Y-m-d') . ').xlsx');
+        // $wrapText = (new StyleBuilder())->setShouldWrapText(false)->build();
+
+        $titles = array('TICKETID', 'ZONA_TKT', 'TIPO_TKT', 'CREATIONDATE', 'CLOSEDATE', 'ACTUALFINISH', 'STATUS', 'INTERNALPRIORITY', 'URGENCY', 'CREATEDBY', 'CHANGEDATE', 'OWNERGROUP', 'LOCATION', 'MUN100', 'AFECTACION_TOTAL_CORE', 'INCEXCLUIR', 'PROVEEDORES', 'TICKET_EXT', 'DESCRIPTION', 'EXTERNALSYSTEM', 'RUTA_TKT', 'INC_ALARMA', 'INCSOLUCION', 'GERENTE', 'REGIONAL', 'PROBLEM_CODE', 'PROBLEM_DESCRIPTION', 'CAUSE_CODE', 'CAUSE_DESCRIPTION', 'REMEDY_CODE', 'REMEDY_DESCRIPTION', 'TIEMPO_VIDA_TKT', 'TIEMPO_RESOLUCION_TKT', 'TIEMPO_DETECCION', 'TIEMPO_ESCALA', 'TIEMPO_FALLA');
+
+        $header = WriterEntityFactory::createRowFromArray($titles);
+
+
+        $faoc = $excel->getCurrentSheet();
+        $faoc->setName('FOHFC');
+        $excel->addRow($header);
+
+        foreach ($data->fohfc as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+        // // $ejmplo = WriterEntityFactory::createRowFromArray(array("hola",'qie','pex'));
+
+        $faob = $excel->addNewSheetAndMakeItCurrent();
+        $faob->setName('FOIP');
+        $excel->addRow($header);
+
+        foreach ($data->foip as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $fapp = $excel->addNewSheetAndMakeItCurrent();
+        $fapp->setName('FOINF');
+        $excel->addRow($header);
+
+        foreach ($data->foinf as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $fee = $excel->addNewSheetAndMakeItCurrent();
+        $fee->setName('FOTV');
+        $excel->addRow($header);
+
+        foreach ($data->fotv as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $fi = $excel->addNewSheetAndMakeItCurrent();
+        $fi->setName('PILOTO TV');
+        $excel->addRow($header);
+
+        foreach ($data->pilototv as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $foip = $excel->addNewSheetAndMakeItCurrent();
+        $foip->setName('FOSMU');
+        $excel->addRow($header);
+
+
+        foreach ($data->fosmu as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+        $excel->close();
+    }
 
 }
 

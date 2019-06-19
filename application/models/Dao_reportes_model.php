@@ -165,6 +165,19 @@ class Dao_reportes_model extends CI_Model {
         ");
         return $query->result();
     }
+    
+    public function getNemonicosFixedAccordingDate($fi, $ff) {
+        $this->db->where('(DESCRIPTION LIKE "%FOHFC%"');
+        $this->db->or_where('DESCRIPTION LIKE "%FOIP%"');
+        $this->db->or_where('DESCRIPTION LIKE "%FOINF%"');
+        $this->db->or_where('DESCRIPTION LIKE "%FOTV%"');
+        $this->db->or_where('DESCRIPTION LIKE "%PILOTO TV%"');
+        $this->db->or_where('DESCRIPTION LIKE "%FOSMU%")');
+        $this->db->where("DATE_FORMAT(`CREATIONDATE`, '%Y-%m-%d') BETWEEN '$fi' AND '$ff'");
+        $this->db->order_by('DESCRIPTION', 'DESC');
+        $query = $this->db->get('maximo.INCIDENT');
+        return $query->result();
+    }
 
 }
 

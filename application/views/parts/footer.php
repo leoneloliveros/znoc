@@ -186,6 +186,9 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
 <script type="text/javascript" src="<?= base_url('assets/js/modules/reporte_sla_customer.js?v=' . validarEnProduccion()); ?>"></script>
 <?php endif ?>
+<?php if ($this->uri->segment(2) === "volumetria_fija"):?>
+  <script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria_fija.js?v=' . validarEnProduccion()); ?>"></script>
+<?php endif ?>
 <!-- **********************************************FIN REPORTE SLAS********************************************** -->
 <script type="text/javascript"> 
   // para ponerle active al li seleccionado 
