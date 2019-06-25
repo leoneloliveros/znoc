@@ -432,7 +432,7 @@ class Reportes extends CI_Controller {
         
 //         echo '<pre>'; print_r($data_tgr); echo '</pre>';
         $excel = WriterEntityFactory::createXLSXWriter();
-        $excel->openToBrowser('Volumetrias Customer Care Incidentes(' . date('Y-m-d') . ').xlsx');
+        $excel->openToBrowser('Volumetrias Customer Care(' . date('Y-m-d') . ').xlsx');
         // $wrapText = (new StyleBuilder())->setShouldWrapText(false)->build();
 
         $titles = array('TICKETID', 'ZONA_TKT', 'TIPO_TKT', 'CREATIONDATE', 'CLOSEDATE', 'ACTUALFINISH', 'STATUS', 'INTERNALPRIORITY', 'URGENCY', 'CREATEDBY', 'CHANGEDATE', 'OWNERGROUP', 'LOCATION', 'MUN100', 'AFECTACION_TOTAL_CORE', 'INCEXCLUIR', 'PROVEEDORES', 'TICKET_EXT', 'DESCRIPTION', 'EXTERNALSYSTEM', 'RUTA_TKT', 'INC_ALARMA', 'INCSOLUCION', 'GERENTE', 'REGIONAL', 'PROBLEM_CODE', 'PROBLEM_DESCRIPTION', 'CAUSE_CODE', 'CAUSE_DESCRIPTION', 'REMEDY_CODE', 'REMEDY_DESCRIPTION', 'TIEMPO_VIDA_TKT', 'TIEMPO_RESOLUCION_TKT', 'TIEMPO_DETECCION', 'TIEMPO_ESCALA', 'TIEMPO_FALLA');
@@ -547,19 +547,19 @@ class Reportes extends CI_Controller {
     
     public function excelVolumetriasCustomerCareNotas($fdesde, $fhasta) {
         
-//        set_time_limit(-1);
-//        ini_set('memory_limit', '1500M');
+        set_time_limit(-1);
+        ini_set('memory_limit', '1500M');
         $data_tgs = $this->Dao_reportes_model->getNotesByCoordination($fdesde, $fhasta, 'TG:S');
-//        $data_tgt11s = $this->Dao_reportes_model->getNotesByCoordination($fdesde, $fhasta, 'TGT11S:');
-//        $data_tgt5s = $this->Dao_reportes_model->getNotesByCoordination($fdesde, $fhasta, 'TGT5S:');
-//        $data_cccom_mail = $this->Dao_reportes_model->getNotesByCoordination($fdesde, $fhasta, 'CCCOM_MAIL');
-//        $data_cccom_chats = $this->Dao_reportes_model->getNotesByCoordination($fdesde, $fhasta, 'CCCOM_CHATS');
-//        $data_ccrec_cci = $this->Dao_reportes_model->getNotesByCoordination($fdesde, $fhasta, 'CCREC_CCI');
-//        $data_ccrec_son = $this->Dao_reportes_model->getNotesByCoordination($fdesde, $fhasta, 'CCREC_SON');
-//        echo '<pre>'; print_r($data_tgs);exit; echo '</pre>';
+        $data_tgt11s = $this->Dao_reportes_model->getNotesByCoordination($fdesde, $fhasta, 'TGT11S:');
+        $data_tgt5s = $this->Dao_reportes_model->getNotesByCoordination($fdesde, $fhasta, 'TGT5S:');
+        $data_cccom_mail = $this->Dao_reportes_model->getNotesByCoordination($fdesde, $fhasta, 'CCCOM_MAIL');
+        $data_cccom_chats = $this->Dao_reportes_model->getNotesByCoordination($fdesde, $fhasta, 'CCCOM_CHATS');
+        $data_ccrec_cci = $this->Dao_reportes_model->getNotesByCoordination($fdesde, $fhasta, 'CCREC_CCI');
+        $data_ccrec_son = $this->Dao_reportes_model->getNotesByCoordination($fdesde, $fhasta, 'CCREC_SON');
+//         echo '<pre>'; print_r($data_tgs);exit; echo '</pre>';
         $excel = WriterEntityFactory::createXLSXWriter();
         $excel->openToBrowser('Volumetrias Customer Care Notas(' . date('Y-m-d') . ').xlsx');
-//        $wrapText = (new StyleBuilder())->setShouldWrapText(false)->build();
+        // $wrapText = (new StyleBuilder())->setShouldWrapText(false)->build();
 
         $titles = array('RECORDKEY', 'CREATEDATE', 'DESCRIPTION', 'MODIFYDATE', 'MODIFYBY', 'DESCRIPTION_LONGDESCRIPTION', 'CLASS', 'LOGTYPE');
 
@@ -575,62 +575,61 @@ class Reportes extends CI_Controller {
             $excel->addRow($row);
         }
         
-//        $ejmplo = WriterEntityFactory::createRowFromArray(array("hola",'qie','pex'));
+        // $ejmplo = WriterEntityFactory::createRowFromArray(array("hola",'qie','pex'));
 
-//        $tgt11s = $excel->addNewSheetAndMakeItCurrent();
-//        $tgt11s->setName('TGT11S:');
-//        $excel->addRow($header);
-//
-//        foreach ($data_tgt11s as $volumetrias) {
-//            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
-//            $excel->addRow($row);
-//        }
-//
-//        $tgt5s = $excel->addNewSheetAndMakeItCurrent();
-//        $tgt5s->setName('TGT5S:');
-//        $excel->addRow($header);
-//
-//        foreach ($data_tgt5s as $volumetrias) {
-//            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
-//            $excel->addRow($row);
-//        }
-//
-//        $cccom_mail = $excel->addNewSheetAndMakeItCurrent();
-//        $cccom_mail->setName('CCCOM_MAIL');
-//        $excel->addRow($header);
-//
-//        foreach ($data_cccom_mail as $volumetrias) {
-//            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
-//            $excel->addRow($row);
-//        }
-//
-//        $cccom_chats = $excel->addNewSheetAndMakeItCurrent();
-//        $cccom_chats->setName('CCCOM_CHATS');
-//        $excel->addRow($header);
-//
-//        foreach ($data_cccom_chats as $volumetrias) {
-//            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
-//            $excel->addRow($row);
-//        }
-//
-//        $ccrec_cci = $excel->addNewSheetAndMakeItCurrent();
-//        $ccrec_cci->setName('CCREC_CCI');
-//        $excel->addRow($header);
-//
-//        foreach ($data_ccrec_cci as $volumetrias) {
-//            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
-//            $excel->addRow($row);
-//        }
-//        
-//        $ccrec_son = $excel->addNewSheetAndMakeItCurrent();
-//        $ccrec_son->setName('CCREC_SON');
-//        $excel->addRow($header);
-//
-//        foreach ($data_ccrec_son as $volumetrias) {
-//            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
-//            $excel->addRow($row);
-//        }
+        $tgt11s = $excel->addNewSheetAndMakeItCurrent();
+        $tgt11s->setName('TGT11S:');
+        $excel->addRow($header);
+
+        foreach ($data_tgt11s as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $tgt5s = $excel->addNewSheetAndMakeItCurrent();
+        $tgt5s->setName('TGT5S:');
+        $excel->addRow($header);
+
+        foreach ($data_tgt5s as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $cccom_mail = $excel->addNewSheetAndMakeItCurrent();
+        $cccom_mail->setName('CCCOM_MAIL');
+        $excel->addRow($header);
+
+        foreach ($data_cccom_mail as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $cccom_chats = $excel->addNewSheetAndMakeItCurrent();
+        $cccom_chats->setName('CCCOM_CHATS');
+        $excel->addRow($header);
+
+        foreach ($data_cccom_chats as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $ccrec_cci = $excel->addNewSheetAndMakeItCurrent();
+        $ccrec_cci->setName('CCREC_CCI');
+        $excel->addRow($header);
+
+        foreach ($data_ccrec_cci as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
         
+        $ccrec_son = $excel->addNewSheetAndMakeItCurrent();
+        $ccrec_son->setName('CCREC_SON');
+        $excel->addRow($header);
+
+        foreach ($data_ccrec_son as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
         $excel->close();
     }
 
