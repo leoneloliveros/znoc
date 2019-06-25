@@ -274,6 +274,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <span>Principal</span>
             </a>
           </li>
+          <li id="Reportes">
+            <a href="<?= base_url("GeneralReports/showReports") ?>">
+            <i class="fas fa-file-excel"></i>
+              <span>Reportes</span>
+            </a>
+          </li>
 
           <!-- <li><a href="#"><i class="fa fa-id-badge"></i> <span>Agenda</span></a></li> -->
           <li class="treeview" id="areali">
