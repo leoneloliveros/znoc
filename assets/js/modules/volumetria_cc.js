@@ -7,7 +7,8 @@ $(function () {
 
         events: function () {
             $(`#newDate`).click(volumetria.getNemonicosAccordingDate);
-            $(`#excelVol`).click(volumetria.createExcel);
+            $(`#excelVolInc`).click(volumetria.createExcelIncidentes);
+            $(`#excelVolNot`).click(volumetria.createExcelNotas);
         },
 
         getNemonicosAccordingDate: function () {
@@ -105,7 +106,7 @@ $(function () {
                             var subtotal = Object.keys(obj).length;
 
                             volumetria.getNemonicosAccordingDateV2(subtotal);
-                            
+
                             $("#fDesde, #fHasta,#newDate").attr('disabled', false);
 
 
@@ -135,124 +136,127 @@ $(function () {
             }
         },
 
-        createExcel: function () {
-
+        createExcelIncidentes: function () {
             // window.open(base_url + "Reportes/excelVolumetrias");
-            $.post(base_url + "Reportes/enviarDatosExcel", {
-                data: JSON.stringify(volumetria.dataVoltria),
-            },
-                    ).done(function () {
-                window.open(base_url + "Reportes/excelVolumetrias");
-            });
+//            $.post(base_url + "Reportes/enviarDatosExcelCustomerCare", {
+//                data: JSON.stringify(volumetria.dataVoltria),
+//                dataV2: JSON.stringify(volumetria.dataVoltriaV2),
+//            },
+//                    ).done(function () {
+//                window.open(base_url + "Reportes/excelVolumetriasCustomerCare");
+//            });
+            var desde = $('#fDesde').val();
+            var hasta = $('#fHasta').val();
+            window.location.href = base_url + "/Reportes/excelVolumetriasCustomerCareIncidentes/" + desde + "/" + hasta;
 
         },
 
         getNemonicosAccordingDateV2: function (contador) {
             $.post(base_url + "Reportes/c_getNemonicosCCAccordingDateV2", {
-                    desde: $(`#fDesde`).val(),
-                    hasta: $(`#fHasta`).val(),
-                },
-                        function (data) {
-                            const obj = JSON.parse(data);
-                            volumetria.dataVoltria = {
-                                'torre': {'T1': [], 'T2': [], 'T3': [], 'T5': [], 'T11': []},
-                                'mail': {'T1': [], 'T2': [], 'T3': [], 'T5': [], 'T11': []},
-                                'chat': {'T1': [], 'T2': [], 'T3': [], 'T5': [], 'T11': []},
-                                'cci': {'T1': [], 'T2': [], 'T3': [], 'T5': [], 'T11': []},
-                                'oop': {'T1': [], 'T2': [], 'T3': [], 'T5': [], 'T11': []},
-                                'prq': {'T1': [], 'T2': [], 'T3': [], 'T5': [], 'T11': []},
+                desde: $(`#fDesde`).val(),
+                hasta: $(`#fHasta`).val(),
+            },
+                    function (data) {
+                        const obj = JSON.parse(data);
+                        volumetria.dataVoltriaV2 = {
+                            'torre': {'T1': [], 'T2': [], 'T3': [], 'T5': [], 'T11': []},
+                            'mail': {'T1': [], 'T2': [], 'T3': [], 'T5': [], 'T11': []},
+                            'chat': {'T1': [], 'T2': [], 'T3': [], 'T5': [], 'T11': []},
+                            'cci': {'T1': [], 'T2': [], 'T3': [], 'T5': [], 'T11': []},
+                            'oop': {'T1': [], 'T2': [], 'T3': [], 'T5': [], 'T11': []},
+                            'prq': {'T1': [], 'T2': [], 'T3': [], 'T5': [], 'T11': []},
+                        }
+
+                        var nel = [];
+                        $.each(obj, function (i, val) {
+                            if (val.DESCRIPTION.toUpperCase().includes('TG:S')) {
+                                const horario = volumetria.getScheduleV2(val.CREATEDATE.substr(11, 5), val.DESCRIPTION);
+                                val['tipoT'] = horario;
+                                volumetria.dataVoltriaV2.torre[horario].push(val);
+                            } else if (val.DESCRIPTION.toUpperCase().includes('CCCOM_MAIL')) {
+                                const horario = volumetria.getScheduleV2(val.CREATEDATE.substr(11, 5), val.DESCRIPTION);
+                                val['tipoT'] = horario;
+                                volumetria.dataVoltriaV2.mail[horario].push(val);
+                            } else if (val.DESCRIPTION.toUpperCase().includes('CCCOM_CHATS')) {
+                                const horario = volumetria.getScheduleV2(val.CREATEDATE.substr(11, 5), val.DESCRIPTION);
+                                val['tipoT'] = horario;
+                                volumetria.dataVoltriaV2.chat[horario].push(val);
+                            } else if (val.DESCRIPTION.toUpperCase().includes('CCREC_CCI')) {
+                                const horario = volumetria.getScheduleV2(val.CREATEDATE.substr(11, 5), val.DESCRIPTION);
+                                val['tipoT'] = horario;
+                                volumetria.dataVoltriaV2.cci[horario].push(val);
+                            } else if (val.DESCRIPTION.toUpperCase().includes('CCREC_SON')) {
+                                const horario = volumetria.getScheduleV2(val.CREATEDATE.substr(11, 5), val.DESCRIPTION);
+                                val['tipoT'] = horario;
+                                volumetria.dataVoltriaV2.oop[horario].push(val);
+                            } else if (val.DESCRIPTION.toUpperCase().includes('TGR:')) {
+                                const horario = volumetria.getScheduleV2(val.CREATEDATE.substr(11, 5), val.DESCRIPTION);
+                                val['tipoT'] = horario;
+                                volumetria.dataVoltriaV2.torre[horario].push(val);
+                            } else if (val.DESCRIPTION.toUpperCase().includes('CCREC_OOP')) {
+                                const horario = volumetria.getScheduleV2(val.CREATEDATE.substr(11, 5), val.DESCRIPTION);
+                                val['tipoT'] = horario;
+                                volumetria.dataVoltriaV2.oop[horario].push(val);
+                            } else if (val.DESCRIPTION.toUpperCase().includes('CCREC_PQR')) {
+                                const horario = volumetria.getScheduleV2(val.CREATEDATE.substr(11, 5), val.DESCRIPTION);
+                                val['tipoT'] = horario;
+                                volumetria.dataVoltriaV2.prq[horario].push(val);
+                            } else {
+                                nel.push(val.DESCRIPTION);
                             }
 
-                            var nel = [];
-                            $.each(obj, function (i, val) {
-                                if (val.DESCRIPTION.toUpperCase().includes('TG:S')) {
-                                    const horario = volumetria.getScheduleV2(val.CREATEDATE.substr(11, 5), val.DESCRIPTION);
-                                    val['tipoT'] = horario;
-                                    volumetria.dataVoltria.torre[horario].push(val);
-                                } else if (val.DESCRIPTION.toUpperCase().includes('CCCOM_MAIL')) {
-                                    const horario = volumetria.getScheduleV2(val.CREATEDATE.substr(11, 5), val.DESCRIPTION);
-                                    val['tipoT'] = horario;
-                                    volumetria.dataVoltria.mail[horario].push(val);
-                                } else if (val.DESCRIPTION.toUpperCase().includes('CCCOM_CHATS')) {
-                                    const horario = volumetria.getScheduleV2(val.CREATEDATE.substr(11, 5), val.DESCRIPTION);
-                                    val['tipoT'] = horario;
-                                    volumetria.dataVoltria.chat[horario].push(val);
-                                } else if (val.DESCRIPTION.toUpperCase().includes('CCREC_CCI')) {
-                                    const horario = volumetria.getScheduleV2(val.CREATEDATE.substr(11, 5), val.DESCRIPTION);
-                                    val['tipoT'] = horario;
-                                    volumetria.dataVoltria.cci[horario].push(val);
-                                } else if (val.DESCRIPTION.toUpperCase().includes('CCREC_SON')) {
-                                    const horario = volumetria.getScheduleV2(val.CREATEDATE.substr(11, 5), val.DESCRIPTION);
-                                    val['tipoT'] = horario;
-                                    volumetria.dataVoltria.oop[horario].push(val);
-                                } else if (val.DESCRIPTION.toUpperCase().includes('TGR:')) {
-                                    const horario = volumetria.getScheduleV2(val.CREATEDATE.substr(11, 5), val.DESCRIPTION);
-                                    val['tipoT'] = horario;
-                                    volumetria.dataVoltria.torre[horario].push(val);
-                                } else if (val.DESCRIPTION.toUpperCase().includes('CCREC_OOP')) {
-                                    const horario = volumetria.getScheduleV2(val.CREATEDATE.substr(11, 5), val.DESCRIPTION);
-                                    val['tipoT'] = horario;
-                                    volumetria.dataVoltria.oop[horario].push(val);
-                                } else if (val.DESCRIPTION.toUpperCase().includes('CCREC_PQR')) {
-                                    const horario = volumetria.getScheduleV2(val.CREATEDATE.substr(11, 5), val.DESCRIPTION);
-                                    val['tipoT'] = horario;
-                                    volumetria.dataVoltria.prq[horario].push(val);
-                                } else {
-                                    nel.push(val.DESCRIPTION);
-                                }
-
-                            });
+                        });
 
 
 
-                            $('#TORREBadge').text(Object.keys(volumetria.dataVoltria.torre.T1).length + Object.keys(volumetria.dataVoltria.torre.T2).length + Object.keys(volumetria.dataVoltria.torre.T3).length + Object.keys(volumetria.dataVoltria.torre.T5).length + Object.keys(volumetria.dataVoltria.torre.T11).length);
-                            $('#MAILBadge').text(Object.keys(volumetria.dataVoltria.mail.T1).length + Object.keys(volumetria.dataVoltria.mail.T2).length + Object.keys(volumetria.dataVoltria.mail.T3).length + Object.keys(volumetria.dataVoltria.mail.T5).length + Object.keys(volumetria.dataVoltria.mail.T11).length);
-                            $('#CHATBadge').text(Object.keys(volumetria.dataVoltria.chat.T1).length + Object.keys(volumetria.dataVoltria.chat.T2).length + Object.keys(volumetria.dataVoltria.chat.T3).length + Object.keys(volumetria.dataVoltria.chat.T5).length + Object.keys(volumetria.dataVoltria.chat.T11).length);
-                            $('#CCIBadge').text(Object.keys(volumetria.dataVoltria.cci.T1).length + Object.keys(volumetria.dataVoltria.cci.T2).length + Object.keys(volumetria.dataVoltria.cci.T3).length + Object.keys(volumetria.dataVoltria.cci.T5).length + Object.keys(volumetria.dataVoltria.cci.T11).length);
-                            $('#OOPBadge').text(Object.keys(volumetria.dataVoltria.oop.T1).length + Object.keys(volumetria.dataVoltria.oop.T2).length + Object.keys(volumetria.dataVoltria.oop.T3).length + Object.keys(volumetria.dataVoltria.oop.T5).length + Object.keys(volumetria.dataVoltria.oop.T11).length);
-                            $('#PRQBadge').text(Object.keys(volumetria.dataVoltria.prq.T1).length + Object.keys(volumetria.dataVoltria.prq.T2).length + Object.keys(volumetria.dataVoltria.prq.T3).length + Object.keys(volumetria.dataVoltria.prq.T5).length + Object.keys(volumetria.dataVoltria.prq.T11).length);
+                        $('#TORREBadge').text(Object.keys(volumetria.dataVoltriaV2.torre.T1).length + Object.keys(volumetria.dataVoltriaV2.torre.T2).length + Object.keys(volumetria.dataVoltriaV2.torre.T3).length + Object.keys(volumetria.dataVoltriaV2.torre.T5).length + Object.keys(volumetria.dataVoltriaV2.torre.T11).length);
+                        $('#MAILBadge').text(Object.keys(volumetria.dataVoltriaV2.mail.T1).length + Object.keys(volumetria.dataVoltriaV2.mail.T2).length + Object.keys(volumetria.dataVoltriaV2.mail.T3).length + Object.keys(volumetria.dataVoltriaV2.mail.T5).length + Object.keys(volumetria.dataVoltriaV2.mail.T11).length);
+                        $('#CHATBadge').text(Object.keys(volumetria.dataVoltriaV2.chat.T1).length + Object.keys(volumetria.dataVoltriaV2.chat.T2).length + Object.keys(volumetria.dataVoltriaV2.chat.T3).length + Object.keys(volumetria.dataVoltriaV2.chat.T5).length + Object.keys(volumetria.dataVoltriaV2.chat.T11).length);
+                        $('#CCIBadge').text(Object.keys(volumetria.dataVoltriaV2.cci.T1).length + Object.keys(volumetria.dataVoltriaV2.cci.T2).length + Object.keys(volumetria.dataVoltriaV2.cci.T3).length + Object.keys(volumetria.dataVoltriaV2.cci.T5).length + Object.keys(volumetria.dataVoltriaV2.cci.T11).length);
+                        $('#OOPBadge').text(Object.keys(volumetria.dataVoltriaV2.oop.T1).length + Object.keys(volumetria.dataVoltriaV2.oop.T2).length + Object.keys(volumetria.dataVoltriaV2.oop.T3).length + Object.keys(volumetria.dataVoltriaV2.oop.T5).length + Object.keys(volumetria.dataVoltriaV2.oop.T11).length);
+                        $('#PRQBadge').text(Object.keys(volumetria.dataVoltriaV2.prq.T1).length + Object.keys(volumetria.dataVoltriaV2.prq.T2).length + Object.keys(volumetria.dataVoltriaV2.prq.T3).length + Object.keys(volumetria.dataVoltriaV2.prq.T5).length + Object.keys(volumetria.dataVoltriaV2.prq.T11).length);
 
-                            $('#T1torre').text(Object.keys(volumetria.dataVoltria.torre.T1).length);
-                            $('#T2torre').text(Object.keys(volumetria.dataVoltria.torre.T2).length);
-                            $('#T3torre').text(Object.keys(volumetria.dataVoltria.torre.T3).length);
-                            $('#T5torre').text(Object.keys(volumetria.dataVoltria.torre.T5).length);
-                            $('#T11torre').text(Object.keys(volumetria.dataVoltria.torre.T11).length);
-                            
-                            $('#T1mail').text(Object.keys(volumetria.dataVoltria.mail.T1).length);
-                            $('#T2mail').text(Object.keys(volumetria.dataVoltria.mail.T2).length);
-                            $('#T3mail').text(Object.keys(volumetria.dataVoltria.mail.T3).length);
-                            
-                            $('#T1chat').text(Object.keys(volumetria.dataVoltria.chat.T1).length);
-                            $('#T2chat').text(Object.keys(volumetria.dataVoltria.chat.T2).length);
-                            $('#T3chat').text(Object.keys(volumetria.dataVoltria.chat.T3).length);
-                            $('#T4chat').text('0');
-                            
-                            $('#T1cci').text(Object.keys(volumetria.dataVoltria.cci.T1).length);
-                            $('#T2cci').text(Object.keys(volumetria.dataVoltria.cci.T2).length);
-                            $('#T3cci').text('0');
-                            $('#T4cci').text('0');
-                            
-                            $('#T1oop').text(Object.keys(volumetria.dataVoltria.oop.T1).length);
-                            $('#T2oop').text(Object.keys(volumetria.dataVoltria.oop.T2).length);
-                            $('#T3oop').text('0');
-                            $('#T4oop').text('0');
-                            
-                            $('#T5prq').text(Object.keys(volumetria.dataVoltria.prq.T5).length);
-                            $('#T6prq').text('0');
-                            $('#T7prq').text('0');
-                            $('#T8prq').text('0');
+                        $('#T1torre').text(Object.keys(volumetria.dataVoltriaV2.torre.T1).length);
+                        $('#T2torre').text(Object.keys(volumetria.dataVoltriaV2.torre.T2).length);
+                        $('#T3torre').text(Object.keys(volumetria.dataVoltriaV2.torre.T3).length);
+                        $('#T5torre').text(Object.keys(volumetria.dataVoltriaV2.torre.T5).length);
+                        $('#T11torre').text(Object.keys(volumetria.dataVoltriaV2.torre.T11).length);
 
-                            var total = contador + Object.keys(obj).length;
-                            $(`#totalNemonicos`).text(total);
-                            
-                            helper.hideLoading();
+                        $('#T1mail').text(Object.keys(volumetria.dataVoltriaV2.mail.T1).length);
+                        $('#T2mail').text(Object.keys(volumetria.dataVoltriaV2.mail.T2).length);
+                        $('#T3mail').text(Object.keys(volumetria.dataVoltriaV2.mail.T3).length);
 
-   
-                        }
-                );
-        
+                        $('#T1chat').text(Object.keys(volumetria.dataVoltriaV2.chat.T1).length);
+                        $('#T2chat').text(Object.keys(volumetria.dataVoltriaV2.chat.T2).length);
+                        $('#T3chat').text(Object.keys(volumetria.dataVoltriaV2.chat.T3).length);
+                        $('#T4chat').text('0');
+
+                        $('#T1cci').text(Object.keys(volumetria.dataVoltriaV2.cci.T1).length);
+                        $('#T2cci').text(Object.keys(volumetria.dataVoltriaV2.cci.T2).length);
+                        $('#T3cci').text('0');
+                        $('#T4cci').text('0');
+
+                        $('#T1oop').text(Object.keys(volumetria.dataVoltriaV2.oop.T1).length);
+                        $('#T2oop').text(Object.keys(volumetria.dataVoltriaV2.oop.T2).length);
+                        $('#T3oop').text('0');
+                        $('#T4oop').text('0');
+
+                        $('#T5prq').text(Object.keys(volumetria.dataVoltriaV2.prq.T5).length);
+                        $('#T6prq').text('0');
+                        $('#T7prq').text('0');
+                        $('#T8prq').text('0');
+
+                        var total = contador + Object.keys(obj).length;
+                        $(`#totalNemonicos`).text(total);
+
+                        helper.hideLoading();
+
+
+                    }
+            );
+
         },
-        
+
         getScheduleV2: function (hora, descripcion) {
             if (descripcion.toUpperCase().includes('TGT11S') || descripcion.toUpperCase().includes('TGT11R')) {
                 return 'T11';
@@ -269,6 +273,14 @@ $(function () {
             }
         },
         
+        createExcelNotas: function () {
+            var desde = $('#fDesde').val();
+            var hasta = $('#fHasta').val();
+//            window.location.href = base_url + "/Reportes/excelVolumetriasCustomerCareNotas/" + desde + "/" + hasta;
+            window.open(base_url + "Reportes/excelVolumetriasCustomerCareNotas/" + desde + "/" + hasta, '_blank');
+
+        },
+
     }
     volumetria.init();
 });

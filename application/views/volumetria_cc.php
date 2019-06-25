@@ -347,7 +347,8 @@
     </table>
     <div class="row">
       <div class="col-sm-12">
-        <button id="excelVol" class="exportExcel"><i class="far fa-file-excel"></i> Generar Excel</button>
+        <button id="excelVolInc" class="exportExcel"><i class="far fa-file-excel"></i> Generar Excel Incidente</button>
+        <button id="excelVolNot" class="exportExcel m-l-25"><i class="far fa-file-excel"></i> Generar Excel Notas</button>
       </div>
     </div>
   </div>

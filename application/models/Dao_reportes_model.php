@@ -148,20 +148,22 @@ class Dao_reportes_model extends CI_Model {
         $query = $this->db->query("
             SELECT CREATEDATE, DESCRIPTION 
             FROM maximo.WORKLOG 
-            WHERE DESCRIPTION LIKE '%TG:S%'
+            WHERE (DESCRIPTION LIKE '%TG:S%'
                 OR DESCRIPTION LIKE '%TGT11S:%'
                 OR DESCRIPTION LIKE '%TGT5S:%'
                 OR DESCRIPTION LIKE '%CCCOM_MAIL%'
                 OR DESCRIPTION LIKE '%CCCOM_CHATS%'
                 OR DESCRIPTION LIKE '%CCREC_CCI%'
-                OR DESCRIPTION LIKE '%CCREC_SON%'
+                OR DESCRIPTION LIKE '%CCREC_SON%')
+            AND DATE_FORMAT(`CREATEDATE`, '%Y-%m-%d') BETWEEN '$fi' AND '$ff'
             UNION ALL
             SELECT CREATIONDATE,DESCRIPTION FROM maximo.INCIDENT 
-            WHERE DESCRIPTION LIKE '%TGR:%' 
+            WHERE (DESCRIPTION LIKE '%TGR:%' 
                 OR DESCRIPTION LIKE '%TGT11R:%' 
                 OR DESCRIPTION LIKE '%TGT5R:%' 
                 OR DESCRIPTION LIKE '%CCREC_OOP%' 
-                OR DESCRIPTION LIKE '%CCREC_PQR%' 
+                OR DESCRIPTION LIKE '%CCREC_PQR%') 
+            AND DATE_FORMAT(`CREATIONDATE`, '%Y-%m-%d') BETWEEN '$fi' AND '$ff'
         ");
         return $query->result();
     }
@@ -176,6 +178,25 @@ class Dao_reportes_model extends CI_Model {
         $this->db->where("DATE_FORMAT(`CREATIONDATE`, '%Y-%m-%d') BETWEEN '$fi' AND '$ff'");
         $this->db->order_by('DESCRIPTION', 'DESC');
         $query = $this->db->get('maximo.INCIDENT');
+        return $query->result();
+    }
+    
+    //Retorna las notas de una coordinacion dentro de un rango de fechas
+    public function getNotesByCoordination($fdesde, $fhasta, $nemonicos) {
+        $query = $this->db->query("
+            SELECT RECORDKEY,
+                CREATEDATE,
+                DESCRIPTION,
+                MODIFYDATE,
+                MODIFYBY,
+                DESCRIPTION_LONGDESCRIPTION,
+                CLASS,
+                LOGTYPE
+            FROM maximo.WORKLOG
+            WHERE DESCRIPTION LIKE '%$nemonicos%'
+            AND DATE_FORMAT(CREATEDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
+        ");
+//        print_r($this->db->last_query().';<br>');
         return $query->result();
     }
 
