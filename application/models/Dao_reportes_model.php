@@ -1,29 +1,27 @@
 <?php
 
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dao_reportes_model extends CI_Model {
 
-  public function getNemonicosAccordingDate($fi,$ff)
-  {
-    $this->db->where('(DESCRIPTION LIKE "%FAOC:%"');
-    $this->db->or_where('DESCRIPTION LIKE "%FAOB:%"');
-    $this->db->or_where('DESCRIPTION LIKE "%FAPP:%"');
-    $this->db->or_where('DESCRIPTION LIKE "%FEE:%"');
-    $this->db->or_where('DESCRIPTION LIKE "%FI:%"');
-    $this->db->or_where('DESCRIPTION LIKE "%FOIP:%")');
-    $this->db->where("DATE_FORMAT(`CREATIONDATE`, '%Y-%m-%d') BETWEEN '$fi' AND '$ff'");
-    $this->db->order_by('DESCRIPTION','DESC');
-    $query = $this->db->get('maximo.INCIDENT');
-    // echo '<pre>'; print_r($this->db->last_query()); echo '</pre>';
-    // echo '<pre>'; print_r("======================"); echo '</pre>';
-    return $query->result();
-    // echo '<pre>'; print_r($query->result()); echo '</pre>';
-  }
-  
-  //Retorna el nombre del trabajo, el subestado, y los puntos de acuerdo al id de las tablas puntos, tipo_trabajo y subestado --jc
-    public function getInfoReportSlas($fdesde,$fhasta){
+    public function getNemonicosAccordingDate($fi, $ff) {
+        $this->db->where('(DESCRIPTION LIKE "%FAOC:%"');
+        $this->db->or_where('DESCRIPTION LIKE "%FAOB:%"');
+        $this->db->or_where('DESCRIPTION LIKE "%FAPP:%"');
+        $this->db->or_where('DESCRIPTION LIKE "%FEE:%"');
+        $this->db->or_where('DESCRIPTION LIKE "%FI:%"');
+        $this->db->or_where('DESCRIPTION LIKE "%FOIP:%")');
+        $this->db->where("DATE_FORMAT(`CREATIONDATE`, '%Y-%m-%d') BETWEEN '$fi' AND '$ff'");
+        $this->db->order_by('DESCRIPTION', 'DESC');
+        $query = $this->db->get('maximo.INCIDENT');
+        // echo '<pre>'; print_r($this->db->last_query()); echo '</pre>';
+        // echo '<pre>'; print_r("======================"); echo '</pre>';
+        return $query->result();
+        // echo '<pre>'; print_r($query->result()); echo '</pre>';
+    }
+
+    //Retorna la cantidad de incidentes dentro y fuera de tiempos por cada coordinacion dentro de un rango de tiempo
+    public function getInfoReportSlas($fdesde, $fhasta) {
         $query = $this->db->query("
             SELECT 
                 (CASE WHEN DESCRIPTION LIKE '%FAOC%' THEN 'FAOC'
@@ -57,6 +55,53 @@ class Dao_reportes_model extends CI_Model {
         ");
         return $query->result();
     }
+    
+    //Retorna los incidentes de una coordinacion dentro de un rango de fechas
+    public function getIncidentsByCoordination($fdesde, $fhasta, $coordinacion) {
+        $query = $this->db->query("
+            SELECT TICKETID,
+                ZONA_TKT,
+                TIPO_TKT,
+                CREATIONDATE,
+                CLOSEDATE,
+                ACTUALFINISH,
+                STATUS,
+                INTERNALPRIORITY,
+                URGENCY,
+                CREATEDBY,
+                CHANGEDATE,
+                OWNERGROUP,
+                LOCATION,
+                MUN100,
+                AFECTACION_TOTAL_CORE,
+                INCEXCLUIR,
+                PROVEEDORES,
+                TICKET_EXT,
+                DESCRIPTION,
+                EXTERNALSYSTEM,
+                RUTA_TKT,
+                INC_ALARMA,
+                INCSOLUCION,
+                GERENTE,
+                REGIONAL,
+                PROBLEM_CODE,
+                PROBLEM_DESCRIPTION,
+                CAUSE_CODE,
+                CAUSE_DESCRIPTION,
+                REMEDY_CODE,
+                REMEDY_DESCRIPTION,
+                TIEMPO_VIDA_TKT,
+                TIEMPO_RESOLUCION_TKT,
+                TIEMPO_DETECCION,
+                TIEMPO_ESCALA,
+                TIEMPO_FALLA
+            FROM maximo.INCIDENT
+            WHERE DESCRIPTION LIKE '%$coordinacion%'
+            AND DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
+        ");
+        return $query->result();
+    }
+
 }
 
 /* End of file Dao_reportes_model.php */

@@ -205,7 +205,87 @@ class Reportes extends CI_Controller
     }
     $excel->close();
   }
+  
+  
+  public function excelTiempoEscalamientoMovil($fdesde, $fhasta)
+  {
+    $data_faoc = $this->Dao_reportes_model->getIncidentsByCoordination($fdesde, $fhasta, 'FAOC');
+    $data_faob = $this->Dao_reportes_model->getIncidentsByCoordination($fdesde, $fhasta, 'FAOB');
+    $data_fapp = $this->Dao_reportes_model->getIncidentsByCoordination($fdesde, $fhasta, 'FAPP');
+    $data_fee = $this->Dao_reportes_model->getIncidentsByCoordination($fdesde, $fhasta, 'FEE');
+    $data_fi = $this->Dao_reportes_model->getIncidentsByCoordination($fdesde, $fhasta, 'FI');
+    $data_foip = $this->Dao_reportes_model->getIncidentsByCoordination($fdesde, $fhasta, 'FOIP');
+    
+    $excel = WriterEntityFactory::createXLSXWriter();
+    $excel->openToBrowser('SLAS tiempos de escalamiento movil('.date('Y-m-d').').xlsx');
+    // $wrapText = (new StyleBuilder())->setShouldWrapText(false)->build();
 
+    $titles = array('TICKETID','ZONA_TKT','TIPO_TKT','CREATIONDATE','CLOSEDATE','ACTUALFINISH','STATUS','INTERNALPRIORITY','URGENCY','CREATEDBY','CHANGEDATE','OWNERGROUP','LOCATION','MUN100','AFECTACION_TOTAL_CORE','INCEXCLUIR','PROVEEDORES','TICKET_EXT','DESCRIPTION','EXTERNALSYSTEM','RUTA_TKT','INC_ALARMA','INCSOLUCION','GERENTE','REGIONAL','PROBLEM_CODE','PROBLEM_DESCRIPTION','CAUSE_CODE','CAUSE_DESCRIPTION','REMEDY_CODE','REMEDY_DESCRIPTION','TIEMPO_VIDA_TKT','TIEMPO_RESOLUCION_TKT','TIEMPO_DETECCION','TIEMPO_ESCALA','TIEMPO_FALLA');
+
+    $header = WriterEntityFactory::createRowFromArray($titles);
+
+    
+    $faoc = $excel->getCurrentSheet();
+    $faoc->setName('FAOC');
+    $excel->addRow($header);
+
+    foreach ($data_faoc as $dataFaoc) {
+        $row = WriterEntityFactory::createRowFromArray((array)$dataFaoc);
+        $excel->addRow($row);
+    }
+    // // $ejmplo = WriterEntityFactory::createRowFromArray(array("hola",'qie','pex'));
+    
+    $faob = $excel->addNewSheetAndMakeItCurrent();
+    $faob->setName('FAOB');
+    $excel->addRow($header);
+    
+    foreach ($data_faob as $datFaob) {
+      $row = WriterEntityFactory::createRowFromArray((array)$datFaob);
+      $excel->addRow($row);
+    }
+
+    $fapp = $excel->addNewSheetAndMakeItCurrent();
+    $fapp->setName('FAPP');
+    $excel->addRow($header);
+    
+
+    
+    foreach ($data_fapp as $dataFapp) {
+      $row = WriterEntityFactory::createRowFromArray((array)$dataFapp);
+      $excel->addRow($row);
+    }
+
+    $fee = $excel->addNewSheetAndMakeItCurrent();
+    $fee->setName('FEE');
+    $excel->addRow($header);
+    
+    
+    foreach ($data_fee as $dataFee) {
+      $row = WriterEntityFactory::createRowFromArray((array)$dataFee);
+      $excel->addRow($row);
+    }
+
+    $fi = $excel->addNewSheetAndMakeItCurrent();
+    $fi->setName('FI');
+    $excel->addRow($header);
+
+    
+    foreach ($data_fi as $dataFi) {
+      $row = WriterEntityFactory::createRowFromArray((array)$dataFi);
+      $excel->addRow($row);
+    }
+
+    $foip = $excel->addNewSheetAndMakeItCurrent();
+    $foip->setName('FOIP');
+    $excel->addRow($header);
+    
+    
+    foreach ($data_foip as $dataFoip) {
+      $row = WriterEntityFactory::createRowFromArray((array)$dataFoip);
+      $excel->addRow($row);
+    }
+    $excel->close();
+  }
 }
 
   /* End of file reportes.php */
