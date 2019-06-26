@@ -70,7 +70,12 @@ class Dao_reportes_model extends CI_Model {
     }
 
     //Retorna los incidentes de una coordinacion dentro de un rango de fechas
-    public function getIncidentsByCoordination($fdesde, $fhasta, $coordinacion) {
+    public function getIncidentsByCoordination($fdesde, $fhasta, $coordinacion, $like2= null) {
+        $condicion = '';
+        if ($like2 != null) {
+            $condicion = "DESCRIPTION LIKE '%$like2%' AND";
+        }
+        
         $query = $this->db->query("
             SELECT TICKETID,
                 ZONA_TKT,
@@ -109,7 +114,7 @@ class Dao_reportes_model extends CI_Model {
                 TIEMPO_ESCALA,
                 TIEMPO_FALLA
             FROM maximo.INCIDENT
-            WHERE DESCRIPTION LIKE '%$coordinacion%'
+            WHERE $condicion DESCRIPTION LIKE '%$coordinacion%'
             AND DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
         ");
         return $query->result();
