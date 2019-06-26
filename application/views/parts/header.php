@@ -251,29 +251,74 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
+                  </div>
+                  <!-- /.row -->
+                </li>
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                  <div class="pull-left">
+                    <a href="<?= base_url('User/perfil') ?>" class="btn btn-default btn-flat"><i class="fas fa-cogs"></i> </i> Perfil</a>
+                  </div>
+                  <div class="pull-right">
+                    <a href="<?= base_url('User/logout'); ?>" class="btn btn-default btn-flat">Sign out</a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <!-- Control Sidebar Toggle Button -->
+            <li>
+              <a href="#" data-toggle="control-sidebar"><i class="fas fa-cogs"></i></i></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
 
-                    <!-- search form (Optional) -->
-                    <form action="#" method="get" class="sidebar-form">
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search...">
-                            <span class="input-group-btn">
-                                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </form>
-                    <!-- /.search form -->
+      <!-- sidebar: style can be found in sidebar.less -->
+      <section class="sidebar">
 
-                    <!-- Sidebar Menu -->
-                    <ul class="sidebar-menu" data-widget="tree">
-                        <li class="header">MENÚ DE NAVEGACIÓN</li>
-                        <!-- Optionally, you can add icons to the links -->
-                        <li id="principal">
-                            <a href="<?= base_url("User/principal") ?>">
-                                <i class="fa fa-home"></i>
-                                <span>Principal</span>
-                            </a>
-                        </li>
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel">
+          <div class="pull-left image">
+            <img src="<?= base_url("assets2/dist/img/usuarios/$img_user_session.jpg"); ?>" class="img-circle" alt="User Image">
+          </div>
+          <div class="pull-left info">
+            <p><?= $this->session->userdata('name') ?></p>
+            <!-- Status -->
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          </div>
+        </div>
+
+        <!-- search form (Optional) -->
+        <form action="#" method="get" class="sidebar-form">
+          <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search...">
+            <span class="input-group-btn">
+              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+              </button>
+            </span>
+          </div>
+        </form>
+        <!-- /.search form -->
+
+        <!-- Sidebar Menu -->
+        <ul class="sidebar-menu" data-widget="tree">
+          <li class="header">MENÚ DE NAVEGACIÓN</li>
+          <!-- Optionally, you can add icons to the links -->
+          <li id="principal">
+            <a href="<?= base_url("User/principal") ?>">
+              <i class="fa fa-home"></i>
+              <span>Principal</span>
+            </a>
+          </li>
+          <li id="Reportes">
+            <a href="<?= base_url("GeneralReports/showReports") ?>">
+            <i class="fas fa-file-excel"></i>
+              <span>Reportes</span>
+            </a>
+          </li>
 
           <!-- <li><a href="#"><i class="fa fa-id-badge"></i> <span>Agenda</span></a></li> -->
                         <li class="treeview" id="areali">
