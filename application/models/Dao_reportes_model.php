@@ -68,6 +68,16 @@ class Dao_reportes_model extends CI_Model {
         return $data;
     }
 
+    public function getDataTiempoFija($fdesde,$fhasta){
+        $query = $this->db->query("
+            SELECT * FROM sfijos.TIEMPO_FIJA;
+            WHERE DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
+        ");
+        $data =  $query->result();
+        $_SESSION['x'] = $data;
+        return $data;
+    }
+
     public function getTiempoNOCEste($fdesde,$fhasta) {
         $query = $this->db->query("
         SELECT TI.TICKETID, TI.ZONA_TKT,
