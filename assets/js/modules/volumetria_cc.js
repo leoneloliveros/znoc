@@ -261,7 +261,7 @@ $(function () {
             if (descripcion.toUpperCase().includes('TGT11S') || descripcion.toUpperCase().includes('TGT11R')) {
                 return 'T11';
             } else {
-                if (descripcion.toUpperCase().includes('TGT5') || descripcion.toUpperCase().includes('TGT5R')) {
+                if (descripcion.toUpperCase().includes('TGT5') || descripcion.toUpperCase().includes('TGT5R') || descripcion.toUpperCase().includes('PQR')) {
                     return 'T5';
                 } else if (hora >= '06:01' && hora <= '14:00') {
                     return 'T1';
