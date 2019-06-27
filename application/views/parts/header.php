@@ -431,6 +431,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </a>
 
         </li>
+        <li class="" id="malla">
+
+          <a href="<?= base_url('Malla') ?>">
+
+            <i class="fas fa-edit"></i>
+            <span>Maya</span>
+          </a>
+
+        </li>
 
         </ul>
         <!-- /.sidebar-menu -->
