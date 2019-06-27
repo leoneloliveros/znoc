@@ -1,12 +1,12 @@
 $(function () {
-    slas = {
+    slas_customer = {
         init: function () {
-            slas.events();
-            slas.getInfoReportSlas();
+            slas_customer.events();
+            slas_customer.getInfoReportSlas();
         },
 
         events: function () {
-            $(`#newDate`).click(slas.getInfoReportSlas);
+            $(`#newDate`).click(slas_customer.getInfoReportSlas);
         },
 
         getInfoReportSlas: function () {
@@ -15,7 +15,7 @@ $(function () {
                 $("#fDesde, #fHasta").css({'border-color': '#cccccc', 'box-shadow': 'unset'});
                 helper.showLoading();
 
-                $.post(base_url + "Reportes/c_getInfoReportSlas", {
+                $.post(base_url + "Reportes/c_getInfoReportSlasCustomer", {
                     desde: $(`#fDesde`).val(),
                     hasta: $(`#fHasta`).val(),
                 },
@@ -23,7 +23,7 @@ $(function () {
                             const obj = JSON.parse(data);
                             $("#newDate,#fDesde, #fHasta").attr('disabled', false);
                             helper.hideLoading();
-                            slas.printTableReportSlas(obj);
+                            slas_customer.printTableReportSlas(obj);
                         }
                 );
             } else {
@@ -35,26 +35,21 @@ $(function () {
             }
         },
         printTableReportSlas: function (data) {
-            if (slas.table_slas) {
-                var tabla = slas.table_slas;
+            if (slas_customer.table_slas_customer) {
+                var tabla = slas_customer.table_slas_customer;
                 tabla.clear().draw();
                 tabla.rows.add(data);
                 tabla.columns.adjust().draw();
                 return;
             }
             // nombramos la variable para la tabla y llamamos la configuiracion que se encuentra en /assets/js/modules/helper.js
-            slas.table_slas = $('#table_slas').DataTable(slas.configTableSimple(data, [
+            slas_customer.table_slas_customer = $('#table_slas_customer').DataTable(slas_customer.configTableSimple(data, [
                 {title: "coordinación", data: "coordinacion"},
-                {title: "Urgencia alta, impacto alto<br>< = 20 min", data: "alta_alta_20_min"},
-                {title: "Urgencia alta, impacto alto<br>> 20 min", data: "alta_alta_20_max"},
-                {title: "Urgencia alta, impacto medio<br><= 40 min ", data: "alta_media_40_min"},
-                {title: "Urgencia alta, impacto medio<br>> 40 min ", data: "alta_media_40_max"},
-                {title: "Medias<br><= 60 Min", data: "medias_60_min"},
-                {title: "Medias<br>> 60 Min", data: "medias_60_max"},
-                {title: "Bajas<br><= 80 min", data: "bajas_80_min"},
-                {title: "Bajas<br>> 80 min", data: "bajas_80_max"},
-                {title: "Sin prioridad", data: "nulos"},
-                {title: "Total incidentes", data: "total_incidentes"},
+                {title: "Mayor 5 días", data: "mayor_5_dias"},
+                {title: "Menor 5 días", data: "menor_5_dias"},
+                {title: "Mayor 3 días", data: "mayor_3_dias"},
+                {title: "menor 3 días", data: "menor_3_dias"},
+                {title: "Total Incidentes", data: "total_incidentes"},
             ]));
         },
 
@@ -74,7 +69,7 @@ $(function () {
                     {
                         text: 'Excel <i class="fas fa-file-excel"></i>',
                         className: 'btn-cami_cool btn-special',
-                        action: slas.downloadReportSlas,
+                        action: slas_customer.downloadReportSlasCustomer,
                     },
                 ],
                 columnDefs: [{
@@ -89,11 +84,12 @@ $(function () {
             }
         },
 
-        downloadReportSlas: function () {
+        downloadReportSlasCustomer: function () {
             var desde = $('#fDesde').val();
             var hasta = $('#fHasta').val();
-            window.location.href = base_url + "/Reportes/excelTiempoEscalamientoMovil/" + desde + "/" + hasta;
+//            window.location.href = base_url + "/Reportes/excelCustomerCareSlas/" + desde + "/" + hasta;
+            window.open(base_url + "Reportes/excelCustomerCareSlas/" + desde + "/" + hasta, '_blank');
         },
     }
-    slas.init();
+    slas_customer.init();
 });
