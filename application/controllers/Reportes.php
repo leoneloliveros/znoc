@@ -555,7 +555,7 @@ class Reportes extends CI_Controller {
     }
     
     public function excelVolumetriasCustomerCareNotas($fdesde, $fhasta) {        
-        set_time_limit(-1);
+        // set_time_limit(-1);
 //        ini_set('memory_limit', '1500M');
         $data_tgs = $this->Dao_reportes_model->getNotesByCoordination($fdesde, $fhasta, 'TG:S');
         $data_tgt11s = $this->Dao_reportes_model->getNotesByCoordination($fdesde, $fhasta, 'TGT11S:');
@@ -567,12 +567,15 @@ class Reportes extends CI_Controller {
         
 //         echo '<pre>'; print_r($data_tgs); echo '</pre>';
         $excel = WriterEntityFactory::createXLSXWriter();
-        $excel->openToBrowser('Volumetrias Customer Care Notas(' . date('Y-m-d') . ').xlsx');
+        $excel->openToBrowser('VolumetriasCustomerCareNotas(' . date('Y-m-d') . ').xlsx');
 //        $wrapText = (new StyleBuilder())->setShouldWrapText(true)->build();
 
         $titles = array('RECORDKEY', 'CREATEDATE', 'DESCRIPTION', 'MODIFYDATE', 'MODIFYBY', 'DESCRIPTION_LONGDESCRIPTION', 'CLASS', 'LOGTYPE');
-
-        $header = WriterEntityFactory::createRowFromArray($titles);
+        $style = (new StyleBuilder())
+        ->setShouldWrapText(false)
+        ->build();
+        $header = WriterEntityFactory::createRowFromArray($titles, $style);
+        
 
 
         $faoc = $excel->getCurrentSheet();
@@ -580,7 +583,7 @@ class Reportes extends CI_Controller {
         $excel->addRow($header);
 
         foreach ($data_tgs as $volumetrias) {
-            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $row = WriterEntityFactory::createRowFromArray(((array) $volumetrias), $style);
             $excel->addRow($row);
         }
         // // $ejmplo = WriterEntityFactory::createRowFromArray(array("hola",'qie','pex'));
@@ -590,7 +593,7 @@ class Reportes extends CI_Controller {
         $excel->addRow($header);
 
         foreach ($data_tgt11s as $volumetrias) {
-            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $row = WriterEntityFactory::createRowFromArray(((array) $volumetrias), $style);
             $excel->addRow($row);
         }
 
@@ -599,7 +602,7 @@ class Reportes extends CI_Controller {
         $excel->addRow($header);
 
         foreach ($data_tgt5s as $volumetrias) {
-            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $row = WriterEntityFactory::createRowFromArray(((array) $volumetrias), $style);
             $excel->addRow($row);
         }
 
@@ -608,8 +611,8 @@ class Reportes extends CI_Controller {
         $excel->addRow($header);
 
 
-        foreach ($data_cccom_mai as $volumetrias) {
-            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+        foreach ($data_cccom_mail as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray(((array) $volumetrias), $style);
             $excel->addRow($row);
         }
 
@@ -618,7 +621,7 @@ class Reportes extends CI_Controller {
         $excel->addRow($header);
 
         foreach ($data_cccom_chats as $volumetrias) {
-            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $row = WriterEntityFactory::createRowFromArray(((array) $volumetrias), $style);
             $excel->addRow($row);
         }
 
@@ -627,7 +630,7 @@ class Reportes extends CI_Controller {
         $excel->addRow($header);
 
         foreach ($data_ccrec_cci as $volumetrias) {
-            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $row = WriterEntityFactory::createRowFromArray(((array) $volumetrias), $style);
             $excel->addRow($row);
         }
         
@@ -636,7 +639,7 @@ class Reportes extends CI_Controller {
         $excel->addRow($header);
 
         foreach ($data_ccrec_son as $volumetrias) {
-            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $row = WriterEntityFactory::createRowFromArray(((array) $volumetrias), $style);
             $excel->addRow($row);
         }
 

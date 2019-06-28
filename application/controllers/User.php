@@ -47,7 +47,7 @@ class User extends CI_Controller {
 
                 
                 $config_page = array(
-                    'active_sidebar' => false,
+                    'active_sidebar' => true,
                     'title'          => 'ZOLID | Principal',
                     'active'         => 'principal',
                     'header'         => array('PRINCIPAL', 'Bandeja principal'),
@@ -78,7 +78,7 @@ class User extends CI_Controller {
         if (!$this->session->userdata('id')) {header('location: ' . base_url());}
 
         $config_page = array(
-            'active_sidebar' => false,
+            'active_sidebar' => true,
             'title'          => 'ZOLID | Principal',
             'active'         => 'principal',
             'header'         => array('PRINCIPAL', 'Bandeja principal'),
