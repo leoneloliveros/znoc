@@ -95,7 +95,7 @@
   /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
   immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
+  <!-- <div class="control-sidebar-bg"></div> -->
 </div>
 
 <script src="<?= base_url("assets/plugins/sweetalert2/sweetalert2.all.js") ?>"></script>
@@ -198,6 +198,10 @@
     $('#<?= $active ?>').addClass('active');
 
 </script>
+<!-- ****************************************************MAYA**************************************************** -->
+<?php if ($this->uri->segment(1) == 'Malla'): ?>
+        <script src="<?= base_url("assets/js/modules/loadExcel/loadMalla.js?v=" . validarEnProduccion()) ?>"></script>
+<?php endif ?>
 
 </body>
 </html>

@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Dao_user_model extends CI_Model {
 
     public function __construct() {
-        
+
     }
 
     //consulta usuario unico por username
@@ -18,7 +18,7 @@ class Dao_user_model extends CI_Model {
         }
     }
 
-    //consulta usuario unico por password	
+    //consulta usuario unico por password
     public function validatePass($pass, $id_user) {
         $query = $this->db->get_where('users', array('contrasena' => $pass, 'id_users' => $id_user));
         if ($query->num_rows() > 0) {
@@ -31,14 +31,13 @@ class Dao_user_model extends CI_Model {
     // obtiene todos los ingenieros y su id
     public function getEngineers() {
         $query = $this->db->query("
-			SELECT id_users AS id, CONCAT(nombres,' ',apellidos) AS title 
-			FROM users 
-			WHERE rol = 'ingeniero';
+			SELECT id_users AS id, CONCAT(nombres,' ',apellidos) AS title
+			FROM users;
 		");
 
-		return $query->result(); 
+		return $query->result();
 	}
-    
+
     //trae la contraseña del usuario en sesion
 	public function get_pass_by_id($user){
 		$query = $this->db->query("

@@ -17,7 +17,7 @@ class DatatablesBuilder
     private $CI;
     private $searchable 	= array();
     private $style 			= '';
-	private $connection 	= 'default';
+	private $connection 	= 'local';
 
 	private $dt_options		= array(
 		'searchDelay' 	=> '500',
