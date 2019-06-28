@@ -74,7 +74,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="wrapper">
 
     <!-- Main Header -->
-    <header class="main-header">
+    <header class="main-header" style="position:fixed; width:100%;">
 
       <!-- Logo -->
       <a href="#" class="logo">
@@ -190,7 +190,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                 <span class="hidden-xs"><?= $this->session->userdata('name') ?></span>
               </a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu" style="box-shadow: 0px 1px 4px -1px black">
                 <!-- The user image in the menu -->
                 <li class="user-header">
                   <img src="<?= base_url("assets2/dist/img/usuarios/$img_user_session.jpg"); ?>" class="img-circle" alt="User Image">
@@ -235,13 +235,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar">
+    <aside class="main-sidebar" style="position:fixed;">
 
       <!-- sidebar: style can be found in sidebar.less -->
       <section class="sidebar">
 
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel">
+        <div class="user-panel" style="display:none;">
           <div class="pull-left image">
             <img src="<?= base_url("assets2/dist/img/usuarios/$img_user_session.jpg"); ?>" class="img-circle" alt="User Image">
           </div>
@@ -252,7 +252,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
         </div>
 
-        
+
 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
@@ -401,7 +401,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper"style="margin-top:7vh;">
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
@@ -415,5 +415,5 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </section>
 
       <!-- Main content -->
-      <section class="content container-fluid">
 
+      <section class="content container-fluid">

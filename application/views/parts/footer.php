@@ -12,7 +12,7 @@
     <!-- Default to the left -->
     <strong>Copyright &copy; 2019 <a href="#">ZTE Colombia</a>.</strong> All rights reserved.
   </footer>
-
+  </div>
 <script type="text/javascript">
   const base_url = "<?php echo base_url(); ?>";
   const formato_fecha = new Date();

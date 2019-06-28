@@ -3,7 +3,9 @@
   color: black;
   text-align: center;
 }
+.contenedorMaestro{
 
+}
 input{
   text-align: center;
 }
@@ -106,7 +108,7 @@ input{
         </select>
       </div>
     </div>
-    
+
     <div class="row">
       <div class="form-group col-md-4 input-group-sm">
         <label for="ot_tarea">OT / Tarea</label>
@@ -121,7 +123,7 @@ input{
         <input type="textArea" class="form-control" id="responsable" placeholder="Ingrese el nombre del responsable">
       </div>
     </div>
-    
+
     <div class="row">
       <div class="form-group col-md-4 input-group-sm">
         <label for="caso_de_uso">Caso de Uso</label>
@@ -148,7 +150,7 @@ input{
         </select>
       </div>
     </div>
-    
+
     <div class="row">
       <div class="form-group col-md-4 input-group-sm">
         <label for="estaciones_afectadas_descripcion">Estaciones Afectadas Descripción</label>
