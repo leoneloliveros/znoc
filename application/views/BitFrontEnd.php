@@ -176,6 +176,6 @@ input{
   <div id="validate_selection" class="row">
 
   </div>
-
   <button id="saveBookLog" class="btn btn-primary">Subir Bitácora</button>
+
 </div>
