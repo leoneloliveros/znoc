@@ -458,6 +458,7 @@ class Reportes extends CI_Controller {
         }
         // // $ejmplo = WriterEntityFactory::createRowFromArray(array("hola",'qie','pex'));
 
+
         $faob = $excel->addNewSheetAndMakeItCurrent();
         $faob->setName('TGT11R');
         $excel->addRow($header);
@@ -704,3 +705,4 @@ class Reportes extends CI_Controller {
 }
 
 /* End of file reportes.php */
+
