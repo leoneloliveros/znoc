@@ -45,7 +45,7 @@ class User extends CI_Controller {
 
                 if (!$this->session->userdata('id')) {header('location: ' . base_url());}
 
-                
+
                 $config_page = array(
                     'active_sidebar' => true,
                     'title'          => 'ZOLID | Principal',
@@ -53,7 +53,7 @@ class User extends CI_Controller {
                     'header'         => array('PRINCIPAL', 'Bandeja principal'),
                     'sub_bar'         => false,
                 );
-                
+
                 $this->load->view('parts/header', $config_page);
                 $this->load->view('principal');
                 $this->load->view('parts/footer');
@@ -78,7 +78,7 @@ class User extends CI_Controller {
         if (!$this->session->userdata('id')) {header('location: ' . base_url());}
 
         $config_page = array(
-            'active_sidebar' => true,
+            'active_sidebar' => false,
             'title'          => 'ZOLID | Principal',
             'active'         => 'principal',
             'header'         => array('PRINCIPAL', 'Bandeja principal'),
@@ -208,7 +208,7 @@ class User extends CI_Controller {
 
         if ($realizado) {
              $this->session->set_flashdata('msj', array('title' => 'OK', 'cuerpo' => 'Cambios Realizados', 'tipo' => 'success'));
-        } 
+        }
 
         header('location: ' . base_url('User/perfil'));
 
@@ -231,13 +231,13 @@ class User extends CI_Controller {
         if (!$this->upload->do_upload('form_file')) {
             echo $this->upload->display_errors();
             return false;
-        }    
+        }
 
 
         $this->Dao_user_model->update_usuarios($id_user, array('imagen' => $id_user));
-        
 
-        return true;          
+
+        return true;
     }
 
     function CambioContra(){
