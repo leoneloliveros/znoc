@@ -1,11 +1,10 @@
+<script src="<?= base_url('assets/plugins/moments/moment.min.js'); ?>"></script>
 <style>
 .valD::placeholder{
   color: black;
   text-align: center;
 }
-.contenedorMaestro{
 
-}
 input{
   text-align: center;
 }
@@ -23,31 +22,20 @@ input{
       </select>
     </div>
   </div>
+  <form class="" id="formu">
   <div class="generalFields">
     <hr>
     <div class="row">
-      <div class="form-group col-md-4 input-group-sm">
-        <label for="inicio_alarma">Inicio Alarma</label>
-        <input type="text" class="form-control valD" id="inicio_alarma" placeholder="Ingrese fecha y hora">
-      </div>
-      <div class="form-group col-md-4 input-group-sm">
-        <label for="creacion_tk">Creación TK</label>
-        <input type="text" class="form-control valD" id="creacion_tk" placeholder="Ingrese fecha y hora">
-      </div>
-      <div class="form-group col-md-4 input-group-sm">
-        <label for="inicio_actividad">Inicio Actividad</label>
-        <input type="text" class="form-control valD" id="inicio_actividad" placeholder="Ingrese fecha y hora">
-      </div>
     </div>
 
     <div class="row">
       <div class="form-group col-md-4 input-group-sm">
-        <label for="fin_actividad">Fin Actividad</label>
-        <input type="text" class="form-control valD" id="fin_actividad" placeholder="Ingrese fecha y hora">
+        <label for="inicio_actividad">Inicio Actividad</label>
+        <input type="text" class="form-control valD" id="inicio_actividad" placeholder="Ingrese fecha y hora">
       </div>
       <div class="form-group col-md-4 input-group-sm">
-        <label for="tiempo_atencion">Tiempo Atención</label>
-        <input type="text" class="form-control" id="tiempo_atencion" disabled>
+        <label for="fin_actividad">Fin Actividad</label>
+        <input type="text" class="form-control valD" id="fin_actividad" placeholder="Ingrese fecha y hora">
       </div>
       <div class="form-group col-md-4 input-group-sm">
         <label for="tipo_actividad">Tipo de Actividad</label>
@@ -153,10 +141,6 @@ input{
 
     <div class="row">
       <div class="form-group col-md-4 input-group-sm">
-        <label for="estaciones_afectadas_descripcion">Estaciones Afectadas Descripción</label>
-        <input type="textArea" class="form-control" id="estaciones_afectadas_descripcion" placeholder="">
-      </div>
-      <div class="form-group col-md-4 input-group-sm">
         <label for="tipo_incidente">Tipo de Incidente</label>
         <select id="tipo_incidente" class="form-control">
           <option value="">Seleccione...</option>
@@ -167,6 +151,7 @@ input{
         </select>
       </div>
 
+    </form>
     </div>
 
   </div>
