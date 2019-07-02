@@ -393,7 +393,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
           </ul>
         </li>
-
+        </li>
+        <li class="" id="malla">
+          <a href="<?= base_url('Malla') ?>">
+            <i class="fas fa-edit"></i>
+            <span>Maya</span>
+          </a>
+        </li>
         </ul>
         <!-- /.sidebar-menu -->
       </section>
@@ -415,5 +421,4 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </section>
 
       <!-- Main content -->
-
-      <section class="content container-fluid">
+      <section class="content container-fluid contenedorMaestro">
