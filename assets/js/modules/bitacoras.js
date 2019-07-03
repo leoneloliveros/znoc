@@ -9,9 +9,13 @@ $(function () {
             $('#newLogBook').click(ccihfc.validateData);
             $('#beginDate,#endDate').mask("99/99/9999 99:99", {placeholder: "--/--/---- --:--"});
             $("#beginDate,#typeP").on('change', ccihfc.calculateFinalHour);
+            $(".styleInp").on('blur', ccihfc.calculateDateIni);
         },
 
         validateData: function () {
+            var hoy = new Date();
+            $("#finAct").val(ccihfc.formatDate(hoy.getTime()));
+            
             $(".err").removeClass("err");
             const campos = $("div.frame input,div.frame select, div.frame textarea");
             var vacios = [];
@@ -142,7 +146,15 @@ $(function () {
 //            return [year, month, day].join('-');
             return day + '/' + month + '/' + year + ' ' + hour + ':' + minute;
         },
+        
 
+        calculateDateIni:function () {
+            if (!$("#iniAct").hasClass("ini_form")) {
+                var hoy = new Date();
+                $("#iniAct").val(ccihfc.formatDate(hoy.getTime()));
+                $("#iniAct").addClass("ini_form");
+            }
+        }
     }
     ccihfc.init();
 });

@@ -23,6 +23,8 @@
         <div class="col-sm-3 form-group">
             <label for="incident">INCIDENTE</label>
             <input type="text" class="styleInp" id="incident">
+            <input type="hidden" id="iniAct">
+            <input type="hidden" id="finAct">
         </div>
 
         <div class="col-sm-3 form-group">

@@ -29,6 +29,10 @@ class Bitacoras extends CI_Controller {
         $data->beginDate = $date_1->format('Y-m-d H:i:s');
         $date_2 = DateTime::createFromFormat('d/m/Y H:i', $data->endDate);
         $data->endDate = $date_2->format('Y-m-d H:i:s');
+        $date_3 = DateTime::createFromFormat('d/m/Y H:i', $data->iniAct);
+        $data->iniAct = $date_3->format('Y-m-d H:i:s');
+        $date_4 = DateTime::createFromFormat('d/m/Y H:i', $data->finAct);
+        $data->finAct = $date_4->format('Y-m-d H:i:s');
 //        print_r($data->beginDate);exit();
         $saved = $this->Dao_bitacoras_model->saveCCIHFC($data);
         echo json_encode($saved);
