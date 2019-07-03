@@ -150,17 +150,14 @@ input{
           <option value="INCIDENTE">INCIDENTE</option>
         </select>
       </div>
-
     </form>
     </div>
 
   </div>
 
   <hr>
-
   <div id="validate_selection" class="row">
-
   </div>
+  <hr>
   <button id="saveBookLog" class="btn btn-primary">Subir Bitácora</button>
-
-</div>
+  </div>

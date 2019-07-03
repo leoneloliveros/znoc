@@ -9,6 +9,15 @@ $(function () {
 
     events: function () {
 
+      $('#estaciones_afectadas').change(()=>{
+        var value = $('#estaciones_afectadas').val();
+        if(value == "4 a 20"){
+          alert('ESTACIONES AFECTADAS: 4 a 20 \n Notificar al incident, a Comunicados y al responsable del caso.');
+        }
+        if(value == "MAYOR A   20"){
+          alert('ESTACIONES AFECTADAS: MAYOR A 20 \n Notificar al gerente de zona, al incident, al responsable de caso y comunicados.');
+        }
+      });
       $('#formu select, #formu input').on('change',()=>{
         var fecha = moment().format('DD/MM/YYYY HH:mm:ss');
         if ($('#inicio_actividad').hasClass('auto')) {
@@ -18,14 +27,13 @@ $(function () {
           document.getElementById('inicio_actividad').value = fecha;
         }
       });
-      $('#tipo_bitacora').on('change',()=>{
+      $('#tipo_bitacora').on('change', function () {
         document.getElementById('formu').reset();
         $('#inicio_actividad').removeClass('auto');
-      });
-      $('#tipo_bitacora').on('change', function () {
         if ($('#tipo_bitacora').hasClass("err")) $('#tipo_bitacora').removeClass("err");
         bitacoras.allTypesDisable();
         bitacoras.checkStateType();
+
       });
       $("#saveBookLog").on('click', bitacoras.validateForm);
       // todos los input que contengan este espacio,
