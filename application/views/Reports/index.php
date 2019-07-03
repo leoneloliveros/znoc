@@ -13,7 +13,7 @@
             <select class="form-control" name="" id="selection">
                 <option value="0">Workinfo</option>
                 <option value="1">Alarmas</option>
-                <option value="2">Tiempos NOC Este</option>
+                <option value="2">Incidentes Fija</option>
                 <option value="3">Tiempos NOC</option>
                 <option value="4">Tiempos Fija</option>
             </select>

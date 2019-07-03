@@ -30,13 +30,13 @@ $(function(){
               // code block
               break;
             case '2':
-                    $.post(base_url + "GeneralReports/c_getDataFromTiemposNOCEste", {
+                    $.post(base_url + "GeneralReports/c_getDataFromIncidentesFija", {
                         desde: $(`#fDesde`).val(),
                         hasta: $(`#fHasta`).val(),
                       }).done(function(){
                         $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
                         helper.hideLoading();
-                        window.open(base_url + "GeneralReports/excelTiemposNOCEste");
+                        window.open(base_url + "GeneralReports/excelIncidentesFija");
                     });
             break;
             case '3':
