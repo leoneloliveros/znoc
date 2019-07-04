@@ -1,0 +1,152 @@
+.fc-widget-header{
+  background: #084c6f;
+  color: #fff;
+}
+.fc-today{
+  background: #084c6f52 !important;
+}
+.fc-cell-text{
+  font-size: 12px !important;
+}
+#event_a{
+  background: #5c32bf69;
+  border: 1px solid #666666;
+}
+#event_b{
+  background: #084c6fba;
+  border: 1px solid #666666;
+  color: white;
+}
+
+#event_c{
+  background: #ffff00;
+  border: 1px solid #666666;
+  color: #000;
+}
+
+#event_a_f{
+  background: #0070c0;
+  border: 1px solid #666666;
+  color: white;
+}
+#event_b_f{
+  background: #92d050;
+  border: 1px solid #666666;
+  color: white;
+}
+#event_c_f{
+  background: #ffc000;
+  border: 1px solid #666666;
+  color: #000;
+}
+
+
+.class_remove_event{
+    border: 1px dashed gray;
+    padding: 8px;
+    margin: 4px;
+    border-radius: 5px;
+    cursor: -webkit-grab;
+}
+
+
+/*******************************ESTILOS CAMILO*******************************/
+/* CUADRO EXTERNO */
+#external-events {
+  text-align: center;
+  padding: 5px
+
+}
+
+#content_fixed {
+  background: #084c6f;
+  color: #fff;
+  position: absolute;
+  top: 110px;
+  right: 85px;
+  z-index: 2;
+}
+
+#external-events .fc-event{
+  margin-top: 4px;
+  border: 1px solid #fff;
+  cursor: pointer;
+}
+
+#external-events legend{
+  border: 1px solid #fff;
+  color: #Fff;
+  padding: 8px;
+  border-radius: 5px;
+  margin:0;
+  margin-top: 5px
+}
+
+.btn-large{
+  margin-top: 5px;
+  /* display: block; */
+  width: 100%;
+  background: #3a87ad;
+}
+
+.form_in_box {
+    background: #e4e4e4;
+    display: grid;
+    margin: 0;
+    border-radius: 15px;
+    border: 1px solid;
+    padding: 10px 18px 0;
+}
+
+.swal-md {
+   font-size : 90%  ! important ;
+}
+
+.fc-content {
+  z-index: 5;
+}
+
+#calendar {
+
+  font-size:12px;
+}
+
+#calendar h2{
+  font-size:24px;
+  text-shadow: 1px 1px 1px #b3c7d2;
+}
+
+#calendar .fc-cell-text{
+  font-size:10px !important;
+}
+#calendar td{
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.fc-resource-area .fc-widget-content > div{
+ height: 15px !important;
+ padding: 0px 0px !important;
+}
+
+.fc-time-area .fc-widget-content > div{
+  padding: 0px !important;
+  height: 15px !important;
+}
+
+.fc-widget-content{
+  padding: 0px !important;
+}
+.fc-widget-content{
+  padding: 0px !important;
+}
+
+.fc-body .fc-resource-area .fc-cell-content{
+    position: relative;
+    padding: 0px !important;
+}
+.fc-resource-area fc-widget-content{
+  background: white;
+}
+.fc-timeline-event{
+  padding: 0px !important;
+}

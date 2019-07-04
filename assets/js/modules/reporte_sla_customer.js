@@ -87,7 +87,8 @@ $(function () {
         downloadReportSlasCustomer: function () {
             var desde = $('#fDesde').val();
             var hasta = $('#fHasta').val();
-            window.location.href = base_url + "/Reportes/excelCustomerCareSlas/" + desde + "/" + hasta;
+//            window.location.href = base_url + "/Reportes/excelCustomerCareSlas/" + desde + "/" + hasta;
+            window.open(base_url + "Reportes/excelCustomerCareSlas/" + desde + "/" + hasta, '_blank');
         },
     }
     slas_customer.init();

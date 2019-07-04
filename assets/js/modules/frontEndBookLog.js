@@ -8,13 +8,35 @@ $(function () {
     },
 
     events: function () {
+
+      $('#estaciones_afectadas').change(()=>{
+        var value = $('#estaciones_afectadas').val();
+        if(value == "4 a 20"){
+          alert('ESTACIONES AFECTADAS: 4 a 20 \n Notificar al incident, a Comunicados y al responsable del caso.');
+        }
+        if(value == "MAYOR A   20"){
+          alert('ESTACIONES AFECTADAS: MAYOR A 20 \n Notificar al gerente de zona, al incident, al responsable de caso y comunicados.');
+        }
+      });
+      $('#formu select, #formu input').on('change',()=>{
+        var fecha = moment().format('DD/MM/YYYY HH:mm:ss');
+        if ($('#inicio_actividad').hasClass('auto')) {
+
+        }else {
+          $('#inicio_actividad').addClass('auto');
+          document.getElementById('inicio_actividad').value = fecha;
+        }
+      });
       $('#tipo_bitacora').on('change', function () {
+        document.getElementById('formu').reset();
+        $('#inicio_actividad').removeClass('auto');
         if ($('#tipo_bitacora').hasClass("err")) $('#tipo_bitacora').removeClass("err");
         bitacoras.allTypesDisable();
-        bitacoras.checkStateType();  
+        bitacoras.checkStateType();
+
       });
       $("#saveBookLog").on('click', bitacoras.validateForm);
-      // todos los input que contengan este espacio, 
+      // todos los input que contengan este espacio,
       // $(".valD").on('keydown',bitacoras.validateFormat);
       $(`#inicio_actividad,#fin_actividad`).blur({idDStart:'inicio_actividad',idDEnd:'fin_actividad',final:'tiempo_atencion'},bitacoras.getAttentionTime);
       $(`#inicio_alarma,#creacion_tk`).blur({idDStart:'inicio_alarma',idDEnd:'creacion_tk', final:'tiempo_deteccion'},bitacoras.getAttentionTime);
@@ -39,7 +61,7 @@ $(function () {
         default:
           return false;
       }
-      
+
     },
 
     allTypesDisable: function () {
@@ -52,27 +74,33 @@ $(function () {
     },
 
     checkStateType: function () {
-      
 
-      const tiempoDeteccion =
-        `<div class="form-group col-sm-4" >
-          <label for="tiempo_deteccion">Tiempo de detección</label>
-          <input type="text" class="form-control" id="tiempo_deteccion" disabled>
-        </div>`;
+      var hora = moment().format('HH:mm');
 
+      if (hora>'06:00' && hora <'14:00') {
+        console.log('T1');
+        $("#turno option[value='T1']").attr("selected",true);
+      }
+      if (hora>'14:00' && hora <'22:00') {
+        console.log('T2');
+        $("#turno option[value='T2']").attr("selected",true);
+      }
+      if (hora>'22:00' && hora <'06:00') {
+        console.log('T3');
+        $("#turno option[value='T3']").attr("selected",true);
+      }
+
+      console.log(hora);
       $(".generalFields input, .generalFields select, .generalFields textarea").not('#tiempo_atencion,#cedulaBitacora').attr("disabled",false);
 
       // obtiene los ingenieros para cada tipo de bitácora
-      if ($('#tipo_bitacora').val() !== "Seleccione...") 
+      if ($('#tipo_bitacora').val() !== "Seleccione...")
       bitacoras.getEngineersAccordingType();
 
       $(`#tipo_incidente option:nth-child(3),#tipo_incidente option:nth-child(5)`).css('display','block');
       switch ($('#tipo_bitacora option:selected').text()) {
         case "Energía": //********************************ENERGÍA********************************
           $("#validate_selection").append(`
-
-          ${tiempoDeteccion}
-
 
           <div class="form-group col-md-4 input-group-sm">
           <label for="tipo_falla">Tipo de Falla</label>
@@ -102,12 +130,12 @@ $(function () {
             case 'BLOQUEO':
               alert("ESCALAR AL NOC INCIDENT, GERENTE DE ZONA, RESPONSABLE.");
               break;
-          
+
             default:
               break;
           }
           console.log('val: ', val);
-        }); 
+        });
 
         // opciones para cada caso de uso
         $(`#caso_de_uso`).append(`
@@ -143,10 +171,9 @@ $(function () {
           $(`#tipo_incidente option:nth-child(3),#tipo_incidente option:nth-child(5)`).css('display','none');
 
           $("#validate_selection").append(`
-            ${tiempoDeteccion}
 
             <div class="col-md-4">
-            
+
               <div class="form-group">
                 <label for="tk_padre">TK Padre</label>
                 <select id="tk_padre" class="form-control">
@@ -156,14 +183,14 @@ $(function () {
                 </select>
               </div>
             </div>
-          
+
             <div class="col-md-4">
               <div class="form-group">
                 <label for="saltos_validados">Saltos validados</label>
                 <input type="text" class="form-control" id="saltos_validados" placeholder="ingrese número..">
               </div>
             </div>
-        
+
           `);
 
           // opciones para cada caso de uso
@@ -213,7 +240,7 @@ $(function () {
                 <option value="MAYOR A 10">MAYOR A 10</option>
               </select>
             </div>
-          
+
 
             <div class="form-group servCorpDesc col-sm-12">
                 <label for="servicios_corporativos_descripcion">Servicios Corporativos Descripción</label>
@@ -240,17 +267,14 @@ $(function () {
                 <input type="text" class="form-control" id="valida_ruta_tx" placeholder="ingrese valor...">
               </div>
             </div>
-      
-            
+
+
             <div id="if_intermitencias_servicios" class="col-md-4">
               <div class="form-group">
                 <label for="saltos_validados">Saltos validados</label>
                 <input type="text" class="form-control" id="saltos_validados" placeholder="ingrese número..">
               </div>
             </div>
-
-        
-            ${tiempoDeteccion}
 
 
             `);
@@ -271,6 +295,9 @@ $(function () {
 
 
     validateForm: function () {
+      var fecha = moment().format('DD/MM/YYYY HH:mm:ss');
+      document.getElementById('fin_actividad').value = fecha;
+
       if ($('#tipo_bitacora option:selected').text() !== "Seleccione...") {
         $(".err").removeClass("err");
         const campos = $("div.frame input, div.frame select,div.frame textarea").not('#cedulaBitacora');
@@ -282,11 +309,11 @@ $(function () {
           if ($(element).val() == null || $(element).val() == '' || $(element).val() == ' ' || $(element).val() == '  ') {
             vacios.push($(element).attr("id"));
           } else {
-            
-            
+
+
             if (typeof $(element).parents('.generalFields').val() === "string") {
               if ($(element).hasClass('valD')) {
-                $.each($(`.valD`), function (i, el) { 
+                $.each($(`.valD`), function (i, el) {
                   const f = $(el).val().split(' ');
                   const af= f[0].split('/');
                   data[$(element).attr("id")] =  `${af[2]}-${af[1]}-${af[0]} ${f[1]}`;
@@ -305,7 +332,7 @@ $(function () {
 
 
         if (vacios.length == 0) {
-          
+
           $.post(base_url + "Bitacoras/savebookLogsFrontEnd",
             {
               general: data,
@@ -315,6 +342,7 @@ $(function () {
             function (data) {
               if (data == 'true') {
                 helper.alert_refresh('¡Bien hecho', `Se guardó la bitácora de <b>${$('#tipo_bitacora').val()}</b>.`, 'success');
+                document.getElementById('formu').reset();
               } else {
                 swal({
                   "title": "Ocurrió un error inesperado",
@@ -349,14 +377,14 @@ $(function () {
 
     },
 
-    
+
     getEngineersAccordingType: function(){
       $.post(base_url+"Bitacoras/getEngineersByTypeLogBooks", {
         type: $('#tipo_bitacora option:selected').attr("data-id"),
       },
         function (data) {
           const obj = JSON.parse(data);
-          $.each(obj, function (id, ing) { 
+          $.each(obj, function (id, ing) {
             $('#id_users').append(`<option value="${id}">${ing}</option>`);
           });
         },
@@ -364,10 +392,10 @@ $(function () {
 
     },
 
-    
+
     // validateFormat: function(e){
     //   // console.log(e.keyCode);
-      
+
     //   if (($(this).val().length + 1 ) < 20) {
     //     if (e.shiftKey) {
     //       switch (e.keyCode) {
@@ -377,7 +405,7 @@ $(function () {
     //         case 39:
     //         case 9:
     //           return true;
-          
+
     //         default:
     //           return false;
     //       }
@@ -386,21 +414,21 @@ $(function () {
     //         case "V":
     //         case "C":
     //           return true;
-          
+
     //         default:
     //           return false;
     //       }
-  
+
     //     }else if((e.keyCode >= 48 && e.keyCode <= 57) || e.keyCode == 37 || e.keyCode == 39 || e.keyCode == 8 || e.keyCode == 189 || e.keyCode == 32 || e.keyCode == 9){
     //       return true;
     //     }else return false;
-        
+
     //   }else {
     //     if (e.ctrlKey) {
     //       if(String.fromCharCode(e.keyCode)== "C" ||String.fromCharCode(e.keyCode)== "X" ) {
     //         return true
     //       }else return false;
-  
+
     //     }
     //     switch (e.keyCode) {
     //       case 37:
@@ -408,28 +436,28 @@ $(function () {
     //       case 8:
     //       case 9:
     //         return true;
-        
+
     //       default:
     //         $(this).val($(this).val().slice(0,19));
     //         return false;
     //     }
     //   }
-      
-      
-      
+
+
+
     // },
-    
-    // realiza la formula para obtener el tiempo pasado en horas, minutos y segundos  
+
+    // realiza la formula para obtener el tiempo pasado en horas, minutos y segundos
     getAttentionTime: function(e){
 
       const startD = $(`#${e.data.idDStart}`), endD = $(`#${e.data.idDEnd}`);
-      
 
-      if (endD.hasClass('err') || startD.hasClass('err')) 
-          $(`#${e.data.idDStart},#${e.data.idDEnd}`).removeClass("err");  
-      
+
+      if (endD.hasClass('err') || startD.hasClass('err'))
+          $(`#${e.data.idDStart},#${e.data.idDEnd}`).removeClass("err");
+
       if (startD.val() != "" && endD.val() != "") {
-        
+
         const ini = startD.val().split(' '), fin = endD.val().split(' ');
 
         const a = ini[0].split('/'), b = ini[1].split(':');
@@ -460,7 +488,7 @@ $(function () {
             let minutos = (total-segundos-(horas*3600000))/1000;
             resultado = `${horas} HORA${(horas == 1 ? '' : 'S')} ${(minutos/60 == 0) ? '' : `, ${minutos/60} MINUTO${(minutos == 60) ? '': 'S'} `} ${(segundos == 0) ? '': `, ${segundos/1000} SEGUNDO${(segundos==1000) ? '': 'S'}`}`;
             // console.log(horas,"horas");
-            
+
 
             // console.log("es en horas");
 
@@ -470,7 +498,7 @@ $(function () {
           // else{
 
           //   console.log("es en días");
-            
+
           // }
         }else{
 
@@ -486,15 +514,11 @@ $(function () {
         // startD.val().replace(/\//g,"-")
         // console.log("inicio_actividad: ", startD.val().slice(11));
         // console.log("fin_actividad: ",$('#fin_actividad').val().slice(11));
-        
-          
+
+
       }
 
     },
   },
     bitacoras.init();
 });
-
-
-
-

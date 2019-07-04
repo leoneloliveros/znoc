@@ -11,6 +11,7 @@
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2019 <a href="#">ZTE Colombia</a>.</strong> All rights reserved.
+
 </footer>
 
 <script type="text/javascript">
@@ -18,6 +19,7 @@
     const formato_fecha = new Date();
     const fecha_actual = formato_fecha.getDate() + "-" + formato_fecha.getMonth() + "-" + formato_fecha.getFullYear();
 </script>
+
 
 <!--******************************* SIDEBAR DE LA DERECHA******************************* -->
 <!-- Control Sidebar -->
@@ -197,8 +199,11 @@ immediately after the control sidebar -->
         $('#<?= $active ?>').parents('li').addClass('active');
     }
     $('#<?= $active ?>').addClass('active');
-
 </script>
+<!-- ****************************************************MAYA**************************************************** -->
+<?php if ($this->uri->segment(1) == 'Malla'): ?>
+        <script src="<?= base_url("assets/js/modules/loadExcel/loadMalla.js?v=" . validarEnProduccion()) ?>"></script>
+<?php endif ?>
 
 </body>
 </html>

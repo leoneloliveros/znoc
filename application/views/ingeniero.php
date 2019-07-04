@@ -1,8 +1,5 @@
 <!--*********************  Modulo de pestañas en Backlog  *********************-->
-<ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#assign_table">Asignadas</a></li>
-    <li class=""><a data-toggle="tab" href="#total_table" id="pestana_total">Total</a></li>
-</ul>
+
 
 <!--*********************  Contendio de la pestaña  por asignacion  *********************-->
 <div class="tab-content" id="bandejas_seccion">
