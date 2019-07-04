@@ -213,7 +213,8 @@ class Dao_reportes_model extends CI_Model {
     }
 
     public function getIncidentesFija($fdesde,$fhasta) {
-        $query = $this->db->query("SELECT ALK.TICKETID, ALK.INTERNALPRIORITY,ALK.REGIONAL,
+        $query = $this->db->query("
+        SELECT ALK.TICKETID, ALK.INTERNALPRIORITY,ALK.REGIONAL,
 
         (SELECT distinct FIRST_VALUE(RO.ASSIGNEDOWNERGROUP)OVER(ORDER BY CHANGEDATE) FROM maximo.TKSTATUS RO WHERE ALK.TICKETID=RO.TICKETID ) AS PRIMER_GRUPO,
         
@@ -465,6 +466,119 @@ class Dao_reportes_model extends CI_Model {
 //        print_r($this->db->last_query().';<br>');
         return $query->result();
     }
+
+
+    public function getWorkInfo($fdesde,$fhasta) {
+        $query = $this->db->query("
+            SELECT inc.CREATEDBY AS 'CREADO POR',
+            inc.TICKETID AS 'TICKET ID',
+            wl.CREATEDATE AS 'CREACION NOTA',
+            wl.DESCRIPTION AS 'RESUMEN NOTA',
+            wl.DESCRIPTION_LONGDESCRIPTION AS 'DETALLE NOTA',
+            inc.CREATIONDATE AS 'CREACION INCIDENTE',
+            inc.STATUS AS 'ESTADO INCIDENTE',
+            inc.CREATEDBY AS 'INCIDENTE CREADO POR',
+            '' AS 'INCIDENTE CREADO NOMBRE',
+            inc.DESCRIPTION AS 'DESCRIPCION INCIDENTE',
+            inc.ACTUALFINISH AS 'FECHA CIERRE INCIDENTE',
+            inc.RUTA_TKT AS 'RUTA CLASIFICACION',
+            inc.TIPO_TKT AS 'TIPO INCIDENTE',
+            art.DESCRIPTION AS 'ARTICULO CONFIGURACION',
+            '' AS 'FECHA AFECTACION',
+            CASE
+                WHEN inc.INTERNALPRIORITY = 3 THEN 'Baja'
+                WHEN inc.INTERNALPRIORITY = 2 THEN 'Media'
+                WHEN inc.INTERNALPRIORITY = 1 THEN 'Alta'
+                ELSE ''
+            END AS 'PRIORIDAD',
+            CASE
+                WHEN inc.URGENCY = 3 THEN 'Baja'
+                WHEN inc.URGENCY = 2 THEN 'Media'
+                WHEN inc.URGENCY = 1 THEN 'Alta'
+                ELSE ''
+            END AS 'URGENCIA',
+            'preguntar' AS 'IMPACTO',
+            inc.PROVEEDORES AS 'PROVEEDORES',
+            inc.LOCATION AS 'UBICACION',
+            inc.OWNERGROUP AS 'GRUPO PROPIETARIO'
+            FROM maximo.INCIDENT inc
+            INNER JOIN maximo.WORKLOG wl
+            ON wl.RECORDKEY = inc.TICKETID
+            LEFT JOIN   maximo.ARTCNF art
+            ON inc.TICKETID = art.TICKETID
+            WHERE DATE_FORMAT(inc.CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
+                $data =  $query->result();
+        $_SESSION['x'] = $data;
+        return $data;
+    }
+    public function getAlarmasAutomatismo($fdesde,$fhasta) {
+        $query = $this->db->query("
+            SELECT inc.CREATEDBY AS 'CREADO POR',
+            inc.TICKETID AS 'TICKET ID',
+            wl.CREATEDATE AS 'CREACION NOTA',
+            wl.DESCRIPTION AS 'RESUMEN NOTA',
+            wl.DESCRIPTION_LONGDESCRIPTION AS 'DETALLE NOTA',
+            inc.CREATIONDATE AS 'CREACION INCIDENTE',
+            inc.STATUS AS 'ESTADO INCIDENTE',
+            inc.CREATEDBY AS 'INCIDENTE CREADO POR',
+            '' AS 'INCIDENTE CREADO NOMBRE',
+            inc.DESCRIPTION AS 'DESCRIPCION INCIDENTE',
+            inc.ACTUALFINISH AS 'FECHA CIERRE INCIDENTE',
+            inc.RUTA_TKT AS 'RUTA CLASIFICACION',
+            inc.TIPO_TKT AS 'TIPO INCIDENTE',
+            art.DESCRIPTION AS 'ARTICULO CONFIGURACION',
+            '' AS 'FECHA AFECTACION',
+            CASE
+                WHEN inc.INTERNALPRIORITY = 3 THEN 'Baja'
+                WHEN inc.INTERNALPRIORITY = 2 THEN 'Media'
+                WHEN inc.INTERNALPRIORITY = 1 THEN 'Alta'
+                ELSE ''
+            END AS 'PRIORIDAD',
+            CASE
+                WHEN inc.URGENCY = 3 THEN 'Baja'
+                WHEN inc.URGENCY = 2 THEN 'Media'
+                WHEN inc.URGENCY = 1 THEN 'Alta'
+                ELSE ''
+            END AS 'URGENCIA',
+            'preguntar' AS 'IMPACTO',
+            inc.PROVEEDORES AS 'PROVEEDORES',
+            inc.LOCATION AS 'UBICACION',
+            inc.OWNERGROUP AS 'GRUPO PROPIETARIO'
+            FROM maximo.INCIDENT inc
+            INNER JOIN maximo.WORKLOG wl
+            ON wl.RECORDKEY = inc.TICKETID
+            LEFT JOIN   maximo.ARTCNF art
+            ON inc.TICKETID = art.TICKETID
+            WHERE DATE_FORMAT(inc.CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
+                $data =  $query->result();
+        $_SESSION['x'] = $data;
+        return $data;
+    }
+
+    public function getTTareasFOPerformance($fdesde,$fhasta) {
+        $query = $this->db->query("
+            SELECT AC.WONUM AS TAREA,AC.REPORTDATE AS FECHA_CREACION_TAREA,AC.DESCRIPTION, AC.STATUS, AC.OWNER,AC.TICKETID,IC.CREATIONDATE AS FECHA_CREA_INCIDENTE,IC.STATUS AS ESTADO_INCIDENTE,IC.DESCRIPTION,
+
+            IC.CLOSEDATE AS FECHA_CIERRE_INCIDENTE,IC.CREATEDBY AS CREADOR,WO.CREATEDATE AS FECHA_NOTA,WO.DESCRIPTION AS RESUMEN_NOTA,WO.DESCRIPTION_LONGDESCRIPTION AS DETALLE_NOTA
+
+            FROM maximo.ACTIVITIES AC
+
+            LEFT JOIN maximo.INCIDENT IC
+
+            ON AC.TICKETID=IC.TICKETID
+
+            LEFT JOIN maximo.WORKLOG WO
+
+            ON AC.WONUM=WO.RECORDKEY
+
+            WHERE AC.WONUM LIKE 'TAS%' 
+
+            AND DATE_FORMAT(AC.REPORTDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
+                $data =  $query->result();
+        $_SESSION['x'] = $data;
+        return $data;
+    }
+
 
 }
 

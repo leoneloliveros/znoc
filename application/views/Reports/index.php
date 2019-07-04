@@ -11,11 +11,14 @@
         <div class="col-sm-6">
             <label for="fHasta"><b>Reporte</b></label>
             <select class="form-control" name="" id="selection">
-                <option value="0">Workinfo</option>
+                <option value="0">-----</option>
                 <option value="1">Alarmas</option>
                 <option value="2">Incidentes Fija</option>
-                <option value="3">Tiempos NOC</option>
+                <!-- <option value="3">Tiempos NOC</option> -->
                 <option value="4">Tiempos Fija</option>
+                <option value="5">Workinfo</option>
+                <option value="6">Alarmas Automatismo</option>
+                <option value="7">Tareas FO Performance</option>
             </select>
            
         </div>
