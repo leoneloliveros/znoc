@@ -30,13 +30,13 @@ $(function(){
               // code block
               break;
             case '2':
-                    $.post(base_url + "GeneralReports/c_getDataFromTiemposNOCEste", {
+                    $.post(base_url + "GeneralReports/c_getDataFromIncidentesFija", {
                         desde: $(`#fDesde`).val(),
                         hasta: $(`#fHasta`).val(),
                       }).done(function(){
                         $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
                         helper.hideLoading();
-                        window.open(base_url + "GeneralReports/excelTiemposNOCEste");
+                        window.open(base_url + "GeneralReports/excelIncidentesFija");
                     });
             break;
             case '3':
@@ -57,6 +57,36 @@ $(function(){
                         $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
                         helper.hideLoading();
                         window.open(base_url + "GeneralReports/excelTiempoFija");
+                    });
+            break;
+            case '5':
+                    $.post(base_url + "GeneralReports/c_getDataFromWorkInfo", {
+                        desde: $(`#fDesde`).val(),
+                        hasta: $(`#fHasta`).val(),
+                      }).done(function(){
+                        $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
+                        helper.hideLoading();
+                        window.open(base_url + "GeneralReports/excelWorkInfoMesaCalidad");
+                    });
+            break;
+            case '6':
+                    $.post(base_url + "GeneralReports/c_getDataFromAlarmasAutomatismo", {
+                        desde: $(`#fDesde`).val(),
+                        hasta: $(`#fHasta`).val(),
+                      }).done(function(){
+                        $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
+                        helper.hideLoading();
+                        window.open(base_url + "GeneralReports/excelAlarmasAutomatismo");
+                    });
+            break;
+            case '7':
+                    $.post(base_url + "GeneralReports/c_getDataFromTareasFOPerformance", {
+                        desde: $(`#fDesde`).val(),
+                        hasta: $(`#fHasta`).val(),
+                      }).done(function(){
+                        $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
+                        helper.hideLoading();
+                        window.open(base_url + "GeneralReports/excelTareasFOPerformance");
                     });
             break;
             default:

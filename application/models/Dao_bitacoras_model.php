@@ -1,6 +1,5 @@
 <?php
 
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dao_bitacoras_model extends CI_Model {
@@ -59,9 +58,21 @@ class Dao_bitacoras_model extends CI_Model {
     return $ingenieros;
 
   }
+  public function getEngineersByAreaAndRol($rol, $area) {
+      $query = $this->db->query("
+          SELECT u.id_users, CONCAT(u.nombres, ' ', u.apellidos) ingeniero
+          FROM users u
+          INNER JOIN role_user ru
+          ON ru.user_id = u.id_users
+          INNER JOIN roles r
+          ON r.id = ru.role_id
+          WHERE r.name = '$rol'
+          AND r.area = '$area'
+      ");
+  //    print_r($this->db->last_query().';<br>');
+      return $query->result();
+  }
 
 }
 
 /* End of file Dao_bitacoras_model.php */
-
-?>
