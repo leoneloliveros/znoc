@@ -119,7 +119,7 @@ class GeneralReports extends CI_Controller
       ->setShouldWrapText(false)
       ->build();
 
-      $writer->openToBrowser('workinfo('.date('Y-m-d').').xlsx');
+      $writer->openToBrowser('IncidentesFija('.date('Y-m-d').').xlsx');
       $titles = array('TICKETID', 'INTERNALPRIORITY', 'REGIONAL', 'PRIMER_GRUPO', 'OWNERGROUP', 'CREATIONDATE', 'CLOSEDATE', 'ACTUALFINISH', 'STATUS', 'STATUSDATE', 'RUTA_TKT', 'ACTIVIDAD', 'FECHAREPORTE_ACTI', 'FECHACAMBIO_ACTI', 'ESTADO_ACTI' );
 
       $header = WriterEntityFactory::createRowFromArray($titles);
@@ -228,8 +228,8 @@ class GeneralReports extends CI_Controller
       ->setShouldWrapText(false)
       ->build();
 
-      $writer->openToBrowser('workinfo('.date('Y-m-d').').xlsx');
-      $titles = array('CREADO POR', 'TICKET ID', 'CREACION NOTA', 'RESUMEN NOTA', 'DETALLE NOTA', 'CREACION INCIDENTE', 'ESTADO INCIDENTE', 'INCIDENTE CREADO POR', 'INCIDENTE CREADO NOMBRE', 'DESCRIPCION INCIDENTE', 'FECHA CIERRE INCIDENTE', 'RUTA CLASIFICACION', 'TIPO INCIDENTE', 'ARTICULO DE CONFIGURACION', 'FECHA AFECTACION', 'PRIORIDAD', 'URGENCIA', 'IMPACTO', 'PROVEEDORES', 'UBICACION', 'GRUPO PROPIETARIO');
+      $writer->openToBrowser('AlarmasAutomatismo('.date('Y-m-d').').xlsx');
+      $titles = array('TICKET ID', 'DESCRIPCION INCIDENTE', 'ESTADO INCIDENTE', 'PRIORIDAD', 'PROVEEDORES', 'FECHA CREACION INCIDENTE', 'FECHA CIERRE INCIDENTE', 'GRUPO PROPIETARIO', 'CREADO POR ID', 'ARTICULO CONFIGURACION', 'RUTA CLASIFICACION', 'ELEMENTO DE RED', 'ID GLOBAL', 'ID ALARMA', 'ALARMA', 'FECHA CREACION ALARMA', 'FECHA CANCELACION ALARMA', 'UBICACION', 'EXCLUSION', 'INCIDENTE EXCLUSION', 'INCIDENTE CODIGO FALLA', 'CODIGO CAUSA CIERRE');
 
       $header = WriterEntityFactory::createRowFromArray($titles);
       $writer->addRow($header);
@@ -264,7 +264,7 @@ class GeneralReports extends CI_Controller
       ->setShouldWrapText(false)
       ->build();
 
-      $writer->openToBrowser('workinfo('.date('Y-m-d').').xlsx');
+      $writer->openToBrowser('TareasFOPerformance('.date('Y-m-d').').xlsx');
       $titles = array('TAREA', 'FECHA CREACION DE TAREA', 'DESCRIPCION TAREA', 'ESTADO TAREA', 'PROPIETARIO TAREA', 'INCIDENTE', 'FECHA CREACION INCIDENTE', 'ESTADO INCIDENTE', 'DESCRIPCION INCIDENTE', 'FECHA CIERRE INCIDENTE', 'CREADOR DE NOTA', 'FECHA NOTA', 'DETALLE NOTA');
 
       $header = WriterEntityFactory::createRowFromArray($titles);

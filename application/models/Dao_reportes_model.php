@@ -513,49 +513,50 @@ class Dao_reportes_model extends CI_Model {
     }
     public function getAlarmasAutomatismo($fdesde,$fhasta) {
         $query = $this->db->query("
-            SELECT inc.CREATEDBY AS 'CREADO POR',
-            inc.TICKETID AS 'TICKET ID',
-            wl.CREATEDATE AS 'CREACION NOTA',
-            wl.DESCRIPTION AS 'RESUMEN NOTA',
-            wl.DESCRIPTION_LONGDESCRIPTION AS 'DETALLE NOTA',
-            inc.CREATIONDATE AS 'CREACION INCIDENTE',
-            inc.STATUS AS 'ESTADO INCIDENTE',
-            inc.CREATEDBY AS 'INCIDENTE CREADO POR',
-            '' AS 'INCIDENTE CREADO NOMBRE',
-            inc.DESCRIPTION AS 'DESCRIPCION INCIDENTE',
-            inc.ACTUALFINISH AS 'FECHA CIERRE INCIDENTE',
-            inc.RUTA_TKT AS 'RUTA CLASIFICACION',
-            inc.TIPO_TKT AS 'TIPO INCIDENTE',
-            art.DESCRIPTION AS 'ARTICULO CONFIGURACION',
-            '' AS 'FECHA AFECTACION',
-            CASE
-                WHEN inc.INTERNALPRIORITY = 3 THEN 'Baja'
-                WHEN inc.INTERNALPRIORITY = 2 THEN 'Media'
-                WHEN inc.INTERNALPRIORITY = 1 THEN 'Alta'
-                ELSE ''
-            END AS 'PRIORIDAD',
-            CASE
-                WHEN inc.URGENCY = 3 THEN 'Baja'
-                WHEN inc.URGENCY = 2 THEN 'Media'
-                WHEN inc.URGENCY = 1 THEN 'Alta'
-                ELSE ''
-            END AS 'URGENCIA',
-            'preguntar' AS 'IMPACTO',
-            inc.PROVEEDORES AS 'PROVEEDORES',
-            inc.LOCATION AS 'UBICACION',
-            inc.OWNERGROUP AS 'GRUPO PROPIETARIO'
-            FROM maximo.INCIDENT inc
-            INNER JOIN maximo.WORKLOG wl
-            ON wl.RECORDKEY = inc.TICKETID
-            LEFT JOIN   maximo.ARTCNF art
-            ON inc.TICKETID = art.TICKETID
-            WHERE DATE_FORMAT(inc.CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
+        SELECT inc.TICKETID AS 'TICKET ID', 
+		inc.DESCRIPTION AS 'DESCRIPCION INCIDENTE',
+        inc.STATUS AS 'ESTADO INCIDENTE', 
+         CASE
+		WHEN inc.INTERNALPRIORITY = 3 THEN 'Baja'
+		WHEN inc.INTERNALPRIORITY = 2 THEN 'Media'
+        WHEN inc.INTERNALPRIORITY = 1 THEN 'Alta'
+		ELSE ''
+	END AS 'PRIORIDAD' ,
+        inc.PROVEEDORES AS 'PROVEEDORES',
+        inc.CREATIONDATE AS 'FECHA CREACION INCIDENTE',
+        inc.ACTUALFINISH AS 'FECHA CIERRE INCIDENTE',
+        inc.OWNERGROUP AS 'GRUPO PROPIETARIO',
+        inc.CREATEDBY AS 'CREADO POR ID',
+        art.DESCRIPTION AS 'ARTICULO CONFIGURACION',
+        inc.RUTA_TKT AS 'RUTA CLASIFICACION',
+        alarm.NODE AS 'ELEMENTO DE RED',
+        alarm.CONSEC_NBR AS 'ID GLOBAL',
+        alarm.NUM_ALARMA AS 'ID ALARMA',
+        alarm.NOMB_ALARMA AS 'ALARMA',
+        alarm.CREADA AS 'FECHA CREACION ALARMA',
+        alarm.CANCELADA AS 'FECHA CANCELACION ALARMA',
+        inc.LOCATION AS 'UBICACION',
+         CASE
+		WHEN inc.INCEXCLUIR = 0 THEN 'No'
+		WHEN inc.INCEXCLUIR = 1 THEN 'Si'
+		ELSE ''
+        END AS 'EXCLUSION',
+        '' AS 'INCIDENTE EXCLUSION',
+        '' AS 'INCIDENTE CODIGO FALLA',
+        inc.CAUSE_CODE AS 'CODIGO CAUSA CIERRE'
+        FROM maximo.INCIDENT inc
+         INNER JOIN maximo.ALARMS alarm
+          ON inc.TICKETID = alarm.TICKETID
+          LEFT JOIN   maximo.ARTCNF art
+          ON inc.TICKETID = art.TICKETID
+          WHERE inc.DESCRIPTION like '%MC:%'
+          and DATE_FORMAT(inc.CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
                 $data =  $query->result();
         $_SESSION['x'] = $data;
         return $data;
     }
 
-    public function getTTareasFOPerformance($fdesde,$fhasta) {
+    public function getTareasFOPerformance($fdesde,$fhasta) {
         $query = $this->db->query("
             SELECT AC.WONUM AS TAREA,AC.REPORTDATE AS FECHA_CREACION_TAREA,AC.DESCRIPTION, AC.STATUS, AC.OWNER,AC.TICKETID,IC.CREATIONDATE AS FECHA_CREA_INCIDENTE,IC.STATUS AS ESTADO_INCIDENTE,IC.DESCRIPTION,
 
