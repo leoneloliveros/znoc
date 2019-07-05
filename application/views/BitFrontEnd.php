@@ -9,16 +9,45 @@ input{
   text-align: center;
 }
 </style>
-<div class="m-content frame">
+<div class="" style="margin-bottom:30px; text-align:center;">
+  <button class="btn btn-default" id="crearBitacora" type="button" name="button">Crear</button>
+  <button class="btn btn-default" id="exportarBitacora" type="button" name="button">Exportar</button>
+</div>
+<div class="m-content frame" id="exportContent" style="display:none; padding-bottom:50px;">
+  <div class="row">
+    <form id="forExport" class="" action="<?= base_url('Exports/Reporte')?>" method="post">
+    <div class="form-group col-sm-4">
+      <h4><p>Tipo de bitácora</p></h4>
+      <select id="areaExport" name="opcion" class="form-control getAreas">
+        <option value="">Seleccione...</option>
+      </select>
+    </div>
+    <div class="col-sm-1 col-sm-offset-3">
+      <div class="checkbox">
+        <label><input id="toggleDate" type="checkbox" value="" >Filtro inicio de actividad: </label>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <h4><p>Desde:</p></h4>
+      <input type="" id="fechaInicio" class="formu inicio form-control" placeholder="Fecha inicio" name="fechaIni" value="" disabled>
+    </div>
+    <div class="col-sm-2">
+      <h4><p>Hasta:</p></h4>
+      <input type="" id="fechaFin" class="formu fin form-control" placeholder="Fecha fin" name="fechaFin" value="" disabled>
+    </div>
+  </div>
+  <br>
+  <div id="contenedor_busqueda" class="col-sm-2" style="">
+    <button type="submit" id="buscar" class="btn btn-info col-sm-12" >Buscar</button>
+  </form>
+  </div>
+</div>
+<div class="m-content frame" id="createContent" style="display:none;">
   <div class="row">
     <div class="form-group col-sm-offset-4 col-md-4">
       <label for="tipo_bitacora">Tipo de bitácora</label>
-      <select id="tipo_bitacora" class="form-control">
+      <select id="tipo_bitacora" class="form-control getAreas">
         <option selected>Seleccione...</option>
-        <option data-id="1" value="energias">Energía</option>
-        <option data-id="2" value="intermitencias">Intermitencias</option>
-        <option data-id="3" value="plataformas">Plataforma</option>
-        <option data-id="4" value="servicios">Servicios</option>
       </select>
     </div>
   </div>
