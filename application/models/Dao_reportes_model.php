@@ -555,7 +555,7 @@ class Dao_reportes_model extends CI_Model {
         return $data;
     }
 
-    public function getTTareasFOPerformance($fdesde,$fhasta) {
+    public function getTareasFOPerformance($fdesde,$fhasta) {
         $query = $this->db->query("
             SELECT AC.WONUM AS TAREA,AC.REPORTDATE AS FECHA_CREACION_TAREA,AC.DESCRIPTION, AC.STATUS, AC.OWNER,AC.TICKETID,IC.CREATIONDATE AS FECHA_CREA_INCIDENTE,IC.STATUS AS ESTADO_INCIDENTE,IC.DESCRIPTION,
 

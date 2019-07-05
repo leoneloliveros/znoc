@@ -60,7 +60,7 @@ class Dao_bitacoras_model extends CI_Model {
             WHERE r.name = '$rol'
             AND r.area = '$area'
         ");
-//        print_r($this->db->last_query().';<br>');
+    //    print_r($this->db->last_query().';<br>');
         return $query->result();
     }
 
