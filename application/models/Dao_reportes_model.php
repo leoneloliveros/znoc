@@ -541,7 +541,9 @@ class Dao_reportes_model extends CI_Model {
 		WHEN inc.INCEXCLUIR = 1 THEN 'Si'
 		ELSE ''
         END AS 'EXCLUSION',
-        '' AS 'INCIDENTE EXCLUSION'
+        '' AS 'INCIDENTE EXCLUSION',
+        '' AS 'INCIDENTE CODIGO FALLA',
+        inc.CAUSE_CODE AS 'CODIGO CAUSA CIERRE'
         FROM maximo.INCIDENT inc
          INNER JOIN maximo.ALARMS alarm
           ON inc.TICKETID = alarm.TICKETID
