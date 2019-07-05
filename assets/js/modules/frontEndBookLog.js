@@ -3,18 +3,40 @@ $(function () {
     init: function () {
       bitacoras.events();
       bitacoras.checkStateType();
+      bitacoras.getAreas();
       // $(".valD").attr("maxlength",19);
-      $(`.valD`).mask('00/00/0000 00:00:00',{placeholder: "--/--/-- --:--:--"})
+      $(`#fechaInicio, #fechaFin`).mask('00/00/0000',{placeholder: "--/--/--"});
+      $(`.valD`).mask('00/00/0000',{placeholder: "--/--/--"});
     },
 
     events: function () {
+      $('#buscar').click(bitacoras.exportarBitacora);
+      $('#toggleDate').click(()=>{
+        if( $('#toggleDate').prop('checked') ) {
+          // alert('Seleccionado');
+          $(`#fechaInicio, #fechaFin`).attr('disabled',false);
+        }else {
+          $(`#fechaInicio, #fechaFin`).attr('disabled',true);
+        }
+        document.getElementById('forExport').reset();
+      });
+      $('#crearBitacora').click(()=>{
+        $('#createContent').show();
+        $('#exportContent').hide();
+      });
+      $('#exportarBitacora').click(()=>{
+        $('#exportContent').show();
+        $('#createContent').hide();
+      });
+
+      $('#validate_selection').click(bitacoras.serviciosCorporativos);
 
       $('#estaciones_afectadas').change(()=>{
         var value = $('#estaciones_afectadas').val();
         if(value == "4 a 20"){
           alert('ESTACIONES AFECTADAS: 4 a 20 \n Notificar al incident, a Comunicados y al responsable del caso.');
         }
-        if(value == "MAYOR A   20"){
+        if(value == "MAYOR A 20"){
           alert('ESTACIONES AFECTADAS: MAYOR A 20 \n Notificar al gerente de zona, al incident, al responsable de caso y comunicados.');
         }
       });
@@ -44,7 +66,27 @@ $(function () {
       $('#id_users').on('change',function(){ $(`#cedulaBitacora`).val($(this).val()) } );
 
     },
+    serviciosCorporativos: function(){
+      $('#servicios_corporativos').off("change");
+      $('#servicios_corporativos').change(()=>{
+        var value = $('#servicios_corporativos').val();
+        if(value == "MAYOR A 10"){
+          alert('Servicios Corporativos: MAYOR A 10 \n Notificar al incident, a Comunicados y al responsable del caso.');
+        }
+      });
 
+    },
+    exportarBitacora: function() {
+      if ($('#areaExport').val() == "") {
+        helper.miniAlert('Seleccione una opcion a Expotar.');
+        return false;
+      }else {
+        if($('#toggleDate').prop('checked') &&   $(`#fechaInicio, #fechaFin`).val() == ""){
+          helper.miniAlert('Seleccione un rango de fechas o desactive el filtro.');
+          return false;
+        }
+      }
+    },
     validateOnlyNumbers: function(e){
       switch (String.fromCharCode(e.keyCode)) {
         case '1':
@@ -63,7 +105,30 @@ $(function () {
       }
 
     },
+    getAreas: function() {
+      $.post(
+        base_url+`Bitacoras/getAreas`,
+        {},
+        function(data){
+          var obj = JSON.parse(data);
+          for (var i = 0; i < obj.length; i++) {
+            var nn = obj[i].subarea.split('_');
+            n2 = nn.length-1;
+            if (nn[n2] == 'Energia') {
+              $(`.getAreas`).append( `<option class="" data-id="Energias" value="${obj[i].subarea}">Energía</opption>`);
+            }else {
+              if (nn[n2] == 'Plataforma') {
+                $(`.getAreas`).append( `<option class="" data-id="plataformas" value="${obj[i].subarea}">Plataforma</opption>`);
+              }else {
+                $(`.getAreas`).append( `<option class="" data-id="${nn[n2]}" value="${obj[i].subarea}">${nn[n2]}</opption>`);
+              }
+            }
+          }
+          // $(`.getAreas`).append( `<option class="" data-id="" value="General">Todos</opption>`);
+        }
+      );
 
+    },
     allTypesDisable: function () {
       $("#validate_selection").children().remove();
       // elimina los ingenieros anteriores para posteriormente volverlos a llenar
@@ -89,7 +154,6 @@ $(function () {
         console.log('T3');
         $("#turno option[value='T3']").attr("selected",true);
       }
-
       console.log(hora);
       $(".generalFields input, .generalFields select, .generalFields textarea").not('#tiempo_atencion,#cedulaBitacora').attr("disabled",false);
 
@@ -337,11 +401,11 @@ $(function () {
             {
               general: data,
               tipo: tipoBitacora,
-              tabla: $('#tipo_bitacora').val(),
+              tabla: $('#tipo_bitacora option:selected').attr("data-id"),
             },
             function (data) {
               if (data == 'true') {
-                helper.alert_refresh('¡Bien hecho', `Se guardó la bitácora de <b>${$('#tipo_bitacora').val()}</b>.`, 'success');
+                helper.alert_refresh('¡Bien hecho', `Se guardó la bitácora de <b>${$('#tipo_bitacora option:selected').attr("data-id")}</b>.`, 'success');
                 document.getElementById('formu').reset();
               } else {
                 swal({
@@ -380,7 +444,7 @@ $(function () {
 
     getEngineersAccordingType: function(){
       $.post(base_url+"Bitacoras/getEngineersByTypeLogBooks", {
-        type: $('#tipo_bitacora option:selected').attr("data-id"),
+        type: $('#tipo_bitacora').val(),
       },
         function (data) {
           const obj = JSON.parse(data);
