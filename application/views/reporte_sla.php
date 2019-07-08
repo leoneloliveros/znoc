@@ -21,3 +21,5 @@
     </table>
   </div>
 </div>
+<div id="grafica_r" style="width: 800px;">
+</div>
