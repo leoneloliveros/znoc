@@ -45,14 +45,14 @@ class Dao_reportes_model extends CI_Model {
                     WHEN DESCRIPTION LIKE '%FOIP%' THEN 'FOIP'
                     ELSE 'Sin coordinación'
                 END) AS coordinacion,
-                SUM(IF(INTERNALPRIORITY = 1 AND URGENCY = 1 AND TIEMPO_ESCALA <= 20, 1, 0)) AS 'alta_alta_20_min',
-                SUM(IF(INTERNALPRIORITY = 1 AND URGENCY = 1 AND TIEMPO_ESCALA > 20, 1, 0)) AS 'alta_alta_20_max',
-                SUM(IF(INTERNALPRIORITY = 1 AND URGENCY = 2 AND TIEMPO_ESCALA <= 40, 1, 0)) AS 'alta_media_40_min',
-                SUM(IF(INTERNALPRIORITY = 1 AND URGENCY = 2 AND TIEMPO_ESCALA > 40, 1, 0)) AS 'alta_media_40_max',
-                SUM(IF(INTERNALPRIORITY = 2 AND TIEMPO_ESCALA <= 60, 1, 0)) AS 'medias_60_min',
-                SUM(IF(INTERNALPRIORITY = 2 AND TIEMPO_ESCALA > 60, 1, 0)) AS 'medias_60_max',
-                SUM(IF(INTERNALPRIORITY = 3 AND TIEMPO_ESCALA <= 80, 1, 0)) AS 'bajas_80_min',
-                SUM(IF(INTERNALPRIORITY = 3 AND TIEMPO_ESCALA > 80, 1, 0)) AS 'bajas_80_max',
+                SUM(IF(INTERNALPRIORITY = 1 AND URGENCY = 1 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_VIDA_TKT, TIEMPO_ESCALA) <= 20, 1, 0)) AS 'alta_alta_20_min',
+                SUM(IF(INTERNALPRIORITY = 1 AND URGENCY = 1 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_VIDA_TKT, TIEMPO_ESCALA) > 20, 1, 0)) AS 'alta_alta_20_max',
+                SUM(IF(INTERNALPRIORITY = 1 AND URGENCY = 2 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_VIDA_TKT, TIEMPO_ESCALA) <= 40, 1, 0)) AS 'alta_media_40_min',
+                SUM(IF(INTERNALPRIORITY = 1 AND URGENCY = 2 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_VIDA_TKT, TIEMPO_ESCALA) > 40, 1, 0)) AS 'alta_media_40_max',
+                SUM(IF(INTERNALPRIORITY = 2 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_VIDA_TKT, TIEMPO_ESCALA) <= 60, 1, 0)) AS 'medias_60_min',
+                SUM(IF(INTERNALPRIORITY = 2 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_VIDA_TKT, TIEMPO_ESCALA) > 60, 1, 0)) AS 'medias_60_max',
+                SUM(IF(INTERNALPRIORITY = 3 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_VIDA_TKT, TIEMPO_ESCALA) <= 80, 1, 0)) AS 'bajas_80_min',
+                SUM(IF(INTERNALPRIORITY = 3 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_VIDA_TKT, TIEMPO_ESCALA) > 80, 1, 0)) AS 'bajas_80_max',
                 SUM(IF(INTERNALPRIORITY IS NULL, 1, 0)) AS 'nulos',
                 COUNT(TICKETID) AS total_incidentes
             FROM maximo.INCIDENT
@@ -68,18 +68,19 @@ class Dao_reportes_model extends CI_Model {
         ");
         return $query->result();
     }
-    public function getDataWorkInfo($fdesde,$fhasta){
+
+    public function getDataWorkInfo($fdesde, $fhasta) {
         $query = $this->db->query("
             SELECT TICKETID
             FROM maximo.INCIDENT
             WHERE DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
         ");
-        $data =  $query->result();
+        $data = $query->result();
         $_SESSION['x'] = $data;
         return $data;
     }
 
-    public function getDataTiempoFija($fdesde,$fhasta){
+    public function getDataTiempoFija($fdesde, $fhasta) {
         $query = $this->db->query("
         SELECT DISTINCT TK.TICKETID ,TK.INTERNALPRIORITY,TK.STATUS,TK.CREATIONDATE,TK.ACTUALFINISH,ifnull(TK.CLOSEDATE,sysdate()) AS FECHA_CIERRE_TKT,TK.DESCRIPTION,TK.REGIONAL,TK.RUTA_TKT,TK.OWNERGROUP,GM.ASSIGNEDOWNERGROUP AS PRIMER_GRUPO,
         ROUND(IFNULL(EOTR.OTG,0)) AS TIEMPO_OTROS_GRUPOS,
@@ -207,12 +208,12 @@ class Dao_reportes_model extends CI_Model {
         DATE_FORMAT(TK.CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';
 
         ");
-        $data =  $query->result();
+        $data = $query->result();
         $_SESSION['x'] = $data;
         return $data;
     }
 
-    public function getIncidentesFija($fdesde,$fhasta) {
+    public function getIncidentesFija($fdesde, $fhasta) {
         $query = $this->db->query("
         SELECT ALK.TICKETID, ALK.INTERNALPRIORITY,ALK.REGIONAL,
 
@@ -229,12 +230,12 @@ class Dao_reportes_model extends CI_Model {
         WHERE ALK.RUTA_TKT LIKE 'SERVICIOS FIJOS%'
 
         AND ALK.CREATIONDATE  BETWEEN '$fdesde' AND '$fhasta';");
-        $data =  $query->result();
+        $data = $query->result();
         $_SESSION['x'] = $data;
         return $data;
     }
 
-    public function getTiempoNOCEste($fdesde,$fhasta) {
+    public function getTiempoNOCEste($fdesde, $fhasta) {
         $query = $this->db->query("
         SELECT TI.TICKETID, TI.ZONA_TKT,
 
@@ -326,13 +327,13 @@ class Dao_reportes_model extends CI_Model {
 
 
         ");
-        $data =  $query->result();
+        $data = $query->result();
         $_SESSION['x'] = $data;
         return $data;
     }
 
     //Retorna los incidentes de una coordinacion dentro de un rango de fechas
-    public function getIncidentsByCoordination($fdesde, $fhasta, $coordinacion, $like2= null) {
+    public function getIncidentsByCoordination($fdesde, $fhasta, $coordinacion, $like2 = null) {
         $condicion = '';
         if ($like2 != null) {
             $condicion = "DESCRIPTION LIKE '%$like2%' AND";
@@ -467,27 +468,26 @@ class Dao_reportes_model extends CI_Model {
         return $query->result();
     }
 
-    public function export($opcion,$ini,$fin)
-    {
+    public function export($opcion, $ini, $fin) {
 
-      if ($ini == "" || $fin == "") {
-        // echo "fechas vacias";
-        if ($opcion == "energia") {
-          $opcion = "energias";
-        }
-        if ($opcion == "plataforma") {
-            $opcion = "plataformas";
-        }
-        $query = $this->db->query("DESC $opcion");
-        $resultado = $query->result();
-        $nameColumns = "";
-        foreach ($resultado as $key => $value) {
-          $nameColumns .= " o.".$value->Field.",";
-        }
-        // echo $nameColumns;
-        // var_dump($query->result());
-        $query2 = $this->db->query(
-        "SELECT $nameColumns
+        if ($ini == "" || $fin == "") {
+            // echo "fechas vacias";
+            if ($opcion == "energia") {
+                $opcion = "energias";
+            }
+            if ($opcion == "plataforma") {
+                $opcion = "plataformas";
+            }
+            $query = $this->db->query("DESC $opcion");
+            $resultado = $query->result();
+            $nameColumns = "";
+            foreach ($resultado as $key => $value) {
+                $nameColumns .= " o." . $value->Field . ",";
+            }
+            // echo $nameColumns;
+            // var_dump($query->result());
+            $query2 = $this->db->query(
+                    "SELECT $nameColumns
          l.id_logbooks,
          l.inicio_actividad,
          l.fin_actividad,
@@ -510,26 +510,26 @@ class Dao_reportes_model extends CI_Model {
          ON o.id_logbooks = l.id_logbooks
          INNER JOIN users u
          ON l.id_users = u.id_users"
-        );
-        return $query2->result();
-        // print_r($this->db->last_query());
-      }else {
-        if ($opcion == "energia") {
-          $opcion = "energias";
-        }
-        if ($opcion == "plataforma") {
-            $opcion = "plataformas";
-        }
+            );
+            return $query2->result();
+            // print_r($this->db->last_query());
+        } else {
+            if ($opcion == "energia") {
+                $opcion = "energias";
+            }
+            if ($opcion == "plataforma") {
+                $opcion = "plataformas";
+            }
 
-        $query = $this->db->query("DESC $opcion");
-        $resultado = $query->result();
-        $nameColumns = "";
-        foreach ($resultado as $key => $value) {
-          $nameColumns .= " o.".$value->Field.",";
-        }
+            $query = $this->db->query("DESC $opcion");
+            $resultado = $query->result();
+            $nameColumns = "";
+            foreach ($resultado as $key => $value) {
+                $nameColumns .= " o." . $value->Field . ",";
+            }
 
-      $query2 = $this->db->query(
-        "SELECT $nameColumns
+            $query2 = $this->db->query(
+                    "SELECT $nameColumns
          l.id_logbooks,
          l.inicio_actividad,
          l.fin_actividad,
@@ -551,14 +551,12 @@ class Dao_reportes_model extends CI_Model {
          INNER JOIN users u
          ON l.id_users = u.id_users
          WHERE l.inicio_actividad BETWEEN $ini AND $fin"
-        );
-        // print_r($this->db->last_query());
+            );
+            // print_r($this->db->last_query());
+        }
+    }
 
-      }
-
-
-
-    public function getWorkInfo($fdesde,$fhasta) {
+    public function getWorkInfo($fdesde, $fhasta) {
         $query = $this->db->query("
             SELECT inc.CREATEDBY AS 'CREADO POR',
             inc.TICKETID AS 'TICKET ID',
@@ -597,11 +595,12 @@ class Dao_reportes_model extends CI_Model {
             LEFT JOIN   maximo.ARTCNF art
             ON inc.TICKETID = art.TICKETID
             WHERE DATE_FORMAT(inc.CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
-                $data =  $query->result();
+        $data = $query->result();
         $_SESSION['x'] = $data;
         return $data;
     }
-    public function getAlarmasAutomatismo($fdesde,$fhasta) {
+
+    public function getAlarmasAutomatismo($fdesde, $fhasta) {
         $query = $this->db->query("
         SELECT inc.TICKETID AS 'TICKET ID',
 		inc.DESCRIPTION AS 'DESCRIPCION INCIDENTE',
@@ -641,12 +640,12 @@ class Dao_reportes_model extends CI_Model {
           ON inc.TICKETID = art.TICKETID
           WHERE inc.DESCRIPTION like '%MC:%'
           and DATE_FORMAT(inc.CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
-                $data =  $query->result();
+        $data = $query->result();
         $_SESSION['x'] = $data;
         return $data;
     }
 
-    public function getTareasFOPerformance($fdesde,$fhasta) {
+    public function getTareasFOPerformance($fdesde, $fhasta) {
         $query = $this->db->query("
             SELECT AC.WONUM AS TAREA,AC.REPORTDATE AS FECHA_CREACION_TAREA,AC.DESCRIPTION, AC.STATUS, AC.OWNER,AC.TICKETID,IC.CREATIONDATE AS FECHA_CREA_INCIDENTE,IC.STATUS AS ESTADO_INCIDENTE,IC.DESCRIPTION,
 
@@ -665,12 +664,10 @@ class Dao_reportes_model extends CI_Model {
             WHERE AC.WONUM LIKE 'TAS%'
 
             AND DATE_FORMAT(AC.REPORTDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
-                $data =  $query->result();
+        $data = $query->result();
         $_SESSION['x'] = $data;
         return $data;
-
     }
-
 
 }
 
