@@ -666,6 +666,10 @@ class Dao_reportes_model extends CI_Model {
 
             AND IC.DESCRIPTION LIKE 'MC:%'
 
+            AND IC.DESCRIPTION NOT LIKE 'MC: PERFORMANCE%'
+
+            AND IC.DESCRIPTION NOT LIKE 'MC: ALARMA%'
+
             AND DATE_FORMAT(AC.REPORTDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
         $data = $query->result();
         $_SESSION['x'] = $data;
