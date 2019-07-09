@@ -61,21 +61,21 @@ class Bitacoras extends CI_Controller {
         $saved = $this->Dao_bitacoras_model->saveBookLogsAccordingType($generalData, $informacionEspecifica, $table);
 
 
-         echo json_encode($saved);
+        echo json_encode($saved);
+    }
 
-
-      }
-      public function getAreas()
-      {
+    public function getAreas() {
         $engs = $this->Dao_bitacoras_model->getAreas();
         echo json_encode($engs);
-      }
-      public function getEngineersByTypeLogBooks(){
-         $tipo = $this->input->post('type');
-         $engs = $this->Dao_bitacoras_model->getEngineersForLogBooks($tipo);
-         echo json_encode($engs);
-      }
-   }
+    }
+
+    public function getEngineersByTypeLogBooks() {
+        $tipo = $this->input->post('type');
+        $engs = $this->Dao_bitacoras_model->getEngineersForLogBooks($tipo);
+        echo json_encode($engs);
+    }
+
+}
 
 /* End of file Bitacoras.php */
 ?>
