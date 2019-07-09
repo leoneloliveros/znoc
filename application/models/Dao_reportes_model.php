@@ -556,7 +556,7 @@ class Dao_reportes_model extends CI_Model {
 
       }
 
-
+    }
 
     public function getWorkInfo($fdesde,$fhasta) {
         $query = $this->db->query("
