@@ -251,180 +251,219 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
-
-
-
-                    <!-- Sidebar Menu -->
-                    <ul class="sidebar-menu" data-widget="tree">
-                        <li class="header">MENÚ DE NAVEGACIÓN</li>
-                        <!-- Optionally, you can add icons to the links -->
-                        <li id="principal">
-                            <a href="<?= base_url("User/principal") ?>">
-                                <i class="fa fa-home"></i>
-                                <span>Principal</span>
-                            </a>
-                        </li>
-                        <li id="Reportes">
-                            <a href="<?= base_url("GeneralReports/showReports") ?>">
-                                <i class="fas fa-file-excel"></i>
-                                <span>Reportes</span>
-                            </a>
-                        </li>
-
-          <!-- <li><a href="#"><i class="fa fa-id-badge"></i> <span>Agenda</span></a></li> -->
-                        <li class="treeview" id="areali">
-                            <a href="#">
-                                <i class="fab fa-adn"></i>
-                                <span>Área</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li class="treeview">
-                                    <a href="#">
-                                        <i class="fab fa-buromobelexperte"></i>&nbsp;&nbsp;
-                                        <span>Front Office Móvil</span>
-                                        <span class="pull-right-container">
-                                            <i class="fa fa-angle-left pull-right"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        <li>
-                                            <a href="<?= base_url('Reportes/volumetria') ?>">
-                                                <i class="fab fa-audible"></i>&nbsp;&nbsp;
-                                                <span>Volumetrías</span>
-                                            </a>
-                                        </li>
-                                        <li id="slali">
-                                            <a href="<?= base_url('Reportes/reporte_sla') ?>">
-                                                <i class="fas fa-calendar"></i>&nbsp;&nbsp;
-                                                <span>SLA</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <!-- *****************SUB NIVEL***************** -->
-                                <li>
-                                <li class="treeview">
-                                    <a href="#">
-                                        <i class="fas fa-tools"></i>&nbsp;&nbsp;
-                                        <span>Customer Care</span>
-                                        <span class="pull-right-container">
-                                            <i class="fa fa-angle-left pull-right"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        <li id="volumetria_cc">
-                                            <a href="<?= base_url('Reportes/volumetria_cc') ?>">
-                                                <i class="fab fa-audible"></i>&nbsp;&nbsp;
-                                                <span>Volumetría</span></a>
-                                        </li>
-                                        <li id="slaliCustomer">
-                                            <a href="<?= base_url('Reportes/reporte_sla_customer') ?>">
-                                                <i class="fas fa-calendar"></i>&nbsp;&nbsp;
-                                                <span>SLA</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="treeview">
-                                    <a href="#">
-                                        <i class="fab fa-buromobelexperte"></i>&nbsp;&nbsp;
-                                        <span>Front Office Fija</span>
-                                        <span class="pull-right-container">
-                                            <i class="fa fa-angle-left pull-right"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        <li id="vol_fija">
-                                            <a href="<?= base_url('Reportes/volumetria_fija') ?>">
-                                                <i class="fab fa-audible"></i>&nbsp;&nbsp;
-                                                <span>Volumetrías</span>
-                                            </a>
-                                        </li>
-                                        <li id="slali">
-                                            <a href="<?= base_url('Reportes/reporte_sla_fija') ?>">
-                                                <i class="fas fa-calendar"></i>&nbsp;&nbsp;
-                                                <span>SLA</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                        </li>
+                    </div>
+                    <!-- /.row -->
+                    </li>
+                    <!-- Menu Footer-->
+                    <li class="user-footer">
+                        <div class="pull-left">
+                            <a href="<?= base_url('User/perfil') ?>" class="btn btn-default btn-flat"><i class="fas fa-cogs"></i> </i> Perfil</a>
+                        </div>
+                        <div class="pull-right">
+                            <a href="<?= base_url('User/logout'); ?>" class="btn btn-default btn-flat">Sign out</a>
+                        </div>
+                    </li>
                     </ul>
                     </li>
+                    <!-- Control Sidebar Toggle Button -->
+                    <!-- <li>
+                      <a href="#" data-toggle="control-sidebar"><i class="fas fa-cogs"></i></i></a>
+                    </li> -->
+                    </ul>
+                    </div>
+                    </nav>
+                    </header>
+                    <!-- Left side column. contains the logo and sidebar -->
+                    <aside class="main-sidebar" style="position:fixed;">
 
-                    <!-- <li class="treeview" id="areali">
-                        <a href="">
-                          <i class="fab fa-buromobelexperte"></i>
-                          <span>nombre</span>
-                          <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                          </span>
-                        </a>
-                        <ul class="treeview-menu">
-                          <li id="">
-                            <a href=""><span></span>
-                          </li>
-                          <li id="">
-                            <a href=""><span></span>
-                          </li>
-                        </ul>
-                      </li> -->
+                        <!-- sidebar: style can be found in sidebar.less -->
+                        <section class="sidebar">
+
+                            <!-- Sidebar user panel (optional) -->
+                            <div class="user-panel" style="display:none;">
+                                <div class="pull-left image">
+                                    <img src="<?= base_url("assets2/dist/img/usuarios/$img_user_session.jpg"); ?>" class="img-circle" alt="User Image">
+                                </div>
+                                <div class="pull-left info">
+                                    <p><?= $this->session->userdata('name') ?></p>
+                                    <!-- Status -->
+                                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                                </div>
+                            </div>
+
+
+
+                            <!-- Sidebar Menu -->
+                            <ul class="sidebar-menu" data-widget="tree">
+                                <li class="header">MENÚ DE NAVEGACIÓN</li>
+                                <!-- Optionally, you can add icons to the links -->
+                                <li id="principal">
+                                    <a href="<?= base_url("User/principal") ?>">
+                                        <i class="fa fa-home"></i>
+                                        <span>Principal</span>
+                                    </a>
+                                </li>
+                                <li id="Reportes">
+                                    <a href="<?= base_url("GeneralReports/showReports") ?>">
+                                        <i class="fas fa-file-excel"></i>
+                                        <span>Reportes</span>
+                                    </a>
+                                </li>
+
+          <!-- <li><a href="#"><i class="fa fa-id-badge"></i> <span>Agenda</span></a></li> -->
+                                <li class="treeview" id="areali">
+                                    <a href="#">
+                                        <i class="fab fa-adn"></i>
+                                        <span>Área</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fab fa-buromobelexperte"></i>&nbsp;&nbsp;
+                                                <span>Front Office Móvil</span>
+                                                <span class="pull-right-container">
+                                                    <i class="fa fa-angle-left pull-right"></i>
+                                                </span>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li>
+                                                    <a href="<?= base_url('Reportes/volumetria') ?>">
+                                                        <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                                                        <span>Volumetrías</span>
+                                                    </a>
+                                                </li>
+                                                <li id="slali">
+                                                    <a href="<?= base_url('Reportes/reporte_sla') ?>">
+                                                        <i class="fas fa-calendar"></i>&nbsp;&nbsp;
+                                                        <span>SLA</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <!-- *****************SUB NIVEL***************** -->
+                                        <li>
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fas fa-tools"></i>&nbsp;&nbsp;
+                                                <span>Customer Care</span>
+                                                <span class="pull-right-container">
+                                                    <i class="fa fa-angle-left pull-right"></i>
+                                                </span>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li id="volumetria_cc">
+                                                    <a href="<?= base_url('Reportes/volumetria_cc') ?>">
+                                                        <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                                                        <span>Volumetría</span></a>
+                                                </li>
+                                                <li id="slaliCustomer">
+                                                    <a href="<?= base_url('Reportes/reporte_sla_customer') ?>">
+                                                        <i class="fas fa-calendar"></i>&nbsp;&nbsp;
+                                                        <span>SLA</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fab fa-buromobelexperte"></i>&nbsp;&nbsp;
+                                                <span>Front Office Fija</span>
+                                                <span class="pull-right-container">
+                                                    <i class="fa fa-angle-left pull-right"></i>
+                                                </span>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li id="vol_fija">
+                                                    <a href="<?= base_url('Reportes/volumetria_fija') ?>">
+                                                        <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                                                        <span>Volumetrías</span>
+                                                    </a>
+                                                </li>
+                                                <li id="slali">
+                                                    <a href="<?= base_url('Reportes/reporte_sla_fija') ?>">
+                                                        <i class="fas fa-calendar"></i>&nbsp;&nbsp;
+                                                        <span>SLA</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                </li>
+                            </ul>
+                            </li>
+
+                            <!-- <li class="treeview" id="areali">
+                                <a href="">
+                                  <i class="fab fa-buromobelexperte"></i>
+                                  <span>nombre</span>
+                                  <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                  </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                  <li id="">
+                                    <a href=""><span></span>
+                                  </li>
+                                  <li id="">
+                                    <a href=""><span></span>
+                                  </li>
+                                </ul>
+                              </li> -->
 
         <!-- <i class="fab fa-audible"></i>&nbsp;&nbsp; -->
 
-                    <li class="treeview" id="bitac">
-                        <a href="#">
-                            <i class="fas fa-clipboard-list"></i>
-                            <span>Crear Bitácoras</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li id="ccili">
-                                <a href="<?= base_url('Bitacoras/ccihfc') ?>"><span>CCI Y HFC</span></a>
+                            <li class="treeview" id="bitac">
+                                <a href="#">
+                                    <i class="fas fa-clipboard-list"></i>
+                                    <span>Crear Bitácoras</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li id="ccili">
+                                        <a href="<?= base_url('Bitacoras/ccihfc') ?>"><span>CCI Y HFC</span></a>
+                                    </li>
+                                    <li id="fOli">
+                                        <a href="<?= base_url('Bitacoras/frontEndBookLogs') ?>"><span>FrontOffice</span></a>
+                                    </li>
+                                </ul>
                             </li>
-                            <li id="fOli">
-                                <a href="<?= base_url('Bitacoras/frontEndBookLogs') ?>"><span>FrontOffice</span></a>
                             </li>
-                        </ul>
-                    </li>
-                    </li>
-                    <li class="" id="malla">
-                        <a href="<?= base_url('Malla') ?>">
-                            <i class="fas fa-edit"></i>
-                            <span>Malla</span>
-                        </a>
-                    </li>
-                    <li class="" id="createUser">
-                        <a href="<?= base_url('User/crear_usuarios') ?>">
-                            <i class="fas fa-user-plus"></i>
-                            <span>Crear Usuarios</span>
-                        </a>
-                    </li>
-                    </ul>
-                    <!-- /.sidebar-menu -->
-                </section>
-                <!-- /.sidebar -->
-            </aside>
+                            <li class="" id="malla">
+                                <a href="<?= base_url('Malla') ?>">
+                                    <i class="fas fa-edit"></i>
+                                    <span>Malla</span>
+                                </a>
+                            </li>
+                            <li class="" id="createUser">
+                                <a href="<?= base_url('User/crear_usuarios') ?>">
+                                    <i class="fas fa-user-plus"></i>
+                                    <span>Crear Usuarios</span>
+                                </a>
+                            </li>
+                            </ul>
+                            <!-- /.sidebar-menu -->
+                        </section>
+                        <!-- /.sidebar -->
+                    </aside>
 
-            <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper"style="margin-top:7vh;">
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                        <?= $header[0] ?>
-                        <small><?= $header[1] ?></small>
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="#"><i class="fas fa-tachometer-alt"></i> <?= $title ?></a></li>
-                        <li class="active">Here</li>
-                    </ol>
-                </section>
+                    <!-- Content Wrapper. Contains page content -->
+                    <div class="content-wrapper"style="margin-top:7vh;">
+                        <!-- Content Header (Page header) -->
+                        <section class="content-header">
+                            <h1>
+                                <?= $header[0] ?>
+                                <small><?= $header[1] ?></small>
+                            </h1>
+                            <ol class="breadcrumb">
+                                <li><a href="#"><i class="fas fa-tachometer-alt"></i> <?= $title ?></a></li>
+                                <li class="active">Here</li>
+                            </ol>
+                        </section>
 
-                <!-- Main content -->
-                <section class="content container-fluid contenedorMaestro">
+                        <!-- Main content -->
+                        <section class="content container-fluid contenedorMaestro">
