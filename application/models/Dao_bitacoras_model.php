@@ -41,16 +41,19 @@ class Dao_bitacoras_model extends CI_Model {
   }
   public function getAreas()
   {
-    $query = $this->db->query("SELECT subarea FROM areasrelations WHERE area = 'Dilo_FrontOffice' ");
+    $query = $this->db->query("SELECT subarea FROM areasrelations WHERE area = 'Dilo_frontOfficeMovil' ");
     return $query->result();
   }
   public function getEngineersForLogBooks($tipo)
   {
+    $id = $this->db->query("SELECT id FROM roles WHERE area = '$tipo' AND name ='ingeniero'");
+    $di = $id->row()->id;
     $query = $this->db->select('CONCAT(u.nombres," ",u.apellidos) AS ing, u.id_users AS id')
       ->from('users u')
-      ->join('roles r','u.role = r.id','INNER')
-      ->where('r.area',$tipo)
+      ->join('role_user ru','u.id_users = ru.user_id','INNER')
+      ->where('ru.role_id',$di)
       ->get();
+         // print_r($this->db->last_query().';<br>');
       // echo '<pre>'; print_r($query->result()); echo '</pre>';
       $ingenieros = array();
       foreach ($query->result() as $row)

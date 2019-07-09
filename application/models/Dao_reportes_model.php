@@ -551,9 +551,12 @@ class Dao_reportes_model extends CI_Model {
          INNER JOIN users u
          ON l.id_users = u.id_users
          WHERE l.inicio_actividad BETWEEN $ini AND $fin"
-            );
-            // print_r($this->db->last_query());
-        }
+        );
+        // print_r($this->db->last_query());
+
+      }
+
+
     }
 
     public function getWorkInfo($fdesde, $fhasta) {

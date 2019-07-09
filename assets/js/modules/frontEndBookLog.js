@@ -114,11 +114,11 @@ $(function () {
           for (var i = 0; i < obj.length; i++) {
             var nn = obj[i].subarea.split('_');
             n2 = nn.length-1;
-            if (nn[n2] == 'Energia') {
-              $(`.getAreas`).append( `<option class="" data-id="Energias" value="${obj[i].subarea}">Energía</opption>`);
+            if (nn[n2] == 'energia') {
+              $(`.getAreas`).append( `<option class="" data-id="Energias" value="${obj[i].subarea}">${nn[n2]}</opption>`);
             }else {
-              if (nn[n2] == 'Plataforma') {
-                $(`.getAreas`).append( `<option class="" data-id="plataformas" value="${obj[i].subarea}">Plataforma</opption>`);
+              if (nn[n2] == 'plataforma') {
+                $(`.getAreas`).append( `<option class="" data-id="plataformas" value="${obj[i].subarea}">${nn[n2]}</opption>`);
               }else {
                 $(`.getAreas`).append( `<option class="" data-id="${nn[n2]}" value="${obj[i].subarea}">${nn[n2]}</opption>`);
               }
@@ -163,7 +163,7 @@ $(function () {
 
       $(`#tipo_incidente option:nth-child(3),#tipo_incidente option:nth-child(5)`).css('display','block');
       switch ($('#tipo_bitacora option:selected').text()) {
-        case "Energía": //********************************ENERGÍA********************************
+        case "energia": //********************************ENERGÍA********************************
           $("#validate_selection").append(`
 
           <div class="form-group col-md-4 input-group-sm">
@@ -218,7 +218,7 @@ $(function () {
         `);
 
           break;
-        case "Intermitencias": //********************************INTERMITENCIAS********************************
+        case "intermitencias": //********************************INTERMITENCIAS********************************
 
           // agrega nuevas opciones que los tipos de actividade tipo intermitencias requieren
           $("#tipo_actividad").append(`
@@ -271,7 +271,7 @@ $(function () {
           `);
 
           break;
-        case "Plataforma": //********************************PLATAFORMA********************************
+        case "plataforma": //********************************PLATAFORMA********************************
           $("#validate_selection").append(`
 
             <div class="form-group col-md-4">
@@ -322,7 +322,7 @@ $(function () {
             <option value="OTRO">OTRO</option>
           `);
           break;
-        case "Servicios": //********************************SERVICIOS********************************
+        case "servicios": //********************************SERVICIOS********************************
 
           $("#validate_selection").append(`
             <div id="if_servicios" class="col-md-4">
