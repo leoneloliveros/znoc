@@ -42,7 +42,7 @@ input{
   </form>
   </div>
 </div>
-<div class="m-content frame" id="createContent" style="display:none;">
+<div class="m-content frame" id="createContent" style="">
   <div class="row">
     <div class="form-group col-sm-offset-4 col-md-4">
       <label for="tipo_bitacora">Tipo de bitácora</label>

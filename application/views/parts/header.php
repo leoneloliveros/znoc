@@ -227,9 +227,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </ul>
             </li>
             <!-- Control Sidebar Toggle Button -->
-            <li>
+            <!-- <li>
               <a href="#" data-toggle="control-sidebar"><i class="fas fa-cogs"></i></i></a>
-            </li>
+            </li> -->
           </ul>
         </div>
       </nav>

@@ -551,9 +551,12 @@ class Dao_reportes_model extends CI_Model {
          INNER JOIN users u
          ON l.id_users = u.id_users
          WHERE l.inicio_actividad BETWEEN $ini AND $fin"
-            );
-            // print_r($this->db->last_query());
-        }
+        );
+        // print_r($this->db->last_query());
+
+      }
+
+
     }
 
     public function getWorkInfo($fdesde, $fhasta) {
@@ -648,7 +651,8 @@ class Dao_reportes_model extends CI_Model {
 
     public function getTareasFOPerformance($fdesde, $fhasta) {
         $query = $this->db->query("
-            SELECT AC.WONUM AS TAREA,AC.REPORTDATE AS FECHA_CREACION_TAREA,AC.DESCRIPTION AS 'DESCRIPTION_TAREA', AC.STATUS, AC.OWNER,AC.TICKETID,IC.CREATIONDATE AS FECHA_CREA_INCIDENTE,IC.STATUS AS ESTADO_INCIDENTE,IC.DESCRIPTION,
+            SELECT AC.WONUM AS TAREA,AC.REPORTDATE AS FECHA_CREACION_TAREA,AC.DESCRIPTION AS 'TAREA_DESCRIPTION', AC.STATUS, AC.OWNER,AC.TICKETID,IC.CREATIONDATE AS FECHA_CREA_INCIDENTE,IC.STATUS AS ESTADO_INCIDENTE,IC.DESCRIPTION,
+
 
             IC.CLOSEDATE AS FECHA_CIERRE_INCIDENTE,IC.CREATEDBY AS CREADOR,WO.CREATEDATE AS FECHA_NOTA,WO.DESCRIPTION AS RESUMEN_NOTA,WO.DESCRIPTION_LONGDESCRIPTION AS DETALLE_NOTA
 
