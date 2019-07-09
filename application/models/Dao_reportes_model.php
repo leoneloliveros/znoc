@@ -616,6 +616,7 @@ class Dao_reportes_model extends CI_Model {
         inc.ACTUALFINISH AS 'FECHA CIERRE INCIDENTE',
         inc.OWNERGROUP AS 'GRUPO PROPIETARIO',
         inc.CREATEDBY AS 'CREADO POR ID',
+        '' AS 'CREADO POR NOMBRE',
         art.DESCRIPTION AS 'ARTICULO CONFIGURACION',
         inc.RUTA_TKT AS 'RUTA CLASIFICACION',
         alarm.NODE AS 'ELEMENTO DE RED',
