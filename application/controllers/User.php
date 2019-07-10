@@ -31,13 +31,16 @@ class User extends CI_Controller {
                     $data['usuario'] = $val_user;
                     $this->load->view('cambiarContrasena', $data);
                 } else {
+                    $areas = $this->Dao_user_model->getAreasToCharge($val_user->id_users);
+
                     $data = array(
                         // 'role' => $val_user->rol,
                         'id' => $val_user->id_users,
                         'name' => $val_user->nombres . " " . $val_user->apellidos,
                         'email' => $val_user->email,
                         'role' => $val_user->role,
-                        'imagen' => $val_user->imagen
+                        'imagen' => $val_user->imagen,
+                        'lider_area' => (count($areas) > 0) ? true : false,
                     );
 
                     $this->session->set_userdata($data);
@@ -259,7 +262,7 @@ class User extends CI_Controller {
             $this->load->view('login', $data);
         }
     }
-    
+
     // Vista para cambiar opciones del usuario
     public function crear_usuarios() {
         if (!$this->session->userdata('id')) {
@@ -278,24 +281,45 @@ class User extends CI_Controller {
         $this->load->view('crear_usuarios');
         $this->load->view('parts/footer');
     }
-    
+
     public function c_getAreasToCharge() {
         $user_id = $this->session->userdata('id');
         $data = $this->Dao_user_model->getAreasToCharge($user_id);
         echo json_encode($data);
     }
-    
+
     public function c_getRolesByArea() {
         $area = $this->input->post('area');
         $data = $this->Dao_user_model->getRolesByArea($area);
         echo json_encode($data);
     }
-    
+
     public function c_saveUser() {
         $data = json_decode($this->input->post('data'));
-        print_r($data);exit();
-        $saved = $this->Dao_bitacoras_model->saveUser($data);
-        echo json_encode($saved);
+        $insert_user = array(
+            'id_users' => $data->id_users,
+            'nombres' => $data->nombres,
+            'apellidos' => $data->apellidos,
+            'contrasena' => $data->contrasena,
+            'email' => $data->email,
+            'num_contacto' => $data->num_contacto,
+            'imagen' => $data->imagen,
+        );
+
+        $insert_rol_user = array(
+            'role_id' => $data->role,
+            'user_id' => $data->id_users,
+        );
+//        print_r($data);exit();
+        $saved1 = $this->Dao_user_model->saveTable('users', $insert_user);
+        $saved2 = $this->Dao_user_model->saveTable('role_user', $insert_rol_user);
+        echo json_encode($saved2);
+    }
+
+    public function c_validateCedula() {
+        $cedula = $this->input->post('id_user');
+        $data = $this->Dao_user_model->validateCedula($cedula);
+        echo json_encode($data);
     }
 
 }

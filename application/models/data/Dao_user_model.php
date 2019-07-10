@@ -108,9 +108,19 @@ class Dao_user_model extends CI_Model {
         return $query->result();
     }
 
-    public function saveUser($data) {
-        $this->db->insert('cci_hfc', $data);
+    public function saveTable($tabla, $data) {
+        $this->db->insert($tabla, $data);
         return $this->db->affected_rows();
+    }
+    
+    public function validateCedula($cedula) {
+        $query = $this->db->query("
+            SELECT id_users
+            FROM users
+            WHERE id_users = $cedula
+        ");
+
+        return $query->num_rows();
     }
 
 }

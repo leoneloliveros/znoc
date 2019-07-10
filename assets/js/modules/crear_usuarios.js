@@ -8,6 +8,7 @@ $(function () {
         events: function () {
             $('#newUser').click(usuario.validateData);
             $('#area').change(usuario.loadRolesByArea);
+            $("#id_users").on('blur', usuario.validateCedula);
         },
 
         validateData: function () {
@@ -59,8 +60,8 @@ $(function () {
                             location.reload();
                         });
 
-                    },
-                    );
+                    }
+            );
         },
 
         loadAreasToCharge: function () {
@@ -109,6 +110,24 @@ $(function () {
             }
 
             helper.hideLoading();
+        },
+
+        validateCedula: function () {
+            $.post(base_url + "User/c_validateCedula", {
+                id_user: $('#id_users').val()
+            },
+                    function (data) {
+//                        console.log(data);
+                        if (data == 1) {
+                            helper.miniAlert('La cedula digitada ya se encuentra registrada.');
+                            $('#id_users').val('');
+                            $('#id_users').addClass('err');
+                        } else {
+                            $("#id_users").removeClass("err");
+                        }
+
+                    }
+            );
         },
 
     }

@@ -24,7 +24,7 @@
         
         <div class="col-sm-4">
             <label for="">Numero Contacto</label>
-            <input type="number" class="styleInp" id="num_contacto">
+            <input type="input" class="styleInp" id="num_contacto">
         </div>
         
         <div class="col-sm-4">
