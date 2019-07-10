@@ -440,12 +440,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </a>
                             </li>
                             <?php if ($this->session->userdata('lider_area')) : ?>
-                            <li class="" id="createUser">
-                                <a href="<?= base_url('User/crear_usuarios') ?>">
-                                    <i class="fas fa-user-plus"></i>
-                                    <span>Crear Usuarios</span>
-                                </a>
-                            </li>
+                                <li class="" id="createUser">
+                                    <a href="<?= base_url('User/crear_usuarios') ?>">
+                                        <i class="fas fa-user-plus"></i>
+                                        <span>Crear Usuarios</span>
+                                    </a>
+                                </li>
                             <?php endif ?>
                             </ul>
                             <!-- /.sidebar-menu -->
