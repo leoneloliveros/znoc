@@ -670,9 +670,17 @@ class Dao_reportes_model extends CI_Model {
 
             AND IC.DESCRIPTION LIKE 'MC:%'
 
-            AND IC.DESCRIPTION NOT LIKE 'MC: PERFORMANCE%'
+            AND IC.DESCRIPTION NOT LIKE '%PERFORMANCE%'
 
-            AND IC.DESCRIPTION NOT LIKE 'MC: ALARMA%'
+            AND IC.DESCRIPTION NOT LIKE '%ALARMA%'
+
+            AND IC.DESCRIPTION NOT LIKE '%INCIDENT%'
+
+            AND IC.DESCRIPTION NOT LIKE '%intermitencia:%'
+
+            AND IC.DESCRIPTION NOT LIKE '%sin trafico%'
+
+            AND IC.DESCRIPTION NOT LIKE '%significativa%'
 
             AND DATE_FORMAT(AC.REPORTDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
         $data = $query->result();
