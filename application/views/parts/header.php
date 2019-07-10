@@ -104,7 +104,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                               <i class="fa fa-envelope-o"></i>
                               <span class="label label-success">4</span>
                             </a>
-                
+
                             <ul class="dropdown-menu">
                               <li class="header">You have 4 messages</li>
                               <li>
@@ -433,6 +433,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </li>
                                 </ul>
                             </li>
+                            </li>
+                            <li class="" id="malla">
+                              <a href="<?= base_url('Bitacoras/export') ?>">
+                                <i class="fas fa-search"></i>
+                                <span>Consultar Bitacoras</span>
+                              </a>
                             </li>
                             <li class="" id="malla">
                                 <a href="<?= base_url('Malla') ?>">
