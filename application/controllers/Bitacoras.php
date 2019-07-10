@@ -87,6 +87,12 @@ class Bitacoras extends CI_Controller {
          $engs = $this->Dao_bitacoras_model->getEngineersForLogBooks($tipo);
          echo json_encode($engs);
       }
+      public function c_getEngineersByAreaAndRol() {
+        $rol = $this->input->post('rol');
+        $area = $this->input->post('area');
+        $engs = $this->Dao_bitacoras_model->getEngineersByAreaAndRol($rol, $area);
+        echo json_encode($engs);
+    }
    }
 
 /* End of file Bitacoras.php */
