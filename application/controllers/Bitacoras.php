@@ -22,7 +22,19 @@ class Bitacoras extends CI_Controller {
         $this->load->view('Bit_CCI_HFC');
         $this->load->view('parts/footer');
     }
-
+    public function export()
+    {
+      $data = array(
+          'active_sidebar' => false,
+          'title' => 'Bitacoras Front Office',
+          'active' => 'fOli',
+          'header' => array('Consultar Actividades', 'Front Office'),
+          'sub_bar' => true,
+      );
+      $this->load->view('parts/header', $data);
+      $this->load->view('consultar');
+      $this->load->view('parts/footer');
+    }
     public function saveCCIHFC() {
         $data = json_decode($this->input->post('data'));
         $date_1 = DateTime::createFromFormat('d/m/Y H:i', $data->beginDate);

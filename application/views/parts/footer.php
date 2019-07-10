@@ -94,7 +94,6 @@
         /.tab-pane
     </div>
 </aside>
-/.control-sidebar
 <!-- Add the sidebar's background. This div must be placed
 immediately after the control sidebar -->
 <div class="control-sidebar-bg"></div>
@@ -151,7 +150,7 @@ immediately after the control sidebar -->
 <!-- **********************************************END BITACORAS CCIHFC********************************************** -->
 
 <!-- **********************************************BITACORAS FRONTOFFICE********************************************** -->
-<?php if ($this->uri->segment(2) === "frontEndBookLogs"): ?>
+<?php if ($this->uri->segment(2) === "frontEndBookLogs" ||$this->uri->segment(2) === "export" ): ?>
     <script type="text/javascript" src="<?= base_url('assets/js/modules/frontEndBookLog.js'); ?>"></script>
 <?php endif ?>
 <!-- **********************************************END BITACORAS FRONTOFFICE********************************************** -->
@@ -194,7 +193,7 @@ immediately after the control sidebar -->
 <?php endif ?>
 <!-- **********************************************FIN REPORTE SLAS********************************************** -->
 <script type="text/javascript">
-    // para ponerle active al li seleccionado 
+    // para ponerle active al li seleccionado
     if ('<?= $sub_bar ?>') {
         $('#<?= $active ?>').parents('li').addClass('active');
     }
