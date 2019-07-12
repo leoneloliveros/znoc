@@ -431,6 +431,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <li id="fOli">
                                         <a href="<?= base_url('Bitacoras/frontEndBookLogs') ?>"><span>FrontOffice</span></a>
                                     </li>
+                                    <li id="ccili">
+                                        <a href="<?= base_url('Bitacoras/getBackOfficeView') ?>"><span>Back Office</span></a>
+                                    </li>
                                 </ul>
                             </li>
                             </li>

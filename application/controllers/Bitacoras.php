@@ -93,8 +93,20 @@ class Bitacoras extends CI_Controller {
         $engs = $this->Dao_bitacoras_model->getEngineersByAreaAndRol($rol, $area);
         echo json_encode($engs);
     }
+    public function getBackOfficeView() {
+        $data = array(
+            'active_sidebar' => false,
+            'title' => 'Creación de Bitacoras',
+            'active' => 'ccili',
+            'header' => array('Creación de Actividades', 'CCI y HFC'),
+            'sub_bar' => true,
+        );
+    
+        $this->load->view('parts/header', $data);
+        $this->load->view('bitacoras/backoffice');
+        // $this->load->view('parts/footer');
+    }
 
 }
-
 /* End of file Bitacoras.php */
 ?>
