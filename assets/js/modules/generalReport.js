@@ -89,6 +89,16 @@ $(function(){
                         window.open(base_url + "GeneralReports/excelTareasFOPerformance");
                     });
             break;
+            case '8':
+                    $.post(base_url + "GeneralReports/c_getTiempoAtencion", {
+                        desde: $(`#fDesde`).val(),
+                        hasta: $(`#fHasta`).val(),
+                      }).done(function(){
+                        $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
+                        helper.hideLoading();
+                        window.open(base_url + "GeneralReports/excelTiempoAtencion");
+                    });
+            break;
             default:
               // code block
           }
