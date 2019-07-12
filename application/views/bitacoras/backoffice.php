@@ -649,7 +649,12 @@ $(document).ready(function () {
     if (flag) {
       alert("llenado");
     } else {
-      alert('Faltan Campos por llenar');
+      Swal.fire({
+        type: 'error',
+        title: 'Oops...',
+        text: 'Faltan Campos por Llenar!',
+        footer: 'Revisa los campos en rojo'
+      })
     }
 
 
