@@ -282,6 +282,43 @@ class GeneralReports extends CI_Controller
 
   }
 
+  public function c_getTiempoAtencion()
+  {
+    $fdesde = $this->input->post('desde');
+    $fhasta = $this->input->post('hasta');
+    $data = $this->Dao_reportes_model->getTiempoAtencion($fdesde,$fhasta);
+    echo json_encode($data);
+  }
+  public function excelTiempoAtencion()
+  {
+    $data = $_SESSION['x'];
+    // echo '<pre>'; print_r("lol"); echo '</pre>';
+    
+
+      $writer = WriterEntityFactory::createXLSXWriter();
+      $style = (new StyleBuilder())
+      ->setShouldWrapText(false)
+      ->build();
+
+      $writer->openToBrowser('TiempoAtencion('.date('Y-m-d').').xlsx');
+      $titles = array('INCIDENTE', 'FECHA CREACION INCIDENTE', 'PRIORIDAD INCIDENTE', 'ESTADO INCIDENTE', 'GRUPO PROPIETARIO INCIDENTE', 'FECHA CREACION OT TAS', 'ESTADO ACT', 'REGIONAL ACT', 'GRUPO ACT', 'TIPO ACT', 'TIEMPO ESCALAMIENTO');
+
+      $header = WriterEntityFactory::createRowFromArray($titles);
+      $writer->addRow($header);
+
+      foreach ($data as $val) {
+        $cells = array();
+        foreach ($val as $val1) {
+          array_push($cells,WriterEntityFactory::createCell($val1,$style));
+        }
+        $rowFromValues = WriterEntityFactory::createRow($cells);
+        $writer->addRow($rowFromValues);
+      }
+      $writer->close();
+
+  }
+
+
 }
 
   /* End of file reportes.php */
