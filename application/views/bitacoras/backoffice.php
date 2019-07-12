@@ -6,7 +6,7 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
         <label class="form-label" for="ingeniero">Ingeniero</label>
-        <select id="ingeniero" class="form-input" type="text">
+        <select id="ingeniero" class="form-input required-field" type="text">
           <option></option>
           <option>MILENA VILLARRAGA</option>
           <option>DOMINGO GARCIA</option>
@@ -27,13 +27,13 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="Fecha">Fecha</label>
-          <input class="form-input" type="text" id="Fecha"/>
+          <input class="form-input required-field" type="text" id="Fecha"/>
         </div>
     </div>
     <div class="col-md-4 col-body">
         <div class="form-group">
         <label class="form-label" for="horario">Horario</label>
-        <select id="horario" class="form-input" type="text">
+        <select id="horario" class="form-input required-field" type="text">
           <option></option>
           <option>06:00 - 14:00</option>
           <option>14:00 - 22:00</option>
@@ -47,25 +47,25 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
         <label class="form-label" for="ticket">Ticket</label>
-        <input id="ticket" class="form-input" type="text" />
+        <input id="ticket" class="form-input required-field" type="text" />
         </div>
     </div>
     <div class="col-md-4 col-body">
         <div class="form-group">
         <label class="form-label" for="tarea">Tarea</label>
-        <input id="tarea" class="form-input" type="text" />
+        <input id="tarea" class="form-input required-field" type="text" />
         </div>
     </div>
     <div class="col-md-4 col-body">
         <div class="form-group">
         <label class="form-label" for="estacion">Estación</label>
-        <input id="estacion" class="form-input" type="text" />
+        <input id="estacion" class="form-input required-field" type="text" />
         </div>
     </div>
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="prioridad">Prioridad</label>
-          <select id="prioridad" class="form-input" type="text">
+          <select id="prioridad" class="form-input required-field" type="text">
             <option></option>
             <option>1-1</option>
             <option>1-2</option>
@@ -77,7 +77,7 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="tipoDeServicio">Tipo de Servicio</label>
-            <select id="tipoDeServicio" class="form-input" type="text">
+            <select id="tipoDeServicio" class="form-input required-field" type="text">
             <option></option>
             <option>GSM</option>
             <option>UMTS</option>
@@ -99,7 +99,7 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="detalleDeActividad">Detalle de Actividad</label>
-            <select id="detalleDeActividad" class="form-input" type="text">
+            <select id="detalleDeActividad" class="form-input required-field" type="text">
               <option></option>
               <option>INTERMITENCIA</option>
               <option>FUERA DE SERVICIO</option>
@@ -113,19 +113,19 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
         <label class="form-label" for="regional">Regional</label>
-        <input id="regional" class="form-input" type="text" />
+        <input id="regional" class="form-input required-field" type="text" />
         </div>
     </div>
     <div class="col-md-4 col-body">
         <div class="form-group">
         <label class="form-label" for="ciudad">Ciudad</label>
-        <input id="ciudad" class="form-input" type="text" />
+        <input id="ciudad" class="form-input required-field" type="text" />
         </div>
     </div>
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="entradaDelTicket">Entrada del Ticket</label>
-            <select id="entradaDelTicket" class="form-input" type="text">
+            <select id="entradaDelTicket" class="form-input required-field" type="text">
             <option></option>
             <option>FRONT</option>
             <option>IRAN</option>
@@ -140,31 +140,31 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="fechaYHoraIngresoTarea">Fecha y Hora Ingreso Tarea</label>
-          <input id="fechaYHoraIngresoTarea" class="form-input" type="text" id="beginDate"/>
+          <input id="fechaYHoraIngresoTarea" class="form-input required-field" type="text" id="beginDate"/>
         </div>
     </div>
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="horaInicioTrabajo">Hora Inicio Trabajo</label>
-          <input id="horaInicioTrabajo" class="form-input" type="text" id="beginDate"/>
+          <input id="horaInicioTrabajo" class="form-input required-field" type="text" id="beginDate"/>
         </div>
     </div>
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="horaFinalTrabajo">Hora Final Trabajo</label>
-          <input id="horaFinalTrabajo" class="form-input" type="text" id="beginDate"/>
+          <input id="horaFinalTrabajo" class="form-input required-field" type="text" id="beginDate"/>
         </div>
     </div>
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="tiempoRevision">Tiempo Revisión</label>
-          <input id="tiempoRevision" class="form-input" type="text" id="beginDate"/>
+          <input id="tiempoRevision" class="form-input required-field" type="text" id="beginDate"/>
         </div>
     </div>
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="destionoDelTicket">Destino del Ticket</label>
-            <select id="destionoDelTicket" class="form-input" type="text">
+            <select id="destionoDelTicket" class="form-input required-field" type="text">
             <option></option>
             <option>ENERGIA</option>
             <option>CAMPO</option>
@@ -189,7 +189,7 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="seguimiento">Seguimiento</label>
-            <select id="seguimiento" class="form-input" type="text">
+            <select id="seguimiento" class="form-input required-field" type="text">
             <option></option>
             <option>N/A</option>
             <option>SEGUIMIENTO-1</option>
@@ -208,7 +208,7 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="causaDeFalla">Causa de Falla</label>
-            <select id="causaDeFalla" class="form-input" type="text">
+            <select id="causaDeFalla" class="form-input required-field" type="text">
             <option></option>
             <option>ENERGIA</option>
             <option>CONFIGURACION</option>
@@ -224,13 +224,13 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
         <label class="form-label" for="diagnosticoTicket">Diagnostico Ticket</label>
-        <input id="diagnosticoTicket" class="form-input" type="text" />
+        <input id="diagnosticoTicket" class="form-input required-field" type="text" />
         </div>
     </div>
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="tipoDeSoporte">Tipo de Soporte</label>
-            <select id="tipoDeSoporte" class="form-input" type="text">
+            <select id="tipoDeSoporte" class="form-input required-field" type="text">
               <option></option>
               <option>VALIDACION DE RUTA</option>
               <option>VALIDACION DE ENLACE</option>
@@ -243,7 +243,7 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="ticketMalGestionadoTMG">(ticket mal gestionado) TMG</label>
-            <select id="ticketMalGestionadoTMG" class="form-input" type="text">
+            <select id="ticketMalGestionadoTMG" class="form-input required-field" type="text">
             <option></option>
             <option>TMG-1</option>
             <option>TMG-2</option>
@@ -262,7 +262,7 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="areaDirigidaTMG">Area a la que va dirigida el TMG</label>
-            <select id="areaDirigidaTMG" class="form-input" type="text">
+            <select id="areaDirigidaTMG" class="form-input required-field" type="text">
             <option></option>
             <option>FRONT</option>
             <option>IRAN</option>
@@ -277,7 +277,7 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="rutaSinDocumentarRSD">(ruta sin documentar) RSD</label>
-            <select id="rutaSinDocumentarRSD" class="form-input" type="text">
+            <select id="rutaSinDocumentarRSD" class="form-input required-field" type="text">
             <option></option>
               <option>SIN DOCUMENTAR</option>
               <option>DOCUMENTADA</option>
@@ -288,7 +288,7 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="rutaDesactializadaRD">(ruta desactualizada) RD</label>
-            <select id="rutaDesactializadaRD" class="form-input" type="text">
+            <select id="rutaDesactializadaRD" class="form-input required-field" type="text">
             <option></option>
             <option>ACTUALIZADA</option>
             <option>DESACTUALIZADA</option>
@@ -299,7 +299,7 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="checkDeExcluido">Check de Excluido</label>
-            <select id="checkDeExcluido" class="form-input" type="text">
+            <select id="checkDeExcluido" class="form-input required-field" type="text">
               <option></option>
               <option>SI</option>
               <option>N/A</option>
@@ -585,6 +585,10 @@
       box-shadow: 0 2px 0 0 blue;
     }
 
+    .form-input-error {
+      box-shadow: 0 2px 0 0 #ec4c48;
+    }
+
   .form-input.filled {
     box-shadow: 0 2px 0 0 lightgreen;
   }
@@ -626,6 +630,32 @@ $(document).ready(function () {
   var self = $("button");
   var clicked = false;
   $("button").on("click", function () {
+    $('.required-field').each(function() {
+        var val = $('#' + this.id ).val();
+        if (val === "") {
+          $('#' + this.id ).addClass('form-input-error');
+        } else {
+          $('#' + this.id ).removeClass('form-input-error');
+        }
+    });
+    var flag = true;
+    $('.required-field').each(function() {
+      if ($('#' + this.id).hasClass("form-input-error")) {
+
+        flag = false;
+      }
+  });
+
+    if (flag) {
+      alert("llenado");
+    } else {
+      alert('Faltan Campos por llenar');
+    }
+
+
+
+
+
     if (clicked === false){
       self.removeClass("filled");
       self.addClass("circle");
@@ -643,13 +673,14 @@ $(document).ready(function () {
         $("svg").css("display", "none");
         clearInterval(timer);
         // self.html("!!!");
-        Swal.fire({
-          position: 'top-end',
-          type: 'success',
-          title: 'La Bitácora se ha guardado Exitosamente',
-          showConfirmButton: false,
-          timer: 1500
-        })
+        // Swal.fire({
+        //   position: 'top-end',
+        //   type: 'success',
+        //   title: 'La Bitácora se ha guardado Exitosamente',
+        //   showConfirmButton: false,
+        //   timer: 1500
+        // })
+
       }, 2500);
       }
   });
@@ -664,6 +695,8 @@ $('#beginDate,#endDate').mask("99/99/9999 99:99");
 //   footer: '<a href>Why do I have this issue?</a>'
 // })
 // });
+
+
 
 
 </script>
