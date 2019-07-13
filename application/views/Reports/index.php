@@ -11,7 +11,7 @@
         <div class="col-sm-6">
             <label for="fHasta"><b>Reporte</b></label>
             <select class="form-control" name="" id="selection">
-                <option value="0">-----</option>
+                <option value="0">Control Tickets</option>
                 <option value="1">Alarmas</option>
                 <option value="2">Incidentes Fija</option>
                 <!-- <option value="3">Tiempos NOC</option> -->

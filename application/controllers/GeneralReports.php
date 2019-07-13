@@ -318,6 +318,42 @@ class GeneralReports extends CI_Controller
 
   }
 
+  public function c_getControlTicket()
+  {
+    $fdesde = $this->input->post('desde');
+    $fhasta = $this->input->post('hasta');
+    $data = $this->Dao_reportes_model->getControlTicket($fdesde,$fhasta);
+    echo json_encode($data);
+  }
+  public function excelControlTicket()
+  {
+    $data = $_SESSION['x'];
+    // echo '<pre>'; print_r("lol"); echo '</pre>';
+    
+
+      $writer = WriterEntityFactory::createXLSXWriter();
+      $style = (new StyleBuilder())
+      ->setShouldWrapText(false)
+      ->build();
+
+      $writer->openToBrowser('ControlTickets('.date('Y-m-d').').xlsx');
+      $titles = array('INCIDENTE', 'CREATIONDATE', 'TIEMPO_TRANSCURRIDO', 'ALERTA', 'FECHA_REPORTE', 'INTERNALPRIORITY', 'STATUS', 'OWNERGROUP');
+
+      $header = WriterEntityFactory::createRowFromArray($titles);
+      $writer->addRow($header);
+
+      foreach ($data as $val) {
+        $cells = array();
+        foreach ($val as $val1) {
+          array_push($cells,WriterEntityFactory::createCell($val1,$style));
+        }
+        $rowFromValues = WriterEntityFactory::createRow($cells);
+        $writer->addRow($rowFromValues);
+      }
+      $writer->close();
+
+  }
+
 
 }
 

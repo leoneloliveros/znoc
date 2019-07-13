@@ -723,6 +723,14 @@ class Dao_reportes_model extends CI_Model {
         $_SESSION['x'] = $data;
         return $data;
     }
+    public function getControlTicket($fdesde, $fhasta) {
+        $query = $this->db->query("
+        SELECT * FROM reportes.CONTROL_TICKETS
+        WHERE DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
+        $data = $query->result();
+        $_SESSION['x'] = $data;
+        return $data;
+    }
 
     
 

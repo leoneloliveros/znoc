@@ -15,13 +15,13 @@ $(function(){
         helper.showLoading();
         switch($("#selection").val()) {
             case '0':
-                $.post(base_url + "GeneralReports/c_getDataFromMaximoWorkInfo", {
+                $.post(base_url + "GeneralReports/c_getControlTicket", {
                     desde: $(`#fDesde`).val(),
                     hasta: $(`#fHasta`).val(),
                   }).done(function(){
                     $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
                     helper.hideLoading();
-                    window.open(base_url + "GeneralReports/excelWorkInfo");
+                    window.open(base_url + "GeneralReports/excelControlTicket");
                 });
                     
                       
