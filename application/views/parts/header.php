@@ -465,6 +465,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                     <!-- Content Wrapper. Contains page content -->
                     <div class="content-wrapper"style="margin-top:7vh;">
+                    <div class="spinner-loader"></div>
                         <!-- Content Header (Page header) -->
                         <section class="content-header">
                             <h1>

@@ -26,8 +26,8 @@
     </div>
     <div class="col-md-4 col-body">
         <div class="form-group">
-          <label class="form-label" for="Fecha">Fecha</label>
-          <input class="form-input required-field" type="text" id="Fecha"/>
+          <label class="form-label" for="fecha">Fecha</label>
+          <input class="form-input required-field" type="text" id="fecha"/>
         </div>
     </div>
     <div class="col-md-4 col-body">
@@ -163,8 +163,8 @@
     </div>
     <div class="col-md-4 col-body">
         <div class="form-group">
-          <label class="form-label" for="destionoDelTicket">Destino del Ticket</label>
-            <select id="destionoDelTicket" class="form-input required-field" type="text">
+          <label class="form-label" for="destinoDelTicket">Destino del Ticket</label>
+            <select id="destinoDelTicket" class="form-input required-field" type="text">
             <option></option>
             <option>ENERGIA</option>
             <option>CAMPO</option>
@@ -326,6 +326,12 @@
    
 
 </div>
+</div>
+<div id="loader">
+<div  class='wrap1'>
+  <div class='loader' id='lrd1'></div>
+</div>
+</div>
 
 
 
@@ -335,6 +341,63 @@
 
 <style>
 
+  .spinner-loader {
+    position: fixed;
+    
+    min-height: 100vh;
+    height: 100%;
+    z-index: 100;
+    width: 100%;
+    top: 0px;
+    transition-property: background-color;
+    transition-duration: 2s;
+  }
+
+.wrap1{
+  position: fixed;
+    left: 50%;
+    width: 5em;
+    height: 5em;
+    top: 44%;
+    transform: translate(-50%,-50%);
+    z-index: 100;
+}
+
+.loader{
+  
+    transition: all 0.7s ease-in-out;
+
+  border:10px solid #ebebeb;
+  border-bottom-color:#26B8BF;
+  width:75%;
+  height:75%;
+  border-radius:50%;
+  -webkit-font-smoothing: antialiased !important;
+  margin: 30px 0px;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+#lrd1{
+    -webkit-animation: spin1 0.5s linear infinite;
+
+}
+
+
+@keyframes spin1{
+  0% {
+    transform: rotate(0deg);    
+  }
+
+
+  100% {
+    transform: rotate(360deg); 
+  }
+
+}
 
 
 
@@ -595,114 +658,47 @@
 </style>
 <script src="<?= base_url("assets/plugins/sweetalert2/sweetalert2.all.js") ?>"></script>
 <script>
-    $('.content-header').hide();
-    $('input').focus(function(){
-  $(this).parents('.form-group').addClass('focused');
-});
 
-$('input').blur(function(){
-  var inputValue = $(this).val();
-  if ( inputValue == "" ) {
-    $(this).removeClass('filled');
-    $(this).parents('.form-group').removeClass('focused');  
-  } else {
-    $(this).addClass('filled');
-  }
-})  
+// $(document).ready(function () {
+//   var timer = null;
+//   var self = $("button");
+//   var clicked = false;
+//   $("button").on("click", function () {
+//     if (clicked === false){
+//       self.removeClass("filled");
+//       self.addClass("circle");
+//       self.html("");
+//       clicked = true;
+//       $("svg").css("display", "block");
+//       $(".circle_2").attr("class", "circle_2 fill_circle");
 
-$('select').focus(function(){
-  $(this).parents('.form-group').addClass('focused');
-});
+//       timer = setInterval(
+//         function tick() {
+//         self.removeClass("circle");
+//         self.addClass("filled");
+//         // self.html("b");
+//         $(".wrap img").css("display", "block");
+//         $("svg").css("display", "none");
+//         clearInterval(timer);
+//         // self.html("!!!");
+//         // Swal.fire({
+//         //   position: 'top-end',
+//         //   type: 'success',
+//         //   title: 'La Bitácora se ha guardado Exitosamente',
+//         //   showConfirmButton: false,
+//         //   timer: 1500
+//         // })
 
-$('select').blur(function(){
-  var selectValue = $(this).val();
-  if ( selectValue == "" ) {
-    $(this).removeClass('filled');
-    $(this).parents('.form-group').removeClass('focused');  
-  } else {
-    $(this).addClass('filled');
-  }
-})  
-
-
-$(document).ready(function () {
-  var timer = null;
-  var self = $("button");
-  var clicked = false;
-  $("button").on("click", function () {
-    $('.required-field').each(function() {
-        var val = $('#' + this.id ).val();
-        if (val === "") {
-          $('#' + this.id ).addClass('form-input-error');
-        } else {
-          $('#' + this.id ).removeClass('form-input-error');
-        }
-    });
-    var flag = true;
-    $('.required-field').each(function() {
-      if ($('#' + this.id).hasClass("form-input-error")) {
-
-        flag = false;
-      }
-  });
-
-    if (flag) {
-      alert("llenado");
-    } else {
-      Swal.fire({
-        type: 'error',
-        title: 'Oops...',
-        text: 'Faltan Campos por Llenar!',
-        footer: 'Revisa los campos en rojo'
-      })
-    }
-
-
-
-
-
-    if (clicked === false){
-      self.removeClass("filled");
-      self.addClass("circle");
-      self.html("");
-      clicked = true;
-      $("svg").css("display", "block");
-      $(".circle_2").attr("class", "circle_2 fill_circle");
-
-      timer = setInterval(
-        function tick() {
-        self.removeClass("circle");
-        self.addClass("filled");
-        // self.html("b");
-        $(".wrap img").css("display", "block");
-        $("svg").css("display", "none");
-        clearInterval(timer);
-        // self.html("!!!");
-        // Swal.fire({
-        //   position: 'top-end',
-        //   type: 'success',
-        //   title: 'La Bitácora se ha guardado Exitosamente',
-        //   showConfirmButton: false,
-        //   timer: 1500
-        // })
-
-      }, 2500);
-      }
-  });
-});
-
-$('#beginDate,#endDate').mask("99/99/9999 99:99");
-// $('#submit-logbook').on('click', function(){
-//   Swal.fire({
-//   type: 'error',
-//   title: 'Oops...',
-//   text: 'Something went wrong!',
-//   footer: '<a href>Why do I have this issue?</a>'
-// })
+//       }, 2500);
+//       }
+//   });
 // });
 
 
 
 
+
 </script>
+
+<script src="<?= base_url("assets/js/backoffice.js?v" . validarEnProduccion())?>"></script>
 

@@ -104,7 +104,19 @@ class Bitacoras extends CI_Controller {
     
         $this->load->view('parts/header', $data);
         $this->load->view('bitacoras/backoffice');
-        // $this->load->view('parts/footer');
+        $this->load->view('parts/footer');
+    }
+
+    public function saveWorkLogBackOffice() {
+        $info = $this->input->POST('datosBitacora');
+        $guardar = $this->Dao_bitacoras_model->crearBitacoraBackOffice($info);
+        if ($guardar == "Registro Exitoso") {
+            echo "Registros exitosos";
+        } else {
+            echo "false";
+        }
+
+
     }
 
 }

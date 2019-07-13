@@ -76,6 +76,76 @@ class Dao_bitacoras_model extends CI_Model {
       return $query->result();
   }
 
+  public function crearBitacoraBackOffice($info) {
+      $query = $this->db->query("
+            INSERT INTO
+            znoc.BITACORA_BO(
+              ingeniero ,
+              fecha ,
+              horario ,
+              ticket  ,
+              tarea ,
+              estacion  ,
+              prioridad  ,
+              tipo_de_servicio  ,
+              detalle_de_actividad  ,
+              regional  ,
+              ciudad  ,
+              entrada_del_ticket  ,
+              fecha_y_hora_ingreso_tarea  ,
+              hora_inicio_trabajo  ,
+              hora_final_trabajo  ,
+              tiempo_revision  ,
+              destino_del_ticket  ,
+              seguimiento  ,
+              causa_de_falla  ,
+              diagnostico_ticket  ,
+              tipo_de_soporte  ,
+              ticket_mal_gestionado_TMG  ,
+              area_dirigida_TMG  ,
+              ruta_sin_documentar_RSD  ,
+              ruta_desactualizada  ,
+              check_de_excluido
+            )
+            VALUES
+            (
+              '" . $info['ingeniero'] . "',
+              '" . $info['fecha'] . "',
+              '" . $info['horario'] . "',
+              '" . $info['ticket'] . "',
+              '" . $info['tarea'] . "',
+              '" . $info['estacion'] . "',
+              '" . $info['prioridad'] . "',
+              '" . $info['tipoDeServicio'] . "',
+              '" . $info['detalleDeActividad'] . "',
+              '" . $info['regional'] . "',
+              '" . $info['ciudad'] . "',
+              '" . $info['entradaDelTicket'] . "',
+              '" . $info['fechaYHoraIngresoTarea'] . "',
+              '" . $info['horaInicioTrabajo'] . "',
+              '" . $info['horaFinalTrabajo'] . "',
+              '" . $info['tiempoRevision'] . "',
+              '" . $info['destinoDelTicket'] . "',
+              '" . $info['seguimiento'] . "',
+              '" . $info['causaDeFalla'] . "',
+              '" . $info['diagnosticoTicket'] . "',
+              '" . $info['tipoDeSoporte'] . "',
+              '" . $info['ticketMalGestionadoTMG'] . "',
+              '" . $info['areaDirigidaTMG'] . "',
+              '" . $info['rutaSinDocumentarRSD'] . "',
+              '" . $info['rutaDesactializadaRD'] . "',
+              '" . $info['checkDeExcluido'] . "'
+            )
+            "
+            );
+
+        if ($query) {
+            return "Registro Exitoso";
+        } else {
+            echo "Hay un error en el registro de comentarios";
+        }
+  }
+
 }
 
 /* End of file Dao_bitacoras_model.php */
