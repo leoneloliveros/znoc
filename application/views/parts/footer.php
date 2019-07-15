@@ -1,3 +1,8 @@
+<div id="loader">
+<div  class='wrap1'>
+  <div class='loader' id='lrd1'></div>
+</div>
+</div>
 </section>
 <!-- /.content -->
 </div>
@@ -197,7 +202,12 @@ immediately after the control sidebar -->
         <script src="<?= base_url("assets/js/modules/crear_usuarios.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
 <!-- **********************************************FIN REPORTE SLAS********************************************** -->
-<script type="text/javascript">
+
+<?php if ($this->uri->segment(2) === "exportCciHfc"): ?>
+    <script type="text/javascript" src="<?= base_url("assets/js/modules/consultar_cci_hfc.js?v=" . validarEnProduccion()); ?>"></script>
+<?php endif ?>
+
+    <script type="text/javascript">
     // para ponerle active al li seleccionado
     if ('<?= $sub_bar ?>') {
         $('#<?= $active ?>').parents('li').addClass('active');

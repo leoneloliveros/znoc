@@ -22,19 +22,20 @@ class Bitacoras extends CI_Controller {
         $this->load->view('Bit_CCI_HFC');
         $this->load->view('parts/footer');
     }
-    public function export()
-    {
-      $data = array(
-          'active_sidebar' => false,
-          'title' => 'Bitacoras Front Office',
-          'active' => 'fOli',
-          'header' => array('Consultar Actividades', 'Front Office'),
-          'sub_bar' => true,
-      );
-      $this->load->view('parts/header', $data);
-      $this->load->view('consultar');
-      $this->load->view('parts/footer');
+
+    public function export() {
+        $data = array(
+            'active_sidebar' => false,
+            'title' => 'Bitacoras Front Office',
+            'active' => 'fOli',
+            'header' => array('Consultar Actividades', 'Front Office'),
+            'sub_bar' => true,
+        );
+        $this->load->view('parts/header', $data);
+        $this->load->view('consultar');
+        $this->load->view('parts/footer');
     }
+
     public function saveCCIHFC() {
         $data = json_decode($this->input->post('data'));
         $date_1 = DateTime::createFromFormat('d/m/Y H:i', $data->beginDate);
@@ -115,9 +116,55 @@ class Bitacoras extends CI_Controller {
         } else {
             echo "false";
         }
-
-
     }
+    public function exportCciHfc() {
+        $data = array(
+            'active_sidebar' => false,
+            'title' => 'Bitacoras CCI Y HFC',
+            'active' => 'bitac-cci-hfc',
+            'header' => array('Consultar Actividades', 'CCI Y HFC'),
+            'sub_bar' => true,
+        );
+        $this->load->view('parts/header', $data);
+        $this->load->view('consultar_cci_hfc');
+        $this->load->view('parts/footer');
+    }
+
+    public function exportBitacoraBO() {
+        $data = array(
+            'active_sidebar' => false,
+            'title' => 'Bitacoras CCI Y HFC',
+            'active' => 'bitac-cci-hfc',
+            'header' => array('Consultar Actividades', 'CCI Y HFC'),
+            'sub_bar' => true,
+        );
+        
+
+        $this->load->view('parts/header', $data);
+        $this->load->view('bitacoras/exportBitacoraBO');
+        $this->load->view('parts/footer');
+    }
+
+    public function cargarBitacoraBO() {
+        $this->load->library('Datatables');
+
+        $bitacora_BO_table = $this->datatables->init();
+
+        $bitacora_BO_table->select('*')->from('znoc.BITACORA_BO');
+
+        $bitacora_BO_table
+            ->style(array(
+            'class' => 'table table-striped',
+            ))
+            ->column('Fecha', 'fecha')
+            ->column('Ticket', 'ticket')
+            ->column('Tarea', 'tarea')
+            ->column('Estacion', 'estacion');
+            
+        $this->datatables->create('bitacora_BO_table', $bitacora_BO_table); 
+        $this->load->view('bitacoras/loadBOData');
+    }
+
 
 }
 /* End of file Bitacoras.php */
