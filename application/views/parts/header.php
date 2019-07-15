@@ -433,13 +433,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </li>
                                 </ul>
                             </li>
+                            <li class="treeview" id="bitac-export">
+                                <a href="#">
+                                    <i class="fas fa-search"></i>
+                                    <span>Consultar Bitacoras</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li id="bitac-front-office">
+                                        <a href="<?= base_url('Bitacoras/export') ?>">
+                                            <i class="fas fa-file-download"></i>&nbsp;&nbsp;
+                                            <span>Front Office</span>
+                                        </a>
+                                    </li>
+                                    <li id="bitac-cci-hfc">
+                                        <a href="<?= base_url('Bitacoras/exportCciHfc') ?>">
+                                            <i class="fas fa-file-download"></i></i>&nbsp;&nbsp;
+                                            <span>CCI Y HFC</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
-                            <li class="" id="malla">
+<!--                            <li class="" id="malla">
                               <a href="<?= base_url('Bitacoras/export') ?>">
                                 <i class="fas fa-search"></i>
                                 <span>Consultar Bitacoras</span>
                               </a>
-                            </li>
+                            </li>-->
                             <li class="" id="malla">
                                 <a href="<?= base_url('Malla') ?>">
                                     <i class="fas fa-edit"></i>

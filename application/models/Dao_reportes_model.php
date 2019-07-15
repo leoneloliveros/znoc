@@ -488,28 +488,28 @@ class Dao_reportes_model extends CI_Model {
             // var_dump($query->result());
             $query2 = $this->db->query(
                     "SELECT $nameColumns
-         l.id_logbooks,
-         l.inicio_actividad,
-         l.fin_actividad,
-         l.tipo_actividad,
-         l.estado,
-         l.num_tk_incidente,
-         l.descripcion,
-         CONCAT(u.nombres,' ',u.apellidos) AS ing,
-         l.id_users,
-         l.turno,
-         l.ot_tarea,
-         l.area_asignacion,
-         l.responsable,
-         l.caso_de_uso,
-         l.prioridad,
-         l.tipo_incidente,
-         l.estaciones_afectadas
-         FROM $opcion o
-         INNER JOIN logbooks l
-         ON o.id_logbooks = l.id_logbooks
-         INNER JOIN users u
-         ON l.id_users = u.id_users"
+                        l.id_logbooks,
+                        l.inicio_actividad,
+                        l.fin_actividad,
+                        l.tipo_actividad,
+                        l.estado,
+                        l.num_tk_incidente,
+                        l.descripcion,
+                        CONCAT(u.nombres,' ',u.apellidos) AS ing,
+                        l.id_users,
+                        l.turno,
+                        l.ot_tarea,
+                        l.area_asignacion,
+                        l.responsable,
+                        l.caso_de_uso,
+                        l.prioridad,
+                        l.tipo_incidente,
+                        l.estaciones_afectadas
+                    FROM $opcion o
+                    INNER JOIN logbooks l
+                    ON o.id_logbooks = l.id_logbooks
+                    INNER JOIN users u
+                    ON l.id_users = u.id_users"
             );
             return $query2->result();
             // print_r($this->db->last_query());
@@ -530,27 +530,27 @@ class Dao_reportes_model extends CI_Model {
 
             $query2 = $this->db->query(
                     "SELECT $nameColumns
-         l.id_logbooks,
-         l.inicio_actividad,
-         l.fin_actividad,
-         l.tipo_actividad,
-         l.estado,
-         l.num_tk_incidente,
-         l.descripcion,
-         CONCAT(u.nombres,' ',u.apellidos) AS ing,
-         l.id_users,
-         l.turno,
-         l.ot_tarea,
-         l.area_asignacion,
-         l.responsable,
-         l.caso_de_uso,
-         l.prioridad,
-         l.tipo_incidente,
-         l.estaciones_afectadas
-         FROM $opcion o INNER JOIN logbooks l ON o.id_logbooks = l.id_logbooks
-         INNER JOIN users u
-         ON l.id_users = u.id_users
-         WHERE l.inicio_actividad BETWEEN $ini AND $fin"
+                        l.id_logbooks,
+                        l.inicio_actividad,
+                        l.fin_actividad,
+                        l.tipo_actividad,
+                        l.estado,
+                        l.num_tk_incidente,
+                        l.descripcion,
+                        CONCAT(u.nombres,' ',u.apellidos) AS ing,
+                        l.id_users,
+                        l.turno,
+                        l.ot_tarea,
+                        l.area_asignacion,
+                        l.responsable,
+                        l.caso_de_uso,
+                        l.prioridad,
+                        l.tipo_incidente,
+                        l.estaciones_afectadas
+                    FROM $opcion o INNER JOIN logbooks l ON o.id_logbooks = l.id_logbooks
+                    INNER JOIN users u
+                    ON l.id_users = u.id_users
+                    WHERE l.inicio_actividad BETWEEN $ini AND $fin"
         );
         // print_r($this->db->last_query());
 
@@ -724,6 +724,36 @@ class Dao_reportes_model extends CI_Model {
         return $data;
     }
 
+    
+    public function ReporteCciHfc($opcion, $fecha_ini = null, $fecha_fin = null) {
+        $condicion = "";
+        if ($fecha_fin != null && $fecha_ini != null) {
+            $condicion = "AND DATE_FORMAT(iniAct, '%Y-%m-%d') BETWEEN '$fecha_ini' AND '$fecha_fin'";
+        }
+        $query = $this->db->query("
+            SELECT typeP AS 'PRIORIDAD',
+                incident AS 'INCIDENTE',
+                engineer AS 'INGENIERO',
+                beginDate AS 'FECHA INICIO',
+                endDate AS 'FECHA FINAL',
+                INCStatus AS 'ESTADO DEL INCIDENTE',
+                activity AS 'ACTIVIDAD',
+                obs AS 'OBSERVACIÓN',
+                flowErr AS 'ERROR DE FLUJO',
+                ErrWfm AS 'ERROR DE WFM',
+                tqnExit AS 'TAS QC NO EXITOSO',
+                pymes AS 'PYMES',
+                mc AS 'MAL CATEGORIZADOS',
+                otccc AS 'OT CERRADA SIN CAUSAS DE CIERRE',
+                typeBinnacle AS 'TIPO BITACORA',
+                iniAct AS 'FECHA INICIO DE ACTIVIDAD',
+                finAct AS 'FECHA FINALIZACION DE ACTIVIDAD'
+            FROM cci_hfc
+            WHERE typeBinnacle = '$opcion'
+            $condicion
+        ");
+        return $query->result();
+    }
     
 
 }
