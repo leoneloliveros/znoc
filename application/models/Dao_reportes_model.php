@@ -766,6 +766,16 @@ class Dao_reportes_model extends CI_Model {
         ");
         return $query->result();
     }
+
+    public function getGestionPerformance($fdesde, $fhasta) {
+        $query = $this->db->query("
+        SELECT * FROM maximo.INCIDENT
+        WHERE DESCRIPTION LIKE '%MC:%'
+        and DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
+        $data = $query->result();
+        $_SESSION['x'] = $data;
+        return $data;
+    }
     
 
 }
