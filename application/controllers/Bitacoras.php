@@ -94,7 +94,29 @@ class Bitacoras extends CI_Controller {
         $engs = $this->Dao_bitacoras_model->getEngineersByAreaAndRol($rol, $area);
         echo json_encode($engs);
     }
+    public function getBackOfficeView() {
+        $data = array(
+            'active_sidebar' => false,
+            'title' => 'Creación de Bitacoras',
+            'active' => 'ccili',
+            'header' => array('Creación de Actividades', 'CCI y HFC'),
+            'sub_bar' => true,
+        );
+    
+        $this->load->view('parts/header', $data);
+        $this->load->view('bitacoras/backoffice');
+        $this->load->view('parts/footer');
+    }
 
+    public function saveWorkLogBackOffice() {
+        $info = $this->input->POST('datosBitacora');
+        $guardar = $this->Dao_bitacoras_model->crearBitacoraBackOffice($info);
+        if ($guardar == "Registro Exitoso") {
+            echo "Registros exitosos";
+        } else {
+            echo "false";
+        }
+    }
     public function exportCciHfc() {
         $data = array(
             'active_sidebar' => false,
@@ -108,7 +130,42 @@ class Bitacoras extends CI_Controller {
         $this->load->view('parts/footer');
     }
 
-}
+    public function exportBitacoraBO() {
+        $data = array(
+            'active_sidebar' => false,
+            'title' => 'Bitacoras CCI Y HFC',
+            'active' => 'bitac-cci-hfc',
+            'header' => array('Consultar Actividades', 'CCI Y HFC'),
+            'sub_bar' => true,
+        );
+        
 
+        $this->load->view('parts/header', $data);
+        $this->load->view('bitacoras/exportBitacoraBO');
+        $this->load->view('parts/footer');
+    }
+
+    public function cargarBitacoraBO() {
+        $this->load->library('Datatables');
+
+        $bitacora_BO_table = $this->datatables->init();
+
+        $bitacora_BO_table->select('*')->from('znoc.BITACORA_BO');
+
+        $bitacora_BO_table
+            ->style(array(
+            'class' => 'table table-striped',
+            ))
+            ->column('Fecha', 'fecha')
+            ->column('Ticket', 'ticket')
+            ->column('Tarea', 'tarea')
+            ->column('Estacion', 'estacion');
+            
+        $this->datatables->create('bitacora_BO_table', $bitacora_BO_table); 
+        $this->load->view('bitacoras/loadBOData');
+    }
+
+
+}
 /* End of file Bitacoras.php */
 ?>

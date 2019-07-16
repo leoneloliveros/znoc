@@ -647,6 +647,10 @@ class Dao_reportes_model extends CI_Model {
           AND inc.DESCRIPTION NOT LIKE '%MC: ALARMA%'
           AND inc.DESCRIPTION NOT LIKE '%MC: SIN TRA%'
           AND inc.DESCRIPTION NOT LIKE '%MC:SIN TRA%'
+          AND inc.DESCRIPTION NOT LIKE '%MC:PERFORMANCE%'
+            AND inc.DESCRIPTION NOT LIKE '%MC: PERFORMANCE%'
+            AND inc.DESCRIPTION NOT LIKE '%MC:INTERMIT%'
+            AND inc.DESCRIPTION NOT LIKE '%MC: INTERM%'
           and DATE_FORMAT(inc.CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
         $data = $query->result();
         $_SESSION['x'] = $data;
@@ -723,6 +727,14 @@ class Dao_reportes_model extends CI_Model {
         $_SESSION['x'] = $data;
         return $data;
     }
+    public function getControlTicket($fdesde, $fhasta) {
+        $query = $this->db->query("
+        SELECT * FROM reportes.CONTROL_TICKETS
+        WHERE DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
+        $data = $query->result();
+        $_SESSION['x'] = $data;
+        return $data;
+    }
 
     
     public function ReporteCciHfc($opcion, $fecha_ini = null, $fecha_fin = null) {
@@ -753,6 +765,16 @@ class Dao_reportes_model extends CI_Model {
             $condicion
         ");
         return $query->result();
+    }
+
+    public function getGestionPerformance($fdesde, $fhasta) {
+        $query = $this->db->query("
+        SELECT * FROM maximo.INCIDENT
+        WHERE DESCRIPTION LIKE '%MC:%'
+        and DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
+        $data = $query->result();
+        $_SESSION['x'] = $data;
+        return $data;
     }
     
 

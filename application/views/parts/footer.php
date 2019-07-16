@@ -1,3 +1,8 @@
+<div id="loader">
+<div  class='wrap1'>
+  <div class='loader' id='lrd1'></div>
+</div>
+</div>
 </section>
 <!-- /.content -->
 </div>
