@@ -23,7 +23,7 @@ viewModel.onClear = function(fileData) {
 };
 viewModel.debug = function() {
     window.viewModel = viewModel;
-    console.log(ko.toJSON(viewModel));
+//    console.log(ko.toJSON(viewModel));
     debugger;
 };
 viewModel.onInvalidFileDrop = function(failedFiles) {

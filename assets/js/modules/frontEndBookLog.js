@@ -143,18 +143,18 @@ $(function () {
       var hora = moment().format('HH:mm');
 
       if (hora>'06:00' && hora <'14:00') {
-        console.log('T1');
+//        console.log('T1');
         $("#turno option[value='T1']").attr("selected",true);
       }
       if (hora>'14:00' && hora <'22:00') {
-        console.log('T2');
+//        console.log('T2');
         $("#turno option[value='T2']").attr("selected",true);
       }
       if (hora>'22:00' && hora <'06:00') {
-        console.log('T3');
+//        console.log('T3');
         $("#turno option[value='T3']").attr("selected",true);
       }
-      console.log(hora);
+//      console.log(hora);
       $(".generalFields input, .generalFields select, .generalFields textarea").not('#tiempo_atencion,#cedulaBitacora').attr("disabled",false);
 
       // obtiene los ingenieros para cada tipo de bitácora
@@ -198,7 +198,7 @@ $(function () {
             default:
               break;
           }
-          console.log('val: ', val);
+//          console.log('val: ', val);
         });
 
         // opciones para cada caso de uso

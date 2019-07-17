@@ -49,7 +49,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <?php endif ?>
 
         <?php if ($this->uri->segment(1) == 'Bitacoras' || $this->uri->segment(2) == 'crear_usuarios') : ?>
-            <link rel="stylesheet" href="<?= base_url("assets/css/bitacoras.css") ?>">
+            <link rel="stylesheet" href="<?= base_url("assets/css/bitacoras.css?v=" . validarEnProduccion()) ?>">
         <?php endif ?>
 
         <link rel="icon" href="<?= base_url('assets/img/logo_zte.png'); ?>">

@@ -90,7 +90,8 @@ class Dao_user_model extends CI_Model {
 
     public function getAreasToCharge($user_id) {
         $query = $this->db->query("
-            SELECT area 
+            SELECT SUBSTRING_INDEX(area, '_', -1) AS 'texto',
+                area
             FROM areamanagers
             WHERE user_id = $user_id
         ");
@@ -102,25 +103,47 @@ class Dao_user_model extends CI_Model {
         $query = $this->db->query("
             SELECT id, name
             FROM roles
-            WHERE area LIKE '" . $area . "_%'
+            WHERE area = '$area'
         ");
 
         return $query->result();
     }
 
-    public function saveTable($tabla, $data) {
-        $this->db->insert($tabla, $data);
+    public function saveTable($tabla, $data, $action) {
+        switch ($action) {
+            case "insert":
+                $this->db->insert($tabla, $data);
+                break;
+            case "update":
+                $this->db->where((($tabla == 'users') ? 'id_users' : 'user_id'), (($tabla == 'users') ? $data['id_users'] : $data['user_id']));
+                $this->db->update($tabla, $data);
+                break;
+        }
+
         return $this->db->affected_rows();
     }
-    
+
     public function validateCedula($cedula) {
         $query = $this->db->query("
-            SELECT id_users
+            SELECT id_users, nombres, apellidos,
+                email, num_contacto, contrasena, imagen
             FROM users
             WHERE id_users = $cedula
         ");
 
-        return $query->num_rows();
+        return $query->result();
+    }
+    
+    function deleteUser($id) {
+        $this->db->where('id_users', $id);
+        $this->db->delete('users');
+        return $this->db->affected_rows();
+    }
+    
+    function deleteRolUserByIdUser($id) {
+        $this->db->where('user_id', $id);
+        $this->db->delete('role_user');
+        return $this->db->affected_rows();
     }
 
 }

@@ -242,7 +242,7 @@ $(function() {
             app.post('LoadInformation/countLinesFile', {
                 file: data.path
             }).success(function(response) {
-                console.log(response);
+//                console.log(response);
                 var v = app.successResponse(response);
                 if (v) {
                     if (response.data.notNumerirc <= 0) {
@@ -323,7 +323,7 @@ $(function() {
                             vista.index += response.data.row;
                             vista.indexTemp += response.data.row;
                             vista.selec += response.data.seleccionados;
-                            console.log(vista.selec);
+//                            console.log(vista.selec);
                             window.setTimeout(function() {
                                 vista.processData(data, alert);
                             }, vista.sleepTime);
