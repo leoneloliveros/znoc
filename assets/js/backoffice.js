@@ -5,7 +5,6 @@ $(document).ready(function() {
 
         //Inicializa las funciones escritas en este atributo
         init:function(){
-            $('.content-header').hide();
             $('#loader').hide();
             $('.spinner-loader').hide();
             Bitacora.inputAnimations();
