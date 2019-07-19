@@ -390,6 +390,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 </li>
                                             </ul>
                                         </li>
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fab fa-buromobelexperte"></i>&nbsp;&nbsp;
+                                                <span>Mesa de Calidad</span>
+                                                <span class="pull-right-container">
+                                                    <i class="fa fa-angle-left pull-right"></i>
+                                                </span>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li id="vol_fija">
+                                                    <a href="<?= base_url('Reportes/volumetria_mesa_calidad') ?>">
+                                                        <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                                                        <span>Volumetrías</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
 
                                 </li>
                             </ul>

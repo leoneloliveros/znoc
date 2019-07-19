@@ -189,9 +189,9 @@ immediately after the control sidebar -->
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
     <script type="text/javascript" src="<?= base_url('assets/js/modules/reporte_sla_customer.js?v=' . validarEnProduccion()); ?>"></script>
 <?php endif ?>
-<?php if ($this->uri->segment(2) === "volumetria_fija"): ?>
-    <script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria_fija.js?v=' . validarEnProduccion()); ?>"></script>
-<?php endif ?>
+    <?php if ($this->uri->segment(2) === "volumetria_fija"): ?>
+        <script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria_fija.js?v=' . validarEnProduccion()); ?>"></script>
+    <?php endif ?>
 
 <?php if ($this->uri->segment(2) == 'crear_usuarios'): ?>
         <script src="<?= base_url("assets/js/modules/crear_usuarios.js?v=" . validarEnProduccion()) ?>"></script>
@@ -201,8 +201,12 @@ immediately after the control sidebar -->
 <?php if ($this->uri->segment(2) === "exportCciHfc"): ?>
     <script type="text/javascript" src="<?= base_url("assets/js/modules/consultar_cci_hfc.js?v=" . validarEnProduccion()); ?>"></script>
 <?php endif ?>
+    
+<?php if ($this->uri->segment(2) === "volumetria_mesa_calidad"): ?>
+    <script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria_mesa_calidad.js?v=' . validarEnProduccion()); ?>"></script>
+<?php endif ?>
 
-    <script type="text/javascript">
+<script type="text/javascript">
     // para ponerle active al li seleccionado
     if ('<?= $sub_bar ?>') {
         $('#<?= $active ?>').parents('li').addClass('active');
