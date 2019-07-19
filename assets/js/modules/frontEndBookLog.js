@@ -115,7 +115,7 @@ $(function () {
             var nn = obj[i].subarea.split('_');
             n2 = nn.length-1;
             if (nn[n2] == 'energia') {
-              $(`.getAreas`).append( `<option class="" data-id="Energias" value="${obj[i].subarea}">${nn[n2]}</opption>`);
+              $(`.getAreas`).append( `<option class="" data-id="energias" value="${obj[i].subarea}">${nn[n2]}</opption>`);
             }else {
               if (nn[n2] == 'plataforma') {
                 $(`.getAreas`).append( `<option class="" data-id="plataformas" value="${obj[i].subarea}">${nn[n2]}</opption>`);
