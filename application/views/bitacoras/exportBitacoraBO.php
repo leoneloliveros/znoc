@@ -175,8 +175,15 @@
             height: 0px;
         }
 
-        li.paginate_button.active {
+        /* li.paginate_button.active, li.paginate_button.active + .paginate_button, li.paginate_button.active - .paginate_button {
             display: none;
+        } */
+        .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+            z-index: 3;
+            color: #fff;
+            cursor: default;
+            background-color: #8262c3;
+            border-color: #8262c3;
         }
         #bitacora_BO_table_next{
             display: block;

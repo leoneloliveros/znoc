@@ -110,6 +110,12 @@ class Bitacoras extends CI_Controller {
 
     public function saveWorkLogBackOffice() {
         $info = $this->input->POST('datosBitacora');
+        $date1 = DateTime::createFromFormat('d/m/Y H:i', $info['fechaYHoraIngresoTarea']);
+        $info['fechaYHoraIngresoTarea'] = $date1->format('Y-m-d H:i');
+
+        $date = str_replace('/', '-', $info['fecha'] );
+        $info['fecha'] = date("Y-m-d", strtotime($date));
+        
         $guardar = $this->Dao_bitacoras_model->crearBitacoraBackOffice($info);
         if ($guardar == "Registro Exitoso") {
             echo "Registros exitosos";
