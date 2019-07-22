@@ -78,13 +78,14 @@ input{
     <div class="row">
       <div class="form-group col-md-4 input-group-sm">
         <label for="id_users">Ingeniero</label>
-        <select id="id_users" class="form-control">
+<!--        <select id="id_users" class="form-control">
           <option value="">Seleccione...</option>
-        </select>
+        </select>-->
+        <input type="text" class="form-control" id="cedulaBitacora" value="<?php echo $this->session->userdata('name'); ?>" disabled>
       </div>
       <div class="form-group col-md-4 input-group-sm">
       <label for="cedulaBitacora">Cédula</label>
-      <input type="text" class="form-control" id="cedulaBitacora" disabled>
+      <input type="text" class="form-control" id="id_users" value="<?php echo $this->session->userdata('id'); ?>" disabled>
     </div>
       <div class="form-group col-md-4 input-group-sm">
         <label for="turno">Turno</label>
