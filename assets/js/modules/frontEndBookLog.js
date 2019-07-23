@@ -34,10 +34,12 @@ $(function () {
             $('#estaciones_afectadas').change(() => {
                 var value = $('#estaciones_afectadas').val();
                 if (value == "4 a 20") {
-                    alert('ESTACIONES AFECTADAS: 4 a 20 \n Notificar al incident, a Comunicados y al responsable del caso.');
+//                    alert('ESTACIONES AFECTADAS: 4 a 20 \n Notificar al incident, a Comunicados y al responsable del caso.');
+                    helper.miniAlert('ESTACIONES AFECTADAS: 4 a 20 \n Notificar al incident, a Comunicados y al responsable del caso.', 'warning');
                 }
                 if (value == "MAYOR A 20") {
-                    alert('ESTACIONES AFECTADAS: MAYOR A 20 \n Notificar al gerente de zona, al incident, al responsable de caso y comunicados.');
+//                    alert('ESTACIONES AFECTADAS: MAYOR A 20 \n Notificar al gerente de zona, al incident, al responsable de caso y comunicados.');
+                    helper.miniAlert('ESTACIONES AFECTADAS: MAYOR A 20 \n Notificar al gerente de zona, al incident, al responsable de caso y comunicados.', 'warning');
                 }
             });
             $('#formu select, #formu input').on('change', () => {
@@ -75,7 +77,8 @@ $(function () {
             $('#servicios_corporativos').change(() => {
                 var value = $('#servicios_corporativos').val();
                 if (value == "MAYOR A 10") {
-                    alert('Servicios Corporativos: MAYOR A 10 \n Notificar al incident, a Comunicados y al responsable del caso.');
+//                    alert('Servicios Corporativos: MAYOR A 10 \n Notificar al incident, a Comunicados y al responsable del caso.');
+                    helper.miniAlert('Servicios Corporativos: MAYOR A 10 \n Notificar al incident, a Comunicados y al responsable del caso.', 'warning');
                 }
             });
 
@@ -189,14 +192,17 @@ $(function () {
                             case 'CCM':
                             case 'BLOQUEO':
                             case 'RPT':
-                                alert("LOS ESCALAMIENTOS DEBEN LLAMAR A GERENTE DE ZONA, RESPONSABLE DE CASO, NOC INCIDENT, BO ENERGÍA, GRUPO DE COMUNICADOS Y SI TIENE UNA AUTONOMÍA BAJA, NOTIFICAR A DUTY O GERENTE CENTRO GESTIÓN SEGÚN DISPONIBILIDAD.")
+//                                alert("LOS ESCALAMIENTOS DEBEN LLAMAR A GERENTE DE ZONA, RESPONSABLE DE CASO, NOC INCIDENT, BO ENERGÍA, GRUPO DE COMUNICADOS Y SI TIENE UNA AUTONOMÍA BAJA, NOTIFICAR A DUTY O GERENTE CENTRO GESTIÓN SEGÚN DISPONIBILIDAD.")
+                                helper.miniAlert("LOS ESCALAMIENTOS DEBEN LLAMAR A GERENTE DE ZONA, RESPONSABLE DE CASO, NOC INCIDENT, BO ENERGÍA, GRUPO DE COMUNICADOS Y SI TIENE UNA AUTONOMÍA BAJA, NOTIFICAR A DUTY O GERENTE CENTRO GESTIÓN SEGÚN DISPONIBILIDAD.", 'warning');
                                 break;
                             case 'SITIO SIN PLANTA':
-                                alert("AL INGENIERO EN TURNO ESCALAR AL ÁREA RESOLUTORIA AVISAR.");
+//                                alert("AL INGENIERO EN TURNO ESCALAR AL ÁREA RESOLUTORIA AVISAR.");
+                                helper.miniAlert("AL INGENIERO EN TURNO ESCALAR AL ÁREA RESOLUTORIA AVISAR.", 'warning');
                                 break;
 
                             case 'BLOQUEO':
-                                alert("ESCALAR AL NOC INCIDENT, GERENTE DE ZONA, RESPONSABLE.");
+//                                alert("ESCALAR AL NOC INCIDENT, GERENTE DE ZONA, RESPONSABLE.");
+                                helper.miniAlert("ESCALAR AL NOC INCIDENT, GERENTE DE ZONA, RESPONSABLE.", 'warning')
                                 break;
 
                             default:
