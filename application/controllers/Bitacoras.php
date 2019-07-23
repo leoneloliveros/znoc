@@ -151,12 +151,11 @@ class Bitacoras extends CI_Controller {
         $this->load->view('parts/footer');
     }
 
-    public function cargarBitacoraBO() {
+    public function cargarBitacoraBO($fechaInicio, $fechaFinal) {
         $this->load->library('Datatables');
 
         $bitacora_BO_table = $this->datatables->init();
-
-        $bitacora_BO_table->select('*')->from('znoc.BITACORA_BO');
+        $bitacora_BO_table->select('*')->from('znoc.BITACORA_BO')->where("DATE_FORMAT(fecha, '%Y-%m-%d') BETWEEN '$fechaInicio' and '$fechaFinal'");
 
         $bitacora_BO_table
             ->style(array(

@@ -67,6 +67,7 @@ class DatatablesBuilder
         $this->table = $table;
         return $this->_db;
     }
+    
 
     public function style($data)
     {
