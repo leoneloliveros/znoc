@@ -1,9 +1,17 @@
+<!-- <div>
+    <div>
+    
+        <div>Descargar</div>
+        <div>Buscar</div>
+        </div> -->
 <div class="table-new">
     <?php
         $this->datatables->generate('bitacora_BO_table');
         $this->datatables->jquery('bitacora_BO_table');
     ?>
 </div>
+
+<!-- </div> -->
 
 
 <style>

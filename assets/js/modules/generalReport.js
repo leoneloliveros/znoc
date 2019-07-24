@@ -12,7 +12,9 @@ $(function(){
       getReportAccordingOption: function(){
         $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', true);
         $("#fDesde, #fHasta").css({ 'border-color': '#cccccc', 'box-shadow': 'unset' });
-        helper.showLoading();
+        // helper.showLoading();
+        $('#loader').show();
+        $('.spinner-loader').show();
         switch($("#selection").val()) {
             case '0':
                 $.post(base_url + "GeneralReports/c_getControlTicket", {
@@ -20,7 +22,8 @@ $(function(){
                     hasta: $(`#fHasta`).val(),
                   }).done(function(){
                     $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
-                    helper.hideLoading();
+                    $('#loader').hide();
+                    $('.spinner-loader').hide();
                     window.open(base_url + "GeneralReports/excelControlTicket");
                 });
                     
@@ -35,7 +38,8 @@ $(function(){
                         hasta: $(`#fHasta`).val(),
                       }).done(function(){
                         $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
-                        helper.hideLoading();
+                        $('#loader').hide();
+                        $('.spinner-loader').hide();
                         window.open(base_url + "GeneralReports/excelIncidentesFija");
                     });
             break;
@@ -45,7 +49,8 @@ $(function(){
                         hasta: $(`#fHasta`).val(),
                       }).done(function(){
                         $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
-                        helper.hideLoading();
+                        $('#loader').hide();
+                        $('.spinner-loader').hide();
                         window.open(base_url + "GeneralReports/excelTiemposNOCEste");
                     });
             break;
@@ -55,7 +60,8 @@ $(function(){
                         hasta: $(`#fHasta`).val(),
                       }).done(function(){
                         $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
-                        helper.hideLoading();
+                        $('#loader').hide();
+                        $('.spinner-loader').hide();
                         window.open(base_url + "GeneralReports/excelTiempoFija");
                     });
             break;
@@ -65,7 +71,8 @@ $(function(){
                         hasta: $(`#fHasta`).val(),
                       }).done(function(){
                         $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
-                        helper.hideLoading();
+                        $('#loader').hide();
+                        $('.spinner-loader').hide();
                         window.open(base_url + "GeneralReports/excelWorkInfoMesaCalidad");
                     });
             break;
@@ -75,7 +82,8 @@ $(function(){
                         hasta: $(`#fHasta`).val(),
                       }).done(function(){
                         $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
-                        helper.hideLoading();
+                        $('#loader').hide();
+                        $('.spinner-loader').hide();
                         window.open(base_url + "GeneralReports/excelAlarmasAutomatismo");
                     });
             break;
@@ -85,7 +93,8 @@ $(function(){
                         hasta: $(`#fHasta`).val(),
                       }).done(function(){
                         $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
-                        helper.hideLoading();
+                        $('#loader').hide();
+                        $('.spinner-loader').hide();
                         window.open(base_url + "GeneralReports/excelTareasFOPerformance");
                     });
             break;
@@ -95,7 +104,8 @@ $(function(){
                         hasta: $(`#fHasta`).val(),
                       }).done(function(){
                         $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
-                        helper.hideLoading();
+                        $('#loader').hide();
+                        $('.spinner-loader').hide();
                         window.open(base_url + "GeneralReports/excelTiempoAtencion");
                     });
             break;
@@ -105,7 +115,8 @@ $(function(){
                         hasta: $(`#fHasta`).val(),
                       }).done(function(){
                         $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
-                        helper.hideLoading();
+                        $('#loader').hide();
+                        $('.spinner-loader').hide();
                         window.open(base_url + "GeneralReports/excelGestionPerformance");
                     });
             break;

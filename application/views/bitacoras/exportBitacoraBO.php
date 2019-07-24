@@ -9,7 +9,7 @@
             <div class="switch-container col-md-12 position-relative form-group">
                 <label class="switch">
                 <input type="checkbox" class="form-check-input">
-                <span class="slider round"></span>
+                <span id="onlyDateInitial" class="slider round"></span>
                 </label>
                 <span class="checkbox-initial">
                     Solo Fecha de Inicio
@@ -19,14 +19,14 @@
             <div>
                 <div class="col-md-6 col-body">
                     <div class="form-group">
-                    <label class="form-label" for="ticket">Fecha Inicial</label>
-                    <input id="ticket" class="form-input required-field" type="text" />
+                    <label class="form-label" for="fechaInicio">Fecha Inicial</label>
+                    <input id="fechaInicio" class="form-input required-field" type="text" />
                     </div>
                 </div>
                 <div class="col-md-6 col-body">
                     <div class="form-group">
-                    <label class="form-label" for="ticket">Fecha Final</label>
-                    <input id="ticket" class="form-input required-field" type="text" />
+                    <label class="form-label" for="fechaFinal">Fecha Final</label>
+                    <input id="fechaFinal" class="form-input required-field" type="text" />
                     </div>
                 </div>
             </div>
@@ -46,7 +46,10 @@
 
 </div>
 <div class="row" style="display: flex; width: 100%; align-items: center;">
-    <div class="col-md-9" id="container-result" style="display: flex;"></div>
+    
+    <div class="col-md-9" id="container-result" style="display: flex;">
+    
+    </div>
     <div class="col-md-3" id="container-graph" style="min-width: 310px; max-width: 600px; margin: 0 auto"></div>
     
 </div>
@@ -175,8 +178,15 @@
             height: 0px;
         }
 
-        li.paginate_button.active {
+        /* li.paginate_button.active, li.paginate_button.active + .paginate_button, li.paginate_button.active - .paginate_button {
             display: none;
+        } */
+        .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+            z-index: 3;
+            color: #fff;
+            cursor: default;
+            background-color: #8262c3;
+            border-color: #8262c3;
         }
         #bitacora_BO_table_next{
             display: block;
@@ -196,11 +206,41 @@
 </style>
 <script type="text/javascript" src="<?= base_url('assets/plugins/hightchart/code/highcharts.js');?>"></script>
 <script>
+$('#fechaFinal').mask("99/99/9999");
+$('#fechaInicio').mask("99/99/9999");
+var activeInitialButton = false;
+$('#onlyDateInitial').on('click', function(){
+    activeInitialButton = (activeInitialButton == true) ? false : true ;
+    if (activeInitialButton == true) {
+        $('#fechaFinal').parent().attr('style', 'display: none;');
+    } else {
+        $('#fechaFinal').parent().attr('style', 'display:  block;');
+    };
+
+});
+function test() {
+    if (activeInitialButton == true) {
+    // $('#fechaInicio').on('blur', function() {
+        $('#fechaFinal').val($('#fechaInicio').val());
+    // });
+    }
+};
+$(function(){
+setInterval(test, 1000);
+});
+
+
+
+// };
+
+
     $('#consult').on('click', function() {
-        // $('.container-result').attr('style', 'display: block;')
-        // $('#loader').show();
-        // $('.spinner-loader').show();
-        var url = base_url + 'Bitacoras/cargarBitacoraBO';
+        $('#loader').show();
+        $('.spinner-loader').show();
+        var fechaInicio = $('#fechaInicio').val();
+        var fechaFinal = $('#fechaFinal').val();
+
+        var url = base_url + 'Bitacoras/cargarBitacoraBO' + '/' + moment(fechaInicio, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + moment(fechaFinal, 'DD/MM/YYYY').format('YYYY-MM-DD') ;
         var element = document.getElementById('container-result');
         load(url, element);
         function load(url, element)
@@ -210,6 +250,8 @@
             req.send(null);
             element.innerHTML = req.responseText;
             createDatatable(url);
+            $('#loader').hide();
+            $('.spinner-loader').hide();
         }
 
         function createDatatable(link) {
