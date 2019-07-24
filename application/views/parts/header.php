@@ -341,6 +341,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                         <span>SLA</span>
                                                     </a>
                                                 </li>
+                                                <li id="">
+                                                    <a href="<?= base_url('Front_Office_Movil/KPI/Control') ?>">
+                                                        <i class="fas fa-calendar"></i>&nbsp;&nbsp;
+                                                        <span>Control KPI</span>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </li>
                                         <!-- *****************SUB NIVEL***************** -->
@@ -495,7 +501,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="content-wrapper"style="margin-top:7vh;">
                     <div class="spinner-loader"></div>
                         <!-- Content Header (Page header) -->
-                        <section class="content-header">
+                        <!-- <section class="content-header">
                             <h1>
                                 <?= $header[0] ?>
                                 <small><?= $header[1] ?></small>
@@ -504,7 +510,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <li><a href="#"><i class="fas fa-tachometer-alt"></i> <?= $title ?></a></li>
                                 <li class="active">Here</li>
                             </ol>
-                        </section>
+                        </section> -->
 
                         <!-- Main content -->
                         <section class="content container-fluid contenedorMaestro">
