@@ -110,6 +110,12 @@ class Bitacoras extends CI_Controller {
 
     public function saveWorkLogBackOffice() {
         $info = $this->input->POST('datosBitacora');
+        $date1 = DateTime::createFromFormat('d/m/Y H:i', $info['fechaYHoraIngresoTarea']);
+        $info['fechaYHoraIngresoTarea'] = $date1->format('Y-m-d H:i');
+
+        $date = str_replace('/', '-', $info['fecha'] );
+        $info['fecha'] = date("Y-m-d", strtotime($date));
+        
         $guardar = $this->Dao_bitacoras_model->crearBitacoraBackOffice($info);
         if ($guardar == "Registro Exitoso") {
             echo "Registros exitosos";
@@ -145,12 +151,11 @@ class Bitacoras extends CI_Controller {
         $this->load->view('parts/footer');
     }
 
-    public function cargarBitacoraBO() {
+    public function cargarBitacoraBO($fechaInicio, $fechaFinal) {
         $this->load->library('Datatables');
 
         $bitacora_BO_table = $this->datatables->init();
-
-        $bitacora_BO_table->select('*')->from('znoc.BITACORA_BO');
+        $bitacora_BO_table->select('*')->from('znoc.BITACORA_BO')->where("DATE_FORMAT(fecha, '%Y-%m-%d') BETWEEN '$fechaInicio' and '$fechaFinal'");
 
         $bitacora_BO_table
             ->style(array(
