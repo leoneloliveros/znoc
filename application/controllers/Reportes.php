@@ -701,6 +701,121 @@ class Reportes extends CI_Controller {
 
         $excel->close();
     }
+    
+    // Vista para cambiar opciones del usuario
+    public function generar_reportes() {
+        if (!$this->session->userdata('id')) {
+            header('location: ' . base_url());
+        }
+
+        $data = array(
+            'active_sidebar' => false,
+            'title' => 'Generar Reporte',
+            'active' => "createReport",
+            'header' => array('Generar Reporte', ''),
+            'sub_bar' => true
+        );
+
+        $this->load->view('parts/header', $data);
+        $this->load->view('generar_reportes');
+        $this->load->view('parts/footer');
+    }
+    
+    public function c_getTablesBySchema() {
+        $schema = $this->input->post('schema');
+        $data = $this->Dao_reportes_model->getTablesBySchema($schema);
+        echo json_encode($data);
+    }
+    
+    public function c_getColumnsByTable() {
+        $schema = $this->input->post('schema');
+        $table = $this->input->post('table');
+        $data = $this->Dao_reportes_model->getColumnsByTable($schema, $table);
+        echo json_encode($data);
+    }
+    
+    public function c_getGenerateReport() {
+        $query = $this->input->post('query');
+        $columns = $this->input->post('columns');
+        $data = $this->Dao_reportes_model->getGenerateReport($query);
+        $return = array();
+        
+        $thead = "<tr>";
+        foreach ($columns as $value) {
+            $thead .= "<th>$value</th>";
+        }
+        $thead .= "</tr>";
+        
+        $tbody = "";
+        foreach ($data as $data_value) {
+            $tbody .= "<tr>";
+            foreach ($columns as $colums_value) {
+                $tbody .= "<td>".$data_value->$colums_value."</td>";
+            }
+            $tbody .= "</tr>";
+        }
+        
+        $return['thead'] = $thead;
+        $return['tbody'] = $tbody;
+        
+//        print_r($return);
+//        exit('termino proceso');
+        
+        echo json_encode($return);
+    }
+    
+    public function excelGenerateReport($query, $colums, $report_name) {
+        $data_report = $this->Dao_reportes_model->getGenerateReport($query);
+        
+         echo '<pre>'; print_r($query); echo '</pre>';exit();
+        $excel = WriterEntityFactory::createXLSXWriter();
+        $excel->openToBrowser("$report_name(" . date('Y-m-d') . ").xlsx");
+        // $wrapText = (new StyleBuilder())->setShouldWrapText(false)->build();
+
+        $titles = array('TICKETID', 'ZONA_TKT', 'TIPO_TKT', 'CREATIONDATE', 'CLOSEDATE', 'ACTUALFINISH', 'STATUS', 'INTERNALPRIORITY', 'URGENCY', 'CREATEDBY', 'CHANGEDATE', 'OWNERGROUP', 'LOCATION', 'MUN100', 'AFECTACION_TOTAL_CORE', 'INCEXCLUIR', 'PROVEEDORES', 'TICKET_EXT', 'DESCRIPTION', 'EXTERNALSYSTEM', 'RUTA_TKT', 'INC_ALARMA', 'INCSOLUCION', 'GERENTE', 'REGIONAL', 'PROBLEM_CODE', 'PROBLEM_DESCRIPTION', 'CAUSE_CODE', 'CAUSE_DESCRIPTION', 'REMEDY_CODE', 'REMEDY_DESCRIPTION', 'TIEMPO_VIDA_TKT', 'TIEMPO_RESOLUCION_TKT', 'TIEMPO_DETECCION', 'TIEMPO_ESCALA', 'TIEMPO_FALLA');
+
+        $header = WriterEntityFactory::createRowFromArray($titles);
+
+
+        $escritas = $excel->getCurrentSheet();
+        $escritas->setName('Escritas');
+        $excel->addRow($header);
+
+        foreach ($data_escritas as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+        // // $ejmplo = WriterEntityFactory::createRowFromArray(array("hola",'qie','pex'));
+
+        $investigacion = $excel->addNewSheetAndMakeItCurrent();
+        $investigacion->setName('Investigacion');
+        $excel->addRow($header);
+
+        foreach ($data_investigacion as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $investigacion_legal = $excel->addNewSheetAndMakeItCurrent();
+        $investigacion_legal->setName('Investigacion_Legal');
+        $excel->addRow($header);
+
+        foreach ($data_investigacion_legal as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $cobertura = $excel->addNewSheetAndMakeItCurrent();
+        $cobertura->setName('Cobertura');
+        $excel->addRow($header);
+
+        foreach ($data_cobertura as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $excel->close();
+    }
 
 }
 

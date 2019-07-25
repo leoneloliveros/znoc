@@ -777,6 +777,32 @@ class Dao_reportes_model extends CI_Model {
         return $data;
     }
     
+    //Retorna la cantidad de tablas de un Schema pasado como parametro
+    public function getTablesBySchema($schema) {
+        $query = $this->db->query("
+            SHOW FULL TABLES FROM $schema
+        ");
+        return $query->result();
+    }
+    
+    //Retorna las columnas de la tabla pasada como parametro
+    public function getColumnsByTable($schema, $table) {
+        $query = $this->db->query("
+            DESC $schema.$table
+        ");
+        
+//        print_r($this->db->last_query().';<br>');
+        return $query->result();
+    }
+    
+    //Retorna el resultado del query pasado por parametro
+    public function getGenerateReport($query) {
+        $query = $this->db->query($query);
+        
+//        print_r($this->db->last_query().';<br>');
+        return $query->result();
+    }
+    
 
 }
 
