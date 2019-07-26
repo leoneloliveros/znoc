@@ -15,7 +15,7 @@
             <div class="switch-container col-md-12 position-relative form-group">
                 <label class="switch">
                 <input type="checkbox" class="form-check-input">
-                <span class="slider round"></span>
+                <span id="onlyDateInitial" class="slider round"></span>
                 </label>
                 <span class="checkbox-initial">
                     Solo Fecha de Inicio
@@ -26,13 +26,13 @@
                 <div class="col-md-6 col-body">
                     <div class="form-group">
                     <label class="form-label" for="ticket">Fecha Inicial</label>
-                    <input id="ticket" class="form-input required-field" type="text" />
+                    <input id="fechaInicio" class="form-input required-field" type="text" />
                     </div>
                 </div>
                 <div class="col-md-6 col-body">
                     <div class="form-group">
                     <label class="form-label" for="ticket">Fecha Final</label>
-                    <input id="ticket" class="form-input required-field" type="text" />
+                    <input id="fechaFinal" class="form-input required-field" type="text" />
                     </div>
                 </div>
             </div>
@@ -51,10 +51,12 @@
     
 
 </div>
-<div class="row" style="display: flex; width: 100%; align-items: center;">
-    <div class="col-md-9" id="container-result" style="display: flex;"></div>
-    <div class="col-md-3" id="container-graph" style="min-width: 310px; max-width: 600px; margin: 0 auto"></div>
-    
+<div class="" style="display: flex; width: 100%; align-items: center; margin-top: 50px; flex-wrap: wrap;">
+    <div class="col-md-12" id="container-graph" style=" margin-bottom: 30px; width:100%"></div>
+    <div class="col-md-12" id="container-graph2" style=" margin-bottom: 30px; width: 100%"></div>
+    <div class="col-md-12" id="prioridad3" style=" margin-bottom: 30px; width:100%"></div>
+    <div class="col-md-12" id="container-graph4" style=" margin-bottom: 30px; width:50%"></div>
+    <div class="col-md-12" id="container-result" style="display: flex;"></div>
 </div>
     
 
@@ -171,42 +173,72 @@
             justify-content: center;
             }
 
-        #bitacora_BO_table {
+        #FO_table {
             color: black;
             background: white;
             border: none;
         }
 
-        #bitacora_BO_table_paginate{
+        #FO_table_paginate{
             height: 0px;
         }
 
-        li.paginate_button.active {
+        li.paginate_button {
             display: none;
         }
-        #bitacora_BO_table_next{
+        #FO_table_next{
             display: block;
             position: absolute;
             top: 50%;
-            right: -3%;
+            right: -1%;
             box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
         }
-        #bitacora_BO_table_previous{
+        #FO_table_previous{
             display: block;
             position: absolute;
             top: 50%;
-            left: -3%;
+            left: -1%;
             box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
 }
         }
+
+        
 </style>
 <script type="text/javascript" src="<?= base_url('assets/plugins/hightchart/code/highcharts.js');?>"></script>
 <script>
-    $('#consult').on('click', function() {
-        // $('.container-result').attr('style', 'display: block;')
-        // $('#loader').show();
-        // $('.spinner-loader').show();
-        var url = base_url + 'Bitacoras/cargarBitacoraBO';
+var queryValue = "";
+$('#fechaFinal').mask("99/99/9999");
+$('#fechaInicio').mask("99/99/9999");
+var activeInitialButton = false;
+$('#onlyDateInitial').on('click', function(){
+    activeInitialButton = (activeInitialButton == true) ? false : true ;
+    if (activeInitialButton == true) {
+        $('#fechaFinal').parent().attr('style', 'display: none;');
+    } else {
+        $('#fechaFinal').parent().attr('style', 'display:  block;');
+    };
+
+});
+function test() {
+    if (activeInitialButton == true) {
+    // $('#fechaInicio').on('blur', function() {
+        $('#fechaFinal').val($('#fechaInicio').val());
+    // });
+    }
+};
+$(function(){
+setInterval(test, 1000);
+});
+
+$('#consult').on('click', function() {
+    
+ 
+        $('#loader').show();
+        $('.spinner-loader').show();
+        var fechaInicio = $('#fechaInicio').val();
+        var fechaFinal = $('#fechaFinal').val();
+
+        var url = base_url + 'Front_Office_Movil/KPI/cargarInfo' + '/' + moment(fechaInicio, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + moment(fechaFinal, 'DD/MM/YYYY').format('YYYY-MM-DD') ;
         var element = document.getElementById('container-result');
         load(url, element);
         function load(url, element)
@@ -216,13 +248,18 @@
             req.send(null);
             element.innerHTML = req.responseText;
             createDatatable(url);
+
+            $('#loader').hide();
+            $('.spinner-loader').hide();
         }
 
+
         function createDatatable(link) {
-            erTable_bitacora_BO_table = $("#bitacora_BO_table").DataTable({
+            erTable_FO_table = $("#FO_table").DataTable({
                 processing: true,
                 serverSide: true,
-                "searching": false,
+                "scrollX": true,
+                "searching": true,
                 dom: 'frtip',
                 select: true,
                 "oLanguage": {
@@ -237,76 +274,209 @@
                     url: link,
                     type: "POST",
                     data: function (d, dt) {
-                    d.dt_name = "bitacora_BO_table"
+                    d.dt_name = "FO_table"
                     }
                 },
+                "drawCallback":function( settings, json){
+                    queryValue = settings['json']['query'];
+                }
             });
         }
 
 
+        $.post(base_url + "Front_Office_Movil/KPI/getGraphInfo", {
+                    inicio: fechaInicio,
+                    final: fechaFinal
+                  }).done(function(data){
+                    var category = [];
+                    var pasaronP1 = [];
+                    var noPasaronP1 = [];
+                    var pasaronP2 = [];
+                    var noPasaronP2 = [];
+                    var pasaronP3 = [];
+                    var noPasaronP3 = [];
+                    $('#loader').hide();
+                    $('.spinner-loader').hide();
+                    var obj = JSON.parse(data);
+                    for (i = 0; i < obj.length; i++) {
+                        category.push(obj[i].the_date) ;
 
-        Highcharts.chart('container-graph', {
-    chart: {
-        // plotBackgroundColor: null,
-        plotBorderWidth: null,
-        backgroundColor: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Estadísticas de bitácoras de Ingenieros'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        pasaronP1.push(Number(obj[i].P1_PASARON));
+                        noPasaronP1.push(obj[i].P1_TOTAL - obj[i].P1_PASARON);
+
+                        pasaronP2.push(Number(obj[i].P2_PASARON));
+                        noPasaronP2.push(obj[i].P2_TOTAL - obj[i].P2_PASARON);
+
+                        pasaronP3.push(Number(obj[i].P3_PASARON));
+                        noPasaronP3.push(obj[i].P3_TOTAL - obj[i].P3_PASARON);
+                    }
+                        
+
+                        
+                    Highcharts.chart('container-graph', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Prioridad 1'
+                        },
+                        xAxis: {
+                            categories: category
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: '%'
+                            }
+                        },
+                        tooltip: {
+                            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                            shared: true
+                        },
+                        plotOptions: {
+                            column: {
+                                stacking: 'percent'
+                            }
+                        },
+                        series: [{
+                            name: 'SI',
+                            data: pasaronP1
+                            }, {
+                                name: 'NO',
+                                data: noPasaronP1
+                            },
+                        ]
+                    });
+
+
+
+
+                    Highcharts.chart('container-graph2', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Prioridad 2'
+                        },
+                        xAxis: {
+                            categories: category
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: '%'
+                            }
+                        },
+                        tooltip: {
+                            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                            shared: true
+                        },
+                        plotOptions: {
+                            column: {
+                                stacking: 'percent'
+                            }
+                        },
+                        series: [{
+                            name: 'SI',
+                            data: pasaronP2
+                        }, {
+                            name: 'NO',
+                            data: noPasaronP2
+                        },
+                    ]
+                    });
+
+
+
+                    Highcharts.chart('prioridad3', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Prioridad 3'
+                        },
+                        xAxis: {
+                            categories: category
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: '%'
+                            }
+                        },
+                        tooltip: {
+                            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                            shared: true
+                        },
+                        plotOptions: {
+                            column: {
+                                stacking: 'percent'
+                            }
+                        },
+                        series: [{
+                            name: 'SI',
+                            data: pasaronP3
+                        }, {
+                            name: 'NO',
+                            data: noPasaronP3
+                        },
+                    ]
+                    });
+
+                    
+
+                        
+                    // window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
+                });
+
+
+        $('#export-excel').on('click', function() {
+        $('#loader').show();
+        $('.spinner-loader').show();
+                $.post(base_url + "Front_Office_Movil/KPI/getIncidentsFO", {
+                    query: queryValue.replace('LIMIT 10','')
+                  }).done(function(){
+                    $('#loader').hide();
+                    $('.spinner-loader').hide();
+                    window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
+                });
+                    
+                      
+    });
+
+
+
+
+        
+        $('#FO_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
+        $('#FO_table_filter input').attr('id', 'search-input');
+        // var l = $('#FO_table_filter label');
+        // l.html(l.find('input'));
+        let active = false;
+        $('.contenedorMaestro').on('click', function(e){
+            if(e.target.id === 'search' || e.target.id === 'search-input' || e.target.id === 'search-icon') {
+                if(!active) {
+                $('#FO_table_filter').addClass('active');
+                $('#search-input').addClass('active');
+                $('#search-icon').addClass('active');
+                active = true;
+                } 
+            } else {
+                $('#FO_table_filter').removeClass('active');
+            $('#search-input').removeClass('active');
+            $('#search-icon').removeClass('active');
+            active = false;
             }
-        }
-    },
-    series: [{
-        name: 'Brands',
-        colorByPoint: true,
-        data: [{
-            name: 'Chrome',
-            y: 61.41,
-            sliced: true,
-            selected: true
-        }, {
-            name: 'Internet Explorer',
-            y: 11.84
-        }, {
-            name: 'Firefox',
-            y: 10.85
-        }, {
-            name: 'Edge',
-            y: 4.67
-        }, {
-            name: 'Safari',
-            y: 4.18
-        }, {
-            name: 'Sogou Explorer',
-            y: 1.64
-        }, {
-            name: 'Opera',
-            y: 1.6
-        }, {
-            name: 'QQ',
-            y: 1.2
-        }, {
-            name: 'Other',
-            y: 2.61
-        }]
-    }]
-});
+        });
+
 
     });
    
+
+  
+ 
+
+
 
    
 
@@ -343,5 +513,114 @@ background: linear-gradient(to bottom, #514A9D, #24C6DC); /* W3C, IE 10+/ Edge, 
     justify-content: space-between;
     align-items: center;
     }
+
+
+    .table-new{
+        margin: 0;
+    }
+
+    #FO_table tbody td {
+    .td-some-name {: ;
+    white-space: nowrap;
+    width: 237px;
+    vertical-align: top;
+    }: ;
+    white-space: nowrap;
+    /* width: 307px; */
+    vertical-align: top;
+    padding: 10px;
+}
+
+#FO_table_processing {
+    display:none !important;
+}
+
+
+div#FO_table_filter {
+    height: 40px;
+    width: 40px;
+    border: solid 5px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15PX;
+    transition: 0.3s;
+    position: absolute;
+    top: -46px;
+    left: 47px;
+    cursor: pointer;
+    color: white;
+            }
+
+            #search-input {
+            height: 100%;
+            width: 0px;
+            font-size: 15px;
+            font-weight: 600;
+            background: none;
+            color: #FFF;
+            border: none;
+            outline: 0;
+            visibility: hidden;
+            transition: 0.3s;
+            
+            }
+
+            #FO_table_filter.active {
+            width: 209px;
+            }
+
+            #search-input.active {
+            width: 209px;
+            margin-left: 5px;
+            visibility: visible;
+            margin-top: 9px;
+            margin-top: -19px;
+            padding-right: 42px;
+            }
+
+             #search-icon.active {
+                padding-left: 25px;
+            }
+            #FO_table_filter label {
+                color: transparent;
+            }
+
+            #search-icon {
+                padding-left: 28px;
+            }
+
+            input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus, #search-input:-webkit-autofill {
+    transition: background-color 5000s ease-in-out 0s;
+}
+#search-input:-webkit-autofill {
+    -webkit-text-fill-color: #fff !important;
+}
+
+
+#export-excel{
+    height: 40px;
+    width: 40px;
+    border: solid 5px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15PX;
+    transition: 0.3s;
+    position: absolute;
+    top: -45px;
+    color: white;
+    cursor: pointer;
+}
 
 </style>

@@ -32,6 +32,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <!-- **********************************************datatables *********************************************-->
         <script src="<?= base_url('assets/plugins/datatables/DataTables-1.10.16/js/jquery.dataTables.min.js') ?>"></script>
+
         <script src="<?= base_url('assets/plugins/datatables/js/dataTables.bootstrap.js?v=1.0') ?>"></script>
 
         <?php if ($this->uri->segment(2) == 'crear') : ?>
