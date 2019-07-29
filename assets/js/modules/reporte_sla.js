@@ -96,75 +96,140 @@ $(function () {
             window.location.href = base_url + "/Reportes/excelTiempoEscalamientoMovil/" + desde + "/" + hasta;
         },
         getgrafica: function(obj){
-            Highcharts.chart('grafica_r', {
+            // Highcharts.chart('grafica_r', {
+            //     chart: {
+            //         type: 'column',
+            //     },
+            //     title: {
+            //         text: 'Incidentes FAOB'
+            //     },
+            //     xAxis: {
+            //         categories: ['Urgencia alta, impacto alto< = 20 min', 'Urgencia alta, impacto alto> 20 min', 'Urgencia alta, impacto medio> 40 min', 'Urgencia alta, impacto medio<=40' , 'Medias<= 60 Min', 'Medias> 60 Min', 'Bajas<= 80 min', 'Bajas> 80 min', 'Sin prioridad', 'Total incidentes'],
+            //     },
+            //     yAxis: {
+            //         min: 0,
+            //         title: {
+            //             text: 'Total de incidentes'
+            //         }
+            //     },
+            //     tooltip: {
+            //         shared: true,
+            //     },
+            //     plotOptions: {
+            //         column: {
+            //             pointPadding: 0.2,
+            //             borderWidth: 0
+            //         }
+            //     },
+            //     series: [{
+            //             name: 'Urgencia alta - impacto alto<=20 min',
+            //             data: [slas.getaltminv(obj)],
+            //             color: '#084c6f'
+
+            //         }, {
+            //             name: 'Urgencia alta - impacto alto > 20 min',
+            //             data: [slas.getaltmaxv(obj)],
+            //             color: '#1b771a'
+
+            //         }, {
+            //             name: 'Urgencia alta - impacto medio > 40 min',
+            //             data: [slas.getaltmaxc(obj)],
+            //             color: '#5313c3'
+            //         }, {
+            //             name: 'Urgencia alta, impacto medio<=40', 
+            //             data: [slas.getaltminc(obj)], 
+            //             color: '#8888dd'
+            //         },{
+            //             name: 'Medias <= 60 Min',
+            //             data: [slas.getmedmin(obj)],
+            //             color:'#a45ddc'
+            //         }, {
+            //             name: 'Medias > 60 Min',
+            //             data: [slas.getmedmax(obj)],
+            //             color: '#c2cccc'
+            //         }, {
+            //             name: 'Bajas <= 80 min',
+            //             data: [slas.getbajmin(obj)],
+            //             color: '#785269'
+            //         }, {
+            //             name: 'Bajas > 80 min',
+            //             data: [slas.getbajmax(obj)],
+            //             color: '#d458das'
+            //         }, {
+            //             name: 'Sin prioridad',
+            //             data: [slas.getsinprio(obj)],
+            //             color: '#55555d'
+            //         }, {
+            //             name: 'Total incidentes',
+            //             data: [slas.getincit(obj)],
+            //             color: '#8888ff'
+            //         }]
+            // });
+            Highcharts.stockChart('grafica_r', {
                 chart: {
-                    type: 'column',
+                    events: {
+                        load: function () {
+            
+                            // set up the updating of the chart each second
+                            var series = this.series[0];
+                            setInterval(function () {
+                                var x = (new Date()).getTime(), // current time
+                                    y = Math.round(Math.random() * 100);
+                                series.addPoint([x, y], true, true);
+                            }, 1000);
+                        }
+                    }
                 },
+            
+                time: {
+                    useUTC: false
+                },
+            
+                rangeSelector: {
+                    buttons: [{
+                        count: 1,
+                        type: 'minute',
+                        text: '1M'
+                    }, {
+                        count: 5,
+                        type: 'minute',
+                        text: '5M'
+                    }, {
+                        type: 'all',
+                        text: 'All'
+                    }],
+                    inputEnabled: false,
+                    selected: 0
+                },
+            
                 title: {
-                    text: 'Incidentes FAOB'
+                    text: 'Live random data'
                 },
-                xAxis: {
-                    categories: ['Urgencia alta, impacto alto< = 20 min', 'Urgencia alta, impacto alto> 20 min', 'Urgencia alta, impacto medio> 40 min', 'Urgencia alta, impacto medio<=40' , 'Medias<= 60 Min', 'Medias> 60 Min', 'Bajas<= 80 min', 'Bajas> 80 min', 'Sin prioridad', 'Total incidentes'],
+            
+                exporting: {
+                    enabled: false
                 },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: 'Total de incidentes'
-                    }
-                },
-                tooltip: {
-                    shared: true,
-                },
-                plotOptions: {
-                    column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0
-                    }
-                },
+            
                 series: [{
-                        name: 'Urgencia alta - impacto alto<=20 min',
-                        data: [slas.getaltminv(obj)],
-                        color: '#084c6f'
-
-                    }, {
-                        name: 'Urgencia alta - impacto alto > 20 min',
-                        data: [slas.getaltmaxv(obj)],
-                        color: '#1b771a'
-
-                    }, {
-                        name: 'Urgencia alta - impacto medio > 40 min',
-                        data: [slas.getaltmaxc(obj)],
-                        color: '#5313c3'
-                    }, {
-                        name: 'Urgencia alta, impacto medio<=40', 
-                        data: [slas.getaltminc(obj)], 
-                        color: '#8888dd'
-                    },{
-                        name: 'Medias <= 60 Min',
-                        data: [slas.getmedmin(obj)],
-                        color:'#a45ddc'
-                    }, {
-                        name: 'Medias > 60 Min',
-                        data: [slas.getmedmax(obj)],
-                        color: '#c2cccc'
-                    }, {
-                        name: 'Bajas <= 80 min',
-                        data: [slas.getbajmin(obj)],
-                        color: '#785269'
-                    }, {
-                        name: 'Bajas > 80 min',
-                        data: [slas.getbajmax(obj)],
-                        color: '#d458das'
-                    }, {
-                        name: 'Sin prioridad',
-                        data: [slas.getsinprio(obj)],
-                        color: '#55555d'
-                    }, {
-                        name: 'Total incidentes',
-                        data: [slas.getincit(obj)],
-                        color: '#8888ff'
-                    }]
+                    name: 'Random data',
+                    data: (function () {
+                        // generate an array of random data
+                        var data = [],
+                            time = (new Date()).getTime(),
+                            i;
+            
+                        for (i = -999; i <= 0; i += 1) {
+                            data.push([
+                                time + i * 1000,
+                                Math.round(Math.random() * 100)
+                            ]);
+                        }
+                        // console.log(data);
+                        return data;
+                    }())
+                }]
             });
+            
         },
         getincit: function(obj){
             for (propiedad in obj[0]){//recorre las propiedades del objeto FAOB

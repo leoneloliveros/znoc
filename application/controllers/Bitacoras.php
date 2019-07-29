@@ -94,7 +94,35 @@ class Bitacoras extends CI_Controller {
         $engs = $this->Dao_bitacoras_model->getEngineersByAreaAndRol($rol, $area);
         echo json_encode($engs);
     }
+    public function getBackOfficeView() {
+        $data = array(
+            'active_sidebar' => false,
+            'title' => 'Creación de Bitacoras',
+            'active' => 'ccili',
+            'header' => array('Creación de Actividades', 'CCI y HFC'),
+            'sub_bar' => true,
+        );
+    
+        $this->load->view('parts/header', $data);
+        $this->load->view('bitacoras/backoffice');
+        $this->load->view('parts/footer');
+    }
 
+    public function saveWorkLogBackOffice() {
+        $info = $this->input->POST('datosBitacora');
+        $date1 = DateTime::createFromFormat('d/m/Y H:i', $info['fechaYHoraIngresoTarea']);
+        $info['fechaYHoraIngresoTarea'] = $date1->format('Y-m-d H:i');
+
+        $date = str_replace('/', '-', $info['fecha'] );
+        $info['fecha'] = date("Y-m-d", strtotime($date));
+        
+        $guardar = $this->Dao_bitacoras_model->crearBitacoraBackOffice($info);
+        if ($guardar == "Registro Exitoso") {
+            echo "Registros exitosos";
+        } else {
+            echo "false";
+        }
+    }
     public function exportCciHfc() {
         $data = array(
             'active_sidebar' => false,
@@ -108,7 +136,49 @@ class Bitacoras extends CI_Controller {
         $this->load->view('parts/footer');
     }
 
-}
+    public function exportBitacoraBO() {
+        $data = array(
+            'active_sidebar' => false,
+            'title' => 'Bitacoras CCI Y HFC',
+            'active' => 'bitac-cci-hfc',
+            'header' => array('Consultar Actividades', 'CCI Y HFC'),
+            'sub_bar' => true,
+        );
+        
 
+        $this->load->view('parts/header', $data);
+        $this->load->view('bitacoras/exportBitacoraBO');
+        $this->load->view('parts/footer');
+    }
+
+    public function cargarBitacoraBO($fechaInicio, $fechaFinal) {
+        $this->load->library('Datatables');
+
+        $bitacora_BO_table = $this->datatables->init();
+        $bitacora_BO_table->select('*')->from('znoc.BITACORA_BO')->where("DATE_FORMAT(fecha, '%Y-%m-%d') BETWEEN '$fechaInicio' and '$fechaFinal'");
+
+        $bitacora_BO_table
+            ->style(array(
+            'class' => 'table table-striped',
+            ))
+            ->column('Fecha', 'fecha')
+            ->column('Ticket', 'ticket')
+            ->column('Tarea', 'tarea')
+            ->column('Estacion', 'estacion');
+            
+        $this->datatables->create('bitacora_BO_table', $bitacora_BO_table); 
+        $this->load->view('bitacoras/loadBOData');
+    }
+    
+    public function c_getBinnacleByTypeActivityAndIncident() {
+        $tipo_actividad = $this->input->post('tipo_actividad');
+        $num_tk_incidente = $this->input->post('num_tk_incidente');
+        $tabla = $this->input->post('tabla');
+        $bitac = $this->Dao_bitacoras_model->getBinnacleByTypeActivityAndIncident($tipo_actividad, $num_tk_incidente, $tabla);
+        echo json_encode($bitac);
+    }
+
+
+}
 /* End of file Bitacoras.php */
 ?>

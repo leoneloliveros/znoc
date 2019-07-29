@@ -18,7 +18,7 @@ class GeneralReports extends CI_Controller
   {
     
     $data = array(
-        'active_sidebar' => true,
+        'active_sidebar' => false,
         'title'          => 'Reportes',
         'active'         => "Reportes",
         'header'         => array('Reportes','Generales'),
@@ -265,7 +265,7 @@ class GeneralReports extends CI_Controller
       ->build();
 
       $writer->openToBrowser('TareasFOPerformance('.date('Y-m-d').').xlsx');
-      $titles = array('TAREA', 'FECHA CREACION DE TAREA', 'DESCRIPCION TAREA', 'ESTADO TAREA', 'PROPIETARIO TAREA', 'INCIDENTE', 'FECHA CREACION INCIDENTE', 'ESTADO INCIDENTE', 'DESCRIPCION INCIDENTE', 'FECHA CIERRE INCIDENTE', 'CREADOR DE NOTA', 'FECHA NOTA', 'RESUMEN NOTA', 'DETALLE NOTA');
+      $titles = array('TAREA', 'FECHA CREACION DE TAREA', 'DESCRIPCION TAREA', 'ESTADO TAREA', 'FECHA ESTADO', 'INCIDENTE', 'FECHA CREACION INCIDENTE', 'ESTADO INCIDENTE', 'DESCRIPCION INCIDENTE', 'FECHA CIERRE INCIDENTE', 'CREADOR DE NOTA', 'FECHA NOTA', 'RESUMEN NOTA', 'DETALLE NOTA');
 
       $header = WriterEntityFactory::createRowFromArray($titles);
       $writer->addRow($header);
@@ -281,6 +281,114 @@ class GeneralReports extends CI_Controller
       $writer->close();
 
   }
+
+  public function c_getTiempoAtencion()
+  {
+    $fdesde = $this->input->post('desde');
+    $fhasta = $this->input->post('hasta');
+    $data = $this->Dao_reportes_model->getTiempoAtencion($fdesde,$fhasta);
+    echo json_encode($data);
+  }
+  public function excelTiempoAtencion()
+  {
+    $data = $_SESSION['x'];
+    // echo '<pre>'; print_r("lol"); echo '</pre>';
+    
+
+      $writer = WriterEntityFactory::createXLSXWriter();
+      $style = (new StyleBuilder())
+      ->setShouldWrapText(false)
+      ->build();
+
+      $writer->openToBrowser('TiempoAtencion('.date('Y-m-d').').xlsx');
+      $titles = array('INCIDENTE', 'FECHA CREACION INCIDENTE', 'PRIORIDAD INCIDENTE', 'ESTADO INCIDENTE', 'GRUPO PROPIETARIO INCIDENTE', 'FECHA CREACION OT TAS', 'ESTADO ACT', 'REGIONAL ACT', 'GRUPO ACT', 'TIPO ACT', 'TIEMPO ESCALAMIENTO');
+
+      $header = WriterEntityFactory::createRowFromArray($titles);
+      $writer->addRow($header);
+
+      foreach ($data as $val) {
+        $cells = array();
+        foreach ($val as $val1) {
+          array_push($cells,WriterEntityFactory::createCell($val1,$style));
+        }
+        $rowFromValues = WriterEntityFactory::createRow($cells);
+        $writer->addRow($rowFromValues);
+      }
+      $writer->close();
+
+  }
+
+  public function c_getControlTicket()
+  {
+    $fdesde = $this->input->post('desde');
+    $fhasta = $this->input->post('hasta');
+    $data = $this->Dao_reportes_model->getControlTicket($fdesde,$fhasta);
+    echo json_encode($data);
+  }
+  public function excelControlTicket()
+  {
+    $data = $_SESSION['x'];
+    // echo '<pre>'; print_r("lol"); echo '</pre>';
+    
+
+      $writer = WriterEntityFactory::createXLSXWriter();
+      $style = (new StyleBuilder())
+      ->setShouldWrapText(false)
+      ->build();
+
+      $writer->openToBrowser('ControlTickets('.date('Y-m-d').').xlsx');
+      $titles = array('INCIDENTE', 'CREATIONDATE', 'TIEMPO_TRANSCURRIDO', 'ALERTA', 'FECHA_REPORTE', 'INTERNALPRIORITY', 'STATUS', 'OWNERGROUP');
+
+      $header = WriterEntityFactory::createRowFromArray($titles);
+      $writer->addRow($header);
+
+      foreach ($data as $val) {
+        $cells = array();
+        foreach ($val as $val1) {
+          array_push($cells,WriterEntityFactory::createCell($val1,$style));
+        }
+        $rowFromValues = WriterEntityFactory::createRow($cells);
+        $writer->addRow($rowFromValues);
+      }
+      $writer->close();
+
+  }
+  public function c_getGestionPerformance()
+  {
+    $fdesde = $this->input->post('desde');
+    $fhasta = $this->input->post('hasta');
+    $data = $this->Dao_reportes_model->getGestionPerformance($fdesde,$fhasta);
+    echo json_encode($data);
+  }
+  public function excelGestionPerformance()
+  {
+    $data = $_SESSION['x'];
+    // echo '<pre>'; print_r("lol"); echo '</pre>';
+    
+
+      $writer = WriterEntityFactory::createXLSXWriter();
+      $style = (new StyleBuilder())
+      ->setShouldWrapText(false)
+      ->build();
+
+      $writer->openToBrowser('GestionPerformance('.date('Y-m-d').').xlsx');
+      $titles = array('TICKETID', 'ZONA_TKT', 'TIPO_TKT', 'CREATIONDATE', 'CLOSEDATE', 'ACTUALFINISH', 'STATUS', 'INTERNALPRIORITY', 'URGENCY', 'CREATEDBY', 'CHANGEDATE', 'OWNERGROUP', 'LOCATION', 'MUN100', 'AFECTACION_TOTAL_CORE', 'INCEXCLUIR', 'INCMEXCLUSION', 'PROVEEDORES', 'TICKET_EXT', 'DESCRIPTION', 'EXTERNALSYSTEM', 'RUTA_TKT', 'INC_ALARMA', 'INCSOLUCION', 'GERENTE', 'REGIONAL', 'CIUDAD_MUNICIPIO', 'FAILURECODE', 'PROBLEM_CODE', 'PROBLEM_DESCRIPTION', 'CAUSE_CODE', 'CAUSE_DESCRIPTION', 'REMEDY_CODE', 'REMEDY_DESCRIPTION', 'TIEMPO_VIDA_TKT', 'TIEMPO_RESOLUCION_TKT', 'TIEMPO_DETECCION', 'TIEMPO_ESCALA', 'TIEMPO_FALLA', 'TIEMPO_OT_ALM');
+
+      $header = WriterEntityFactory::createRowFromArray($titles);
+      $writer->addRow($header);
+
+      foreach ($data as $val) {
+        $cells = array();
+        foreach ($val as $val1) {
+          array_push($cells,WriterEntityFactory::createCell($val1,$style));
+        }
+        $rowFromValues = WriterEntityFactory::createRow($cells);
+        $writer->addRow($rowFromValues);
+      }
+      $writer->close();
+
+  }
+
 
 }
 

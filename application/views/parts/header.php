@@ -64,6 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <link rel="stylesheet" href="<?= base_url('assets2/dist/css/skins/skin-blue.min.css'); ?>">
         <!-- generales del proyecto -->
         <link rel="stylesheet" href="<?= base_url('assets/css/generales.css'); ?>">
+        <script src="<?= base_url("assets/js/modules/moment.min.js") ?>"></script>
 
         <!-- Google Font -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -448,6 +449,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <li id="fOli">
                                         <a href="<?= base_url('Bitacoras/frontEndBookLogs') ?>"><span>FrontOffice</span></a>
                                     </li>
+                                    <li id="ccili">
+                                        <a href="<?= base_url('Bitacoras/getBackOfficeView') ?>"><span>Back Office</span></a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="treeview" id="bitac-export">
@@ -469,6 +473,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <a href="<?= base_url('Bitacoras/exportCciHfc') ?>">
                                             <i class="fas fa-file-download"></i></i>&nbsp;&nbsp;
                                             <span>CCI Y HFC</span>
+                                        </a>
+                                    </li>
+                                    <li id="bitac-cci-hfc">
+                                        <a href="<?= base_url('Bitacoras/exportBitacoraBO') ?>">
+                                            <i class="fas fa-file-download"></i></i>&nbsp;&nbsp;
+                                            <span>Back Office</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -501,8 +511,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                     <!-- Content Wrapper. Contains page content -->
                     <div class="content-wrapper"style="margin-top:7vh;">
+                    <div class="spinner-loader"></div>
                         <!-- Content Header (Page header) -->
-                        <section class="content-header">
+                        <!-- <section class="content-header">
                             <h1>
                                 <?= $header[0] ?>
                                 <small><?= $header[1] ?></small>
@@ -511,7 +522,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <li><a href="#"><i class="fas fa-tachometer-alt"></i> <?= $title ?></a></li>
                                 <li class="active">Here</li>
                             </ol>
-                        </section>
+                        </section> -->
 
                         <!-- Main content -->
                         <section class="content container-fluid contenedorMaestro">

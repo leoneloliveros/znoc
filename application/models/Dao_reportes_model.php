@@ -635,7 +635,7 @@ class Dao_reportes_model extends CI_Model {
 		ELSE ''
         END AS 'EXCLUSION',
         '' AS 'INCIDENTE EXCLUSION',
-        '' AS 'INCIDENTE CODIGO FALLA',
+        inc.FAILURECODE AS 'INCIDENTE CODIGO FALLA',
         inc.CAUSE_CODE AS 'CODIGO CAUSA CIERRE'
         FROM maximo.INCIDENT inc
          INNER JOIN maximo.ALARMS alarm
@@ -643,6 +643,14 @@ class Dao_reportes_model extends CI_Model {
           LEFT JOIN   maximo.ARTCNF art
           ON inc.TICKETID = art.TICKETID
           WHERE inc.DESCRIPTION like '%MC:%'
+          AND inc.DESCRIPTION NOT LIKE '%MC:ALARMA%'
+          AND inc.DESCRIPTION NOT LIKE '%MC: ALARMA%'
+          AND inc.DESCRIPTION NOT LIKE '%MC: SIN TRA%'
+          AND inc.DESCRIPTION NOT LIKE '%MC:SIN TRA%'
+          AND inc.DESCRIPTION NOT LIKE '%MC:PERFORMANCE%'
+            AND inc.DESCRIPTION NOT LIKE '%MC: PERFORMANCE%'
+            AND inc.DESCRIPTION NOT LIKE '%MC:INTERMIT%'
+            AND inc.DESCRIPTION NOT LIKE '%MC: INTERM%'
           and DATE_FORMAT(inc.CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
         $data = $query->result();
         $_SESSION['x'] = $data;
@@ -653,60 +661,81 @@ class Dao_reportes_model extends CI_Model {
     
     public function getTareasFOPerformance($fdesde, $fhasta) {
         $query = $this->db->query("
-            SELECT AC.WONUM AS TAREA,AC.REPORTDATE AS FECHA_CREACION_TAREA,AC.DESCRIPTION AS DESCRIPTION_TAREA, AC.STATUS, AC.OWNER,AC.TICKETID,IC.CREATIONDATE AS FECHA_CREA_INCIDENTE,IC.STATUS AS ESTADO_INCIDENTE, IC.DESCRIPTION AS DESCRIPCION_INCIDENTE,
+        SELECT AC.WONUM AS TAREA,AC.REPORTDATE AS FECHA_CREACION_TAREA,AC.DESCRIPTION AS DESCRIPTION_TAREA, AC.STATUS, AC.STATUSDATE,AC.TICKETID,IC.CREATIONDATE AS FECHA_CREA_INCIDENTE,IC.STATUS AS ESTADO_INCIDENTE, IC.DESCRIPTION AS DESCRIPCION_INCIDENTE,
 
-            IC.CLOSEDATE AS FECHA_CIERRE_INCIDENTE,IC.CREATEDBY AS CREADOR,WO.CREATEDATE AS FECHA_NOTA,WO.DESCRIPTION AS RESUMEN_NOTA,WO.DESCRIPTION_LONGDESCRIPTION AS DETALLE_NOTA
+        IC.ACTUALFINISH AS FECHA_CIERRE_INCIDENTE,WO.MODIFYBY AS CREADOR,WO.CREATEDATE AS FECHA_NOTA,WO.DESCRIPTION AS RESUMEN_NOTA,WO.DESCRIPTION_LONGDESCRIPTION AS DETALLE_NOTA
 
-            FROM maximo.ACTIVITIES AC
+        FROM maximo.ACTIVITIES AC
 
-            LEFT JOIN maximo.INCIDENT IC
+        LEFT JOIN maximo.INCIDENT IC
 
-            ON AC.TICKETID=IC.TICKETID
+        ON AC.TICKETID=IC.TICKETID
 
-            LEFT JOIN maximo.WORKLOG WO
+        LEFT JOIN maximo.WORKLOG WO
 
-            ON AC.WONUM=WO.RECORDKEY
+        ON AC.WONUM=WO.RECORDKEY
 
-            WHERE AC.WONUM LIKE 'TAS%'
+        WHERE AC.WONUM LIKE 'TAS%'
 
-            AND IC.DESCRIPTION LIKE 'MC:%'
+        AND IC.DESCRIPTION LIKE 'MC:%'
+        
+    AND WO.MODIFYBY NOT LIKE '%MXINTADM%'
+    AND IC.DESCRIPTION NOT LIKE '%MC:PERFORMANCE%'
+    AND IC.DESCRIPTION NOT LIKE '%MC: PERFORMANCE%'
+    AND IC.DESCRIPTION NOT LIKE '%MC: PERFO%'
+    AND IC.DESCRIPTION NOT LIKE '%MC:ALARMA%'
+    AND IC.DESCRIPTION NOT LIKE '%MC: ALARMA%'
+    AND IC.DESCRIPTION NOT LIKE '%MC: INCID%'
+    AND IC.DESCRIPTION NOT LIKE '%MC:INCID%'
+    AND IC.DESCRIPTION NOT LIKE '%MC: VARIACI%'
+    AND IC.DESCRIPTION NOT LIKE '%MC:VARIACI%'
+        AND IC.DESCRIPTION NOT LIKE '%MC: CRC PERFOR%'
+        AND IC.DESCRIPTION NOT LIKE '%MC:CRC PERFOR%'
+        AND IC.DESCRIPTION NOT LIKE '%MC: SIN TRA%'
+    AND IC.DESCRIPTION NOT LIKE '%MC:SIN TRA%'
+        AND IC.DESCRIPTION NOT LIKE '%MC: CRC :PER%'
+        AND IC.DESCRIPTION NOT LIKE '%MC: CRC:PER%'
+      
+    AND ( AC.OWNER LIKE '%EHT3738A%'
+    OR AC.OWNER LIKE '%EHT6335B%'
+    OR AC.OWNER LIKE '%EHT7557A%'
+    OR AC.OWNER LIKE '%ECM6616C%'
+    OR AC.OWNER LIKE '%EHT6225A%'
+    OR AC.OWNER LIKE '%ECM0147D%'
 
-	    AND IC.DESCRIPTION NOT LIKE '%MC:PERFORMANCE%'
-	    AND IC.DESCRIPTION NOT LIKE '%MC: PERFORMANCE%'
-	    AND IC.DESCRIPTION NOT LIKE '%MC: PERFO%'
-	    AND IC.DESCRIPTION NOT LIKE '%MC:ALARMA%'
-	    AND IC.DESCRIPTION NOT LIKE '%MC: ALARMA%'
-	    AND IC.DESCRIPTION NOT LIKE '%MC: INCID%'
-	    AND IC.DESCRIPTION NOT LIKE '%MC:INCID%'
-	    AND IC.DESCRIPTION NOT LIKE '%MC: VARIACI%'
-		AND IC.DESCRIPTION NOT LIKE '%MC:VARIACI%'
-            AND IC.DESCRIPTION NOT LIKE '%MC: CRC PERFOR%'
-            AND IC.DESCRIPTION NOT LIKE '%MC:CRC PERFOR%'
-            AND IC.DESCRIPTION NOT LIKE '%MC: SIN TRA%'
-	    AND IC.DESCRIPTION NOT LIKE '%MC:SIN TRA%'
-            AND IC.DESCRIPTION NOT LIKE '%MC: CRC :PER%'
-            AND IC.DESCRIPTION NOT LIKE '%MC: CRC:PER%'
-          
-		AND ( AC.OWNER LIKE '%EHT3738A%'
-OR AC.OWNER LIKE '%EHT6335B%'
-OR AC.OWNER LIKE '%EHT7557A%'
-OR AC.OWNER LIKE '%ECM6616C%'
-OR AC.OWNER LIKE '%EHT6225A%'
-OR AC.OWNER LIKE '%ECM0147D%'
-
-OR AC.OWNER LIKE '%ECM5328C%'
-OR AC.OWNER LIKE '%EHT0444A%'
-OR AC.OWNER LIKE '%ECM0939B%'
-OR AC.OWNER LIKE '%ECM6746F%'
-OR AC.OWNER LIKE '%ECM5999D%'
-OR AC.OWNER LIKE '%ECM4900E%'
-OR AC.OWNER LIKE '%ECM1362B%')
+    OR AC.OWNER LIKE '%ECM5328C%'
+    OR AC.OWNER LIKE '%EHT0444A%'
+    OR AC.OWNER LIKE '%ECM0939B%'
+    OR AC.OWNER LIKE '%ECM6746F%'
+    OR AC.OWNER LIKE '%ECM5999D%'
+    OR AC.OWNER LIKE '%ECM4900E%'
+    OR AC.OWNER LIKE '%ECM1362B%'
+    OR AC.OWNER IS NULL)
  
-            AND DATE_FORMAT(IC.CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
+ 
+            AND DATE_FORMAT(AC.REPORTDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
         $data = $query->result();
         $_SESSION['x'] = $data;
         return $data;
     }
+
+    public function getTiempoAtencion($fdesde, $fhasta) {
+        $query = $this->db->query("
+        SELECT * FROM reportes.TIEMPO_ATENCION 
+        WHERE DATE_FORMAT(FECHA_CREACION_INC, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
+        $data = $query->result();
+        $_SESSION['x'] = $data;
+        return $data;
+    }
+    public function getControlTicket($fdesde, $fhasta) {
+        $query = $this->db->query("
+        SELECT * FROM reportes.CONTROL_TICKETS
+        WHERE DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
+        $data = $query->result();
+        $_SESSION['x'] = $data;
+        return $data;
+    }
+
     
     public function ReporteCciHfc($opcion, $fecha_ini = null, $fecha_fin = null) {
         $condicion = "";
@@ -736,6 +765,16 @@ OR AC.OWNER LIKE '%ECM1362B%')
             $condicion
         ");
         return $query->result();
+    }
+
+    public function getGestionPerformance($fdesde, $fhasta) {
+        $query = $this->db->query("
+        SELECT * FROM maximo.INCIDENT
+        WHERE DESCRIPTION LIKE '%MC:%'
+        and DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
+        $data = $query->result();
+        $_SESSION['x'] = $data;
+        return $data;
     }
     
     public function getNemonicosQualityTabledAccordingDate($fi, $ff) {

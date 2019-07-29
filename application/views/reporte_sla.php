@@ -21,5 +21,10 @@
     </table>
   </div>
 </div>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
 <div id="grafica_r" style="width: 800px;">
 </div>
+
+

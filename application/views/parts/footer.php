@@ -1,3 +1,8 @@
+<div id="loader">
+<div  class='wrap1'>
+  <div class='loader' id='lrd1'></div>
+</div>
+</div>
 </section>
 <!-- /.content -->
 </div>
@@ -151,7 +156,7 @@ immediately after the control sidebar -->
 
 <!-- **********************************************BITACORAS FRONTOFFICE********************************************** -->
 <?php if ($this->uri->segment(2) === "frontEndBookLogs" ||$this->uri->segment(2) === "export" ): ?>
-    <script type="text/javascript" src="<?= base_url('assets/js/modules/frontEndBookLog.js'); ?>"></script>
+    <script type="text/javascript" src="<?= base_url('assets/js/modules/frontEndBookLog.js?v=' . validarEnProduccion()); ?>"></script>
 <?php endif ?>
 <!-- **********************************************END BITACORAS FRONTOFFICE********************************************** -->
 
