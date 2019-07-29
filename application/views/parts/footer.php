@@ -223,5 +223,6 @@ immediately after the control sidebar -->
         <script src="<?= base_url("assets/js/modules/loadExcel/loadMalla.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
 
+
 </body>
 </html>

@@ -661,7 +661,7 @@ class Dao_reportes_model extends CI_Model {
     
     public function getTareasFOPerformance($fdesde, $fhasta) {
         $query = $this->db->query("
-        SELECT AC.WONUM AS TAREA,AC.REPORTDATE AS FECHA_CREACION_TAREA,AC.DESCRIPTION AS DESCRIPTION_TAREA, AC.STATUS, AC.STATUSDATE,AC.TICKETID,IC.CREATIONDATE AS FECHA_CREA_INCIDENTE,IC.STATUS AS ESTADO_INCIDENTE, IC.DESCRIPTION AS DESCRIPCION_INCIDENTE,
+        SELECT AC.WONUM AS TAREA,AC.REPORTDATE AS FECHA_CREACION_TAREA,AC.DESCRIPTION AS DESCRIPTION_TAREA, AC.STATUS, AC.STATUSDATE,AC.TICKETID, IC.CREATEDBY, IC.CREATIONDATE AS FECHA_CREA_INCIDENTE,IC.STATUS AS ESTADO_INCIDENTE, IC.DESCRIPTION AS DESCRIPCION_INCIDENTE,
 
         IC.ACTUALFINISH AS FECHA_CIERRE_INCIDENTE,WO.MODIFYBY AS CREADOR,WO.CREATEDATE AS FECHA_NOTA,WO.DESCRIPTION AS RESUMEN_NOTA,WO.DESCRIPTION_LONGDESCRIPTION AS DETALLE_NOTA
 
@@ -770,10 +770,60 @@ class Dao_reportes_model extends CI_Model {
     public function getGestionPerformance($fdesde, $fhasta) {
         $query = $this->db->query("
         SELECT * FROM maximo.INCIDENT
-        WHERE DESCRIPTION LIKE '%MC:%'
+        WHERE (DESCRIPTION LIKE '%MC:%'
+        OR DESCRIPTION LIKE '%MC_AICT5:%'
+        OR DESCRIPTION LIKE '%MC_GORGT4:%'
+        OR DESCRIPTION LIKE '%MC_GPT5:%'
+        OR DESCRIPTION LIKE '%MC_RPT1:%'
+        OR DESCRIPTION LIKE '%MC_RPT2:%'
+        OR DESCRIPTION LIKE '%MC_RPT3:%'
+        OR DESCRIPTION LIKE '%MC_T&PT1:%'
+        OR DESCRIPTION LIKE '%MC_T&PT2:%'
+        OR DESCRIPTION LIKE '%MC_T&P_SOCT1:%'
+        OR DESCRIPTION LIKE '%MC_T&P_SOCT2:%')
         and DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
         $data = $query->result();
         $_SESSION['x'] = $data;
+        return $data;
+    }
+    public function getIncidentFO($queryresult) {
+        $query = $this->db->query($queryresult);
+        $data = $query->result();
+        $_SESSION['x'] = $data;
+        return $data;
+    }
+
+    public function getGraphInfo($fdesde, $fhasta) {
+        $query = $this->db->query("
+       
+            SELECT DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date, COUNT(*) AS count,
+            SUM(IF(INTERNALPRIORITY = 1 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA) <= 40, 1, 0)) AS 'P1_PASARON',
+            SUM(IF(INTERNALPRIORITY = 1, 1, 0)) AS 'P1_TOTAL',
+            SUM(IF(INTERNALPRIORITY = 2 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA) <= 80, 1, 0)) AS 'P2_PASARON',
+            SUM(IF(INTERNALPRIORITY = 2, 1, 0)) AS 'P2_TOTAL',
+            SUM(IF(INTERNALPRIORITY = 3 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA) <= 100, 1, 0)) AS 'P3_PASARON',
+            SUM(IF(INTERNALPRIORITY = 3, 1, 0)) AS 'P3_TOTAL'
+            FROM maximo.INCIDENT
+            WHERE (`DESCRIPTION` LIKE '%FAOC:%' OR `DESCRIPTION` LIKE '%FAOB:%' OR `DESCRIPTION` LIKE '%FEE:%'  OR `DESCRIPTION` LIKE '%FI:%' OR `DESCRIPTION` LIKE '%FAPP:%' OR `DESCRIPTION` LIKE '%FOIP:%')
+            AND `OWNERGROUP` NOT LIKE '%FO_SDH%'
+            AND `DESCRIPTION` NOT LIKE '%DEPU%'
+            AND `DESCRIPTION` NOT LIKE '%FHG%'
+            AND `DESCRIPTION` NOT LIKE '%FSP%'
+            AND `DESCRIPTION` NOT LIKE '%MAIL%'
+            AND `DESCRIPTION` NOT LIKE '%MG%'
+            AND `DESCRIPTION` NOT LIKE '%NO EXITOSO%'
+            AND `DESCRIPTION` NOT LIKE '%VM%'
+            AND `DESCRIPTION` NOT LIKE '%VENTANA MANT%'
+            AND `DESCRIPTION` NOT LIKE '%FEE%SIN PE%'
+            AND `STATUS` != 'ELIMINADO'
+            AND `STATUS` != 'CANCELADO'
+            and DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
+            GROUP 
+            BY the_date  
+        ");
+        $data = $query->result();
+
+        // $_SESSION['x'] = $data;
         return $data;
     }
     
