@@ -134,8 +134,8 @@ $(function () {
                         // $(`.getAreas`).append( `<option class="" data-id="" value="General">Todos</opption>`);
                     }
             );
-
         },
+      
         allTypesDisable: function () {
             $("#validate_selection").children().remove();
             // elimina los ingenieros anteriores para posteriormente volverlos a llenar

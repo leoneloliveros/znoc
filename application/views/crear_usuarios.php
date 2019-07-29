@@ -13,6 +13,7 @@
             <input type="input" class="styleInp" id="apellidos">
             <input type="hidden" class="styleInp" id="contrasena" value="abc123">
             <input type="hidden" class="styleInp" id="imagen" value="default">
+            <input type="hidden" class="styleInp" id="action" value="insert">
         </div>
     </div>
 
@@ -21,12 +22,12 @@
             <label for="">Email</label>
             <input type="email" class="styleInp" id="email">
         </div>
-        
+
         <div class="col-sm-4">
             <label for="">Numero Contacto</label>
             <input type="input" class="styleInp" id="num_contacto">
         </div>
-        
+
         <div class="col-sm-4">
             <label for="">Area</label>
             <select name="" id="area" class="styleInp">
@@ -34,7 +35,7 @@
             </select>
         </div>
     </div>
-    
+
     <div class="col-sm-12 t-a-c">
         <div class="col-sm-4">
             <label for="">Role</label>
@@ -43,9 +44,10 @@
             </select>
         </div>
     </div>
-    
+
     <div class="col-sm-12 t-a-c">
         <button class="btnx" id="newUser">Guardar</button>
+        <button class="btnx1" id="deleteUser" style="display: none;">Eliminar</button>
     </div>
 
 </div>

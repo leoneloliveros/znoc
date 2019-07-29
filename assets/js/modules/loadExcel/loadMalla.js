@@ -84,7 +84,7 @@ $(function() {
             app.post('LoadMalla/countLinesFile', {
                 file: data.path
             }).success(function(response) {
-                console.log(response);
+//                console.log(response);
                 var v = app.successResponse(response);
                 if (v) {
                     if (response.data.notNumerirc <= 0) {
@@ -140,7 +140,7 @@ $(function() {
             })
                     .complete(function() {})
                     .success(function(response) {
-                        console.log("response ProcessData", response);
+//                        console.log("response ProcessData", response);
                         loadMalla.nuevos += parseInt(response.data.nuevos);
                         loadMalla.modificadas += parseInt(response.data.modificadas);
                         loadMalla.borradas += parseInt(response.data.borradas);
@@ -167,7 +167,7 @@ $(function() {
                             loadMalla.index += response.data.row;
                             loadMalla.indexTemp += response.data.row;
                             loadMalla.selec += response.data.seleccionados;
-                            console.log(loadMalla.selec);
+//                            console.log(loadMalla.selec);
                             window.setTimeout(function() {
                                 loadMalla.processData(data, alert);
                             }, loadMalla.sleepTime);
