@@ -171,20 +171,19 @@ $(function () {
             $(`#tipo_incidente option:nth-child(3),#tipo_incidente option:nth-child(5)`).css('display', 'block');
             switch ($('#tipo_bitacora option:selected').text()) {
                 case "energia": //********************************ENERGÍA********************************
-                    $("#validate_selection").append(`
-
-          <div class="form-group col-md-4 input-group-sm">
-          <label for="tipo_falla">Tipo de Falla</label>
-          <select id="tipo_falla" class="form-control">
-            <option value="">Seleccione...</option>
-            <option value="SITIO SIN PLANTA">SITIO SIN PLANTA</option>
-            <option value="SITIO CON PLANTA">SITIO CON PLANTA</option>
-            <option value="RPT">RPT</option>
-            <option value="CCM">CCM</option>
-            <option value="BLOQUEO">BLOQUEO</option>
-          </select>
-        </div>
-        `);
+//                    $("#validate_selection").append(`
+//                        <div class="form-group col-md-4 input-group-sm">
+//                            <label for="tipo_falla">Tipo de Falla</label>
+//                            <select id="tipo_falla" class="form-control">
+//                                <option value="">Seleccione...</option>
+//                                <option value="SITIO SIN PLANTA">SITIO SIN PLANTA</option>
+//                                <option value="SITIO CON PLANTA">SITIO CON PLANTA</option>
+//                                <option value="RPT">RPT</option>
+//                                <option value="CCM">CCM</option>
+//                                <option value="BLOQUEO">BLOQUEO</option>
+//                            </select>
+//                        </div>
+//                    `);
 
                     $(`#tipo_falla`).on('change', function () {
                         const val = $(this).val();
@@ -213,19 +212,16 @@ $(function () {
 
                     // opciones para cada caso de uso
                     $(`#caso_de_uso`).append(`
-        <option value="SITIO CCM">SITIO CCM</option>
-        <option value="FALLA MASIVA">FALLA MASIVA</option>
-        <option value="PLANTA ENCENDIDA">PLANTA ENCENDIDA</option>
-        <option value="BLOQUEO MANUAL">BLOQUEO MANUAL</option>
-        <option value="BLOQUEO AUTOMÁTICO">BLOQUEO AUTOMÁTICO</option>
-        <option value="ALTA TEMPERATURA">ALTA TEMPERATURA</option>
-        <option value="SDH">SDH</option>
-        <option value="DEPURACIÓN">DEPURACIÓN</option>
-        <option value="FUERA SERVICIO">FUERA SERVICIO</option>
-        <option value="POWER BATERÍAS">POWER BATERÍAS</option>
-        <option value="BAJO VOLTAJE">BAJO VOLTAJE</option>
-        <option value="OTROS">OTROS</option>
-        `);
+                        <option value="CCM / RPT">CCM / RPT</option>
+                        <option value="BLOQUEO POR ALARMAS DE ENERGÍA">BLOQUEO POR ALARMAS DE ENERGÍA</option>
+                        <option value="MASIVA">MASIVA</option>
+                        <option value="NOTIFICACIÓN SITIO CON PLANTA ELÉCTRICA">NOTIFICACIÓN SITIO CON PLANTA ELÉCTRICA</option>
+                        <option value="NOTIFICACIÓN SITIO SIN PLANTA ELÉCTRICA">NOTIFICACIÓN SITIO SIN PLANTA ELÉCTRICA</option>
+                        <option value="SDH">SDH</option>
+                        <option value="FUERA DE SERVICIO SITIO CON PLANTA ELÉCTRICA">FUERA DE SERVICIO SITIO CON PLANTA ELÉCTRICA</option>
+                        <option value="FUERA DE SERVICIO SITIO SIN PLANTA ELÉCTRICA">FUERA DE SERVICIO SITIO SIN PLANTA ELÉCTRICA</option>
+                        <option value="OTROS">OTROS</option>
+                    `);
 
                     break;
                 case "intermitencias": //********************************INTERMITENCIAS********************************
@@ -373,7 +369,7 @@ $(function () {
 
             if ($('#tipo_bitacora option:selected').text() !== "Seleccione...") {
                 $(".err").removeClass("err");
-                const campos = $("div.frame input, div.frame select,div.frame textarea").not('#cedulaBitacora');
+                const campos = $("div.frame input, div.frame select,div.frame textarea").not('#cedulaBitacora, #ot_tarea, #area_asignacion, #responsable');
                 var vacios = [];
                 var data = {};
                 var tipoBitacora = {};
@@ -403,6 +399,24 @@ $(function () {
 
                 });
 
+                const campos2 = $('#area_asignacion, #responsable');
+
+                if ($('#ot_tarea').val() != '') {
+                    data[$('#ot_tarea').attr("id")] = $('#ot_tarea').val();
+
+                    $.each(campos2, function (i, element2) {
+                        if ($(element2).val() == null || $(element2).val() == '' || $(element2).val() == ' ' || $(element2).val() == '  ') {
+                            vacios.push($(element2).attr("id"));
+                        } else {
+                            data[$(element2).attr("id")] = $(element2).val();
+                        }
+                    });
+                } else {
+                    delete data.ot_tarea;
+                    delete data.area_asignacion;
+                    delete data.responsable;
+                }
+//                console.log(data);
 
                 if (vacios.length == 0) {
 

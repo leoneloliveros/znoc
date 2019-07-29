@@ -94,6 +94,7 @@ input{
           <option value="T1">T1 (06:00 - 14:00)</option>
           <option value="T2">T2 (14:00 - 22:00)</option>
           <option value="T3">T3 (22:00 - 06:00)</option>
+          <option value="T11">T11 (8:00 – 17:00)</option>
         </select>
       </div>
     </div>
