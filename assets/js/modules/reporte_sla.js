@@ -234,70 +234,70 @@ $(function () {
         getincit: function(obj){
             for (propiedad in obj[0]){//recorre las propiedades del objeto FAOB
                 var totincidint= parseInt(obj[0].total_incidentes);//pasa a entero la propiedad
-                console.log(totincidint);
+//                console.log(totincidint);
             }
             return totincidint;
         },
         getsinprio: function(obj){
             for (propiedad in obj[0]){
                 var sinprioint=parseInt(obj[0].nulos);
-                console.log(sinprioint);
+//                console.log(sinprioint);
             }
             return sinprioint;
         },
         getbajmax: function(obj){
             for (propiedad in obj[0]){
                 var bajmax=parseInt(obj[0].bajas_80_max);
-                console.log(bajmax); 
+//                console.log(bajmax); 
             }
             return bajmax;
         },
         getbajmin: function(obj){
             for (propiedad in obj[0]){
                 var bajmin=parseInt(obj[0].bajas_80_min);
-                console.log(bajmin);
+//                console.log(bajmin);
             }
             return bajmin;
         },
         getmedmax: function(obj){
             for (propiedad in obj[0]){
                 var medmax=parseInt(obj[0].medias_60_max);
-                console.log(medmax);
+//                console.log(medmax);
             }
             return medmax;
         },
         getmedmin: function(obj){
             for (propiedad in obj[0]){
                 var medmin=parseInt(obj[0].medias_60_min);
-                console.log(medmin);
+//                console.log(medmin);
             }
             return medmin;
         },
         getaltminc: function(obj){
             for (propiedad in obj[0]){
                 var altminc=parseInt(obj[0].alta_media_40_min);
-                console.log(altminc);
+//                console.log(altminc);
             }
             return altminc;
         },
         getaltmaxc: function(obj){
             for (propiedad in obj[0]){
                 var altmaxc=parseInt(obj[0].alta_media_40_max);
-                console.log(altmaxc);
+//                console.log(altmaxc);
             }
             return altmaxc;
         },
         getaltmaxv: function(obj){
             for (propiedad in obj[0]){
                 var altmaxv=parseInt(obj[0].alta_alta_20_max);
-                console.log(altmaxv);
+//                console.log(altmaxv);
             }
             return altmaxv;
         },
         getaltminv: function(obj){
             for (propiedad in obj[0]){
                 var altminv=parseInt(obj[0].alta_alta_20_min);
-                console.log(altminv);
+//                console.log(altminv);
             }
             return altminv;
         },

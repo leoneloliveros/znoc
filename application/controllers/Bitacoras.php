@@ -169,6 +169,14 @@ class Bitacoras extends CI_Controller {
         $this->datatables->create('bitacora_BO_table', $bitacora_BO_table); 
         $this->load->view('bitacoras/loadBOData');
     }
+    
+    public function c_getBinnacleByTypeActivityAndIncident() {
+        $tipo_actividad = $this->input->post('tipo_actividad');
+        $num_tk_incidente = $this->input->post('num_tk_incidente');
+        $tabla = $this->input->post('tabla');
+        $bitac = $this->Dao_bitacoras_model->getBinnacleByTypeActivityAndIncident($tipo_actividad, $num_tk_incidente, $tabla);
+        echo json_encode($bitac);
+    }
 
 
 }

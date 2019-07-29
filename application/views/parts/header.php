@@ -50,7 +50,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <?php endif ?>
 
         <?php if ($this->uri->segment(1) == 'Bitacoras' || $this->uri->segment(2) == 'crear_usuarios') : ?>
-            <link rel="stylesheet" href="<?= base_url("assets/css/bitacoras.css") ?>">
+            <link rel="stylesheet" href="<?= base_url("assets/css/bitacoras.css?v=" . validarEnProduccion()) ?>">
         <?php endif ?>
 
         <link rel="icon" href="<?= base_url('assets/img/logo_zte.png'); ?>">
@@ -394,6 +394,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <a href="<?= base_url('Reportes/reporte_sla_fija') ?>">
                                                         <i class="fas fa-calendar"></i>&nbsp;&nbsp;
                                                         <span>SLA</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fab fa-buromobelexperte"></i>&nbsp;&nbsp;
+                                                <span>Mesa de Calidad</span>
+                                                <span class="pull-right-container">
+                                                    <i class="fa fa-angle-left pull-right"></i>
+                                                </span>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li id="vol_fija">
+                                                    <a href="<?= base_url('Reportes/volumetria_mesa_calidad') ?>">
+                                                        <i class="fab fa-audible"></i>&nbsp;&nbsp;
+                                                        <span>Volumetrías</span>
                                                     </a>
                                                 </li>
                                             </ul>
