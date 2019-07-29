@@ -108,7 +108,7 @@ class KPI extends CI_Controller {
         ->setShouldWrapText(false)
         ->build();
   
-        $writer->openToBrowser('ControlTickets('.date('Y-m-d').').xlsx');
+        $writer->openToBrowser('IncidentesFOMovil('.date('Y-m-d').').xlsx');
         $titles = array('TICKETID', 'TIPO_TKT', 'CREATIONDATE', 'STATUS', 'INTERNALPRIORITY', 'CREATEDBY', 'OWNERGROUP', 'INCEXCLUIR', 'INCMEXCLUSION', 'PROVEEDORES', 'DESCRIPTION', 'RUTA_TKT', 'REGIONAL', 'TIEMPO_VIDA_TKT', 'TIEMPO_RESOLUCION_TKT', 'TIEMPO_DETECCION', 'TIEMPO_ESCALA', 'TIEMPO_FALLA', 'TIEMPO_OT_ALM');
   
         $header = WriterEntityFactory::createRowFromArray($titles);
@@ -138,6 +138,59 @@ class KPI extends CI_Controller {
 
         $data = $this->Dao_reportes_model->getGraphInfo($fdesde,$fhasta);
     echo json_encode($data);
+    }
+
+
+    public function loadModal($fecha, $prioridad) {
+
+        $this->load->library('Datatables');
+        $modal_table = $this->datatables->init();
+        $modal_table  ->select("TICKETID,  TIPO_TKT,  CREATIONDATE,  STATUS,  INTERNALPRIORITY,  CREATEDBY,  OWNERGROUP,  INCEXCLUIR,  INCMEXCLUSION,  PROVEEDORES,  DESCRIPTION,  RUTA_TKT,  REGIONAL,  TIEMPO_VIDA_TKT,  TIEMPO_RESOLUCION_TKT,  TIEMPO_DETECCION, TIEMPO_ESCALA,  TIEMPO_FALLA,  TIEMPO_OT_ALM")
+                    ->from('maximo.INCIDENT') 
+                    ->where('(DESCRIPTION LIKE "%FAOC:%" OR DESCRIPTION LIKE "%FAOB:%" OR DESCRIPTION LIKE "%FEE:%"  OR DESCRIPTION LIKE "%FI:%" OR DESCRIPTION LIKE "%FAPP:%" OR DESCRIPTION LIKE "%FOIP:%")')
+                    ->where("OWNERGROUP NOT LIKE '%FO_SDH%'")
+                    ->where('DESCRIPTION NOT LIKE "%DEPU%" ')
+                    ->where('DESCRIPTION NOT LIKE "%FHG%" ')
+                    ->where('DESCRIPTION NOT LIKE "%FSP%" ')
+                    ->where('DESCRIPTION NOT LIKE "%MAIL%" ')
+                    ->where('DESCRIPTION NOT LIKE "%MG%" ')
+                    ->where('DESCRIPTION NOT LIKE "%NO EXITOSO%"  ')
+                    ->where('DESCRIPTION NOT LIKE "%VM%" ')
+                    ->where('DESCRIPTION NOT LIKE "%VENTANA MANT%" ')
+                    ->where('DESCRIPTION NOT LIKE "%FEE%SIN PE%"')  
+                    ->where("STATUS !=", "ELIMINADO")
+                    ->where("STATUS !=", "CANCELADO")
+                    ->where("INTERNALPRIORITY =", $prioridad )
+                    ->where("CREATIONDATE >=", $fecha)
+                    ->where("CREATIONDATE <=", $fecha . ' ' . '23:59');
+                  
+        $modal_table 
+                    ->column('TICKETID','TICKETID')
+                    ->column('TIPO_TKT','TIPO_TKT')
+                    ->column('CREATIONDATE','CREATIONDATE')
+                    ->column('STATUS','STATUS')
+                    ->column('INTERNALPRIORITY','INTERNALPRIORITY')
+                    ->column('CREATEDBY','CREATEDBY')
+                    ->column('OWNERGROUP','OWNERGROUP')
+                    ->column('INCEXCLUIR','INCEXCLUIR')
+                    ->column('INCMEXCLUSION','INCMEXCLUSION')
+                    ->column('PROVEEDORES','PROVEEDORES')
+                    ->column('DESCRIPTION','DESCRIPTION')
+                    ->column('RUTA_TKT','RUTA_TKT')
+                    ->column('REGIONAL','REGIONAL')
+                    ->column('TIEMPO_VIDA_TKT','TIEMPO_VIDA_TKT')
+                    ->column('TIEMPO_RESOLUCION_TKT','TIEMPO_RESOLUCION_TKT')
+                    ->column('TIEMPO_DETECCION','TIEMPO_DETECCION')
+                    ->column('TIEMPO_ESCALA','TIEMPO_ESCALA')
+                    ->column('TIEMPO_FALLA','TIEMPO_FALLA')
+                    ->column('TIEMPO_OT_ALM','TIEMPO_OT_ALM');
+                    $modal_table ->style(array(
+                        'class' => 'table table-striped',
+                    ))
+                    ->set_options('scrollX', 'true');
+        $this->datatables->create('modal_table', $modal_table); 
+        $this->load->view('Front_Office_Movil/loadModal');
+
     }
 
 }
