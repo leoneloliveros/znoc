@@ -620,7 +620,7 @@ $(function () {
                             const obj = JSON.parse(data);
                             $.each(obj, function (i, val) {
                                 $.each(val, function (i2, val2) {
-                                    if (i2 != 'id_users') {
+                                    if (i2 != 'id_users' || i2 != 'inicio_actividad' || i2 != 'fin_actividad') {
                                         $('#' + i2).val(val2);
                                     }
                                 });
