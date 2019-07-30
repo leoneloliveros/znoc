@@ -69,7 +69,7 @@ $(function () {
             $('#id_users').on('change', function () {
                 $(`#cedulaBitacora`).val($(this).val())
             });
-            $(`#tipo_actividad,#num_tk_incidente`).change(bitacoras.validateOpeningFollowUp);
+            $(`#num_tk_incidente`).change(bitacoras.validateOpeningFollowUp);
 
         },
         serviciosCorporativos: function () {
