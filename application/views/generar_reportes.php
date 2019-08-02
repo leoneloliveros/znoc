@@ -1,5 +1,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
 <div class="row frame">
     <div class="col-sm-12 t-a-c">
         <div class="col-sm-4 form-group">
@@ -29,6 +32,36 @@
             </select>
             <input type="hidden" class="styleInp" id="query">
             <input type="hidden" class="styleInp" id="colums">
+        </div>
+    </div>
+    <div class="col-sm-12 t-a-c">
+        <div class="col-sm-4 form-group">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" data-toggle="toggle" id="enable_conditions" data-on="Si" data-off="No">
+                    Agregar condiciones?
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 t-a-c containerConditions panel panel-default" id="containerConditions_1" style="display: none;">
+        <div class="col-sm-12 form-group m-t-25">
+            <button class="btn btn-success" style="margin-left: 98%;" onclick="reporte.addConditions();"><i class="far fa-plus-square"></i></button>
+        </div>
+        <div class="col-sm-3 form-group">
+            <label for="columnas_conditions_1">Columna a condicionar</label>
+            <select id="columnas_conditions_1" class="styleInp" onchange="reporte.columnasConditions(1);">
+                <option value="">Seleccione...</option>
+            </select>
+        </div>
+        <div class="col-sm-3 form-group">
+            <label for="conditional_1">Condicionales</label>
+            <select name="" id="conditional_1" class="styleInp" onchange="reporte.inputConditional(1);">
+                <option value="">Seleccione...</option>
+            </select>
+        </div>
+        <div id="containerValCondition_1">
+            
         </div>
     </div>
 

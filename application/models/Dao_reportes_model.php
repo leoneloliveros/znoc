@@ -551,12 +551,9 @@ class Dao_reportes_model extends CI_Model {
                     INNER JOIN users u
                     ON l.id_users = u.id_users
                     WHERE l.inicio_actividad BETWEEN $ini AND $fin"
-        );
-        // print_r($this->db->last_query());
-
-      }
-
-
+            );
+            // print_r($this->db->last_query());
+        }
     }
 
     public function getWorkInfo($fdesde, $fhasta) {
@@ -657,8 +654,6 @@ class Dao_reportes_model extends CI_Model {
         return $data;
     }
 
-
-    
     public function getTareasFOPerformance($fdesde, $fhasta) {
         $query = $this->db->query("
         SELECT AC.WONUM AS TAREA,AC.REPORTDATE AS FECHA_CREACION_TAREA,AC.DESCRIPTION AS DESCRIPTION_TAREA, AC.STATUS, AC.OWNER,AC.TICKETID,IC.CREATIONDATE AS FECHA_CREA_INCIDENTE,IC.STATUS AS ESTADO_INCIDENTE, IC.DESCRIPTION AS DESCRIPCION_INCIDENTE,
@@ -727,6 +722,7 @@ class Dao_reportes_model extends CI_Model {
         $_SESSION['x'] = $data;
         return $data;
     }
+
     public function getControlTicket($fdesde, $fhasta) {
         $query = $this->db->query("
         SELECT * FROM reportes.CONTROL_TICKETS
@@ -736,7 +732,6 @@ class Dao_reportes_model extends CI_Model {
         return $data;
     }
 
-    
     public function ReporteCciHfc($opcion, $fecha_ini = null, $fecha_fin = null) {
         $condicion = "";
         if ($fecha_fin != null && $fecha_ini != null) {
@@ -776,7 +771,7 @@ class Dao_reportes_model extends CI_Model {
         $_SESSION['x'] = $data;
         return $data;
     }
-    
+
     //Retorna la cantidad de tablas de un Schema pasado como parametro
     public function getTablesBySchema($schema) {
         $query = $this->db->query("
@@ -784,25 +779,32 @@ class Dao_reportes_model extends CI_Model {
         ");
         return $query->result();
     }
-    
+
     //Retorna las columnas de la tabla pasada como parametro
     public function getColumnsByTable($schema, $table) {
         $query = $this->db->query("
             DESC $schema.$table
         ");
-        
+
 //        print_r($this->db->last_query().';<br>');
         return $query->result();
     }
-    
+
     //Retorna el resultado del query pasado por parametro
     public function getGenerateReport($query) {
         $query = $this->db->query($query);
-        
+
 //        print_r($this->db->last_query().';<br>');
         return $query->result();
     }
-    
+
+    public function insertGenerateReport($data) {
+        if ($this->db->insert('reportes_generados', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }
 
