@@ -121,7 +121,7 @@
         display: none;
         }
 
-        #prioridad1.active, #prioridad2.active, #prioridad3.active, #tiempo_det {
+        #prioridad1.active, #prioridad2.active, #prioridad3.active, #tiempo_det.active {
             margin-bottom: 30px;
     width: 70%;
     overflow: hidden;
