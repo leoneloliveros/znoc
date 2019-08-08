@@ -877,6 +877,37 @@ class Dao_reportes_model extends CI_Model {
         ");
         return $query->result();
     }
+
+     public function getgraphdeteccion($fdesde, $fhasta){
+        $query=$this->db->query("
+             SELECT DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date, COUNT(*) AS count,
+            SUM(IF(INTERNALPRIORITY = 1 AND IF(TIEMPO_DETECCION = '0.000', TIEMPO_FALLA, TIEMPO_DETECCION) <= 40, 1, 0)) AS 'P1_PASARON',
+            SUM(IF(INTERNALPRIORITY = 1, 1, 0)) AS 'P1_TOTAL',
+            SUM(IF(INTERNALPRIORITY = 2 AND IF(TIEMPO_DETECCION = '0.000', TIEMPO_FALLA, TIEMPO_DETECCION) <= 80, 1, 0)) AS 'P2_PASARON',
+            SUM(IF(INTERNALPRIORITY = 2, 1, 0)) AS 'P2_TOTAL',
+            SUM(IF(INTERNALPRIORITY = 3 AND IF(TIEMPO_DETECCION = '0.000', TIEMPO_FALLA, TIEMPO_DETECCION) <= 100, 1, 0)) AS 'P3_PASARON',
+            SUM(IF(INTERNALPRIORITY = 3, 1, 0)) AS 'P3_TOTAL'
+            FROM maximo.INCIDENT
+            WHERE (`DESCRIPTION` LIKE '%FAOC:%' OR `DESCRIPTION` LIKE '%FAOB:%' OR `DESCRIPTION` LIKE '%FEE:%'  OR `DESCRIPTION` LIKE '%FI:%' OR `DESCRIPTION` LIKE '%FAPP:%' OR `DESCRIPTION` LIKE '%FOIP:%')
+            AND `OWNERGROUP` NOT LIKE '%FO_SDH%'
+            AND `DESCRIPTION` NOT LIKE '%DEPU%'
+            AND `DESCRIPTION` NOT LIKE '%FHG%'
+            AND `DESCRIPTION` NOT LIKE '%FSP%'
+            AND `DESCRIPTION` NOT LIKE '%MAIL%'
+            AND `DESCRIPTION` NOT LIKE '%MG%'
+            AND `DESCRIPTION` NOT LIKE '%NO EXITOSO%'
+            AND `DESCRIPTION` NOT LIKE '%VM%'
+            AND `DESCRIPTION` NOT LIKE '%VENTANA MANT%'
+            AND `DESCRIPTION` NOT LIKE '%FEE%SIN PE%'
+            AND `STATUS` != 'ELIMINADO'
+            AND `STATUS` != 'CANCELADO'
+            and DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
+            GROUP 
+            BY the_date
+            ");
+        return $query->result();
+    }
+
     
 
 }

@@ -140,6 +140,15 @@ class KPI extends CI_Controller {
     echo json_encode($data);
     }
 
+    public function getdetinfo(){
+        $inicio = str_replace('/', '-', $this->input->post('inicio'));
+        $diaini = date("Y-m-d", strtotime($inicio));
+        $final= str_replace('/', '-', $this->input->post('final'));
+        $diafin= date("Y-m-d", strtotime($final));
+        $data = $this->Dao_reportes_model->getgraphdeteccion($diaini,$diafin);
+        echo json_encode($data);
+    }
+
 
     public function loadModal($fecha, $prioridad) {
 

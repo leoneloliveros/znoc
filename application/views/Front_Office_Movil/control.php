@@ -55,6 +55,7 @@
     <div class="col-md-12" id="prioridad1" style=" margin-bottom: 30px; width: 70%;"></div>
     <div class="col-md-12" id="prioridad2" style=" margin-bottom: 30px; width: 70%"></div>
     <div class="col-md-12" id="prioridad3" style=" margin-bottom: 30px; width:70%"></div>
+    <div class="col-md-12" id="tiempo_det" style=" margin-bottom: 30px; width: 70%;"></div>
     <div class="col-md-12" id="container-graph4" style=" margin-bottom: 30px; width:50%"></div>
     <div class="col-md-12" id="container-result" style="display: flex;"></div>
 </div>
@@ -120,7 +121,7 @@
         display: none;
         }
 
-        #prioridad1.active, #prioridad2.active, #prioridad3.active {
+        #prioridad1.active, #prioridad2.active, #prioridad3.active, #tiempo_det {
             margin-bottom: 30px;
     width: 70%;
     overflow: hidden;
@@ -271,8 +272,12 @@
         
 </style>
 <script type="text/javascript" src="<?= base_url('assets/plugins/hightchart/code/highcharts.js');?>"></script>
+<script type="text/javascript" src="<?=base_url('assets/plugins/moments/moment.min.js');?>"></script>
+<script type="text/javascript" src="<?=base_url('assets/js/tiempo_deteccion.js');?>"></script>
 
 <script>
+     $('#loader').hide();
+    $('.spinner-loader').hide();
 var queryValue = "";
 $('#fechaFinal').mask("99/99/9999");
 $('#fechaInicio').mask("99/99/9999");
@@ -302,13 +307,16 @@ $('#consult').on('click', function() {
     $('#prioridad1').addClass('active');
     $('#prioridad2').addClass('active');
     $('#prioridad3').addClass('active');
-        $('#loader').show();
+    /*$('#tiempo_det').addClass('active');*/
+    $('#loader').show();
         $('.spinner-loader').show();
         var fechaInicio = $('#fechaInicio').val();
         var fechaFinal = $('#fechaFinal').val();
 
         var url = base_url + 'Front_Office_Movil/KPI/cargarInfo' + '/' + moment(fechaInicio, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + moment(fechaFinal, 'DD/MM/YYYY').format('YYYY-MM-DD') ;
         var element = document.getElementById('container-result');
+        /*recibirfechas(fechaInicio,fechaFinal,url,element);*/
+        /*recibirdata();*/
         load(url, element);
         function load(url, element)
         {
@@ -736,7 +744,7 @@ $('#export-excel-modal').on('click', function() {
                                 style: {
                                     textOutline: 0
                                 }
-            }
+                }
                             },
 
 
@@ -912,6 +920,114 @@ $('#export-excel-modal').on('click', function() {
 
 
     });
+
+
+   /*     function hola(){
+            console.log(url);
+        }*/
+    /* function recibirfechas(fechaInicio,fechaFinal,url,element){
+        load(url,element);
+        recibirdata();
+     }*/
+     function hola(){
+        console.log("Hola que tal");
+     }
+     function recibirdata(){
+        /*var fechaInicio = $('#fechaInicio').val();
+        var fechaFinal = $('#fechaFinal').val();*/
+
+        /*var url = base_url + 'Front_Office_Movil/KPI/cargarInfo' + '/' + moment(fechaInicio, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + moment(fechaFinal, 'DD/MM/YYYY').format('YYYY-MM-DD') ;*/
+        $.post(base_url + "Front_Office_Movil/KPI/getdetinfo", {
+            inicio:fechaInicio,
+            final:fechaFinal
+        }).done(function(data){
+                    var category = [];
+                    var pasaronP1 = [];
+                    var averageP1 = [];
+                    var noPasaronP1 = [];
+                    var pasaronP2 = [];
+                    var averageP2 = [];
+                    var noPasaronP2 = [];
+                    var pasaronP3 = [];
+                    var averageP3 = [];
+                    var noPasaronP3 = [];
+                    $('#loader').hide();
+                    $('.spinner-loader').hide();
+                    var obj = JSON.parse(data);
+                    for (var i = 0; i < obj.length; i++) {
+                        category.push(obj[i].the_date) ;
+                        pasaronP1.push(Number(obj[i].P1_PASARON));
+                        noPasaronP1.push(obj[i].P1_TOTAL - obj[i].P1_PASARON);
+                        averageP1.push((obj[i].P1_PASARON * 100) / obj[i].P1_TOTAL);
+                        pasaronP2.push(Number(obj[i].P2_PASARON));
+                        noPasaronP2.push(obj[i].P2_TOTAL - obj[i].P2_PASARON);
+                        averageP2.push((obj[i].P2_PASARON * 100) / obj[i].P2_TOTAL);
+                        pasaronP3.push(Number(obj[i].P3_PASARON));
+                        noPasaronP3.push(obj[i].P3_TOTAL - obj[i].P3_PASARON);
+                        averageP3.push((obj[i].P3_PASARON * 100) / obj[i].P3_TOTAL);
+                    }
+                    Highcharts.chart('tiempo_det',{
+                        chart:{
+                            type:"column"
+                        },
+                        colors: [
+                            '#5ac858',
+                            '#ff4c4c',
+                            '#ffa524'
+                        ],
+                        title: {
+                            text: 'Tiempo deteccion'
+                        },
+                        xAxis: {
+                            categories: category
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: '# Incidentes'
+                            }
+                        },
+                        tooltip: {
+                            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                            shared: true
+                        },
+                        plotOptions:{
+                            column:{
+                                stacking: 'percent',
+                                dataLabels:{
+                                    enabled: true,
+                                    style:{
+                                        textOutline:0
+                                    }
+                                }
+                            },
+                            series:{
+                                cursor:'pointer',
+                                point:{
+                                    events: click(),
+                                }
+                            }
+                        },
+                        series:[{
+                            name: 'Si',
+                            data: pasaronP1
+                        },{
+                            name: 'No',
+                            data:noPasaronP1
+                        },{
+                            type:'spline',
+                            name:'Cumplimiento',
+                            data:averageP1,
+                            marker:{
+                                lineWidth:2,
+                                lineColor: Highcharts.getOptions().colors[3],
+                                fillColor: 'white'
+                            }
+                        }],
+                        
+                    });
+        });
+    }
    
 
   
@@ -922,7 +1038,7 @@ $('#export-excel-modal').on('click', function() {
    
 
 </script>
-<script src="<?= base_url("assets/js/backoffice.js?v" . validarEnProduccion())?>"></script>
+
 
 
 <style>
