@@ -50,13 +50,13 @@
         </div>
         <div class="col-sm-3 form-group">
             <label for="columnas_conditions_1">Columna a condicionar</label>
-            <select id="columnas_conditions_1" class="styleInp" onchange="reporte.columnasConditions(1);">
+            <select id="columnas_conditions_1" class="styleInp columnas_conditions" onchange="reporte.columnasConditions(1);">
                 <option value="">Seleccione...</option>
             </select>
         </div>
         <div class="col-sm-3 form-group">
             <label for="conditional_1">Condicionales</label>
-            <select name="" id="conditional_1" class="styleInp" onchange="reporte.inputConditional(1);">
+            <select name="" id="conditional_1" class="styleInp conditional" onchange="reporte.inputConditional(1);">
                 <option value="">Seleccione...</option>
             </select>
         </div>

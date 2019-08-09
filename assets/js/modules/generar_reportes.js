@@ -46,7 +46,7 @@ $(function () {
         loadColumnByTable: function () {
             helper.showLoading();
             reporte.clearSelect('columnas');
-            reporte.clearSelect('columnas_conditions');
+            reporte.clearSelect('columnas_conditions_1');
 
             var schema = $('#esquema').val();
             var table = $('#tabla').val();
@@ -91,12 +91,147 @@ $(function () {
             var schema = $('#esquema').val();
             var table = $('#tabla').val();
             var query = "";
+            var where = "";
 
             if (columns != '' && schema != '' && table != '') {
-                $('#columnas, #esquema, #tabla').removeClass("err");
                 helper.showLoading();
+                $('#columnas, #esquema, #tabla').removeClass("err");
                 var columns2 = columns.toString();
-                query = "SELECT " + columns + " FROM " + schema + "." + table + " limit 1000";
+
+                if ($('#enable_conditions').prop('checked')) {
+                    const campos = $("div.containerConditions input,div.containerConditions select").not('.isLike');
+                    var is_like;
+                    where = " WHERE ";
+                    $.each(campos, function (i, element) {
+                        var clase = $(element).attr('class').replace("styleInp ", "");
+                        switch (clase) {
+                            case 'columnas_conditions':
+                                var type_column = $('#' + $(element).attr("id") + ' option:selected').attr('data-set').replace(/[^a-z\s]/gi, '');
+                                switch (type_column) {
+                                    case 'varchar':
+                                    case 'text':
+                                    case 'int':
+                                    case 'bigint':
+                                    case 'decimal':
+                                    case 'double':
+                                        where += $(element).val();
+                                        break;
+
+                                    case 'datetime':
+                                    case 'timestamp':
+                                    case 'date':
+                                        where += `DATE_FORMAT(${$(element).val()}, '%Y-%m-%d') `;
+                                        break;
+                                }
+
+                                break;
+
+                            case 'conditional':
+                                var opc_conditional = $(element).val();
+                                switch (opc_conditional) {
+                                    case 'texto_igual_que':
+                                    case 'numero_igual_que':
+                                    case 'fecha_gual_que':
+                                        where += " = ";
+                                        is_like = false;
+                                        break;
+
+                                    case 'texto_diferente_que':
+                                    case 'numero_diferente_que':
+                                    case 'fecha_diferente_que':
+                                        where += " != ";
+                                        is_like = false;
+                                        break;
+
+                                    case 'numero_mayor_que':
+                                        where += " > ";
+                                        is_like = false;
+                                        break;
+
+                                    case 'numero_menor_que':
+                                        where += " < ";
+                                        is_like = false;
+                                        break;
+
+                                    case 'numero_mayor_igual_que':
+                                    case 'fecha_desde':
+                                        where += " >= ";
+                                        is_like = false;
+                                        break;
+
+                                    case 'numero_menor_igual_que':
+                                    case 'fecha_antes':
+                                        where += " <= ";
+                                        is_like = false;
+                                        break;
+
+                                    case 'fecha_entre':
+                                        where += " BETWEEN ";
+                                        is_like = false;
+                                        break;
+
+                                    case 'texto_que_contenga':
+                                        where += " LIKE ";
+                                        is_like = true;
+                                        break;
+
+                                    case 'texto_que_no_contenga':
+                                        where += " NOT LIKE ";
+                                        is_like = true;
+                                        break;
+                                }
+                                break;
+
+                            case 'valores':
+                                if (is_like) {
+                                    where += "'%" + $(element).val() + "%' OR ";
+                                } else {
+                                    where += "'" + $(element).val() + "' AND ";
+                                }
+                                break;
+                        }
+
+                    });
+                    
+                    if ($(".isLike").length > 0) {
+                        const campos2 = $(".isLike");
+                        where += " (";
+                        $.each(campos2, function (i, element) {
+                            var clase = $(element).attr('class').replace("styleInp ", "").replace(" isLike", "");
+                            switch (clase) {
+                                case 'columnas_conditions':
+                                    where += $(element).val();
+                                    break;
+
+                                case 'conditional':
+                                    var opc_conditional = $(element).val();
+                                    switch (opc_conditional) {
+                                        case 'texto_que_contenga':
+                                            where += " LIKE ";
+                                            break;
+
+                                        case 'texto_que_no_contenga':
+                                            where += " NOT LIKE ";
+                                            break;
+                                    }
+                                    break;
+
+                                case 'valores':
+                                    where += "'%" + $(element).val() + "%' OR ";                                
+                                    break;
+                            }
+
+                        });
+                        where = where.substr(0, where.length - 3);
+                        where += ")";
+                    } else {
+                        where = where.substr(0, where.length - 4);
+                    }
+                }
+
+                
+                query = "SELECT " + columns + " FROM " + schema + "." + table + where;
+                console.log(query);
 
                 $('#query').val(query);
                 $('#colums').val(columns2);
@@ -164,6 +299,7 @@ $(function () {
                     <option value="fecha_gual_que">De la fecha</option>
                     <option value="fecha_diferente_que">Diferente a la fecha</option>
                     <option value="fecha_desde">Desde la fecha</option>
+                    <option value="fecha_antes">Antes de la fecha</option>
                     <option value="fecha_entre">Entre las fechas</option>
                     `;
                     break;
@@ -197,7 +333,7 @@ $(function () {
                     container = `
                     <div class="col-sm-4 form-group">
                         <label>Valor</label>
-                        <input type="text" class="styleInp valores">
+                        <input type="text" class="styleInp valores" id="valores_${consecutive}">
                     </div>
                     `;
                     break;
@@ -225,8 +361,22 @@ $(function () {
 
                     break;
             }
+            
 
             $('#containerValCondition_' + consecutive).append(container);
+            
+            var conditional = $('#conditional_' + consecutive).val();
+//            $(".isLike").removeClass("isLike");
+            if (conditional == 'texto_que_contenga' || conditional == 'texto_que_no_contenga') {
+                $('#columnas_conditions_' + consecutive).addClass('isLike');
+                $('#conditional_' + consecutive).addClass('isLike');
+                $('#valores_' + consecutive).addClass('isLike');
+            } else {
+                $('#columnas_conditions_' + consecutive).removeClass('isLike');
+                $('#conditional_' + consecutive).removeClass('isLike');
+                $('#valores_' + consecutive).removeClass('isLike');
+            }
+
         },
 
         addConditions: function () {
@@ -241,13 +391,13 @@ $(function () {
                 </div>
                 <div class="col-sm-3 form-group">
                     <label for="columnas_conditions_${reporte.consecutivo}">Columna a condicionar</label>
-                    <select id="columnas_conditions_${reporte.consecutivo}" class="styleInp" onchange="reporte.columnasConditions(${reporte.consecutivo});">
+                    <select id="columnas_conditions_${reporte.consecutivo}" class="styleInp columnas_conditions" onchange="reporte.columnasConditions(${reporte.consecutivo});">
                         <option value="">Seleccione...</option>
                     </select>
                 </div>
                 <div class="col-sm-3 form-group">
                     <label for="conditional_${reporte.consecutivo}">Condicionales</label>
-                    <select name="" id="conditional_${reporte.consecutivo}" class="styleInp" onchange="reporte.inputConditional(${reporte.consecutivo});">
+                    <select name="" id="conditional_${reporte.consecutivo}" class="styleInp conditional" onchange="reporte.inputConditional(${reporte.consecutivo});">
                         <option value="">Seleccione...</option>
                     </select>
                 </div>
