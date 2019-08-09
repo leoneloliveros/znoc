@@ -512,7 +512,7 @@ class Dao_reportes_model extends CI_Model {
                     ON l.id_users = u.id_users"
             );
             return $query2->result();
-            // print_r($this->db->last_query());
+            /*print_r($this->db->last_query());*/
         } else {
             if ($opcion == "energia") {
                 $opcion = "energias";

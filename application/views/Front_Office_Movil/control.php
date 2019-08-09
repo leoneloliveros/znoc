@@ -1,3 +1,4 @@
+
 <link rel="stylesheet" href="<?= base_url("assets/css/bitacoras_new-style.css") ?>">
 <div class="main-title" style="width: 60%;">
     <span>
@@ -45,17 +46,22 @@
                     </svg>
                 </div>
             </div>
-
         </div>
     </div>
     
 
 </div>
 <div class="" style="display: flex; width: 100%; align-items: center; margin-top: 50px; flex-wrap: wrap;">
-    <div class="col-md-12" id="prioridad1" style=" margin-bottom: 30px; width: 70%;"></div>
-    <div class="col-md-12" id="prioridad2" style=" margin-bottom: 30px; width: 70%"></div>
-    <div class="col-md-12" id="prioridad3" style=" margin-bottom: 30px; width:70%"></div>
-    <div class="col-md-12" id="tiempo_det" style=" margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-12" id="prioridad1" style=" margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-12" id="prioridad2" style=" margin-bottom: 30px; width: 70%"></div>
+        <div class="col-md-12" id="prioridad3" style=" margin-bottom: 30px; width:70%"></div>
+    </div>
+    <div id="container_graphic" style="background: #26D8B2; display: none;">
+        <div class="col-md-12" id="tiempo_det" style=" margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-12" id="tiempo_det2" style=" margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-12" id="tiempo_det3" style=" margin-bottom: 30px; width: 70%;"></div>
+    </div>
+    <button id="graficos_deteccion" style="display: none;">Tiempos de deteccion</button>
     <div class="col-md-12" id="container-graph4" style=" margin-bottom: 30px; width:50%"></div>
     <div class="col-md-12" id="container-result" style="display: flex;"></div>
 </div>
@@ -76,6 +82,21 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<!-- <div id="deteccionModal" class="modal fade bs-example-modal-lg" tabindex="-1" role='dialog'>
+    <div class="modal-dialog modal-dialog modal-lg" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4>Tiempo de deteccion y sus prioridades</h4>
+            </div>
+            <div class="modal-body" id="insertar-graficas"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>   
+        </div>
+    </div>
+</div> -->
     
 
 </div>
@@ -121,7 +142,7 @@
         display: none;
         }
 
-        #prioridad1.active, #prioridad2.active, #prioridad3.active, #tiempo_det.active {
+        #prioridad1.active, #prioridad2.active, #prioridad3.active, #tiempo_det.active, #tiempo_det2.active, #tiempo_det3.active {
             margin-bottom: 30px;
     width: 70%;
     overflow: hidden;
@@ -274,7 +295,7 @@
 <script type="text/javascript" src="<?= base_url('assets/plugins/hightchart/code/highcharts.js');?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/plugins/moments/moment.min.js');?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/js/tiempo_deteccion.js');?>"></script>
-
+<script type="text/javascript" src="<?=base_url('assets/js/modules/bitacoras.js');?>"></script>
 <script>
      $('#loader').hide();
     $('.spinner-loader').hide();
@@ -307,7 +328,9 @@ $('#consult').on('click', function() {
     $('#prioridad1').addClass('active');
     $('#prioridad2').addClass('active');
     $('#prioridad3').addClass('active');
-    /*$('#tiempo_det').addClass('active');*/
+    $('#tiempo_det').addClass('active');
+    $('#tiempo_det2').addClass('active');
+    $('#tiempo_det3').addClass('active');
     $('#loader').show();
         $('.spinner-loader').show();
         var fechaInicio = $('#fechaInicio').val();
@@ -332,6 +355,10 @@ $('#consult').on('click', function() {
 
 
         function createDatatable(link) {
+            if (erTable_FO_table) {
+                var tabla = erTable_FO_table;
+                tabla.destroy();
+            }
             erTable_FO_table = $("#FO_table").DataTable({
                 processing: true,
                 serverSide: true,
@@ -603,7 +630,7 @@ var fecha = this.category;
 var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/2';
 var element = document.getElementById('insert-content');
 load(url, element);
-function load(url, element)
+function cargar(url, element)
 {
 req = new XMLHttpRequest();
 req.open("GET", url, false);
@@ -764,7 +791,7 @@ var fecha = this.category;
 var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/3';
 var element = document.getElementById('insert-content');
 load(url, element);
-function load(url, element)
+function cargar(url, element)
 {
 req = new XMLHttpRequest();
 req.open("GET", url, false);
@@ -918,124 +945,7 @@ $('#export-excel-modal').on('click', function() {
             }
         });
 
-
     });
-
-
-   /*     function hola(){
-            console.log(url);
-        }*/
-    /* function recibirfechas(fechaInicio,fechaFinal,url,element){
-        load(url,element);
-        recibirdata();
-     }*/
-     function hola(){
-        console.log("Hola que tal");
-     }
-     function recibirdata(){
-        /*var fechaInicio = $('#fechaInicio').val();
-        var fechaFinal = $('#fechaFinal').val();*/
-
-        /*var url = base_url + 'Front_Office_Movil/KPI/cargarInfo' + '/' + moment(fechaInicio, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + moment(fechaFinal, 'DD/MM/YYYY').format('YYYY-MM-DD') ;*/
-        $.post(base_url + "Front_Office_Movil/KPI/getdetinfo", {
-            inicio:fechaInicio,
-            final:fechaFinal
-        }).done(function(data){
-                    var category = [];
-                    var pasaronP1 = [];
-                    var averageP1 = [];
-                    var noPasaronP1 = [];
-                    var pasaronP2 = [];
-                    var averageP2 = [];
-                    var noPasaronP2 = [];
-                    var pasaronP3 = [];
-                    var averageP3 = [];
-                    var noPasaronP3 = [];
-                    $('#loader').hide();
-                    $('.spinner-loader').hide();
-                    var obj = JSON.parse(data);
-                    for (var i = 0; i < obj.length; i++) {
-                        category.push(obj[i].the_date) ;
-                        pasaronP1.push(Number(obj[i].P1_PASARON));
-                        noPasaronP1.push(obj[i].P1_TOTAL - obj[i].P1_PASARON);
-                        averageP1.push((obj[i].P1_PASARON * 100) / obj[i].P1_TOTAL);
-                        pasaronP2.push(Number(obj[i].P2_PASARON));
-                        noPasaronP2.push(obj[i].P2_TOTAL - obj[i].P2_PASARON);
-                        averageP2.push((obj[i].P2_PASARON * 100) / obj[i].P2_TOTAL);
-                        pasaronP3.push(Number(obj[i].P3_PASARON));
-                        noPasaronP3.push(obj[i].P3_TOTAL - obj[i].P3_PASARON);
-                        averageP3.push((obj[i].P3_PASARON * 100) / obj[i].P3_TOTAL);
-                    }
-                    Highcharts.chart('tiempo_det',{
-                        chart:{
-                            type:"column"
-                        },
-                        colors: [
-                            '#5ac858',
-                            '#ff4c4c',
-                            '#ffa524'
-                        ],
-                        title: {
-                            text: 'Tiempo deteccion'
-                        },
-                        xAxis: {
-                            categories: category
-                        },
-                        yAxis: {
-                            min: 0,
-                            title: {
-                                text: '# Incidentes'
-                            }
-                        },
-                        tooltip: {
-                            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-                            shared: true
-                        },
-                        plotOptions:{
-                            column:{
-                                stacking: 'percent',
-                                dataLabels:{
-                                    enabled: true,
-                                    style:{
-                                        textOutline:0
-                                    }
-                                }
-                            },
-                            series:{
-                                cursor:'pointer',
-                                point:{
-                                    events: click(),
-                                }
-                            }
-                        },
-                        series:[{
-                            name: 'Si',
-                            data: pasaronP1
-                        },{
-                            name: 'No',
-                            data:noPasaronP1
-                        },{
-                            type:'spline',
-                            name:'Cumplimiento',
-                            data:averageP1,
-                            marker:{
-                                lineWidth:2,
-                                lineColor: Highcharts.getOptions().colors[3],
-                                fillColor: 'white'
-                            }
-                        }],
-                        
-                    });
-        });
-    }
-   
-
-  
- 
-
-
-
-   
 
 </script>
 
