@@ -102,7 +102,7 @@ class Bitacoras extends CI_Controller {
             'header' => array('Creación de Actividades', 'CCI y HFC'),
             'sub_bar' => true,
         );
-    
+
         $this->load->view('parts/header', $data);
         $this->load->view('bitacoras/backoffice');
         $this->load->view('parts/footer');
@@ -115,7 +115,7 @@ class Bitacoras extends CI_Controller {
 
         $date = str_replace('/', '-', $info['fecha'] );
         $info['fecha'] = date("Y-m-d", strtotime($date));
-        
+
         $guardar = $this->Dao_bitacoras_model->crearBitacoraBackOffice($info);
         if ($guardar == "Registro Exitoso") {
             echo "Registros exitosos";
@@ -144,7 +144,7 @@ class Bitacoras extends CI_Controller {
             'header' => array('Consultar Actividades', 'CCI Y HFC'),
             'sub_bar' => true,
         );
-        
+
 
         $this->load->view('parts/header', $data);
         $this->load->view('bitacoras/exportBitacoraBO');
@@ -165,11 +165,11 @@ class Bitacoras extends CI_Controller {
             ->column('Ticket', 'ticket')
             ->column('Tarea', 'tarea')
             ->column('Estacion', 'estacion');
-            
-        $this->datatables->create('bitacora_BO_table', $bitacora_BO_table); 
+
+        $this->datatables->create('bitacora_BO_table', $bitacora_BO_table);
         $this->load->view('bitacoras/loadBOData');
     }
-    
+
     public function c_getBinnacleByTypeActivityAndIncident() {
         $tipo_actividad = $this->input->post('tipo_actividad');
         $num_tk_incidente = $this->input->post('num_tk_incidente');

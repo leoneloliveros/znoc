@@ -1,3 +1,5 @@
+
+
 <div id="loader">
 <div  class='wrap1'>
   <div class='loader' id='lrd1'></div>
@@ -206,7 +208,7 @@ immediately after the control sidebar -->
 <?php if ($this->uri->segment(2) === "exportCciHfc"): ?>
     <script type="text/javascript" src="<?= base_url("assets/js/modules/consultar_cci_hfc.js?v=" . validarEnProduccion()); ?>"></script>
 <?php endif ?>
-    
+
 <?php if ($this->uri->segment(2) === "volumetria_mesa_calidad"): ?>
     <script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria_mesa_calidad.js?v=' . validarEnProduccion()); ?>"></script>
 <?php endif ?>

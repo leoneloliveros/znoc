@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<?= base_url("assets/css/bitacoras_new-style.css") ?>">
+
 <div class="main-title" style="width: 60%;">
     <span>
     Control KPI
@@ -6,11 +6,11 @@
     <span id='subtitle'>
     <i class="fas fa-code-branch"></i> Front Office Movil
     </span>
-  
+
 </div>
 
 <div style="display:flex; justify-content: center;">
-    <div class="card-style">
+    <div class="card-style w-60">
         <div class="general">
             <div class="switch-container col-md-12 position-relative form-group">
                 <label class="switch">
@@ -48,7 +48,7 @@
 
         </div>
     </div>
-    
+
 
 </div>
 <div class="" style="display: flex; width: 100%; align-items: center; margin-top: 50px; flex-wrap: wrap;">
@@ -75,201 +75,15 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-    
+
 
 </div>
 <!-- <div id="container-graph" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div> -->
-<style>
-    #container-result {
-        /* display: none; */
-        /* min-height: 500px; */
-        height: auto;
-        margin-top: 30px;
-    }
-    @media only screen and (max-width: 767px)  {
-       .contenedorMaestro {
-        margin-top: 80px;
-       } 
-    }
-
-    .main-footer a {
-        color:white;
-        font-weight: bold;
-    }
-    
-
-    .checkbox-initial {
-        position: absolute;
-        left: 74px;
-        font-size: 17px;
-        font-weight: 400;
-        top: 2px;
-        width: 85%;
-        display: flex;
-        justify-content: space-between;
-    }
-    .switch {
-        position: relative;
-        display: inline-block;
-        width: 90px;
-        height: 51px;
-        margin: 0;
-        }
-
-        .switch input { 
-        display: none;
-        }
-
-        #prioridad1.active, #prioridad2.active, #prioridad3.active {
-            margin-bottom: 30px;
-    width: 70%;
-    overflow: hidden;
-    position: relative;
-    overflow: hidden;
-    /* width: 772px; */
-    /* height: 400px; */
-    text-align: left;
-    line-height: normal;
-    z-index: 0;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    background-color: #FFFFFF;
-    box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: -50px;
-    position: relative;
-    /* z-index: 4; */
-    transition: all 0.3s ease;
-    margin: 30px 40px;
-    /* min-height: 655px; */
-    /* height: 100%; */
-    margin-top: 10px;
-        }
-
-        .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #cdcdcd;
-        transition: 0.4s;
-        width: 54%;
-            height: 54%;
-
-        }
-
-        .slider::before {
-        position: absolute;
-        content: "";
-        height: 15px;
-        width: 15px;
-        left: 6px;
-        bottom: 6px;
-        background-color: #ffffff;
-        transition: 0.4s;
-        }
-
-        input:checked + .slider {
-        background-color: #4caf50;
-        }
-
-        input:focus + .slider {
-        box-shadow: 0 0 1px #4caf50;
-        }
-
-        input:checked + .slider::before {
-        transform: translateX(22px);
-        }
-
-        .slider.round {
-        border-radius: 34px;
-        }
-
-        .slider.round::before {
-        border-radius: 50%;
-        }
 
 
+<!-- New view styles  -->
+<link rel="stylesheet" href="<?= base_url ('assets/css/remake_styles.css');?>">
 
-
-
-        .wrap {
-            top: 17px;
-            height: 1px;
-        }
-        .wrap button{
-            background: #1ECD97;
-            color: white;
-            box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
-        }
-        .wrap button:hover{
-            background: #7e65c0;
-            border: 2px solid #7e65c0;
-            color: white;
-        }
-            .card-style{
-                min-height: 164px;
-                width: 60%;
-                display: flex;
-            justify-content: center;
-            }
-
-        #FO_table {
-            color: black;
-            background: white;
-            border: none;
-        }
-
-        #FO_table_paginate{
-            height: 0px;
-        }
-        #modal_table {
-            color: black;
-            background: white;
-            border: none;
-        }
-
-        #modal_table_paginate{
-            height: 0px;
-        }
-        #modal_table_next{
-            display: block;
-            position: absolute;
-            top: 50%;
-            right: -1%;
-            box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
-        }
-        #modal_table_previous{
-            display: block;
-            position: absolute;
-            top: 50%;
-            left: -1%;
-            box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
-}
-
-        li.paginate_button {
-            display: none;
-        }
-        #FO_table_next{
-            display: block;
-            position: absolute;
-            top: 50%;
-            right: -1%;
-            box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
-        }
-        #FO_table_previous{
-            display: block;
-            position: absolute;
-            top: 50%;
-            left: -1%;
-            box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
-}
-        }
-
-        
-</style>
 <script type="text/javascript" src="<?= base_url('assets/plugins/hightchart/code/highcharts.js');?>"></script>
 
 <script>
@@ -298,7 +112,7 @@ setInterval(test, 1000);
 });
 
 $('#consult').on('click', function() {
-    
+
     $('#prioridad1').addClass('active');
     $('#prioridad2').addClass('active');
     $('#prioridad3').addClass('active');
@@ -385,9 +199,9 @@ $('#consult').on('click', function() {
                         noPasaronP3.push(obj[i].P3_TOTAL - obj[i].P3_PASARON);
                         averageP3.push((obj[i].P3_PASARON * 100) / obj[i].P3_TOTAL);
                     }
-                        
 
-                        
+
+
                     Highcharts.chart('prioridad1', {
                         chart: {
                             type: 'column'
@@ -491,8 +305,8 @@ $('#export-excel-modal').on('click', function() {
                     $('.spinner-loader').hide();
                     window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
                 });
-                    
-                      
+
+
     });
     $('#modal_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
         $('#modal_table_filter input').attr('id', 'search-input-modal');
@@ -505,7 +319,7 @@ $('#export-excel-modal').on('click', function() {
                 $('#search-input-modal').addClass('active');
                 $('#search-icon').addClass('active');
                 active = true;
-                } 
+                }
             } else {
                 $('#FO_table_filter').removeClass('active');
                 $('#modal_table_filter').removeClass('active');
@@ -542,7 +356,7 @@ $('#export-excel-modal').on('click', function() {
                     });
 
                     Highcharts.chart('prioridad2', {
-                      
+
                         chart: {
                             type: 'column'
                         },
@@ -550,8 +364,8 @@ $('#export-excel-modal').on('click', function() {
                             '#5ac858',
                             '#ff4c4c',
                             '#ffa524'
-                            
-                            
+
+
                     ],
                         title: {
                             text: 'Prioridad 2'
@@ -648,8 +462,8 @@ $('#export-excel-modal').on('click', function() {
                     $('.spinner-loader').hide();
                     window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
                 });
-                    
-                      
+
+
     });
     $('#modal_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
         $('#modal_table_filter input').attr('id', 'search-input-modal');
@@ -662,7 +476,7 @@ $('#export-excel-modal').on('click', function() {
                 $('#search-input-modal').addClass('active');
                 $('#search-icon').addClass('active');
                 active = true;
-                } 
+                }
             } else {
                 $('#FO_table_filter').removeClass('active');
                 $('#modal_table_filter').removeClass('active');
@@ -709,8 +523,8 @@ $('#export-excel-modal').on('click', function() {
                             '#5ac858',
                             '#ff4c4c',
                             '#ffa524'
-                            
-                            
+
+
                     ],
                         title: {
                             text: 'Prioridad 3'
@@ -809,8 +623,8 @@ $('#export-excel-modal').on('click', function() {
                     $('.spinner-loader').hide();
                     window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
                 });
-                    
-                      
+
+
     });
 
     $('#modal_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
@@ -824,7 +638,7 @@ $('#export-excel-modal').on('click', function() {
                 $('#search-input-modal').addClass('active');
                 $('#search-icon').addClass('active');
                 active = true;
-                } 
+                }
             } else {
                 $('#FO_table_filter').removeClass('active');
                 $('#modal_table_filter').removeClass('active');
@@ -835,7 +649,7 @@ $('#export-excel-modal').on('click', function() {
         });
 
 
-      
+
 }
                 }
             }
@@ -861,9 +675,9 @@ $('#export-excel-modal').on('click', function() {
                     ]
                     });
 
-                    
 
-                        
+
+
                     // window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
                 });
 
@@ -878,17 +692,17 @@ $('#export-excel-modal').on('click', function() {
                     $('.spinner-loader').hide();
                     window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
                 });
-                    
-                      
+
+
     });
 
 
 
 
-        
+
         $('#FO_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
         $('#FO_table_filter input').attr('id', 'search-input');
-        
+
         // var l = $('#FO_table_filter label');
         // l.html(l.find('input'));
         let active = false;
@@ -900,7 +714,7 @@ $('#export-excel-modal').on('click', function() {
                 $('#search-input').addClass('active');
                 $('#search-icon').addClass('active');
                 active = true;
-                } 
+                }
             } else {
                 $('#FO_table_filter').removeClass('active');
                 // $('#modal_table_filter').removeClass('active');
@@ -912,173 +726,6 @@ $('#export-excel-modal').on('click', function() {
 
 
     });
-   
-
-  
- 
-
-
-
-   
 
 </script>
 <script src="<?= base_url("assets/js/backoffice.js?v" . validarEnProduccion())?>"></script>
-
-
-<style>
-     body, .content-wrapper, .main-footer {
-        background: #24C6DC;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to bottom, #514A9D, #24C6DC);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to bottom, #514A9D, #24C6DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-    }
-
-    body {
-        background: #504b9d;
-    }
-
-
-    .main-footer {
-        background: #24c6dc;
-    }
-
-    #subtitle {
-        font-size: 12px;
-
-
-    }
-
-    .main-title {
-        width: 91% !important;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    }
-
-
-    .table-new{
-        margin: 0;
-    }
-
-    #FO_table tbody td, #modal_table tbody td {
-    .td-some-name {: ;
-    white-space: nowrap;
-    width: 237px;
-    vertical-align: top;
-    }: ;
-    white-space: nowrap;
-    /* width: 307px; */
-    vertical-align: top;
-    padding: 10px;
-}
-
-#FO_table_processing, #modal_table_processing {
-    display:none !important;
-}
-
-
-div#FO_table_filter, #modal_table_filter {
-    height: 40px;
-    width: 40px;
-    border: solid 5px;
-    border-radius: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 15PX;
-    transition: 0.3s;
-    position: absolute;
-    top: -46px;
-    left: 47px;
-    cursor: pointer;
-    color: white;
-            }
-
-            #modal_table_filter {
-                color: black;
-            }
-
-            #insert-content {
-                margin-top: 40px;
-            }
-            
-
-            #search-input, #search-input-modal {
-            height: 100%;
-            width: 0px;
-            font-size: 15px;
-            font-weight: 600;
-            background: none;
-            color: #FFF;
-            border: none;
-            outline: 0;
-            visibility: hidden;
-            transition: 0.3s;
-            
-            }
-
-            #search-input-modal {
-                color: black
-            }
-
-            #FO_table_filter.active, #modal_table_filter.active {
-            width: 209px;
-            }
-
-            #search-input.active, #search-input-modal.active {
-            width: 209px;
-            margin-left: 5px;
-            visibility: visible;
-            margin-top: 9px;
-            margin-top: -19px;
-            padding-right: 42px;
-            }
-
-             #search-icon.active {
-                padding-left: 25px;
-            }
-            #FO_table_filter label, #modal_table_filter label {
-                color: transparent;
-            }
-
-            #search-icon {
-                padding-left: 28px;
-            }
-
-            input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus, #search-input:-webkit-autofill {
-    transition: background-color 5000s ease-in-out 0s;
-}
-#search-input:-webkit-autofill {
-    -webkit-text-fill-color: #fff !important;
-}
-
-
-#export-excel, #export-excel-modal{
-    height: 40px;
-    width: 40px;
-    border: solid 5px;
-    border-radius: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 15PX;
-    transition: 0.3s;
-    position: absolute;
-    top: -45px;
-    color: white;
-    cursor: pointer;
-}
-
-#export-excel-modal {
-    color: black;
-    top: -30px;
-}
-</style>

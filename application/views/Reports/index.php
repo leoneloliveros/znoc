@@ -1,6 +1,7 @@
-<link rel="stylesheet" href="<?= base_url("assets/css/bitacoras_new-style.css") ?>">
+<!-- New view styles  -->
+<link rel="stylesheet" href="<?= base_url ('assets/css/remake_styles.css');?>">
 <div class="main-title" style="width: 60%;">
-  BackOffice
+Reportes
 </div>
 
 <div style="display:flex; justify-content: center;">
@@ -64,7 +65,7 @@
 
         </div>
     </div>
-    
+
 
 </div>
 
@@ -73,7 +74,7 @@
 
 
 
-<!-- 
+<!--
 <div class="row datesRange">
     <div class="col-sm-3 col-sm-offset-3">
         <label for="fDesde"><b>Fecha Inicio</b></label>
@@ -98,14 +99,14 @@
                 <option value="8">Tiempo Atención</option>
                 <option value="9">Gestión Performance</option>
             </select>
-           
+
         </div>
     </div>
 
     <div class="col-sm-12" style="margin-top:1em;">
         <button id="reportButton" class="btn-cami_cool">Descargar</button>
     </div>
-</div> --> -->
+</div> -->
 
 <script type="text/javascript" src="<?= base_url('assets/js/modules/generalReport.js'); ?>"></script>
 
@@ -120,14 +121,14 @@
     @media only screen and (max-width: 767px)  {
        .contenedorMaestro {
         margin-top: 80px;
-       } 
+       }
     }
 
     .main-footer a {
         color:white;
         font-weight: bold;
     }
-    
+
 
     .checkbox-initial {
         position: absolute;
@@ -147,7 +148,7 @@
         margin: 0;
         }
 
-        .switch input { 
+        .switch input {
         display: none;
         }
 
