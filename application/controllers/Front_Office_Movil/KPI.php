@@ -198,7 +198,7 @@ class KPI extends CI_Controller {
                     ))
                     ->set_options('scrollX', 'true');
         $this->datatables->create('modal_table', $modal_table);
-        print_r($this->db->last_query());
+        
         $this->load->view('Front_Office_Movil/loadModal');
 
     }

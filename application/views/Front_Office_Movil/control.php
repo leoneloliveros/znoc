@@ -1,5 +1,10 @@
 
 <link rel="stylesheet" href="<?= base_url("assets/css/bitacoras_new-style.css") ?>">
+<style type="text/css">
+    .loader{
+        display: none;
+    }
+</style>
 <div class="main-title" style="width: 60%;">
     <span>
     Control KPI
@@ -51,6 +56,8 @@
     
 
 </div>
+<button id="graficos_deteccion" style="display: none;">Tiempos de deteccion</button>
+<button id="graficos_esc_dt" style="display: none;">TE+TD</button>
 <div class="" style="display: flex; width: 100%; align-items: center; margin-top: 50px; flex-wrap: wrap;">
         <div class="col-md-12" id="prioridad1" style=" margin-bottom: 30px; width: 70%;"></div>
         <div class="col-md-12" id="prioridad2" style=" margin-bottom: 30px; width: 70%"></div>
@@ -61,7 +68,6 @@
         <div class="col-md-12" id="tiempo_det2" style=" margin-bottom: 30px; width: 70%;"></div>
         <div class="col-md-12" id="tiempo_det3" style=" margin-bottom: 30px; width: 70%;"></div>
     </div>
-    <button id="graficos_deteccion" style="display: none;">Tiempos de deteccion</button>
     <div class="col-md-12" id="container-graph4" style=" margin-bottom: 30px; width:50%"></div>
     <div class="col-md-12" id="container-result" style="display: flex;"></div>
 </div>
@@ -102,6 +108,12 @@
 </div>
 <!-- <div id="container-graph" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div> -->
 <style>
+    #fechaInicio{
+        height: 77px;
+    }
+    #fechaFinal{
+        height: 77px;
+    }
     #container-result {
         /* display: none; */
         /* min-height: 500px; */
@@ -295,7 +307,7 @@
 <script type="text/javascript" src="<?= base_url('assets/plugins/hightchart/code/highcharts.js');?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/plugins/moments/moment.min.js');?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/js/tiempo_deteccion.js');?>"></script>
-<script type="text/javascript" src="<?=base_url('assets/js/modules/bitacoras.js');?>"></script>
+<!-- <script type="text/javascript" src="<?=base_url('assets/js/modules/bitacoras.js');?>"></script> -->
 <script>
      $('#loader').hide();
     $('.spinner-loader').hide();
@@ -328,9 +340,9 @@ $('#consult').on('click', function() {
     $('#prioridad1').addClass('active');
     $('#prioridad2').addClass('active');
     $('#prioridad3').addClass('active');
-    $('#tiempo_det').addClass('active');
+    /*$('#tiempo_det').addClass('active');
     $('#tiempo_det2').addClass('active');
-    $('#tiempo_det3').addClass('active');
+    $('#tiempo_det3').addClass('active');*/
     $('#loader').show();
         $('.spinner-loader').show();
         var fechaInicio = $('#fechaInicio').val();
@@ -433,7 +445,7 @@ $('#consult').on('click', function() {
                             '#ffa524'
                         ],
                         title: {
-                            text: 'Prioridad 1'
+                            text: 'TIEMPO DE ESCALAMIENTO FO MOVIL P1'
                         },
                         xAxis: {
                             categories: category
@@ -589,7 +601,7 @@ $('#export-excel-modal').on('click', function() {
                             
                     ],
                         title: {
-                            text: 'Prioridad 2'
+                            text: 'TIEMPO DE ESCALAMIENTO FO MOVIL P2'
                         },
                         xAxis: {
                             categories: category
@@ -630,7 +642,7 @@ var fecha = this.category;
 var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/2';
 var element = document.getElementById('insert-content');
 load(url, element);
-function cargar(url, element)
+function load(url, element)
 {
 req = new XMLHttpRequest();
 req.open("GET", url, false);
@@ -748,7 +760,7 @@ $('#export-excel-modal').on('click', function() {
                             
                     ],
                         title: {
-                            text: 'Prioridad 3'
+                            text: 'TIEMPO DE ESCALAMIENTO FO MOVIL P3'
                         },
                         xAxis: {
                             categories: category
@@ -791,7 +803,7 @@ var fecha = this.category;
 var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/3';
 var element = document.getElementById('insert-content');
 load(url, element);
-function cargar(url, element)
+function load(url, element)
 {
 req = new XMLHttpRequest();
 req.open("GET", url, false);

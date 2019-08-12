@@ -106,7 +106,7 @@ $('#consult').on('click', function() {
                             '#ffa524'
                         ],
                         title: {
-                            text: 'Tiempo deteccion - Prioridad 1'
+                            text: 'TIEMPO DE DETECCION FO MOVIL P1'
                         },
                         xAxis: {
                             categories: category
@@ -258,7 +258,7 @@ $('#export-excel-modal').on('click', function() {
                             '#ffa524'
                         ],
                         title: {
-                            text: 'Tiempo deteccion - Prioridad 2'
+                            text: 'TIEMPO DE DETECCION FO MOVIL P2'
                         },
                         xAxis: {
                             categories: category
@@ -410,7 +410,7 @@ $('#export-excel-modal').on('click', function() {
                             '#ffa524'
                         ],
                         title: {
-                            text: 'Tiempo deteccion - Prioridad 3'
+                            text: 'TIEMPO DE DETECCION FO MOVIL P3'
                         },
                         xAxis: {
                             categories: category
