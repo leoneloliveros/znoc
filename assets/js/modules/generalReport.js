@@ -120,6 +120,17 @@ $(function(){
                         window.open(base_url + "GeneralReports/excelGestionPerformance");
                     });
             break;
+            case '10':
+              $.post(base_url + "GeneralReports/c_getCambiosVentanasMantenimiento", {
+                  desde: $(`#fDesde`).val(),
+                  hasta: $(`#fHasta`).val(),
+                }).done(function(){
+                  $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
+                  $('#loader').hide();
+                  $('.spinner-loader').hide();
+                  window.open(base_url + "GeneralReports/excelCambiosVentanasMantenimiento");
+              });
+            break;
             default:
               // code block
           }
