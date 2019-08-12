@@ -908,15 +908,16 @@ class Dao_reportes_model extends CI_Model {
         ");
         return $query->result();
     }
+   
 
      public function getgraphdeteccion($fdesde, $fhasta){
         $query=$this->db->query("
              SELECT DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date, COUNT(*) AS count,
-            SUM(IF(INTERNALPRIORITY = 1 AND IF(TIEMPO_DETECCION = '0.000', TIEMPO_FALLA, TIEMPO_DETECCION) <= 40, 1, 0)) AS 'P1_PASARON',
+            SUM(IF(INTERNALPRIORITY = 1 AND TIEMPO_DETECCION <= 40, 1, 0)) AS 'P1_PASARON',
             SUM(IF(INTERNALPRIORITY = 1, 1, 0)) AS 'P1_TOTAL',
-            SUM(IF(INTERNALPRIORITY = 2 AND IF(TIEMPO_DETECCION = '0.000', TIEMPO_FALLA, TIEMPO_DETECCION) <= 80, 1, 0)) AS 'P2_PASARON',
+            SUM(IF(INTERNALPRIORITY = 2 AND TIEMPO_DETECCION <= 80, 1, 0)) AS 'P2_PASARON',
             SUM(IF(INTERNALPRIORITY = 2, 1, 0)) AS 'P2_TOTAL',
-            SUM(IF(INTERNALPRIORITY = 3 AND IF(TIEMPO_DETECCION = '0.000', TIEMPO_FALLA, TIEMPO_DETECCION) <= 100, 1, 0)) AS 'P3_PASARON',
+            SUM(IF(INTERNALPRIORITY = 3 AND TIEMPO_DETECCION <= 100, 1, 0)) AS 'P3_PASARON',
             SUM(IF(INTERNALPRIORITY = 3, 1, 0)) AS 'P3_TOTAL'
             FROM maximo.INCIDENT
             WHERE (`DESCRIPTION` LIKE '%FAOC:%' OR `DESCRIPTION` LIKE '%FAOB:%' OR `DESCRIPTION` LIKE '%FEE:%'  OR `DESCRIPTION` LIKE '%FI:%' OR `DESCRIPTION` LIKE '%FAPP:%' OR `DESCRIPTION` LIKE '%FOIP:%')
@@ -939,6 +940,24 @@ class Dao_reportes_model extends CI_Model {
         return $query->result();
     }
 
+    public function getIncidentesCerrados($fdesde, $fhasta){
+        $query=$this->db->query("
+            SELECT INC.TICKETID, INC.CREATIONDATE, INC.CREATEDBY, PE.DISPLAYNAME AS 'NOMBRE_CREADOR', INC.DESCRIPTION, INC.STATUS, TK.CHANGEBY, PER.DISPLAYNAME, INC.INTERNALPRIORITY, INC.URGENCY,  INC.CAUSE_CODE, INC.CAUSE_DESCRIPTION, INC.REMEDY_CODE, INC.REMEDY_DESCRIPTION
+            FROM maximo.INCIDENT INC
+            LEFT JOIN maximo.TKSTATUS TK
+            ON INC.TICKETID = TK.TICKETID
+            LEFT JOIN maximo.PERSON PE
+            ON INC.CREATEDBY = PE.PERSONID
+            LEFT JOIN maximo.PERSON PER
+            ON TK.CHANGEBY = PER.PERSONID
+            WHERE  INC.STATUS = 'CERRADO'
+            AND TK.STATUS = 'CERRADO'
+            AND INC.TICKETID LIKE '%INC%'
+            and DATE_FORMAT(INC.CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
+            ");
+             $_SESSION['x'] = $query->result();
+        return $query->result();
+    }
     
 
 }
