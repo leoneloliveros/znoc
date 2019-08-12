@@ -140,6 +140,15 @@ class KPI extends CI_Controller {
     echo json_encode($data);
     }
 
+    public function getdetinfo(){
+        $inicio = str_replace('/', '-', $this->input->post('inicio'));
+        $diaini = date("Y-m-d", strtotime($inicio));
+        $final= str_replace('/', '-', $this->input->post('final'));
+        $diafin= date("Y-m-d", strtotime($final));
+        $data = $this->Dao_reportes_model->getgraphdeteccion($diaini,$diafin);
+        echo json_encode($data);
+    }
+
 
     public function loadModal($fecha, $prioridad) {
 
@@ -188,7 +197,8 @@ class KPI extends CI_Controller {
                         'class' => 'table table-striped',
                     ))
                     ->set_options('scrollX', 'true');
-        $this->datatables->create('modal_table', $modal_table); 
+        $this->datatables->create('modal_table', $modal_table);
+        print_r($this->db->last_query());
         $this->load->view('Front_Office_Movil/loadModal');
 
     }
