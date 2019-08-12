@@ -372,7 +372,43 @@ class GeneralReports extends CI_Controller
       ->build();
 
       $writer->openToBrowser('GestionPerformance('.date('Y-m-d').').xlsx');
-      $titles = array('TICKETID', 'ZONA_TKT', 'TIPO_TKT', 'CREATIONDATE', 'CLOSEDATE', 'ACTUALFINISH', 'STATUS', 'INTERNALPRIORITY', 'URGENCY', 'CREATEDBY', 'CHANGEDATE', 'OWNERGROUP', 'LOCATION', 'MUN100', 'AFECTACION_TOTAL_CORE', 'INCEXCLUIR', 'INCMEXCLUSION', 'PROVEEDORES', 'TICKET_EXT', 'DESCRIPTION', 'EXTERNALSYSTEM', 'RUTA_TKT', 'INC_ALARMA', 'INCSOLUCION', 'GERENTE', 'REGIONAL', 'CIUDAD_MUNICIPIO', 'FAILURECODE', 'PROBLEM_CODE', 'PROBLEM_DESCRIPTION', 'CAUSE_CODE', 'CAUSE_DESCRIPTION', 'REMEDY_CODE', 'REMEDY_DESCRIPTION', 'TIEMPO_VIDA_TKT', 'TIEMPO_RESOLUCION_TKT', 'TIEMPO_DETECCION', 'TIEMPO_ESCALA', 'TIEMPO_FALLA', 'TIEMPO_OT_ALM');
+      $titles = array('RECORDKEY', 'DESCRIPTION_NOTA', 'NOTA_CREATION', 'NOTA_FECHA_MODIFICACION', 'NOTA_MODIFYBY', 'NOMBRE_CREADOR', 'DESCRIPTION_INCIDENT', 'INCIDENT_CREATION', 'INCIDENTE_ESTADO', 'CHANGEDATE', 'INCIDENTE_CREADOR', 'INCIDENTE_CREADOR_NOMBRE');
+
+      $header = WriterEntityFactory::createRowFromArray($titles);
+      $writer->addRow($header);
+
+      foreach ($data as $val) {
+        $cells = array();
+        foreach ($val as $val1) {
+          array_push($cells,WriterEntityFactory::createCell($val1,$style));
+        }
+        $rowFromValues = WriterEntityFactory::createRow($cells);
+        $writer->addRow($rowFromValues);
+      }
+      $writer->close();
+
+  }
+
+  public function c_getCambiosVentanasMantenimiento()
+  {
+    $fdesde = $this->input->post('desde');
+    $fhasta = $this->input->post('hasta');
+    $data = $this->Dao_reportes_model->getCambiosVentanasMantenimiento($fdesde,$fhasta);
+    echo json_encode($data);
+  }
+  public function excelCambiosVentanasMantenimiento()
+  {
+    $data = $_SESSION['x'];
+    // echo '<pre>'; print_r("lol"); echo '</pre>';
+    
+
+      $writer = WriterEntityFactory::createXLSXWriter();
+      $style = (new StyleBuilder())
+      ->setShouldWrapText(false)
+      ->build();
+
+      $writer->openToBrowser('CambiosVentanasMantenimiento('.date('Y-m-d').').xlsx');
+      $titles = array('NUMERO_CAMBIO', 'TAREA_CAMBIO', 'DESCIPCION_TAREA', 'INICIO_PROGRAMA_VENT', 'FINALIZACION_PROFRAMADA_VENT', 'ESTADO', 'PROPIETARIOS', 'GRUPO_PROPIETARIOS');
 
       $header = WriterEntityFactory::createRowFromArray($titles);
       $writer->addRow($header);
