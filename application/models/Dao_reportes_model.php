@@ -935,7 +935,8 @@ class Dao_reportes_model extends CI_Model {
             AND `STATUS` != 'CANCELADO'
             and DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
             GROUP BY 1
-            ")
+            ");
+            return $query->result();
     }
 
     

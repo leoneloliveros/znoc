@@ -68,6 +68,11 @@
         <div class="col-md-12" id="tiempo_det2" style=" margin-bottom: 30px; width: 70%;"></div>
         <div class="col-md-12" id="tiempo_det3" style=" margin-bottom: 30px; width: 70%;"></div>
     </div>
+    <div id="container_grahp_tetd" style="background: #26D8B2; display: none;">
+        <div class="col-md-12" id="tetd1" style="margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-12" id="tetd2" style="margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-12" id="tetd3" style="margin-bottom: 30px; width: 70%;"></div>
+    </div>
     <div class="col-md-12" id="container-graph4" style=" margin-bottom: 30px; width:50%"></div>
     <div class="col-md-12" id="container-result" style="display: flex;"></div>
 </div>
@@ -154,7 +159,7 @@
         display: none;
         }
 
-        #prioridad1.active, #prioridad2.active, #prioridad3.active, #tiempo_det.active, #tiempo_det2.active, #tiempo_det3.active {
+        #prioridad1.active, #prioridad2.active, #prioridad3.active, #tiempo_det.active, #tiempo_det2.active, #tiempo_det3.active, #tetd1.active, #tetd2.active, #tetd3.active {
             margin-bottom: 30px;
     width: 70%;
     overflow: hidden;
@@ -307,6 +312,7 @@
 <script type="text/javascript" src="<?= base_url('assets/plugins/hightchart/code/highcharts.js');?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/plugins/moments/moment.min.js');?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/js/tiempo_deteccion.js');?>"></script>
+<script type="text/javascript" src="<?=base_url('assets/js/escala_deteccion.js');?>"></script>
 <!-- <script type="text/javascript" src="<?=base_url('assets/js/modules/bitacoras.js');?>"></script> -->
 <script>
      $('#loader').hide();
