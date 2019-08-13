@@ -56,13 +56,16 @@
     
 
 </div>
-<button id="graficos_deteccion" style="display: none;">Tiempos de deteccion</button>
-<button id="graficos_esc_dt" style="display: none;">TE+TD</button>
+<button id="graficos_pri" class="btn btn-warning" style="display: none;">Tiempos de escalamiento</button>
+<button id="graficos_deteccion" class="btn btn-danger" style="display: none;">Tiempos de deteccion</button>
+<button id="graficos_esc_dt" class="btn btn-success" style="display: none;">Tiempo de escalamiento + Tiempo de deteccion</button>
+<div id="grahp_prio" style="display: none;">
 <div class="" style="display: flex; width: 100%; align-items: center; margin-top: 50px; flex-wrap: wrap;">
         <div class="col-md-12" id="prioridad1" style=" margin-bottom: 30px; width: 70%;"></div>
         <div class="col-md-12" id="prioridad2" style=" margin-bottom: 30px; width: 70%"></div>
         <div class="col-md-12" id="prioridad3" style=" margin-bottom: 30px; width:70%"></div>
     </div>
+</div>
     <div id="container_graphic" style="background: #26D8B2; display: none;">
         <div class="col-md-12" id="tiempo_det" style=" margin-bottom: 30px; width: 70%;"></div>
         <div class="col-md-12" id="tiempo_det2" style=" margin-bottom: 30px; width: 70%;"></div>
@@ -113,6 +116,18 @@
 </div>
 <!-- <div id="container-graph" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div> -->
 <style>
+    #graficos_pri{
+        margin-left: 269px;
+        margin-top: 34px;
+    }
+    #graficos_esc_dt{
+        margin-left: 488px;
+        margin-top: -34px;
+    }
+    #graficos_deteccion{
+        margin-left: 836px;
+        margin-top: -35px;
+    }
     #fechaInicio{
         height: 77px;
     }
@@ -346,6 +361,7 @@ $('#consult').on('click', function() {
     $('#prioridad1').addClass('active');
     $('#prioridad2').addClass('active');
     $('#prioridad3').addClass('active');
+    $('#graficos_pri').attr('style', 'display:block')
     /*$('#tiempo_det').addClass('active');
     $('#tiempo_det2').addClass('active');
     $('#tiempo_det3').addClass('active');*/
@@ -918,6 +934,10 @@ $('#export-excel-modal').on('click', function() {
 
                         
                     // window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
+                });
+                
+                $('#graficos_pri').on('click', function(){
+                    $("#grahp_prio").toggle();
                 });
 
 
