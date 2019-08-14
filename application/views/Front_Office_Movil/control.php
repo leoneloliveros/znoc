@@ -119,14 +119,17 @@
     #graficos_pri{
         margin-left: 269px;
         margin-top: 34px;
+        border-radius: 6px;
     }
     #graficos_esc_dt{
         margin-left: 488px;
         margin-top: -34px;
+        border-radius: 6px
     }
     #graficos_deteccion{
         margin-left: 836px;
         margin-top: -35px;
+        border-radius: 6px;
     }
     #fechaInicio{
         height: 77px;

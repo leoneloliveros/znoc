@@ -102,7 +102,7 @@ $('#consult').on('click', function() {
                             '#ffa524'
                         ],
                         title: {
-                            text: 'TIEMPO DE ESCALAMIENTO + TIEMPO DETECION FO MOVIL P1'
+                            text: 'TIEMPO DE ESCALAMIENTO + TIEMPO DETECCION FO MOVIL P1'
                         },
                         xAxis: {
                             categories: category
@@ -254,7 +254,7 @@ $('#export-excel-modal').on('click', function() {
                             '#ffa524'
                         ],
                         title: {
-                            text: 'TIEMPO DE ESCALAMIENTO + TIEMPO DETECION FO MOVIL P2'
+                            text: 'TIEMPO DE ESCALAMIENTO + TIEMPO DETECCION FO MOVIL P2'
                         },
                         xAxis: {
                             categories: category
@@ -406,7 +406,7 @@ $('#export-excel-modal').on('click', function() {
                             '#ffa524'
                         ],
                         title: {
-                            text: 'TIEMPO DE ESCALAMIENTO + TIEMPO DETECION FO MOVIL P3'
+                            text: 'TIEMPO DE ESCALAMIENTO + TIEMPO DETECCION FO MOVIL P3'
                         },
                         xAxis: {
                             categories: category
