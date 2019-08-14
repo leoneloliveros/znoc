@@ -102,7 +102,7 @@ $('#consult').on('click', function() {
                             '#ffa524'
                         ],
                         title: {
-                            text: 'TIEMPO DE ESCALAMIENTO + TIEMPO DETECCION FO MOVIL P1'
+                            text: 'TIEMPO DE ESCALAMIENTO +  TIEMPO DETECCION FO MOVIL P1'
                         },
                         xAxis: {
                             categories: category

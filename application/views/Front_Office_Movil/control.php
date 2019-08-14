@@ -56,9 +56,9 @@
     
 
 </div>
-<button id="graficos_pri" class="btn btn-warning" style="display: none;">Tiempos de escalamiento</button>
-<button id="graficos_deteccion" class="btn btn-danger" style="display: none;">Tiempos de deteccion</button>
-<button id="graficos_esc_dt" class="btn btn-success" style="display: none;">Tiempo de escalamiento + Tiempo de deteccion</button>
+<button id="graficos_pri" class="btn btn-warning" style="display: none;">Tiempos de Escalamiento</button>
+<button id="graficos_deteccion" class="btn btn-danger" style="display: none;">Tiempos de Deteccion</button>
+<button id="graficos_esc_dt" class="btn btn-success" style="display: none;">Tiempo de Escalamiento + Tiempo de Deteccion</button>
 <div id="grahp_prio" style="display: none;">
 <div class="" style="display: flex; width: 100%; align-items: center; margin-top: 50px; flex-wrap: wrap;">
         <div class="col-md-12" id="prioridad1" style=" margin-bottom: 30px; width: 70%;"></div>
