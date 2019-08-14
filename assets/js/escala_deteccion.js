@@ -1,28 +1,20 @@
 
 $('#consult').on('click', function() {
-    
-    $('#tiempo_det').addClass('active').attr('style', 'display:block');
-    $('#tiempo_det2').addClass('active').attr('style', 'display:block');
-    $('#tiempo_det3').addClass('active').attr('style', 'display:block');
-    /*$('#tetd1').addClass('active').attr('style', 'display:block');
+    $('#tetd1').addClass('active').attr('style', 'display:block');
     $('#tetd2').addClass('active').attr('style', 'display:block');
-    $('#tetd3').addClass('active').attr('style', 'display:block');*/
-    $('#graficos_deteccion').attr('style', 'display:block');
-    /*$('#graficos_esc_dt').attr('style', 'display:block');*/
-    /*$('#graficos').attr('style', 'display: block');*/
+    $('#tetd3').addClass('active').attr('style', 'display:block');
+    $('#graficos_esc_dt').attr('style', 'display:block');
     $('#loader').show();
         $('.spinner-loader').show();
         var fechaInicio = $('#fechaInicio').val();
         var fechaFinal = $('#fechaFinal').val();
-        var graficacont= document.getElementById('insertar-graficas');
 
         var url = base_url + 'Front_Office_Movil/KPI/cargarInfo' + '/' + moment(fechaInicio, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + moment(fechaFinal, 'DD/MM/YYYY').format('YYYY-MM-DD') ;
         var element = document.getElementById('container-result');
-        var base = base_url + 'Front_Office_Movil/KPI/getdetinfo' + '/' + moment(fechaInicio, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + moment(fechaFinal, 'DD/MM/YYYY').format('YYYY-MM-DD') ;
+        /*recibirfechas(fechaInicio,fechaFinal,url,element);*/
         /*recibirdata();*/
-        cargar(url, element);
-        
-        function cargar(url, element)
+        load(url, element);
+        function load(url, element)
         {
             req = new XMLHttpRequest();
             req.open("GET", url, false);
@@ -33,9 +25,11 @@ $('#consult').on('click', function() {
             $('#loader').hide();
             $('.spinner-loader').hide();
         }
-
-
         function createDatatable(link) {
+            if (erTable_FO_table) {
+                var tabla = erTable_FO_table;
+                tabla.destroy();
+            }
             erTable_FO_table = $("#FO_table").DataTable({
                 processing: true,
                 serverSide: true,
@@ -63,10 +57,8 @@ $('#consult').on('click', function() {
                 }
             });
         }
-
-
-        $.post(base_url + "Front_Office_Movil/KPI/getdetinfo", {
-                    inicio: fechaInicio,
+        $.post(base_url + "Front_Office_Movil/KPI/getetdinfo", {
+                    inicial: fechaInicio,
                     final: fechaFinal
                   }).done(function(data){
                     var category = [];
@@ -100,7 +92,7 @@ $('#consult').on('click', function() {
                         
 
                         
-                    Highcharts.chart('tiempo_det', {
+                    Highcharts.chart('tetd1', {
                         chart: {
                             type: 'column'
                         },
@@ -110,7 +102,7 @@ $('#consult').on('click', function() {
                             '#ffa524'
                         ],
                         title: {
-                            text: 'TIEMPO DE DETECCION FO MOVIL P1'
+                            text: 'TIEMPO DE ESCALAMIENTO +  TIEMPO DETECCION FO MOVIL P1'
                         },
                         xAxis: {
                             categories: category
@@ -252,7 +244,7 @@ $('#export-excel-modal').on('click', function() {
     }
                         ],
                     });//Cierre del highchart
-    Highcharts.chart('tiempo_det2',{
+    Highcharts.chart('tetd2',{
         chart: {
                             type: 'column'
                         },
@@ -262,7 +254,7 @@ $('#export-excel-modal').on('click', function() {
                             '#ffa524'
                         ],
                         title: {
-                            text: 'TIEMPO DE DETECCION FO MOVIL P2'
+                            text: 'TIEMPO DE ESCALAMIENTO + TIEMPO DETECCION FO MOVIL P2'
                         },
                         xAxis: {
                             categories: category
@@ -404,7 +396,7 @@ $('#export-excel-modal').on('click', function() {
     }
                         ],
     });//Cierre del segundo highchart
-    Highcharts.chart('tiempo_det3', {
+    Highcharts.chart('tetd3', {
         chart: {
                             type: 'column'
                         },
@@ -414,7 +406,7 @@ $('#export-excel-modal').on('click', function() {
                             '#ffa524'
                         ],
                         title: {
-                            text: 'TIEMPO DE DETECCION FO MOVIL P3'
+                            text: 'TIEMPO DE ESCALAMIENTO + TIEMPO DETECCION FO MOVIL P3'
                         },
                         xAxis: {
                             categories: category
@@ -556,10 +548,10 @@ $('#export-excel-modal').on('click', function() {
     }
                         ],
     });//Cierre del tercer highchart
- });//Cierre de la funcion de data en el post
-$('#graficos_deteccion').on('click', function(){
-    $("#container_graphic").toggle();
-});//Cierre del boton de graficos
+ });//Cierre de data
+$('#graficos_esc_dt').on('click', function(){
+    $('#container_grahp_tetd').toggle();
+});
 });//Cierre del boton consultar
 
 

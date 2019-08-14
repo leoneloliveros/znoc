@@ -149,6 +149,15 @@ class KPI extends CI_Controller {
         echo json_encode($data);
     }
 
+    public function getetdinfo(){
+        $inicial = str_replace('/', '-', $this->input->post('inicial'));
+        $diaini = date("Y-m-d", strtotime($inicial));
+        $final= str_replace('/', '-', $this->input->post('final'));
+        $diafin= date("Y-m-d", strtotime($final));
+        $data = $this->Dao_reportes_model->getTETD($diaini,$diafin);
+        echo json_encode($data);
+    }
+
 
     public function loadModal($fecha, $prioridad) {
 
@@ -198,7 +207,7 @@ class KPI extends CI_Controller {
                     ))
                     ->set_options('scrollX', 'true');
         $this->datatables->create('modal_table', $modal_table);
-        print_r($this->db->last_query());
+        
         $this->load->view('Front_Office_Movil/loadModal');
 
     }
