@@ -551,12 +551,9 @@ class Dao_reportes_model extends CI_Model {
                     INNER JOIN users u
                     ON l.id_users = u.id_users
                     WHERE l.inicio_actividad BETWEEN $ini AND $fin"
-        );
-        // print_r($this->db->last_query());
-
-      }
-
-
+            );
+            // print_r($this->db->last_query());
+        }
     }
 
     public function getWorkInfo($fdesde, $fhasta) {
@@ -657,11 +654,9 @@ class Dao_reportes_model extends CI_Model {
         return $data;
     }
 
-
-    
     public function getTareasFOPerformance($fdesde, $fhasta) {
         $query = $this->db->query("
-        SELECT AC.WONUM AS TAREA,AC.REPORTDATE AS FECHA_CREACION_TAREA,AC.DESCRIPTION AS DESCRIPTION_TAREA, AC.STATUS, AC.STATUSDATE,AC.TICKETID, IC.CREATEDBY, IC.CREATIONDATE AS FECHA_CREA_INCIDENTE,IC.STATUS AS ESTADO_INCIDENTE, IC.DESCRIPTION AS DESCRIPCION_INCIDENTE,
+        SELECT AC.WONUM AS TAREA,AC.REPORTDATE AS FECHA_CREACION_TAREA,AC.DESCRIPTION AS DESCRIPTION_TAREA, AC.STATUS, AC.OWNER,AC.TICKETID,IC.CREATIONDATE AS FECHA_CREA_INCIDENTE,IC.STATUS AS ESTADO_INCIDENTE, IC.DESCRIPTION AS DESCRIPCION_INCIDENTE,
 
         IC.ACTUALFINISH AS FECHA_CIERRE_INCIDENTE,WO.MODIFYBY AS CREADOR,WO.CREATEDATE AS FECHA_NOTA,WO.DESCRIPTION AS RESUMEN_NOTA,WO.DESCRIPTION_LONGDESCRIPTION AS DETALLE_NOTA
 
@@ -727,6 +722,7 @@ class Dao_reportes_model extends CI_Model {
         $_SESSION['x'] = $data;
         return $data;
     }
+
     public function getControlTicket($fdesde, $fhasta) {
         $query = $this->db->query("
         SELECT * FROM reportes.CONTROL_TICKETS
@@ -736,7 +732,6 @@ class Dao_reportes_model extends CI_Model {
         return $data;
     }
 
-    
     public function ReporteCciHfc($opcion, $fecha_ini = null, $fecha_fin = null) {
         $condicion = "";
         if ($fecha_fin != null && $fecha_ini != null) {
@@ -770,114 +765,70 @@ class Dao_reportes_model extends CI_Model {
     public function getGestionPerformance($fdesde, $fhasta) {
         $query = $this->db->query("
         SELECT * FROM maximo.INCIDENT
-        WHERE (DESCRIPTION LIKE '%MC:%'
-        OR DESCRIPTION LIKE '%MC_AICT5:%'
-        OR DESCRIPTION LIKE '%MC_GORGT4:%'
-        OR DESCRIPTION LIKE '%MC_GPT5:%'
-        OR DESCRIPTION LIKE '%MC_RPT1:%'
-        OR DESCRIPTION LIKE '%MC_RPT2:%'
-        OR DESCRIPTION LIKE '%MC_RPT3:%'
-        OR DESCRIPTION LIKE '%MC_T&PT1:%'
-        OR DESCRIPTION LIKE '%MC_T&PT2:%'
-        OR DESCRIPTION LIKE '%MC_T&P_SOCT1:%'
-        OR DESCRIPTION LIKE '%MC_T&P_SOCT2:%')
+        WHERE DESCRIPTION LIKE '%MC:%'
         and DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
         $data = $query->result();
         $_SESSION['x'] = $data;
         return $data;
     }
-    public function getIncidentFO($queryresult) {
-        $query = $this->db->query($queryresult);
-        $data = $query->result();
-        $_SESSION['x'] = $data;
-        return $data;
+
+    //Retorna la cantidad de tablas de un Schema pasado como parametro
+    public function getTablesBySchema($schema) {
+        $query = $this->db->query("
+            SHOW FULL TABLES FROM $schema
+        ");
+        return $query->result();
     }
 
-    public function getGraphInfo($fdesde, $fhasta) {
+    //Retorna las columnas de la tabla pasada como parametro
+    public function getColumnsByTable($schema, $table) {
         $query = $this->db->query("
-       
-            SELECT DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date, COUNT(*) AS count,
-            SUM(IF(INTERNALPRIORITY = 1 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA) <= 40, 1, 0)) AS 'P1_PASARON',
-            SUM(IF(INTERNALPRIORITY = 1, 1, 0)) AS 'P1_TOTAL',
-            SUM(IF(INTERNALPRIORITY = 2 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA) <= 80, 1, 0)) AS 'P2_PASARON',
-            SUM(IF(INTERNALPRIORITY = 2, 1, 0)) AS 'P2_TOTAL',
-            SUM(IF(INTERNALPRIORITY = 3 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA) <= 100, 1, 0)) AS 'P3_PASARON',
-            SUM(IF(INTERNALPRIORITY = 3, 1, 0)) AS 'P3_TOTAL'
-            FROM maximo.INCIDENT
-            WHERE (`DESCRIPTION` LIKE '%FAOC:%' OR `DESCRIPTION` LIKE '%FAOB:%' OR `DESCRIPTION` LIKE '%FEE:%'  OR `DESCRIPTION` LIKE '%FI:%' OR `DESCRIPTION` LIKE '%FAPP:%' OR `DESCRIPTION` LIKE '%FOIP:%')
-            AND `OWNERGROUP` NOT LIKE '%FO_SDH%'
-            AND `DESCRIPTION` NOT LIKE '%DEPU%'
-            AND `DESCRIPTION` NOT LIKE '%FHG%'
-            AND `DESCRIPTION` NOT LIKE '%FSP%'
-            AND `DESCRIPTION` NOT LIKE '%MAIL%'
-            AND `DESCRIPTION` NOT LIKE '%MG%'
-            AND `DESCRIPTION` NOT LIKE '%NO EXITOSO%'
-            AND `DESCRIPTION` NOT LIKE '%VM%'
-            AND `DESCRIPTION` NOT LIKE '%VENTANA MANT%'
-            AND `DESCRIPTION` NOT LIKE '%FEE%SIN PE%'
-            AND `STATUS` != 'ELIMINADO'
-            AND `STATUS` != 'CANCELADO'
-            and DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
-            GROUP 
-            BY the_date  
+            DESC $schema.$table
         ");
-        $data = $query->result();
 
-        // $_SESSION['x'] = $data;
-        return $data;
+//        print_r($this->db->last_query().';<br>');
+        return $query->result();
+    }
+
+    //Retorna el resultado del query pasado por parametro
+    public function getGenerateReport($query) {
+        $query = $this->db->query($query);
+
+//        print_r($this->db->last_query().';<br>');
+        return $query->result();
+    }
+
+    public function insertGenerateReport($data) {
+        if ($this->db->insert('reportes_generados', $data)) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
-    public function getNemonicosQualityTabledAccordingDate($fi, $ff) {
+    //Retorna el listado de las consultas que se han generado por la plataforma
+    public function getReportsDB() {
         $query = $this->db->query("
-            SELECT 
-                (CASE WHEN DESCRIPTION LIKE '%MC_AICT5:%' THEN 'mc_aict5'
-                    WHEN DESCRIPTION LIKE '%MC_GORGT4:%' THEN 'mc_gorgt4'
-                    WHEN DESCRIPTION LIKE '%MC_GPT5:%' THEN 'mc_gpt5'
-                    WHEN DESCRIPTION LIKE '%MC_RPT1:%' THEN 'mc_rpt1'
-                    WHEN DESCRIPTION LIKE '%MC_RPT2:%' THEN 'mc_rpt2'
-                    WHEN DESCRIPTION LIKE '%MC_RPT3:%' THEN 'mc_rpt3'
-                    WHEN DESCRIPTION LIKE '%MC_T&PT1:%' THEN 'mc_tpt1'
-                    WHEN DESCRIPTION LIKE '%MC_T&PT2:%' THEN 'mc_tpt2'
-                    WHEN DESCRIPTION LIKE '%MC_T&P_SOCT1:%' THEN 'mc_tp_soct1'
-                    WHEN DESCRIPTION LIKE '%MC_T&P_SOCT2:%' THEN 'mc_tp_soct2'
-                    ELSE 'Sin coordinación'
-                END) AS nemonicos,
-                COUNT(RECORDKEY) AS total_incidentes
-            FROM maximo.WORKLOG
-            WHERE DATE_FORMAT(CREATEDATE, '%Y-%m-%d') BETWEEN '$fi' AND '$ff'
-            GROUP BY (CASE WHEN DESCRIPTION LIKE '%MC_AICT5:%' THEN 'MC_AICT5'
-                        WHEN DESCRIPTION LIKE '%MC_GORGT4:%' THEN 'MC_GORGT4'
-                        WHEN DESCRIPTION LIKE '%MC_GPT5:%' THEN 'MC_GPT5'
-                        WHEN DESCRIPTION LIKE '%MC_RPT1:%' THEN 'MC_RPT1'
-                        WHEN DESCRIPTION LIKE '%MC_RPT2:%' THEN 'MC_RPT2'
-                        WHEN DESCRIPTION LIKE '%MC_RPT3:%' THEN 'MC_RPT3'
-                        WHEN DESCRIPTION LIKE '%MC_T&PT1:%' THEN 'MC_TPT1'
-                        WHEN DESCRIPTION LIKE '%MC_T&PT2:%' THEN 'MC_TPT2'
-                        WHEN DESCRIPTION LIKE '%MC_T&P_SOCT1:%' THEN 'MC_TP_SOCT1'
-                        WHEN DESCRIPTION LIKE '%MC_T&P_SOCT2:%' THEN 'MC_TP_SOCT2'
-                        ELSE 'Sin coordinación'
-                    END)
+            SELECT id_reportes,
+                nombre_reporte,
+                query_reporte,
+                columnas_reporte,
+                creador_reporte
+            FROM reportes_generados
         ");
         return $query->result();
     }
     
-    public function getWorklogByCoordination($fdesde, $fhasta, $nemonico) {
+    public function getGetQueryReport($id) {
         $query = $this->db->query("
-            SELECT RECORDKEY,
-                CREATEDATE,
-                DESCRIPTION,
-                MODIFYDATE,
-                MODIFYBY,
-                DESCRIPTION_LONGDESCRIPTION,
-                CLASS,
-                LOGTYPE
-            FROM maximo.WORKLOG
-            WHERE DESCRIPTION LIKE '%$nemonico%'
-            AND DATE_FORMAT(CREATEDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
+            SELECT REGEXP_REPLACE(query_reporte, '[0-9]{4}-[0-1][0-9]-[0-3][0-9]', 'fecha') AS query_reporte,
+                columnas_reporte,
+                nombre_reporte
+            FROM reportes_generados
+            WHERE id_reportes = $id
         ");
         return $query->result();
     }
-    
 
 }
 
