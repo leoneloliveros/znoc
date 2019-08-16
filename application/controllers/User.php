@@ -311,8 +311,8 @@ class User extends CI_Controller {
             'user_id' => $data->id_users,
         );
 //        print_r($data);exit();
-        $saved1 = $this->Dao_user_model->saveTable('users', $insert_user);
-        $saved2 = $this->Dao_user_model->saveTable('role_user', $insert_rol_user);
+        $saved1 = $this->Dao_user_model->saveTable('users', $insert_user, $data->action);
+        $saved2 = $this->Dao_user_model->saveTable('role_user', $insert_rol_user, $data->action);
         echo json_encode($saved2);
     }
 
@@ -320,6 +320,13 @@ class User extends CI_Controller {
         $cedula = $this->input->post('id_user');
         $data = $this->Dao_user_model->validateCedula($cedula);
         echo json_encode($data);
+    }
+    
+    public function c_deleteUser() {
+        $id_user = $this->input->post('id_user');
+        $data1 = $this->Dao_user_model->deleteUser($id_user);
+        $data2 = $this->Dao_user_model->deleteRolUserByIdUser($id_user);
+        echo json_encode($data1);
     }
 
 }

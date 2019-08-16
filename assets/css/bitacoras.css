@@ -49,3 +49,20 @@
   box-shadow: 0 0 5px 2px #e08585;
   color: #000 !important;
 }
+
+.btnx1{
+  background: #6f0808;
+  border: 1px solid black;
+  color: white;
+  font-weight: bold;
+  padding: 1% 12%;
+  margin-top: 1em;
+  outline: none;
+  transition: .5s;
+}
+.btnx1:hover{
+  background: #420909;
+}
+.btnx1:active{
+  background: #160202;
+}

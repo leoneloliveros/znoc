@@ -240,14 +240,14 @@ $(function() {
                 return;
             }
             const valores = $('#mdl_cierre_crq .form').serializeArray();
-            console.log("valores", valores);
+//            console.log("valores", valores);
             $.post(base_url + 'Crq/js_save_cierre_crq', 
                 {
                     data: valores
                 }, 
                 function(data) {
                     const obj = JSON.parse(data);
-                    console.log("obj", obj);
+//                    console.log("obj", obj);
                 
             });
             

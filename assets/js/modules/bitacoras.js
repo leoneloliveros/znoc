@@ -73,7 +73,7 @@ $(function () {
         },
 
         loadEngineersBackOffice: function () {
-            helper.showLoading();
+            /*helper.showLoading();*/
 
             $.post(base_url + "Bitacoras/c_getEngineersByAreaAndRol", {
                 rol: 'ingeniero',
@@ -86,7 +86,7 @@ $(function () {
                             $('#engineer').append('<option value="' + val.id_users + '">' + val.ingeniero + '</option>');
                         });
 
-                        helper.hideLoading();
+                        /*helper.hideLoading();*/
                     }
             );
 

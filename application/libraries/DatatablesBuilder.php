@@ -67,6 +67,7 @@ class DatatablesBuilder
         $this->table = $table;
         return $this->_db;
     }
+    
 
     public function style($data)
     {
@@ -229,10 +230,12 @@ class DatatablesBuilder
 		}
 
 		if($search != "") {
+            $createFilter = "";
 			for($i=0; $i< count($this->searchable);$i++){
-				if($i==0) $this->_db->like($this->searchable[$i], $search);
-				else $this->_db->or_like($this->searchable[$i], $search);
-			}
+                if ($i == count($this->searchable) - 1)  $createFilter .= $this->searchable[$i] . " LIKE " . "'%".  $search . "%'"; 
+                else $createFilter .=  $this->searchable[$i] . " LIKE " . "'%".  $search . "%' OR ";
+            }
+            $this->_db->where("(".$createFilter.")");
 		}
 
         /** ---------------------------------------------------------------------- */

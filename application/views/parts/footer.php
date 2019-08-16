@@ -155,8 +155,9 @@ immediately after the control sidebar -->
 <!-- **********************************************END BITACORAS CCIHFC********************************************** -->
 
 <!-- **********************************************BITACORAS FRONTOFFICE********************************************** -->
-<?php if ($this->uri->segment(2) === "frontEndBookLogs" || $this->uri->segment(2) === "export"): ?>
-    <script type="text/javascript" src="<?= base_url('assets/js/modules/frontEndBookLog.js'); ?>"></script>
+
+<?php if ($this->uri->segment(2) === "frontEndBookLogs" ||$this->uri->segment(2) === "export" ): ?>
+    <script type="text/javascript" src="<?= base_url('assets/js/modules/frontEndBookLog.js?v=' . validarEnProduccion()); ?>"></script>
 <?php endif ?>
 <!-- **********************************************END BITACORAS FRONTOFFICE********************************************** -->
 
@@ -194,9 +195,9 @@ immediately after the control sidebar -->
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
     <script type="text/javascript" src="<?= base_url('assets/js/modules/reporte_sla_customer.js?v=' . validarEnProduccion()); ?>"></script>
 <?php endif ?>
-<?php if ($this->uri->segment(2) === "volumetria_fija"): ?>
-    <script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria_fija.js?v=' . validarEnProduccion()); ?>"></script>
-<?php endif ?>
+    <?php if ($this->uri->segment(2) === "volumetria_fija"): ?>
+        <script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria_fija.js?v=' . validarEnProduccion()); ?>"></script>
+    <?php endif ?>
 
 <?php if ($this->uri->segment(2) == 'crear_usuarios'): ?>
     <script src="<?= base_url("assets/js/modules/crear_usuarios.js?v=" . validarEnProduccion()) ?>"></script>
@@ -211,8 +212,12 @@ immediately after the control sidebar -->
     <script src="<?= base_url("assets/js/modules/generar_reportes.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
 
+<?php if ($this->uri->segment(2) === "volumetria_mesa_calidad"): ?>
+    <script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria_mesa_calidad.js?v=' . validarEnProduccion()); ?>"></script>
+<?php endif ?>
+
 <script type="text/javascript">
-// para ponerle active al li seleccionado
+    // para ponerle active al li seleccionado
     if ('<?= $sub_bar ?>') {
         $('#<?= $active ?>').parents('li').addClass('active');
     }
@@ -222,6 +227,7 @@ immediately after the control sidebar -->
 <?php if ($this->uri->segment(1) == 'Malla'): ?>
     <script src="<?= base_url("assets/js/modules/loadExcel/loadMalla.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
+
 
 </body>
 </html>
