@@ -1,6 +1,58 @@
 
-$('#consult').on('click', function() {
-    
+$('#consult').on('click', function(e) {
+    var checks=$("#areas input[type='checkbox']:checked").length;
+    var descripcion="";
+    conseguirarea(e);
+    function conseguirarea(e){
+        if (checks==0) {
+            Swal.fire({
+                type: 'error',
+                title: 'Error',
+                text: 'No se seleciono ningun area',
+                })
+            setTimeout("location.reload(true);", e);
+        }
+        else{
+
+            var areas=$("#areas input[type='checkbox']:checked");
+            for (i=0; i < areas.length; i++) {
+                console.log(areas[i].name);
+                switch (areas[i].name) {
+                    case 'plataforma':
+                        descripcion += "DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
+                    break; 
+                    case 'intermitencia':
+                        descripcion += "DESCRIPTION LIKE '%FI:%'";
+                    break; 
+                    case 'foservicio':
+                        descripcion += "DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%'";
+                    break; 
+                    case 'foenergia':
+                        descripcion += "DESCRIPTION LIKE '%FEE:%'";
+                    break;
+                    case 'todas':
+                        descripcion += "DESCRIPTION LIKE '%FEE:%' OR DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%' OR DESCRIPTION LIKE '%FI:%' OR DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
+                        break;
+                    default:
+                        break;
+                }
+                 if(i != areas.length - 1) {
+                    descripcion += " OR ";
+                };
+            }
+            // console.log(sql23);
+            // if (foservicio.is(':checked')) {
+            //     console.log('foservicio');
+            //     var filtrado="'%FAOC:%' OR `DESCRIPTION` LIKE '%FAOB:%'";
+
+            // }
+            // else{
+            //     if (intermitencia.is(':checked')) {
+            //         console.log('intermitencia');
+            //     }
+            // }
+        }
+    }
     $('#tiempo_det').addClass('active').attr('style', 'display:block');
     $('#tiempo_det2').addClass('active').attr('style', 'display:block');
     $('#tiempo_det3').addClass('active').attr('style', 'display:block');
@@ -67,8 +119,10 @@ $('#consult').on('click', function() {
 
         $.post(base_url + "Front_Office_Movil/KPI/getdetinfo", {
                     inicio: fechaInicio,
-                    final: fechaFinal
+                    final: fechaFinal,
+                    peticion: descripcion,
                   }).done(function(data){
+                    console.log(descripcion);
                     var category = [];
                     var pasaronP1 = [];
                     var averageP1 = [];
@@ -146,8 +200,12 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
+var peticion= this.descripcion;
+peticion=descripcion.replace(/ /g,'_');
+peticion=peticion.replace(/'/g,"-");
+peticion=peticion.replace(/%/g,"=");
 
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1';
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1' + '/' + peticion;
 var element = document.getElementById('insert-content');
 cargar(url, element);
 function cargar(url, element)
@@ -298,8 +356,12 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
+var peticion= this.descripcion;
+peticion=descripcion.replace(/ /g,'_');
+peticion=peticion.replace(/'/g,"-");
+peticion=peticion.replace(/%/g,"=");
 
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1';
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1' + '/' + peticion;
 var element = document.getElementById('insert-content');
 cargar(url, element);
 function cargar(url, element)
@@ -450,8 +512,11 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
-
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1';
+var peticion= this.descripcion;
+peticion=descripcion.replace(/ /g,'_');
+peticion=peticion.replace(/'/g,"-");
+peticion=peticion.replace(/%/g,"=");
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1' + '/' + peticion;
 var element = document.getElementById('insert-content');
 cargar(url, element);
 function cargar(url, element)
