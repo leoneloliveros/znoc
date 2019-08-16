@@ -156,8 +156,8 @@ class KPI extends CI_Controller {
         $diaini = date("Y-m-d", strtotime($inicial));
         $final= str_replace('/', '-', $this->input->post('final'));
         $diafin= date("Y-m-d", strtotime($final));
-        $peticion=$this->input->post('condicional');
-        $data = $this->Dao_reportes_model->getTETD($diaini,$diafin,$peticion);
+        $condicional=$this->input->post('condicional');
+        $data = $this->Dao_reportes_model->getTETD($diaini,$diafin,$condicional);
         echo json_encode($data);
     }
 
