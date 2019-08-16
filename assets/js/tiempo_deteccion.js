@@ -361,7 +361,7 @@ peticion=descripcion.replace(/ /g,'_');
 peticion=peticion.replace(/'/g,"-");
 peticion=peticion.replace(/%/g,"=");
 
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1' + '/' + peticion;
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/2' + '/' + peticion;
 var element = document.getElementById('insert-content');
 cargar(url, element);
 function cargar(url, element)
@@ -516,7 +516,7 @@ var peticion= this.descripcion;
 peticion=descripcion.replace(/ /g,'_');
 peticion=peticion.replace(/'/g,"-");
 peticion=peticion.replace(/%/g,"=");
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1' + '/' + peticion;
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/3' + '/' + peticion;
 var element = document.getElementById('insert-content');
 cargar(url, element);
 function cargar(url, element)
