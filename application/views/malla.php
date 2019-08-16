@@ -1,3 +1,10 @@
+<div class="main-title">
+Malla
+</div>
+
+<div class="card-style">
+<div class="general frame">
+
 <style media="screen">
 
 table{
@@ -124,3 +131,8 @@ table{
   const role_in_session = '<?php echo $this->session->userdata('role'); ?>';
 </script>
 <script src='<?= base_url('assets/js/modules/malla.js'); ?>'></script>
+
+
+
+</div>
+</div>
