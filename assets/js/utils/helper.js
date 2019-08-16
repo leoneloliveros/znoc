@@ -1,7 +1,9 @@
+
 $(function() {
     helper = {
         init: function() {
             helper.events();
+            helper.hideLoading();
         },
 
         //Eventos de la ventana.
@@ -201,33 +203,29 @@ $(function() {
         // si se le pasa la clase, aplicalá los estilos al determinado selectdor
         // si se el e
         hideLoading: function(segundos = '.8') {
-            if (segundos[ 0 ] == '.') {
-                var miliseg = segundos.split('.')[ 1 ] + '00';
-            } else {
-                var miliseg = segundos * 1000;
-            }
-            $(".loadingInfo").css({'animation': segundos + 's ocultar ease', 'border-top-left-radius': '5px', 'border-top': '1px solid black'});
-            $(".loadingInfo span").css('border-top-left-radius', '5px');
-            setTimeout(() => {
-                $(".loadingInfo").remove();
-            }, miliseg);
+          $('#loader').hide();
+          $('.spinner-loader').hide();
         },
 
         // muestra el mensaje de cargando
         // el mensaje que se mostrará en la ventana emergente
+
+
         showLoading: function(msj = 'Cargando...') {
-            if (!$('.loadingInfo').length) {
-                $('body').append(`
-            <div class="loadingInfo">
-                <!-- MODAL DE ALERTA DE CARGA, SE ACCEDE A EL USANDO  EL $(".loadingInfo").show(); -->
-                <!-- PARA CERRARLO, USAR helper.hideLoading() -->
-                <span></span>
-                <i class="fab fa-gg-circle fa-fw fa-spin" aria-hidden="true"></i>
-            </div>`);
-                $(".loadingInfo span").html(msj)
-            } else {
-                alert("se está intentando abrir más de una ventana emergente de animación de carga");
-        }
+        //     if (!$('.loadingInfo').length) {
+        //         $('body').append(`
+        //     <div class="loadingInfo">
+        //         <!-- MODAL DE ALERTA DE CARGA, SE ACCEDE A EL USANDO  EL $(".loadingInfo").show(); -->
+        //         <!-- PARA CERRARLO, USAR helper.hideLoading() -->
+        //         <span></span>
+        //         <i class="fab fa-gg-circle fa-fw fa-spin" aria-hidden="true"></i>
+        //     </div>`);
+        //         $(".loadingInfo span").html(msj)
+        //     } else {
+        //         alert("se está intentando abrir más de una ventana emergente de animación de carga");
+        // }
+        $('#loader').show();
+        $('.spinner-loader').show();
         },
 
         // nos dirá cuantos días tiene un mes

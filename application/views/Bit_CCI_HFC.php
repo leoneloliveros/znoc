@@ -194,6 +194,5 @@
         </div>
 
 </div>
-
+</div>
 <script src="<?= base_url("assets/plugins/sweetalert2/sweetalert2.all.js") ?>"></script>
-<script src="<?= base_url("assets/js/backoffice.js?v" . validarEnProduccion())?>"></script>

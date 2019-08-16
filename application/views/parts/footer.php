@@ -1,11 +1,9 @@
-
-
 <div id="loader">
 <div  class='wrap1'>
   <div class='loader' id='lrd1'></div>
 </div>
 </div>
-</section>
+
 <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
@@ -130,6 +128,11 @@ immediately after the control sidebar -->
     <script src="<?= base_url("assets/js/modules/perfil_usuario.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
 
+<!-- **********************************************Crear Usuario********************************************** -->
+<?php if ($this->uri->segment(1) == 'User' && $this->uri->segment(2) == 'crear_usuarios'): ?>
+    <script src="<?= base_url('assets/js/inputAnimations.js'); ?>"></script>
+<?php endif ?>
+<!-- **********************************************Fin Crear Usuario********************************************** -->
 
 
 <!-- **********************************************datatables plus (excel ... ) *********************************************-->
@@ -150,14 +153,16 @@ immediately after the control sidebar -->
 <?php endif ?>
 
 <!-- **********************************************BITACORAS CCIHFC********************************************** -->
-<?php if ($this->uri->segment(2) == 'ccihfc') : ?>
+<?php if ($this->uri->segment(2) == 'ccihfc' ||$this->uri->segment(2) === "exportCciHfc") : ?>
     <script src="<?= base_url("assets/plugins/jquery.mask.js") ?>" type="text/javascript"></script>
     <script src="<?= base_url("assets/js/modules/bitacoras.js?v=" . validarEnProduccion()) ?>"></script>
+  <script src="<?= base_url('assets/js/inputAnimations.js'); ?>"></script>
 <?php endif ?>
 <!-- **********************************************END BITACORAS CCIHFC********************************************** -->
 
 <!-- **********************************************BITACORAS FRONTOFFICE********************************************** -->
 <?php if ($this->uri->segment(2) === "frontEndBookLogs" ||$this->uri->segment(2) === "export" ): ?>
+    <script src="<?= base_url('assets/js/inputAnimations.js'); ?>"></script>
     <script type="text/javascript" src="<?= base_url('assets/js/modules/frontEndBookLog.js?v=' . validarEnProduccion()); ?>"></script>
 <?php endif ?>
 <!-- **********************************************END BITACORAS FRONTOFFICE********************************************** -->

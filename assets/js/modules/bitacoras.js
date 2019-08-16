@@ -2,7 +2,9 @@ $(function () {
     ccihfc = {
         init: function () {
             ccihfc.events();
-            ccihfc.loadEngineersBackOffice();
+            $('#loader').hide();
+            $('.spinner-loader').hide();
+
         },
 
         events: function () {

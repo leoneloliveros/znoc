@@ -1,10 +1,10 @@
-<style>
+
 /* remake_styles 3 */
 
 
   .spinner-loader {
-    position: fixed;
     display: none;
+    position: fixed;
     min-height: 100vh;
     height: 100%;
     z-index: 100;
@@ -31,8 +31,8 @@
 
 .loader{
 
-    transition: all 0.7s ease-in-out;
- display: none;
+transition: all 0.7s ease-in-out;
+
   border:10px solid #ebebeb;
   border-bottom-color:#26B8BF;
   width:75%;
@@ -271,12 +271,17 @@
 
       justify-content: center;
       }
+     .alert-center {
+       margin-top: -50px;
+     }
 
       .w-60 {
         width: 60%;
       }
       .form-group {
     position:relative;
+
+
 
 
   }
@@ -769,4 +774,8 @@ top: -30px;
 .btnx1:active{
   background: #160202;
 }
-</style>
+
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+  background: white;
+}

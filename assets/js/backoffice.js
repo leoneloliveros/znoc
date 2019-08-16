@@ -42,7 +42,7 @@ $(document).ready(function() {
                     $(this).addClass('filled');
                 }
             });
-            
+
             $('textarea').focus(function(){
                 $(this).parents('.form-group').addClass('focused');
             });

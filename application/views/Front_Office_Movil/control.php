@@ -12,6 +12,7 @@
 <div style="display:flex; justify-content: center;">
     <div class="card-style w-60">
         <div class="general">
+
             <div class="switch-container col-md-12 position-relative form-group">
                 <label class="switch">
                 <input type="checkbox" class="form-check-input">
@@ -20,8 +21,8 @@
                 <span class="checkbox-initial">
                     Solo Fecha de Inicio
                 </span>
-
             </div>
+
             <div>
                 <div class="col-md-6 col-body">
                     <div class="form-group">
@@ -132,8 +133,8 @@ $('#consult').on('click', function() {
             element.innerHTML = req.responseText;
             createDatatable(url);
 
-            $('#loader').hide();
-            $('.spinner-loader').hide();
+            // $('#loader').hide();
+            // $('.spinner-loader').hide();
         }
 
 
@@ -726,6 +727,5 @@ $('#export-excel-modal').on('click', function() {
 
 
     });
-
 </script>
 <script src="<?= base_url("assets/js/backoffice.js?v" . validarEnProduccion())?>"></script>
