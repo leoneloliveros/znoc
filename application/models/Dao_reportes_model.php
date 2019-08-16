@@ -805,6 +805,30 @@ class Dao_reportes_model extends CI_Model {
             return false;
         }
     }
+    
+    //Retorna el listado de las consultas que se han generado por la plataforma
+    public function getReportsDB() {
+        $query = $this->db->query("
+            SELECT id_reportes,
+                nombre_reporte,
+                query_reporte,
+                columnas_reporte,
+                creador_reporte
+            FROM reportes_generados
+        ");
+        return $query->result();
+    }
+    
+    public function getGetQueryReport($id) {
+        $query = $this->db->query("
+            SELECT REGEXP_REPLACE(query_reporte, '[0-9]{4}-[0-1][0-9]-[0-3][0-9]', 'fecha') AS query_reporte,
+                columnas_reporte,
+                nombre_reporte
+            FROM reportes_generados
+            WHERE id_reportes = $id
+        ");
+        return $query->result();
+    }
 
 }
 
