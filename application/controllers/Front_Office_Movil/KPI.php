@@ -136,7 +136,8 @@ class KPI extends CI_Controller {
         $final = str_replace('/', '-', $this->input->post('final') );
         $fhasta = date("Y-m-d", strtotime($final));
 
-        $data = $this->Dao_reportes_model->getGraphInfo($fdesde,$fhasta);
+        $condicion = $this->input->post('condicion');
+        $data = $this->Dao_reportes_model->getGraphInfo($fdesde,$fhasta,$condicion);
     echo json_encode($data);
     }
 
@@ -145,7 +146,8 @@ class KPI extends CI_Controller {
         $diaini = date("Y-m-d", strtotime($inicio));
         $final= str_replace('/', '-', $this->input->post('final'));
         $diafin= date("Y-m-d", strtotime($final));
-        $data = $this->Dao_reportes_model->getgraphdeteccion($diaini,$diafin);
+        $peticion=$this->input->post('peticion');
+        $data = $this->Dao_reportes_model->getgraphdeteccion($diaini,$diafin,$peticion);
         echo json_encode($data);
     }
 
@@ -154,18 +156,21 @@ class KPI extends CI_Controller {
         $diaini = date("Y-m-d", strtotime($inicial));
         $final= str_replace('/', '-', $this->input->post('final'));
         $diafin= date("Y-m-d", strtotime($final));
-        $data = $this->Dao_reportes_model->getTETD($diaini,$diafin);
+        $peticion=$this->input->post('condicional');
+        $data = $this->Dao_reportes_model->getTETD($diaini,$diafin,$peticion);
         echo json_encode($data);
     }
 
 
-    public function loadModal($fecha, $prioridad) {
-
+    public function loadModal($fecha, $prioridad, $condicion) {
+        $condicion=str_replace('_', ' ', $condicion);
+        $condicion=str_replace('-', "'", $condicion);
+        $condicion2=str_replace('=', '%', $condicion);
         $this->load->library('Datatables');
         $modal_table = $this->datatables->init();
         $modal_table  ->select("TICKETID,  TIPO_TKT,  CREATIONDATE,  STATUS,  INTERNALPRIORITY,  CREATEDBY,  OWNERGROUP,  INCEXCLUIR,  INCMEXCLUSION,  PROVEEDORES,  DESCRIPTION,  RUTA_TKT,  REGIONAL,  TIEMPO_VIDA_TKT,  TIEMPO_RESOLUCION_TKT,  TIEMPO_DETECCION, TIEMPO_ESCALA,  TIEMPO_FALLA,  TIEMPO_OT_ALM")
                     ->from('maximo.INCIDENT') 
-                    ->where('(DESCRIPTION LIKE "%FAOC:%" OR DESCRIPTION LIKE "%FAOB:%" OR DESCRIPTION LIKE "%FEE:%"  OR DESCRIPTION LIKE "%FI:%" OR DESCRIPTION LIKE "%FAPP:%" OR DESCRIPTION LIKE "%FOIP:%")')
+                    ->where("(" . $condicion2 . ")")
                     ->where("OWNERGROUP NOT LIKE '%FO_SDH%'")
                     ->where('DESCRIPTION NOT LIKE "%DEPU%" ')
                     ->where('DESCRIPTION NOT LIKE "%FHG%" ')

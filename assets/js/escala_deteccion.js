@@ -1,5 +1,48 @@
 
-$('#consult').on('click', function() {
+$('#consult').on('click', function(e) {
+    var checks=$("#areas input[type='checkbox']:checked").length;
+    var sql23= "";
+    conseguirarea(e);
+    function conseguirarea(e){
+        if (checks==0) {
+            Swal.fire({
+                type: 'error',
+                title: 'Error',
+                text: 'No se seleciono ningun area',
+                })
+            setTimeout("location.reload(true);", e);
+        }
+        else{
+
+            var areas=$("#areas input[type='checkbox']:checked");
+            for (i=0; i < areas.length; i++) {
+                console.log(areas[i].name);
+                switch (areas[i].name) {
+                    case 'plataforma':
+                        sql23 += "DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
+                    break; 
+                    case 'intermitencia':
+                        sql23 += "DESCRIPTION LIKE '%FI:%'";
+                    break; 
+                    case 'foservicio':
+                        sql23 += "DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%'";
+                    break; 
+                    case 'foenergia':
+                        sql23 += "DESCRIPTION LIKE '%FEE:%'";
+                    break;
+                    case 'todas':
+                        sql23 += "DESCRIPTION LIKE '%FEE:%' OR DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%' OR DESCRIPTION LIKE '%FI:%' OR DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
+                        break;
+                    default:
+                        break;
+                }
+                 if(i != areas.length - 1) {
+                    descripcion += " OR ";
+                };
+            }
+
+        }
+    }
     $('#tetd1').addClass('active').attr('style', 'display:block');
     $('#tetd2').addClass('active').attr('style', 'display:block');
     $('#tetd3').addClass('active').attr('style', 'display:block');
@@ -59,7 +102,8 @@ $('#consult').on('click', function() {
         }
         $.post(base_url + "Front_Office_Movil/KPI/getetdinfo", {
                     inicial: fechaInicio,
-                    final: fechaFinal
+                    final: fechaFinal,
+                    condicional:sql23,
                   }).done(function(data){
                     var category = [];
                     var pasaronP1 = [];
@@ -139,8 +183,13 @@ $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
 
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1';
+var condicional=sql23;
+condicional=condicional.replace(/ /g,'_');
+condicional=condicional.replace(/'/g,"-");
+condicional=condicional.replace(/%/g,"=");
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1' + '/' + condicional;
 var element = document.getElementById('insert-content');
+
 cargar(url, element);
 function cargar(url, element)
 {
@@ -290,8 +339,12 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
+var condicional=sql23;
+condicional=sql23.replace(/ /g,'_');
+condicional=condicional.replace(/'/g,"-");
+condicional=condicional.replace(/%/g,"=");
 
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1';
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/2' + '/' + condicional;
 var element = document.getElementById('insert-content');
 cargar(url, element);
 function cargar(url, element)
@@ -442,8 +495,12 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
+var condicional=sql23;
+condicional=sql23.replace(/ /g,'_');
+condicional=condicional.replace(/'/g,"-");
+condicional=condicional.replace(/%/g,"=");
 
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1';
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/3' + '/' + condicional;
 var element = document.getElementById('insert-content');
 cargar(url, element);
 function cargar(url, element)

@@ -41,6 +41,15 @@
                     <input id="fechaFinal" class="form-input required-field" type="text" />
                     </div>
                 </div>
+                <div class="col-md-6 col-body">
+                    <div class="form-group" style="display: inline-flex;" id="areas">
+                        <input type="checkbox" name="foenergia" class="form-check-input" id="foenergia">FOENERGIA
+                        <input type="checkbox" name="foservicio" id="foservicio">FOSERVICIO
+                        <input type="checkbox" name="intermitencia" id="intermitencia">INTERMITENCIA
+                        <input type="checkbox" name="plataforma" id="plataforma">PLATAFORMA
+                        <input type="checkbox" name="todas" id="todas">TODAS
+                    </div>
+                </div>
             </div>
             <div class="col-md-12 col-body">
                 <div class="wrap" style="margin: auto;">
@@ -358,8 +367,69 @@ function test() {
 $(function(){
 setInterval(test, 1000);
 });
+          
 
-$('#consult').on('click', function() {
+$('#consult').on('click', function(e) {
+    var foservicio=$("#areas input[type='checkbox'][id='foservicio']:checked");
+    /*var foenergia=$("#areas input[type='checkbox'][id='foenergia']:checked");*/
+    var intermitencia=$("#areas input[type='checkbox'][id='intermitencia']:checked");
+    /*var plataforma=$("#areas input[type='checkbox'][id='intermitencia']:checked");
+    var todas=$("#areas input[type='checkbox'][id='todas']:checked");*/
+    var checks=$("#areas input[type='checkbox']:checked").length;
+    var sql23 = "";
+    /*var checkarray=[];*/
+    getarea(e);
+    function getarea(e){
+        if (checks==0) {
+            Swal.fire({
+                type: 'error',
+                title: 'Error',
+                text: 'No se seleciono ningun area',
+                })
+            setTimeout("location.reload(true);", e);
+        }
+        else{
+
+            var areas=$("#areas input[type='checkbox']:checked")
+            for (i=0; i < areas.length; i++) {
+                console.log(areas[i].name);
+                switch (areas[i].name) {
+                    case 'plataforma':
+                        sql23 += "DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
+                    break; 
+                    case 'intermitencia':
+                        sql23 += "DESCRIPTION LIKE '%FI:%'";
+                    break; 
+                    case 'foservicio':
+                        sql23 += "DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%'";
+                    break; 
+                    case 'foenergia':
+                        sql23 += "DESCRIPTION LIKE '%FEE:%'";
+                    break;
+                    case 'todas':
+                        sql23 += "DESCRIPTION LIKE '%FEE:%' OR DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%' OR DESCRIPTION LIKE '%FI:%' OR DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
+                        break;
+                    default:
+                        break;
+                }
+                 if(i != areas.length - 1) {
+                    sql23 += " OR ";
+                };
+            }
+            // console.log(sql23);
+            // if (foservicio.is(':checked')) {
+            //     console.log('foservicio');
+            //     var filtrado="'%FAOC:%' OR `DESCRIPTION` LIKE '%FAOB:%'";
+
+            // }
+            // else{
+            //     if (intermitencia.is(':checked')) {
+            //         console.log('intermitencia');
+            //     }
+            // }
+        }
+    }
+    /*checkarray.push(checks);*/
     
     $('#prioridad1').addClass('active');
     $('#prioridad2').addClass('active');
@@ -423,11 +493,11 @@ $('#consult').on('click', function() {
                 }
             });
         }
-
-
+console.log('aqui', sql23);
         $.post(base_url + "Front_Office_Movil/KPI/getGraphInfo", {
                     inicio: fechaInicio,
-                    final: fechaFinal
+                    final: fechaFinal,
+                    condicion: sql23,
                   }).done(function(data){
                     var category = [];
                     var pasaronP1 = [];
@@ -506,8 +576,12 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
+var condicion = this.sql23;
+condicion=sql23.replace(/ /g,'_');
+condicion=condicion.replace(/'/g,"-");
+condicion=condicion.replace(/%/g,"=");
 
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1';
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha + '/1' + '/' + condicion;
 var element = document.getElementById('insert-content');
 load(url, element);
 function load(url, element)
@@ -663,9 +737,23 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
-
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/2';
+var condicion = this.sql23;
+condicion=sql23.replace(/ /g,'_');
+condicion=condicion.replace(/'/g,"-");
+condicion=condicion.replace(/%/g,"=");
+console.log(condicion);
+console.log(condicion);
+console.log(fecha);
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha + '/2' + '/' + condicion;
 var element = document.getElementById('insert-content');
+/*$.post(base_url + 'Front_Office_Movil/KPI/loadModal',{
+    fecha:fecha,
+    condicion:sql23,
+
+}).done(function(data){
+    console.log(fecha);
+    createDatatable(data);
+});*/
 load(url, element);
 function load(url, element)
 {
@@ -824,8 +912,11 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
-
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/3';
+var condicion = this.sql23;
+condicion=sql23.replace(/ /g,'_');
+condicion=condicion.replace(/'/g,"-");
+condicion=condicion.replace(/%/g,"=");
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/3' + '/' + condicion;
 var element = document.getElementById('insert-content');
 load(url, element);
 function load(url, element)
