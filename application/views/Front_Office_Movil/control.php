@@ -1,5 +1,10 @@
 
 <link rel="stylesheet" href="<?= base_url("assets/css/bitacoras_new-style.css") ?>">
+<style type="text/css">
+    .loader{
+        display: none;
+    }
+</style>
 <div class="main-title" style="width: 60%;">
     <span>
     Control KPI
@@ -36,6 +41,15 @@
                     <input id="fechaFinal" class="form-input required-field" type="text" />
                     </div>
                 </div>
+                <div class="col-md-6 col-body">
+                    <div class="form-group" style="display: inline-flex;" id="areas">
+                        <input type="checkbox" name="foenergia" class="form-check-input" id="foenergia">FOENERGIA
+                        <input type="checkbox" name="foservicio" id="foservicio">FOSERVICIO
+                        <input type="checkbox" name="intermitencia" id="intermitencia">INTERMITENCIA
+                        <input type="checkbox" name="plataforma" id="plataforma">PLATAFORMA
+                        <input type="checkbox" name="todas" id="todas">TODAS
+                    </div>
+                </div>
             </div>
             <div class="col-md-12 col-body">
                 <div class="wrap" style="margin: auto;">
@@ -51,17 +65,26 @@
     
 
 </div>
+<button id="graficos_pri" class="btn btn-warning" style="display: none;">Tiempos de Escalamiento</button>
+<button id="graficos_deteccion" class="btn btn-danger" style="display: none;">Tiempos de Deteccion</button>
+<button id="graficos_esc_dt" class="btn btn-success" style="display: none;">Tiempo de Escalamiento + Tiempo de Deteccion</button>
+<div id="grahp_prio" style="display: none;">
 <div class="" style="display: flex; width: 100%; align-items: center; margin-top: 50px; flex-wrap: wrap;">
         <div class="col-md-12" id="prioridad1" style=" margin-bottom: 30px; width: 70%;"></div>
         <div class="col-md-12" id="prioridad2" style=" margin-bottom: 30px; width: 70%"></div>
         <div class="col-md-12" id="prioridad3" style=" margin-bottom: 30px; width:70%"></div>
     </div>
+</div>
     <div id="container_graphic" style="background: #26D8B2; display: none;">
         <div class="col-md-12" id="tiempo_det" style=" margin-bottom: 30px; width: 70%;"></div>
         <div class="col-md-12" id="tiempo_det2" style=" margin-bottom: 30px; width: 70%;"></div>
         <div class="col-md-12" id="tiempo_det3" style=" margin-bottom: 30px; width: 70%;"></div>
     </div>
-    <button id="graficos_deteccion" style="display: none;">Tiempos de deteccion</button>
+    <div id="container_grahp_tetd" style="background: #26D8B2; display: none;">
+        <div class="col-md-12" id="tetd1" style="margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-12" id="tetd2" style="margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-12" id="tetd3" style="margin-bottom: 30px; width: 70%;"></div>
+    </div>
     <div class="col-md-12" id="container-graph4" style=" margin-bottom: 30px; width:50%"></div>
     <div class="col-md-12" id="container-result" style="display: flex;"></div>
 </div>
@@ -102,6 +125,27 @@
 </div>
 <!-- <div id="container-graph" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div> -->
 <style>
+    #graficos_pri{
+        margin-left: 269px;
+        margin-top: 34px;
+        border-radius: 6px;
+    }
+    #graficos_esc_dt{
+        margin-left: 488px;
+        margin-top: -34px;
+        border-radius: 6px
+    }
+    #graficos_deteccion{
+        margin-left: 836px;
+        margin-top: -35px;
+        border-radius: 6px;
+    }
+    #fechaInicio{
+        height: 77px;
+    }
+    #fechaFinal{
+        height: 77px;
+    }
     #container-result {
         /* display: none; */
         /* min-height: 500px; */
@@ -142,7 +186,7 @@
         display: none;
         }
 
-        #prioridad1.active, #prioridad2.active, #prioridad3.active, #tiempo_det.active, #tiempo_det2.active, #tiempo_det3.active {
+        #prioridad1.active, #prioridad2.active, #prioridad3.active, #tiempo_det.active, #tiempo_det2.active, #tiempo_det3.active, #tetd1.active, #tetd2.active, #tetd3.active {
             margin-bottom: 30px;
     width: 70%;
     overflow: hidden;
@@ -295,7 +339,8 @@
 <script type="text/javascript" src="<?= base_url('assets/plugins/hightchart/code/highcharts.js');?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/plugins/moments/moment.min.js');?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/js/tiempo_deteccion.js');?>"></script>
-<script type="text/javascript" src="<?=base_url('assets/js/modules/bitacoras.js');?>"></script>
+<script type="text/javascript" src="<?=base_url('assets/js/escala_deteccion.js');?>"></script>
+<!-- <script type="text/javascript" src="<?=base_url('assets/js/modules/bitacoras.js');?>"></script> -->
 <script>
      $('#loader').hide();
     $('.spinner-loader').hide();
@@ -322,15 +367,77 @@ function test() {
 $(function(){
 setInterval(test, 1000);
 });
+          
 
-$('#consult').on('click', function() {
+$('#consult').on('click', function(e) {
+    var foservicio=$("#areas input[type='checkbox'][id='foservicio']:checked");
+    /*var foenergia=$("#areas input[type='checkbox'][id='foenergia']:checked");*/
+    var intermitencia=$("#areas input[type='checkbox'][id='intermitencia']:checked");
+    /*var plataforma=$("#areas input[type='checkbox'][id='intermitencia']:checked");
+    var todas=$("#areas input[type='checkbox'][id='todas']:checked");*/
+    var checks=$("#areas input[type='checkbox']:checked").length;
+    var sql23 = "";
+    /*var checkarray=[];*/
+    getarea(e);
+    function getarea(e){
+        if (checks==0) {
+            Swal.fire({
+                type: 'error',
+                title: 'Error',
+                text: 'No se seleciono ningun area',
+                })
+            setTimeout("location.reload(true);", e);
+        }
+        else{
+
+            var areas=$("#areas input[type='checkbox']:checked")
+            for (i=0; i < areas.length; i++) {
+                console.log(areas[i].name);
+                switch (areas[i].name) {
+                    case 'plataforma':
+                        sql23 += "DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
+                    break; 
+                    case 'intermitencia':
+                        sql23 += "DESCRIPTION LIKE '%FI:%'";
+                    break; 
+                    case 'foservicio':
+                        sql23 += "DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%'";
+                    break; 
+                    case 'foenergia':
+                        sql23 += "DESCRIPTION LIKE '%FEE:%'";
+                    break;
+                    case 'todas':
+                        sql23 += "DESCRIPTION LIKE '%FEE:%' OR DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%' OR DESCRIPTION LIKE '%FI:%' OR DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
+                        break;
+                    default:
+                        break;
+                }
+                 if(i != areas.length - 1) {
+                    sql23 += " OR ";
+                };
+            }
+            // console.log(sql23);
+            // if (foservicio.is(':checked')) {
+            //     console.log('foservicio');
+            //     var filtrado="'%FAOC:%' OR `DESCRIPTION` LIKE '%FAOB:%'";
+
+            // }
+            // else{
+            //     if (intermitencia.is(':checked')) {
+            //         console.log('intermitencia');
+            //     }
+            // }
+        }
+    }
+    /*checkarray.push(checks);*/
     
     $('#prioridad1').addClass('active');
     $('#prioridad2').addClass('active');
     $('#prioridad3').addClass('active');
-    $('#tiempo_det').addClass('active');
+    $('#graficos_pri').attr('style', 'display:block')
+    /*$('#tiempo_det').addClass('active');
     $('#tiempo_det2').addClass('active');
-    $('#tiempo_det3').addClass('active');
+    $('#tiempo_det3').addClass('active');*/
     $('#loader').show();
         $('.spinner-loader').show();
         var fechaInicio = $('#fechaInicio').val();
@@ -386,11 +493,11 @@ $('#consult').on('click', function() {
                 }
             });
         }
-
-
+console.log('aqui', sql23);
         $.post(base_url + "Front_Office_Movil/KPI/getGraphInfo", {
                     inicio: fechaInicio,
-                    final: fechaFinal
+                    final: fechaFinal,
+                    condicion: sql23,
                   }).done(function(data){
                     var category = [];
                     var pasaronP1 = [];
@@ -433,7 +540,7 @@ $('#consult').on('click', function() {
                             '#ffa524'
                         ],
                         title: {
-                            text: 'Prioridad 1'
+                            text: 'TIEMPO DE ESCALAMIENTO FO MOVIL P1'
                         },
                         xAxis: {
                             categories: category
@@ -469,8 +576,12 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
+var condicion = this.sql23;
+condicion=sql23.replace(/ /g,'_');
+condicion=condicion.replace(/'/g,"-");
+condicion=condicion.replace(/%/g,"=");
 
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1';
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha + '/1' + '/' + condicion;
 var element = document.getElementById('insert-content');
 load(url, element);
 function load(url, element)
@@ -589,7 +700,7 @@ $('#export-excel-modal').on('click', function() {
                             
                     ],
                         title: {
-                            text: 'Prioridad 2'
+                            text: 'TIEMPO DE ESCALAMIENTO FO MOVIL P2'
                         },
                         xAxis: {
                             categories: category
@@ -626,11 +737,25 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
-
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/2';
+var condicion = this.sql23;
+condicion=sql23.replace(/ /g,'_');
+condicion=condicion.replace(/'/g,"-");
+condicion=condicion.replace(/%/g,"=");
+console.log(condicion);
+console.log(condicion);
+console.log(fecha);
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha + '/2' + '/' + condicion;
 var element = document.getElementById('insert-content');
+/*$.post(base_url + 'Front_Office_Movil/KPI/loadModal',{
+    fecha:fecha,
+    condicion:sql23,
+
+}).done(function(data){
+    console.log(fecha);
+    createDatatable(data);
+});*/
 load(url, element);
-function cargar(url, element)
+function load(url, element)
 {
 req = new XMLHttpRequest();
 req.open("GET", url, false);
@@ -748,7 +873,7 @@ $('#export-excel-modal').on('click', function() {
                             
                     ],
                         title: {
-                            text: 'Prioridad 3'
+                            text: 'TIEMPO DE ESCALAMIENTO FO MOVIL P3'
                         },
                         xAxis: {
                             categories: category
@@ -787,11 +912,14 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
-
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/3';
+var condicion = this.sql23;
+condicion=sql23.replace(/ /g,'_');
+condicion=condicion.replace(/'/g,"-");
+condicion=condicion.replace(/%/g,"=");
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/3' + '/' + condicion;
 var element = document.getElementById('insert-content');
 load(url, element);
-function cargar(url, element)
+function load(url, element)
 {
 req = new XMLHttpRequest();
 req.open("GET", url, false);
@@ -900,6 +1028,10 @@ $('#export-excel-modal').on('click', function() {
 
                         
                     // window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
+                });
+                
+                $('#graficos_pri').on('click', function(){
+                    $("#grahp_prio").toggle();
                 });
 
 

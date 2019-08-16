@@ -1,7 +1,7 @@
 
 $('#consult').on('click', function(e) {
     var checks=$("#areas input[type='checkbox']:checked").length;
-    var descripcion="";
+    var sql23= "";
     conseguirarea(e);
     function conseguirarea(e){
         if (checks==0) {
@@ -19,19 +19,19 @@ $('#consult').on('click', function(e) {
                 console.log(areas[i].name);
                 switch (areas[i].name) {
                     case 'plataforma':
-                        descripcion += "DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
+                        sql23 += "DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
                     break; 
                     case 'intermitencia':
-                        descripcion += "DESCRIPTION LIKE '%FI:%'";
+                        sql23 += "DESCRIPTION LIKE '%FI:%'";
                     break; 
                     case 'foservicio':
-                        descripcion += "DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%'";
+                        sql23 += "DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%'";
                     break; 
                     case 'foenergia':
-                        descripcion += "DESCRIPTION LIKE '%FEE:%'";
+                        sql23 += "DESCRIPTION LIKE '%FEE:%'";
                     break;
                     case 'todas':
-                        descripcion += "DESCRIPTION LIKE '%FEE:%' OR DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%' OR DESCRIPTION LIKE '%FI:%' OR DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
+                        sql23 += "DESCRIPTION LIKE '%FEE:%' OR DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%' OR DESCRIPTION LIKE '%FI:%' OR DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
                         break;
                     default:
                         break;
@@ -40,41 +40,24 @@ $('#consult').on('click', function(e) {
                     descripcion += " OR ";
                 };
             }
-            // console.log(sql23);
-            // if (foservicio.is(':checked')) {
-            //     console.log('foservicio');
-            //     var filtrado="'%FAOC:%' OR `DESCRIPTION` LIKE '%FAOB:%'";
 
-            // }
-            // else{
-            //     if (intermitencia.is(':checked')) {
-            //         console.log('intermitencia');
-            //     }
-            // }
         }
     }
-    $('#tiempo_det').addClass('active').attr('style', 'display:block');
-    $('#tiempo_det2').addClass('active').attr('style', 'display:block');
-    $('#tiempo_det3').addClass('active').attr('style', 'display:block');
-    /*$('#tetd1').addClass('active').attr('style', 'display:block');
+    $('#tetd1').addClass('active').attr('style', 'display:block');
     $('#tetd2').addClass('active').attr('style', 'display:block');
-    $('#tetd3').addClass('active').attr('style', 'display:block');*/
-    $('#graficos_deteccion').attr('style', 'display:block');
-    /*$('#graficos_esc_dt').attr('style', 'display:block');*/
-    /*$('#graficos').attr('style', 'display: block');*/
+    $('#tetd3').addClass('active').attr('style', 'display:block');
+    $('#graficos_esc_dt').attr('style', 'display:block');
     $('#loader').show();
         $('.spinner-loader').show();
         var fechaInicio = $('#fechaInicio').val();
         var fechaFinal = $('#fechaFinal').val();
-        var graficacont= document.getElementById('insertar-graficas');
 
         var url = base_url + 'Front_Office_Movil/KPI/cargarInfo' + '/' + moment(fechaInicio, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + moment(fechaFinal, 'DD/MM/YYYY').format('YYYY-MM-DD') ;
         var element = document.getElementById('container-result');
-        var base = base_url + 'Front_Office_Movil/KPI/getdetinfo' + '/' + moment(fechaInicio, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + moment(fechaFinal, 'DD/MM/YYYY').format('YYYY-MM-DD') ;
+        /*recibirfechas(fechaInicio,fechaFinal,url,element);*/
         /*recibirdata();*/
-        cargar(url, element);
-        
-        function cargar(url, element)
+        load(url, element);
+        function load(url, element)
         {
             req = new XMLHttpRequest();
             req.open("GET", url, false);
@@ -85,9 +68,11 @@ $('#consult').on('click', function(e) {
             $('#loader').hide();
             $('.spinner-loader').hide();
         }
-
-
         function createDatatable(link) {
+            if (erTable_FO_table) {
+                var tabla = erTable_FO_table;
+                tabla.destroy();
+            }
             erTable_FO_table = $("#FO_table").DataTable({
                 processing: true,
                 serverSide: true,
@@ -115,14 +100,11 @@ $('#consult').on('click', function(e) {
                 }
             });
         }
-
-
-        $.post(base_url + "Front_Office_Movil/KPI/getdetinfo", {
-                    inicio: fechaInicio,
+        $.post(base_url + "Front_Office_Movil/KPI/getetdinfo", {
+                    inicial: fechaInicio,
                     final: fechaFinal,
-                    peticion: descripcion,
+                    condicional:sql23,
                   }).done(function(data){
-                    console.log(descripcion);
                     var category = [];
                     var pasaronP1 = [];
                     var averageP1 = [];
@@ -154,7 +136,7 @@ $('#consult').on('click', function(e) {
                         
 
                         
-                    Highcharts.chart('tiempo_det', {
+                    Highcharts.chart('tetd1', {
                         chart: {
                             type: 'column'
                         },
@@ -164,7 +146,7 @@ $('#consult').on('click', function(e) {
                             '#ffa524'
                         ],
                         title: {
-                            text: 'TIEMPO DE DETECCION FO MOVIL P1'
+                            text: 'TIEMPO DE ESCALAMIENTO +  TIEMPO DETECCION FO MOVIL P1'
                         },
                         xAxis: {
                             categories: category
@@ -200,13 +182,14 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
-var peticion= this.descripcion;
-peticion=descripcion.replace(/ /g,'_');
-peticion=peticion.replace(/'/g,"-");
-peticion=peticion.replace(/%/g,"=");
 
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1' + '/' + peticion;
+var condicional=sql23;
+condicional=condicional.replace(/ /g,'_');
+condicional=condicional.replace(/'/g,"-");
+condicional=condicional.replace(/%/g,"=");
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1' + '/' + condicional;
 var element = document.getElementById('insert-content');
+
 cargar(url, element);
 function cargar(url, element)
 {
@@ -310,7 +293,7 @@ $('#export-excel-modal').on('click', function() {
     }
                         ],
                     });//Cierre del highchart
-    Highcharts.chart('tiempo_det2',{
+    Highcharts.chart('tetd2',{
         chart: {
                             type: 'column'
                         },
@@ -320,7 +303,7 @@ $('#export-excel-modal').on('click', function() {
                             '#ffa524'
                         ],
                         title: {
-                            text: 'TIEMPO DE DETECCION FO MOVIL P2'
+                            text: 'TIEMPO DE ESCALAMIENTO + TIEMPO DETECCION FO MOVIL P2'
                         },
                         xAxis: {
                             categories: category
@@ -356,12 +339,12 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
-var peticion= this.descripcion;
-peticion=descripcion.replace(/ /g,'_');
-peticion=peticion.replace(/'/g,"-");
-peticion=peticion.replace(/%/g,"=");
+var condicional=sql23;
+condicional=sql23.replace(/ /g,'_');
+condicional=condicional.replace(/'/g,"-");
+condicional=condicional.replace(/%/g,"=");
 
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1' + '/' + peticion;
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/2' + '/' + condicional;
 var element = document.getElementById('insert-content');
 cargar(url, element);
 function cargar(url, element)
@@ -466,7 +449,7 @@ $('#export-excel-modal').on('click', function() {
     }
                         ],
     });//Cierre del segundo highchart
-    Highcharts.chart('tiempo_det3', {
+    Highcharts.chart('tetd3', {
         chart: {
                             type: 'column'
                         },
@@ -476,7 +459,7 @@ $('#export-excel-modal').on('click', function() {
                             '#ffa524'
                         ],
                         title: {
-                            text: 'TIEMPO DE DETECCION FO MOVIL P3'
+                            text: 'TIEMPO DE ESCALAMIENTO + TIEMPO DETECCION FO MOVIL P3'
                         },
                         xAxis: {
                             categories: category
@@ -512,11 +495,12 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
-var peticion= this.descripcion;
-peticion=descripcion.replace(/ /g,'_');
-peticion=peticion.replace(/'/g,"-");
-peticion=peticion.replace(/%/g,"=");
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1' + '/' + peticion;
+var condicional=sql23;
+condicional=sql23.replace(/ /g,'_');
+condicional=condicional.replace(/'/g,"-");
+condicional=condicional.replace(/%/g,"=");
+
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/3' + '/' + condicional;
 var element = document.getElementById('insert-content');
 cargar(url, element);
 function cargar(url, element)
@@ -621,10 +605,10 @@ $('#export-excel-modal').on('click', function() {
     }
                         ],
     });//Cierre del tercer highchart
- });//Cierre de la funcion de data en el post
-$('#graficos_deteccion').on('click', function(){
-    $("#container_graphic").toggle();
-});//Cierre del boton de graficos
+ });//Cierre de data
+$('#graficos_esc_dt').on('click', function(){
+    $('#container_grahp_tetd').toggle();
+});
 });//Cierre del boton consultar
 
 
