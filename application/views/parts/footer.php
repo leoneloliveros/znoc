@@ -106,7 +106,7 @@ immediately after the control sidebar -->
 
 <script src="<?= base_url("assets/plugins/sweetalert2/sweetalert2.all.js") ?>"></script>
 <!-- ********************************************** HELPER FUNCVIONES GLOBALES *********************************************-->
-<script src="<?= base_url("assets/js/utils/helper.js?v=" . validarEnProduccion()) ?>"></script>
+<script src="<?= base_url("assets\js\utils\helper.js?v=" . validarEnProduccion()) ?>"></script>
 
 
 <!-- js para lider -->
