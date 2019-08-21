@@ -3,6 +3,7 @@ $(function () {
         init: function () {
             usuario.events();
             usuario.loadAreasToCharge();
+            helper.hideLoading();
         },
 
         events: function () {
@@ -66,7 +67,7 @@ $(function () {
         },
 
         loadAreasToCharge: function () {
-            helper.showLoading();
+          helper.showLoading();
 
             $.post(base_url + "User/c_getAreasToCharge", {
                 //parametros
@@ -78,7 +79,7 @@ $(function () {
                             $('#area').append('<option value="' + val.area + '">' + val.texto + '</option>');
                         });
 
-                        helper.hideLoading();
+
                     }
             );
 
@@ -103,7 +104,7 @@ $(function () {
                             $('#role').append('<option value="' + val.id + '">' + val.name + '</option>');
                         });
 
-//                            helper.hideLoading();
+                           helper.hideLoading();
                     }
             );
 
@@ -145,7 +146,7 @@ $(function () {
 
             helper.hideLoading();
         },
-        
+
         deleteUser: function () {
             $.post(base_url + "User/c_deleteUser", {
                 id_user: $('#id_users').val()

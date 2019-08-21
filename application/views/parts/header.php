@@ -50,7 +50,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <?php endif ?>
 
         <?php if ($this->uri->segment(1) == 'Bitacoras' || $this->uri->segment(2) == 'crear_usuarios') : ?>
-            <link rel="stylesheet" href="<?= base_url("assets/css/bitacoras.css?v=" . validarEnProduccion()) ?>">
+            <link rel="stylesheet" href="<?= base_url("assets/css/remake_styles.css?v=" . validarEnProduccion()) ?>">
         <?php endif ?>
 
         <link rel="icon" href="<?= base_url('assets/img/logo_zte.png'); ?>">
@@ -66,6 +66,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- generales del proyecto -->
         <link rel="stylesheet" href="<?= base_url('assets/css/generales.css'); ?>">
         <script src="<?= base_url("assets/js/modules/moment.min.js") ?>"></script>
+        <!--Estilos del proyecto-->
+        <link rel="stylesheet" href="<?= base_url ('assets/css/remake_styles.css');?>">
 
         <!-- Google Font -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -490,12 +492,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </li>
                                 </ul>
                             </li>
-<!--                            <li class="" id="malla">
-                              <a href="<?= base_url('Bitacoras/export') ?>">
-                                <i class="fas fa-search"></i>
-                                <span>Consultar Bitacoras</span>
-                              </a>
-                            </li>-->
+                            <!--<li class="" id="malla">
+                                    <a href="<?= base_url('Bitacoras/export') ?>">
+                                        <i class="fas fa-search"></i>
+                                        <span>Consultar Bitacoras</span>
+                                    </a>
+                                </li>-->
                             <li class="" id="malla">
                                 <a href="<?= base_url('Malla') ?>">
                                     <i class="fas fa-edit"></i>
@@ -510,6 +512,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </a>
                                 </li>
                             <?php endif ?>
+                            <li class="" id="createReport">
+                                <a href="<?= base_url('Reportes/generar_reportes') ?>">
+                                    <i class="fas fa-file-download"></i>
+                                    <span>Generar Reporte</span>
+                                </a>
+                            </li>
                             </ul>
                             <!-- /.sidebar-menu -->
                         </section>
@@ -518,7 +526,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                     <!-- Content Wrapper. Contains page content -->
                     <div class="content-wrapper"style="margin-top:7vh;">
-                    <div class="spinner-loader"></div>
+                        <div class="spinner-loader"></div>
                         <!-- Content Header (Page header) -->
                         <!-- <section class="content-header">
                             <h1>

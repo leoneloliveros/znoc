@@ -1,5 +1,6 @@
 
 $('#consult').on('click', function(e) {
+
     var checks=$("#areas input[type='checkbox']:checked").length;
     var descripcion="";
     conseguirarea(e);
@@ -20,13 +21,13 @@ $('#consult').on('click', function(e) {
                 switch (areas[i].name) {
                     case 'plataforma':
                         descripcion += "DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
-                    break; 
+                    break;
                     case 'intermitencia':
                         descripcion += "DESCRIPTION LIKE '%FI:%'";
-                    break; 
+                    break;
                     case 'foservicio':
                         descripcion += "DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%'";
-                    break; 
+                    break;
                     case 'foenergia':
                         descripcion += "DESCRIPTION LIKE '%FEE:%'";
                     break;
@@ -66,14 +67,19 @@ $('#consult').on('click', function(e) {
         $('.spinner-loader').show();
         var fechaInicio = $('#fechaInicio').val();
         var fechaFinal = $('#fechaFinal').val();
+        console.log(descripcion)
+        var condicion=descripcion;
+            condicion=descripcion.replace(/ /g,'_');
+            condicion=condicion.replace(/'/g,"-");
+            condicion=condicion.replace(/%/g,"=");
         var graficacont= document.getElementById('insertar-graficas');
 
-        var url = base_url + 'Front_Office_Movil/KPI/cargarInfo' + '/' + moment(fechaInicio, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + moment(fechaFinal, 'DD/MM/YYYY').format('YYYY-MM-DD') ;
+        var url = base_url + 'Front_Office_Movil/KPI/cargarInfo' + '/' + moment(fechaInicio, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + moment(fechaFinal, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + condicion ;
         var element = document.getElementById('container-result');
         var base = base_url + 'Front_Office_Movil/KPI/getdetinfo' + '/' + moment(fechaInicio, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + moment(fechaFinal, 'DD/MM/YYYY').format('YYYY-MM-DD') ;
         /*recibirdata();*/
         cargar(url, element);
-        
+
         function cargar(url, element)
         {
             req = new XMLHttpRequest();
@@ -151,9 +157,9 @@ $('#consult').on('click', function(e) {
                         noPasaronP3.push(obj[i].P3_TOTAL - obj[i].P3_PASARON);
                         averageP3.push((obj[i].P3_PASARON * 100) / obj[i].P3_TOTAL);
                     }
-                        
 
-                        
+
+
                     Highcharts.chart('tiempo_det', {
                         chart: {
                             type: 'column'
@@ -261,8 +267,8 @@ $('#export-excel-modal').on('click', function() {
                     $('.spinner-loader').hide();
                     window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
                 });
-                    
-                      
+
+
     });
     $('#modal_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
         $('#modal_table_filter input').attr('id', 'search-input-modal');
@@ -275,7 +281,7 @@ $('#export-excel-modal').on('click', function() {
                 $('#search-input-modal').addClass('active');
                 $('#search-icon').addClass('active');
                 active = true;
-                } 
+                }
             } else {
                 $('#FO_table_filter').removeClass('active');
                 $('#modal_table_filter').removeClass('active');
@@ -417,8 +423,8 @@ $('#export-excel-modal').on('click', function() {
                     $('.spinner-loader').hide();
                     window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
                 });
-                    
-                      
+
+
     });
     $('#modal_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
         $('#modal_table_filter input').attr('id', 'search-input-modal');
@@ -431,7 +437,7 @@ $('#export-excel-modal').on('click', function() {
                 $('#search-input-modal').addClass('active');
                 $('#search-icon').addClass('active');
                 active = true;
-                } 
+                }
             } else {
                 $('#FO_table_filter').removeClass('active');
                 $('#modal_table_filter').removeClass('active');
@@ -572,8 +578,8 @@ $('#export-excel-modal').on('click', function() {
                     $('.spinner-loader').hide();
                     window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
                 });
-                    
-                      
+
+
     });
     $('#modal_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
         $('#modal_table_filter input').attr('id', 'search-input-modal');
@@ -586,7 +592,7 @@ $('#export-excel-modal').on('click', function() {
                 $('#search-input-modal').addClass('active');
                 $('#search-icon').addClass('active');
                 active = true;
-                } 
+                }
             } else {
                 $('#FO_table_filter').removeClass('active');
                 $('#modal_table_filter').removeClass('active');
@@ -626,5 +632,3 @@ $('#graficos_deteccion').on('click', function(){
     $("#container_graphic").toggle();
 });//Cierre del boton de graficos
 });//Cierre del boton consultar
-
-

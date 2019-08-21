@@ -321,7 +321,7 @@ class User extends CI_Controller {
         $data = $this->Dao_user_model->validateCedula($cedula);
         echo json_encode($data);
     }
-    
+
     public function c_deleteUser() {
         $id_user = $this->input->post('id_user');
         $data1 = $this->Dao_user_model->deleteUser($id_user);

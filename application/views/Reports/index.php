@@ -1,6 +1,7 @@
-<link rel="stylesheet" href="<?= base_url("assets/css/bitacoras_new-style.css") ?>">
+<!-- New view styles  -->
+<link rel="stylesheet" href="<?= base_url ('assets/css/remake_styles.css');?>">
 <div class="main-title" style="width: 60%;">
-  BackOffice
+Reportes
 </div>
 
 <div style="display:flex; justify-content: center;">
@@ -49,6 +50,7 @@
                     <option value="7">Tareas FO Performance</option>
                     <option value="8">Tiempo Atención</option>
                     <option value="9">Gestión Performance</option>
+                    <option value="10">Cambio Ventanas Mantenimiento</option>
                 </select>
                 </div>
             </div>
@@ -64,7 +66,7 @@
 
         </div>
     </div>
-    
+
 
 </div>
 
@@ -73,7 +75,7 @@
 
 
 
-<!-- 
+<!--
 <div class="row datesRange">
     <div class="col-sm-3 col-sm-offset-3">
         <label for="fDesde"><b>Fecha Inicio</b></label>
@@ -84,8 +86,24 @@
         <input type="date" id="fHasta" value="<?= $f_actual ?>" class="form-control">
     </div>
     <div class="row col-sm-12" style="display: flex; justify-content: center;">
+        <!--        <div class="col-sm-6">
+                    <label for="fHasta"><b>Reporte</b></label>
+                    <select class="form-control" name="" id="selection">
+                        <option value="0">Control Tickets</option>
+                        <option value="1">Alarmas</option>
+                        <option value="2">Incidentes Fija</option>
+                         <option value="3">Tiempos NOC</option>
+                        <option value="4">Tiempos Fija</option>
+                        <option value="5">Workinfo</option>
+                        <option value="6">Alarmas Automatismo</option>
+                        <option value="7">Tareas FO Performance</option>
+                        <option value="8">Tiempo Atención</option>
+                        <option value="9">Gestión Performance</option>
+                    </select>
+
+                </div>-->
         <div class="col-sm-6">
-            <label for="fHasta"><b>Reporte</b></label>
+            <label for="selection"><b>Reporte</b></label>
             <select class="form-control" name="" id="selection">
                 <option value="0">Control Tickets</option>
                 <option value="1">Alarmas</option>
@@ -98,15 +116,17 @@
                 <option value="8">Tiempo Atención</option>
                 <option value="9">Gestión Performance</option>
             </select>
-           
+
         </div>
     </div>
 
     <div class="col-sm-12" style="margin-top:1em;">
-        <button id="reportButton" class="btn-cami_cool">Descargar</button>
+        <!--<button id="reportButton" class="btn-cami_cool">Descargar</button>-->
+        <button id="reportButton2" class="btn-cami_cool">Descargar</button>
     </div>
-</div> --> -->
+</div> -->
 
+<script src="<?= base_url("assets/js/utils/helper.js?v=" . validarEnProduccion()) ?>"></script>
 <script type="text/javascript" src="<?= base_url('assets/js/modules/generalReport.js'); ?>"></script>
 
 
@@ -120,14 +140,14 @@
     @media only screen and (max-width: 767px)  {
        .contenedorMaestro {
         margin-top: 80px;
-       } 
+       }
     }
 
     .main-footer a {
         color:white;
         font-weight: bold;
     }
-    
+
 
     .checkbox-initial {
         position: absolute;
@@ -147,7 +167,7 @@
         margin: 0;
         }
 
-        .switch input { 
+        .switch input {
         display: none;
         }
 

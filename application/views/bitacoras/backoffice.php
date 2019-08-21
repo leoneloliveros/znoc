@@ -1,9 +1,10 @@
-<link rel="stylesheet" href="<?= base_url("assets/css/bitacoras_new-style.css") ?>">
 <div class="main-title">
   BackOffice
 </div>
+
 <div class="card-style">
 <div class="general">
+
     <div class="col-md-4 col-body">
         <div class="form-group">
         <label class="form-label" for="ingeniero">Ingeniero</label>
@@ -25,12 +26,16 @@
         </select>
         </div>
     </div>
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="fecha">Fecha</label>
           <input class="form-input required-field" type="text" id="fecha"/>
         </div>
     </div>
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
         <label class="form-label" for="horario">Horario</label>
@@ -45,24 +50,34 @@
         </select>
         </div>
     </div>
+
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
         <label class="form-label" for="ticket">Ticket</label>
         <input id="ticket" class="form-input required-field" type="text" />
         </div>
     </div>
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
         <label class="form-label" for="tarea">Tarea</label>
         <input id="tarea" class="form-input required-field" type="text" />
         </div>
     </div>
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
         <label class="form-label" for="estacion">Estación</label>
         <input id="estacion" class="form-input required-field" type="text" />
         </div>
     </div>
+
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="prioridad">Prioridad</label>
@@ -75,6 +90,9 @@
           </select>
         </div>
     </div>
+
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="tipoDeServicio">Tipo de Servicio</label>
@@ -97,6 +115,8 @@
           </select>
         </div>
     </div>
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="detalleDeActividad">Detalle de Actividad</label>
@@ -111,18 +131,24 @@
           </select>
         </div>
     </div>
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
         <label class="form-label" for="regional">Regional</label>
         <input id="regional" class="form-input required-field" type="text" />
         </div>
     </div>
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
         <label class="form-label" for="ciudad">Ciudad</label>
         <input id="ciudad" class="form-input required-field" type="text" />
         </div>
     </div>
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="entradaDelTicket">Entrada del Ticket</label>
@@ -138,30 +164,42 @@
           </select>
         </div>
     </div>
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="fechaYHoraIngresoTarea">Fecha y Hora Ingreso Tarea</label>
           <input id="fechaYHoraIngresoTarea" class="form-input required-field" type="text" id="beginDate"/>
         </div>
     </div>
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="horaInicioTrabajo">Hora Inicio Trabajo</label>
           <input id="horaInicioTrabajo" class="form-input required-field" type="text" id="beginDate"/>
         </div>
     </div>
+
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="horaFinalTrabajo">Hora Final Trabajo</label>
           <input id="horaFinalTrabajo" class="form-input required-field" type="text" id="beginDate"/>
         </div>
     </div>
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="tiempoRevision">Tiempo Revisión</label>
           <input id="tiempoRevision" class="form-input required-field" type="text" id="beginDate"/>
         </div>
     </div>
+
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="destinoDelTicket">Destino del Ticket</label>
@@ -187,6 +225,8 @@
           </select>
         </div>
     </div>
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="seguimiento">Seguimiento</label>
@@ -206,6 +246,9 @@
           </select>
         </div>
     </div>
+
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="causaDeFalla">Causa de Falla</label>
@@ -222,12 +265,18 @@
           </select>
         </div>
     </div>
+
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
         <label class="form-label" for="diagnosticoTicket">Diagnostico Ticket</label>
         <input id="diagnosticoTicket" class="form-input required-field" type="text" />
         </div>
     </div>
+
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="tipoDeSoporte">Tipo de Soporte</label>
@@ -241,6 +290,9 @@
           </select>
         </div>
     </div>
+
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="ticketMalGestionadoTMG">(ticket mal gestionado) TMG</label>
@@ -260,6 +312,9 @@
           </select>
         </div>
     </div>
+
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="areaDirigidaTMG">Area a la que va dirigida el TMG</label>
@@ -275,6 +330,9 @@
           </select>
         </div>
     </div>
+
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="rutaSinDocumentarRSD">(ruta sin documentar) RSD</label>
@@ -286,6 +344,8 @@
           </select>
         </div>
     </div>
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="rutaDesactializadaRD">(ruta desactualizada) RD</label>
@@ -297,6 +357,8 @@
           </select>
         </div>
     </div>
+
+
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="checkDeExcluido">Check de Excluido</label>
@@ -307,10 +369,9 @@
           </select>
         </div>
     </div>
-    
 
-    
-    
+
+
     <div class="col-md-4 col-body">
         <div class="wrap" style="margin: auto;">
             <button id="submit-logbook" type="submit">Guardar</button>
@@ -322,20 +383,11 @@
     </div>
     <!-- </form> -->
 
-    
-    
-   
 
 </div>
 </div>
-
-
-
-
-
 
 
 
 <script src="<?= base_url("assets/plugins/sweetalert2/sweetalert2.all.js") ?>"></script>
 <script src="<?= base_url("assets/js/backoffice.js?v" . validarEnProduccion())?>"></script>
-

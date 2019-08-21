@@ -1,9 +1,6 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Dao_reportes_model extends CI_Model {
-
     public function getNemonicosAccordingDate($fi, $ff) {
         $this->db->where('(DESCRIPTION LIKE "%FAOC:%"');
         $this->db->or_where('DESCRIPTION LIKE "%FAOB:%"');
@@ -19,7 +16,6 @@ class Dao_reportes_model extends CI_Model {
         return $query->result();
         // echo '<pre>'; print_r($query->result()); echo '</pre>';
     }
-
     public function getNemonicosCCAccordingDate($fi, $ff) {
         $this->db->where(' (DESCRIPTION LIKE "%CCPYR_PRUEB%"');
         $this->db->or_where('DESCRIPTION LIKE "%CCPYR_LIDER%"');
@@ -32,7 +28,6 @@ class Dao_reportes_model extends CI_Model {
         $query = $this->db->get('maximo.INCIDENT');
         return $query->result();
     }
-
     //Retorna el nombre del trabajo, el subestado, y los puntos de acuerdo al id de las tablas puntos, tipo_trabajo y subestado --jc
     public function getInfoReportSlas($fdesde, $fhasta) {
         $query = $this->db->query("
@@ -68,7 +63,6 @@ class Dao_reportes_model extends CI_Model {
         ");
         return $query->result();
     }
-
     public function getDataWorkInfo($fdesde, $fhasta) {
         $query = $this->db->query("
             SELECT TICKETID
@@ -79,7 +73,6 @@ class Dao_reportes_model extends CI_Model {
         $_SESSION['x'] = $data;
         return $data;
     }
-
     public function getDataTiempoFija($fdesde, $fhasta) {
         $query = $this->db->query("
         SELECT DISTINCT TK.TICKETID ,TK.INTERNALPRIORITY,TK.STATUS,TK.CREATIONDATE,TK.ACTUALFINISH,ifnull(TK.CLOSEDATE,sysdate()) AS FECHA_CIERRE_TKT,TK.DESCRIPTION,TK.REGIONAL,TK.RUTA_TKT,TK.OWNERGROUP,GM.ASSIGNEDOWNERGROUP AS PRIMER_GRUPO,
@@ -115,14 +108,12 @@ class Dao_reportes_model extends CI_Model {
             IF(ROUND(IFNULL(FIQ.TI_OT_FIBRA,0)/60) BETWEEN 1 AND 4,'4',
                 IF(ROUND(IFNULL(FIQ.TI_OT_FIBRA,0)/60) BETWEEN 4 AND 12,'12',
                         IF(ROUND(IFNULL(FIQ.TI_OT_FIBRA,0)/60) > 12,concat(cast(ROUND(IFNULL(FIQ.TI_OT_FIBRA/(60*24),0)) as char(20)),' d'),'0')))),0) AS RG_TI_OT_FIBRA,
-
         IFNULL(FIQ.CAN_OT_CCOAX,0) AS CAN_OT_CCOAX,REPLACE(ROUND(IFNULL(FIQ.TI_OT_CCOAX,0)/60,1),'.',',') AS TI_OT_CCOAX_REAL_H,
         IF(IFNULL(FIQ.CAN_OT_CCOAX,0)>0,
         IF(ROUND(IFNULL(FIQ.TI_OT_CCOAX,0)/60) BETWEEN 0 AND 1,'1',
             IF(ROUND(IFNULL(FIQ.TI_OT_CCOAX,0)/60) BETWEEN 1 AND 4,'4',
                 IF(ROUND(IFNULL(FIQ.TI_OT_CCOAX,0)/60) BETWEEN 4 AND 12,'12',
                         IF(ROUND(IFNULL(FIQ.TI_OT_CCOAX,0)/60) > 12,concat(cast(ROUND(IFNULL(FIQ.TI_OT_CCOAX/(60*24),0)) as char(20)),' d'),'0')))),0) AS RG_TI_OT_CCOAX,
-
         IFNULL(FIQ.CAN_TAS_QA,0) AS CAN_TAS_QA,ROUND(IFNULL(FIQ.TI_TAS_QA,0)) AS TI_TAS_QA_REAL_M,
         IF(IFNULL(FIQ.CAN_TAS_QA,0)>0,
         IF(IFNULL(FIQ.TI_TAS_QA,0) BETWEEN 0 AND 20,20,
@@ -206,139 +197,82 @@ class Dao_reportes_model extends CI_Model {
         WHERE TK.RUTA_TKT LIKE '%SERVICIOS FIJOS%'
         AND TK.STATUS <> 'ELIMINADO' AND
         DATE_FORMAT(TK.CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';
-
         ");
         $data = $query->result();
         $_SESSION['x'] = $data;
         return $data;
     }
-
     public function getIncidentesFija($fdesde, $fhasta) {
         $query = $this->db->query("
         SELECT ALK.TICKETID, ALK.INTERNALPRIORITY,ALK.REGIONAL,
-
         (SELECT distinct FIRST_VALUE(RO.ASSIGNEDOWNERGROUP)OVER(ORDER BY CHANGEDATE) FROM maximo.TKSTATUS RO WHERE ALK.TICKETID=RO.TICKETID ) AS PRIMER_GRUPO,
-
         ALK.OWNERGROUP,ALK.CREATIONDATE,ALK.CLOSEDATE,ALK.ACTUALFINISH,ALK.STATUS
-
         ,ALK.CHANGEDATE AS STATUSDATE,ALK.RUTA_TKT,AC.WONUM AS ACTIVIDAD,AC.REPORTDATE AS FECHAREPORTE_ACTI,AC.CHANGEDATE AS FECHACAMBIO_ACTI,AC.STATUS AS ESTADO_ACTI FROM maximo.INCIDENT ALK
-
         LEFT JOIN (SELECT TICKETID, WONUM,REPORTDATE,CHANGEDATE,STATUS FROM maximo.ACTIVITIES) AC
-
         ON AC.TICKETID=ALK.TICKETID
-
         WHERE ALK.RUTA_TKT LIKE 'SERVICIOS FIJOS%'
-
         AND ALK.CREATIONDATE  BETWEEN '$fdesde' AND '$fhasta';");
         $data = $query->result();
         $_SESSION['x'] = $data;
         return $data;
     }
-
     public function getTiempoNOCEste($fdesde, $fhasta) {
         $query = $this->db->query("
         SELECT TI.TICKETID, TI.ZONA_TKT,
-
         CASE WHEN UPPER(TI.RUTA_TKT) LIKE 'SERVICIOS FIJOS%' THEN
-
         IF(UPPER(TI.RUTA_TKT) LIKE '%AFECTACION%','AFECTACION',
-
                       IF(UPPER(TI.RUTA_TKT) LIKE '%DEGRADACION%','DEGRADACION',
-
                                     IF(UPPER(TI.RUTA_TKT) LIKE '%RECLAMACION%','RECLAMACION',
-
                                                    IF(UPPER(TI.RUTA_TKT) LIKE '%NOTIFICACION%', 'NOTIFICACION',
-
                                                                  IF(UPPER(TI.RUTA_TKT) LIKE '%SERVICIO AFECTADO%','INCIDENTE',
-
                                                                                IF(UPPER(TI.RUTA_TKT) LIKE '%SERVICIO DEGRADADO','PERFORMANCE',
-
                                                                                              IF(UPPER(TI.RUTA_TKT) LIKE '%SERVICIO PARCIALMENTE AFECTADO%', 'PERFORMANCE',
-
                                                                                                            IF(UPPER(TI.RUTA_TKT) LIKE '%SERVICIO VULNERABLE%', 'PERFORMANCE', TI.TIPO_TKT))))))))
-
         ELSE TI.TIPO_TKT END AS TIPO_TKT,
-
         TI.RUTA_TKT, TI.CLOSEDATE, TI.ACTUALFINISH, TI.STATUS,TI.INTERNALPRIORITY, TI.CHANGEDATE,TI.OWNERGROUP,TI.LOCATION,TI.REGIONAL,TI.CIUDAD_MUNICIPIO,TI.DESCRIPTION,
-
         TI.CREATIONDATE,GRU.GRUPO_INICIAL,REPLACE(TI.TIEMPO_VIDA_TKT,'.',',') AS TIEMPO_VIDA_TKT,REPLACE(TI.TIEMPO_RESOLUCION_TKT,'.',',') AS TIEMPO_RESOLUCION_TKT,REPLACE(TI.TIEMPO_DETECCION,'.',',') AS TIEMPO_DETECCION,REPLACE(TI.TIEMPO_ESCALA,'.',',') AS TIEMPO_ESCALA,REPLACE(TI.TIEMPO_FALLA,'.',',') AS TIEMPO_FALLA, REPLACE(TI.TIEMPO_OT_ALM,'.',',') AS TIEMPO_OT_ALM,
-
         ARC.GRUPO_ACT,LO.TIPO_ACTIVIDAD,(SELECT GCA.JEFATURA FROM carga.GRUPOS_MAXIMO GCA WHERE ARC.GRUPO_ACT = GCA.GRUPO) AS JEFATURA_ACTI
-
         ,REPLACE(LO.TIEMPO_REAL_ACT,'.',',') AS TIEMPO_REAL_ACT,WEEK(TI.CREATIONDATE) AS SEMANA,MONTH(TI.CREATIONDATE) AS MES,RAP.TIEMPO_FRONT,(RAP.TIEMPO_FRONT+IFNULL(CARE.TIEMPO_BO,0)) AS TIEMPO_NOC,TI.PROBLEM_CODE,TI.PROBLEM_DESCRIPTION,TI.CAUSE_CODE,TI.CAUSE_DESCRIPTION,TI.REMEDY_CODE,TI.REMEDY_DESCRIPTION
-
         FROM maximo.INCIDENT TI
-
         LEFT JOIN (SELECT TICKETID,MIN(OWNERGROUP)AS GRUPO_ACT FROM maximo.ACTIVITIES
-
         GROUP BY TICKETID)ARC
-
         ON TI.TICKETID = ARC.TICKETID
-
         LEFT JOIN
-
         (SELECT ARI.TICKETID,IF(RAC.WONUM LIKE 'OT%','OT',IF(RAC.WONUM LIKE 'TAS%', 'TAS', NULL)) AS TIPO_ACTIVIDAD,ARI.OWNERGROUP AS JEFATURA_ACTI,ARI.TIEMPO_REAL_ACT FROM maximo.ACTIVITIES ARI
-
         LEFT JOIN(
-
         SELECT TICKETID,MIN(WONUM) AS WONUM,MIN(CHANGEDATE) AS CHANGEDATE FROM maximo.ACTIVITIES
-
         GROUP BY TICKETID)RAC
-
         ON RAC.WONUM = ARI.WONUM
-
         WHERE RAC.WONUM IS NOT NULL)LO
-
         ON TI.TICKETID = LO.TICKETID
-
         LEFT JOIN
-
         (SELECT
-
             A.TICKETID,IF(A.TIEMPO_ESCALA <> 0,(A.TIEMPO_DETECCION + A.TIEMPO_ESCALA + TFRO.TIEMPO_FRONT),IF(A.TIEMPO_RESOLUCION_TKT IS NOT NULL,(A.TIEMPO_DETECCION + A.TIEMPO_RESOLUCION_TKT),
-
                       IF(A.ACTUALFINISH IS NOT NULL,(A.TIEMPO_DETECCION + (UNIX_TIMESTAMP(A.ACTUALFINISH) / 60)),(A.TIEMPO_DETECCION + (UNIX_TIMESTAMP(SYSDATE()) / 60))))) AS TIEMPO_FRONT
-
         FROM INCIDENT A LEFT JOIN(SELECT TICKETID, SUM(TIEMPO_REAL_ACT) AS TIEMPO_FRONT
-
         FROM(SELECT TICKETID, TIEMPO_REAL_ACT FROM maximo.ACTIVITIES WHERE OWNERGROUP LIKE 'FO%'
-
         UNION ALL SELECT TICKETID, TIEMPO_REAL_ACT FROM maximo.ACTIVITIES WHERE OWNERGROUP LIKE 'FRO%') TAUN GROUP BY TICKETID) TFRO ON A.TICKETID = TFRO.TICKETID)RAP
-
         ON TI.TICKETID = RAP.TICKETID
-
         LEFT JOIN
-
         (SELECT TICKETID AS TKTBO, SUM(TIEMPO_REAL_ACT) AS TIEMPO_BO
-
         FROM(SELECT TICKETID, TIEMPO_REAL_ACT FROM maximo.ACTIVITIES WHERE OWNERGROUP LIKE 'BO%') TABO GROUP BY TICKETID) CARE
-
         ON TI.TICKETID = CARE.TKTBO
-
         LEFT JOIN (
-
         SELECT TICKETID,MIN(ASSIGNEDOWNERGROUP) AS GRUPO_INICIAL,MIN(CHANGEDATE) AS FECHA_INICIAL FROM maximo.TKSTATUS
-
         GROUP BY TICKETID) GRU
-
         ON TI.TICKETID = GRU.TICKETID
-
         WHERE TI.CREATIONDATE  BETWEEN '$fdesde' AND '$fhasta';
-
-
         ");
         $data = $query->result();
         $_SESSION['x'] = $data;
         return $data;
     }
-
     //Retorna los incidentes de una coordinacion dentro de un rango de fechas
     public function getIncidentsByCoordination($fdesde, $fhasta, $coordinacion, $like2 = null) {
         $condicion = '';
         if ($like2 != null) {
             $condicion = "DESCRIPTION LIKE '%$like2%' AND";
         }
-
         $query = $this->db->query("
             SELECT TICKETID,
                 ZONA_TKT,
@@ -382,7 +316,6 @@ class Dao_reportes_model extends CI_Model {
         ");
         return $query->result();
     }
-
     //Retorna la cantidad de incidentes dentro y fuera de tiempos por cada customer Care dentro de un rango de tiempo
     public function getInfoReportSlasCustomer($fdesde, $fhasta) {
         $query = $this->db->query("
@@ -411,7 +344,6 @@ class Dao_reportes_model extends CI_Model {
         ");
         return $query->result();
     }
-
     public function getNemonicosCCAccordingDateV2($fi, $ff) {
         $query = $this->db->query("
             SELECT CREATEDATE, DESCRIPTION
@@ -435,7 +367,6 @@ class Dao_reportes_model extends CI_Model {
         ");
         return $query->result();
     }
-
     public function getNemonicosFixedAccordingDate($fi, $ff) {
         $this->db->where('(DESCRIPTION LIKE "%FOHFC%"');
         $this->db->or_where('DESCRIPTION LIKE "%FOIP%"');
@@ -448,7 +379,6 @@ class Dao_reportes_model extends CI_Model {
         $query = $this->db->get('maximo.INCIDENT');
         return $query->result();
     }
-
     //Retorna las notas de una coordinacion dentro de un rango de fechas
     public function getNotesByCoordination($fdesde, $fhasta, $nemonicos) {
         $query = $this->db->query("
@@ -467,9 +397,7 @@ class Dao_reportes_model extends CI_Model {
 //        print_r($this->db->last_query().';<br>');
         return $query->result();
     }
-
     public function export($opcion, $ini, $fin) {
-
         if ($ini == "" || $fin == "") {
             // echo "fechas vacias";
             if ($opcion == "energia") {
@@ -512,7 +440,7 @@ class Dao_reportes_model extends CI_Model {
                     ON l.id_users = u.id_users"
             );
             return $query2->result();
-            /*print_r($this->db->last_query());*/
+            // print_r($this->db->last_query());
         } else {
             if ($opcion == "energia") {
                 $opcion = "energias";
@@ -520,14 +448,12 @@ class Dao_reportes_model extends CI_Model {
             if ($opcion == "plataforma") {
                 $opcion = "plataformas";
             }
-
             $query = $this->db->query("DESC $opcion");
             $resultado = $query->result();
             $nameColumns = "";
             foreach ($resultado as $key => $value) {
                 $nameColumns .= " o." . $value->Field . ",";
             }
-
             $query2 = $this->db->query(
                     "SELECT $nameColumns
                         l.id_logbooks,
@@ -551,14 +477,10 @@ class Dao_reportes_model extends CI_Model {
                     INNER JOIN users u
                     ON l.id_users = u.id_users
                     WHERE l.inicio_actividad BETWEEN $ini AND $fin"
-        );
-        // print_r($this->db->last_query());
-
-      }
-
-
+            );
+            // print_r($this->db->last_query());
+        }
     }
-
     public function getWorkInfo($fdesde, $fhasta) {
         $query = $this->db->query("
             SELECT inc.CREATEDBY AS 'CREADO POR',
@@ -602,7 +524,6 @@ class Dao_reportes_model extends CI_Model {
         $_SESSION['x'] = $data;
         return $data;
     }
-
     public function getAlarmasAutomatismo($fdesde, $fhasta) {
         $query = $this->db->query("
         SELECT inc.TICKETID AS 'TICKET ID',
@@ -656,29 +577,18 @@ class Dao_reportes_model extends CI_Model {
         $_SESSION['x'] = $data;
         return $data;
     }
-
-
-    
     public function getTareasFOPerformance($fdesde, $fhasta) {
         $query = $this->db->query("
-        SELECT AC.WONUM AS TAREA,AC.REPORTDATE AS FECHA_CREACION_TAREA,AC.DESCRIPTION AS DESCRIPTION_TAREA, AC.STATUS, AC.STATUSDATE,AC.TICKETID, IC.CREATEDBY, IC.CREATIONDATE AS FECHA_CREA_INCIDENTE,IC.STATUS AS ESTADO_INCIDENTE, IC.DESCRIPTION AS DESCRIPCION_INCIDENTE,
-
+        SELECT AC.WONUM AS TAREA,AC.REPORTDATE AS FECHA_CREACION_TAREA,AC.DESCRIPTION AS DESCRIPTION_TAREA, AC.STATUS, AC.OWNER,AC.TICKETID,IC.CREATIONDATE AS FECHA_CREA_INCIDENTE,IC.STATUS AS ESTADO_INCIDENTE, IC.DESCRIPTION AS DESCRIPCION_INCIDENTE,
         IC.ACTUALFINISH AS FECHA_CIERRE_INCIDENTE,WO.MODIFYBY AS CREADOR,WO.CREATEDATE AS FECHA_NOTA,WO.DESCRIPTION AS RESUMEN_NOTA,WO.DESCRIPTION_LONGDESCRIPTION AS DETALLE_NOTA
-
         FROM maximo.ACTIVITIES AC
-
         LEFT JOIN maximo.INCIDENT IC
-
         ON AC.TICKETID=IC.TICKETID
-
         LEFT JOIN maximo.WORKLOG WO
-
         ON AC.WONUM=WO.RECORDKEY
-
         WHERE AC.WONUM LIKE 'TAS%'
-
         AND IC.DESCRIPTION LIKE 'MC:%'
-        
+
     AND WO.MODIFYBY NOT LIKE '%MXINTADM%'
     AND IC.DESCRIPTION NOT LIKE '%MC:PERFORMANCE%'
     AND IC.DESCRIPTION NOT LIKE '%MC: PERFORMANCE%'
@@ -695,14 +605,13 @@ class Dao_reportes_model extends CI_Model {
     AND IC.DESCRIPTION NOT LIKE '%MC:SIN TRA%'
         AND IC.DESCRIPTION NOT LIKE '%MC: CRC :PER%'
         AND IC.DESCRIPTION NOT LIKE '%MC: CRC:PER%'
-      
+
     AND ( AC.OWNER LIKE '%EHT3738A%'
     OR AC.OWNER LIKE '%EHT6335B%'
     OR AC.OWNER LIKE '%EHT7557A%'
     OR AC.OWNER LIKE '%ECM6616C%'
     OR AC.OWNER LIKE '%EHT6225A%'
     OR AC.OWNER LIKE '%ECM0147D%'
-
     OR AC.OWNER LIKE '%ECM5328C%'
     OR AC.OWNER LIKE '%EHT0444A%'
     OR AC.OWNER LIKE '%ECM0939B%'
@@ -711,17 +620,16 @@ class Dao_reportes_model extends CI_Model {
     OR AC.OWNER LIKE '%ECM4900E%'
     OR AC.OWNER LIKE '%ECM1362B%'
     OR AC.OWNER IS NULL)
- 
- 
+
+
             AND DATE_FORMAT(AC.REPORTDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
         $data = $query->result();
         $_SESSION['x'] = $data;
         return $data;
     }
-
     public function getTiempoAtencion($fdesde, $fhasta) {
         $query = $this->db->query("
-        SELECT * FROM reportes.TIEMPO_ATENCION 
+        SELECT * FROM reportes.TIEMPO_ATENCION
         WHERE DATE_FORMAT(FECHA_CREACION_INC, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
         $data = $query->result();
         $_SESSION['x'] = $data;
@@ -735,8 +643,6 @@ class Dao_reportes_model extends CI_Model {
         $_SESSION['x'] = $data;
         return $data;
     }
-
-    
     public function ReporteCciHfc($opcion, $fecha_ini = null, $fecha_fin = null) {
         $condicion = "";
         if ($fecha_fin != null && $fecha_ini != null) {
@@ -766,118 +672,70 @@ class Dao_reportes_model extends CI_Model {
         ");
         return $query->result();
     }
-
     public function getGestionPerformance($fdesde, $fhasta) {
         $query = $this->db->query("
         SELECT * FROM maximo.INCIDENT
-        WHERE (DESCRIPTION LIKE '%MC:%'
-        OR DESCRIPTION LIKE '%MC_AICT5:%'
-        OR DESCRIPTION LIKE '%MC_GORGT4:%'
-        OR DESCRIPTION LIKE '%MC_GPT5:%'
-        OR DESCRIPTION LIKE '%MC_RPT1:%'
-        OR DESCRIPTION LIKE '%MC_RPT2:%'
-        OR DESCRIPTION LIKE '%MC_RPT3:%'
-        OR DESCRIPTION LIKE '%MC_T&PT1:%'
-        OR DESCRIPTION LIKE '%MC_T&PT2:%'
-        OR DESCRIPTION LIKE '%MC_T&P_SOCT1:%'
-        OR DESCRIPTION LIKE '%MC_T&P_SOCT2:%')
+        WHERE DESCRIPTION LIKE '%MC:%'
         and DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
         $data = $query->result();
         $_SESSION['x'] = $data;
         return $data;
     }
-    public function getIncidentFO($queryresult) {
-        $query = $this->db->query($queryresult);
-        $data = $query->result();
-        $_SESSION['x'] = $data;
-        return $data;
-    }
-
-    public function getGraphInfo($fdesde, $fhasta, $condicion) {
-        $str =  "SELECT DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date, COUNT(*) AS count,
-            SUM(IF(INTERNALPRIORITY = 1 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA) <= 40, 1, 0)) AS 'P1_PASARON',
-            SUM(IF(INTERNALPRIORITY = 1, 1, 0)) AS 'P1_TOTAL',
-            SUM(IF(INTERNALPRIORITY = 2 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA) <= 80, 1, 0)) AS 'P2_PASARON',
-            SUM(IF(INTERNALPRIORITY = 2, 1, 0)) AS 'P2_TOTAL',
-            SUM(IF(INTERNALPRIORITY = 3 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA) <= 100, 1, 0)) AS 'P3_PASARON',
-            SUM(IF(INTERNALPRIORITY = 3, 1, 0)) AS 'P3_TOTAL'
-            FROM maximo.INCIDENT
-            WHERE (" . $condicion .")
-            AND `OWNERGROUP` NOT LIKE '%FO_SDH%'
-            AND `DESCRIPTION` NOT LIKE '%DEPU%'
-            AND `DESCRIPTION` NOT LIKE '%FHG%'
-            AND `DESCRIPTION` NOT LIKE '%FSP%'
-            AND `DESCRIPTION` NOT LIKE '%MAIL%'
-            AND `DESCRIPTION` NOT LIKE '%MG%'
-            AND `DESCRIPTION` NOT LIKE '%NO EXITOSO%'
-            AND `DESCRIPTION` NOT LIKE '%VM%'
-            AND `DESCRIPTION` NOT LIKE '%VENTANA MANT%'
-            AND `DESCRIPTION` NOT LIKE '%FEE%SIN PE%'
-            AND `STATUS` != 'ELIMINADO'
-            AND `STATUS` != 'CANCELADO'
-            and DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
-            GROUP 
-            BY the_date "; 
-        $query = $this->db->query($str);
-
-
-        $data = $query->result();
-        // $_SESSION['x'] = $data;
-        return $data;
-    }
-    
-    public function getNemonicosQualityTabledAccordingDate($fi, $ff) {
+    //Retorna la cantidad de tablas de un Schema pasado como parametro
+    public function getTablesBySchema($schema) {
         $query = $this->db->query("
-            SELECT 
-                (CASE WHEN DESCRIPTION LIKE '%MC_AICT5:%' THEN 'mc_aict5'
-                    WHEN DESCRIPTION LIKE '%MC_GORGT4:%' THEN 'mc_gorgt4'
-                    WHEN DESCRIPTION LIKE '%MC_GPT5:%' THEN 'mc_gpt5'
-                    WHEN DESCRIPTION LIKE '%MC_RPT1:%' THEN 'mc_rpt1'
-                    WHEN DESCRIPTION LIKE '%MC_RPT2:%' THEN 'mc_rpt2'
-                    WHEN DESCRIPTION LIKE '%MC_RPT3:%' THEN 'mc_rpt3'
-                    WHEN DESCRIPTION LIKE '%MC_T&PT1:%' THEN 'mc_tpt1'
-                    WHEN DESCRIPTION LIKE '%MC_T&PT2:%' THEN 'mc_tpt2'
-                    WHEN DESCRIPTION LIKE '%MC_T&P_SOCT1:%' THEN 'mc_tp_soct1'
-                    WHEN DESCRIPTION LIKE '%MC_T&P_SOCT2:%' THEN 'mc_tp_soct2'
-                    ELSE 'Sin coordinación'
-                END) AS nemonicos,
-                COUNT(RECORDKEY) AS total_incidentes
-            FROM maximo.WORKLOG
-            WHERE DATE_FORMAT(CREATEDATE, '%Y-%m-%d') BETWEEN '$fi' AND '$ff'
-            GROUP BY (CASE WHEN DESCRIPTION LIKE '%MC_AICT5:%' THEN 'MC_AICT5'
-                        WHEN DESCRIPTION LIKE '%MC_GORGT4:%' THEN 'MC_GORGT4'
-                        WHEN DESCRIPTION LIKE '%MC_GPT5:%' THEN 'MC_GPT5'
-                        WHEN DESCRIPTION LIKE '%MC_RPT1:%' THEN 'MC_RPT1'
-                        WHEN DESCRIPTION LIKE '%MC_RPT2:%' THEN 'MC_RPT2'
-                        WHEN DESCRIPTION LIKE '%MC_RPT3:%' THEN 'MC_RPT3'
-                        WHEN DESCRIPTION LIKE '%MC_T&PT1:%' THEN 'MC_TPT1'
-                        WHEN DESCRIPTION LIKE '%MC_T&PT2:%' THEN 'MC_TPT2'
-                        WHEN DESCRIPTION LIKE '%MC_T&P_SOCT1:%' THEN 'MC_TP_SOCT1'
-                        WHEN DESCRIPTION LIKE '%MC_T&P_SOCT2:%' THEN 'MC_TP_SOCT2'
-                        ELSE 'Sin coordinación'
-                    END)
+            SHOW FULL TABLES FROM $schema
         ");
         return $query->result();
     }
-    
-    public function getWorklogByCoordination($fdesde, $fhasta, $nemonico) {
+    //Retorna las columnas de la tabla pasada como parametro
+    public function getColumnsByTable($schema, $table) {
         $query = $this->db->query("
-            SELECT RECORDKEY,
-                CREATEDATE,
-                DESCRIPTION,
-                MODIFYDATE,
-                MODIFYBY,
-                DESCRIPTION_LONGDESCRIPTION,
-                CLASS,
-                LOGTYPE
-            FROM maximo.WORKLOG
-            WHERE DESCRIPTION LIKE '%$nemonico%'
-            AND DATE_FORMAT(CREATEDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
+            DESC $schema.$table
+        ");
+//        print_r($this->db->last_query().';<br>');
+        return $query->result();
+    }
+    //Retorna el resultado del query pasado por parametro
+    public function getGenerateReport($query) {
+        $query = $this->db->query($query);
+//        print_r($this->db->last_query().';<br>');
+        return $query->result();
+    }
+    public function insertGenerateReport($data) {
+        if ($this->db->insert('reportes_generados', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //Retorna el listado de las consultas que se han generado por la plataforma
+    public function getReportsDB() {
+        $query = $this->db->query("
+            SELECT id_reportes,
+                nombre_reporte,
+                query_reporte,
+                columnas_reporte,
+                creador_reporte
+            FROM reportes_generados
         ");
         return $query->result();
     }
 
-     public function getgraphdeteccion($fdesde, $fhasta, $peticion){
+    public function getGetQueryReport($id) {
+        $query = $this->db->query("
+            SELECT REGEXP_REPLACE(query_reporte, '[0-9]{4}-[0-1][0-9]-[0-3][0-9]', 'fecha') AS query_reporte,
+                columnas_reporte,
+                nombre_reporte
+            FROM reportes_generados
+            WHERE id_reportes = $id
+        ");
+        return $query->result();
+    }
+
+
+    public function getgraphdeteccion($fdesde, $fhasta, $peticion){
         $condicional="SELECT DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date, COUNT(*) AS count,
             SUM(IF(INTERNALPRIORITY = 1 AND TIEMPO_DETECCION <= 40, 1, 0)) AS 'P1_PASARON',
             SUM(IF(INTERNALPRIORITY = 1, 1, 0)) AS 'P1_TOTAL',
@@ -901,7 +759,7 @@ class Dao_reportes_model extends CI_Model {
             AND `STATUS` != 'ELIMINADO'
             AND `STATUS` != 'CANCELADO'
             and DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
-            GROUP 
+            GROUP
             BY the_date
             ";
             $query=$this->db->query($condicional);
@@ -938,19 +796,14 @@ class Dao_reportes_model extends CI_Model {
             return $query->result();
     }
 
-    public function getescalahm($fdesde, $condicion){
-        $query=$this->db->query("
-            SELECT
-            DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date,
-            COUNT(*) AS count,
+    public function getGraphInfo($fdesde, $fhasta, $condicion) {
+        $str =  "SELECT DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date, COUNT(*) AS count,
             SUM(IF(INTERNALPRIORITY = 1 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA) <= 40, 1, 0)) AS 'P1_PASARON',
             SUM(IF(INTERNALPRIORITY = 1, 1, 0)) AS 'P1_TOTAL',
             SUM(IF(INTERNALPRIORITY = 2 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA) <= 80, 1, 0)) AS 'P2_PASARON',
             SUM(IF(INTERNALPRIORITY = 2, 1, 0)) AS 'P2_TOTAL',
             SUM(IF(INTERNALPRIORITY = 3 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA) <= 100, 1, 0)) AS 'P3_PASARON',
-            SUM(IF(INTERNALPRIORITY = 3, 1, 0)) AS 'P3_TOTAL', 
-            count(ticketid) as 'total', 
-            hour(CREATIONDATE) as 'hora'
+            SUM(IF(INTERNALPRIORITY = 3, 1, 0)) AS 'P3_TOTAL' 
             FROM maximo.INCIDENT 
             WHERE (" . $condicion .")
             AND `OWNERGROUP` NOT LIKE '%FO_SDH%'
@@ -965,13 +818,15 @@ class Dao_reportes_model extends CI_Model {
             AND `DESCRIPTION` NOT LIKE '%FEE%SIN PE%'
             AND `STATUS` != 'ELIMINADO'
             AND `STATUS` != 'CANCELADO'
-            AND date_format( CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fdesde'
-            GROUP BY hour(CREATIONDATE)
-            ");
-        return $query->result();
+            and DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
+            GROUP
+            BY the_date
+            ";
+        $query = $this->db->query($str);
+        $data= $query->result();
+        return $data;
     }
     
-
+    
 }
-
 /* End of file Dao_reportes_model.php */
