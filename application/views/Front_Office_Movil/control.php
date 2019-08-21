@@ -24,7 +24,7 @@
                 <span id="onlyDateInitial" class="slider round"></span>
                 </label>
                 <span class="checkbox-initial">
-                    Solo Fecha de Inicio
+                    Solo Horas y segundos
                 </span>
 
             </div>
@@ -357,6 +357,10 @@ $('#onlyDateInitial').on('click', function(){
     };
 
 });
+ function clickeado(){
+    graficarhoras();
+ }
+
 function test() {
     if (activeInitialButton == true) {
     // $('#fechaInicio').on('blur', function() {
@@ -367,7 +371,13 @@ function test() {
 $(function(){
 setInterval(test, 1000);
 });
-          
+var solohoras=$(".general input[type='checkbox']:checked").length;
+ if (solohoras==0) {
+    console.log("Boton no activado");
+ }
+ else{
+    console.log("Boton activado");
+ }      
 
 $('#consult').on('click', function(e) {
     var foservicio=$("#areas input[type='checkbox'][id='foservicio']:checked");
@@ -1078,6 +1088,10 @@ $('#export-excel-modal').on('click', function() {
         });
 
     });
+
+    function graficarhoras(){
+        console.log("hola");
+    }
 
 </script>
 

@@ -141,6 +141,14 @@ class KPI extends CI_Controller {
     echo json_encode($data);
     }
 
+    public function getGraphInfoHM(){
+        $inicio = str_replace('/', '-', $this->input->post('inicio') );
+        $fdesde = date("Y-m-d", strtotime($inicio));
+        $condicion = $this->input->post('condicion');
+        $data = $this->Dao_reportes_model->getescalahm($fdesde,$condicion);
+        echo json_encode($data);
+    }
+
     public function getdetinfo(){
         $inicio = str_replace('/', '-', $this->input->post('inicio'));
         $diaini = date("Y-m-d", strtotime($inicio));
