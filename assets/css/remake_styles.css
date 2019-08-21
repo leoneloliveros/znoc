@@ -558,8 +558,8 @@ top: -30px;
     .switch {
         position: relative;
         display: inline-block;
-        width: 90px;
-        height: 51px;
+        width: 50px;
+        height: 25px;
         margin: 0;
         }
 
@@ -603,7 +603,7 @@ top: -30px;
         background-color: #cdcdcd;
         transition: 0.4s;
         width: 54%;
-            height: 54%;
+        height: 54%;
 
         }
 
@@ -632,6 +632,8 @@ top: -30px;
 
         .slider.round {
         border-radius: 34px;
+        width: auto;
+        height: auto;
         }
 
         .slider.round::before {
@@ -782,4 +784,22 @@ top: -30px;
 
 .display-botton {
   display: none;
+}
+
+
+.grafico-pri {
+margin-left: 235px;
+margin-top: 62px;
+}
+
+
+.graficos_esc_dt {
+  margin-left: 483px;
+  margin-top: -34px;
+}
+
+
+.graficos_deteccion{
+margin-left: 900px;
+margin-top: -33px;
 }

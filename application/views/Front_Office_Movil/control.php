@@ -23,7 +23,7 @@
             </div>
 
 <!-- ****************************************************Boton de activacion areas*****************************************************-->
-            <div class="switch-container col-md-6 col-body form-group">
+            <div class="switch-container col-md-6 position-relative col-body form-group">
                 <label class="switch">
                 <input type="checkbox" class="form-check-input">
                 <span id="bitacoras-none" class="slider round"></span>
@@ -49,10 +49,9 @@
                 </div>
 
 
-                <!-- ****************************************************Botones de areas*****************************************************-->
+<!-- ****************************************************Botones de areas*****************************************************-->
 
-              <div id="areas"  style="display:none;">
-
+              <div id="areas" class="disable"  style="display:none;">
                   <div class="col-md-4 col-body position-relative">
                     <div class="form-group" >
                       <label class="switch">
@@ -69,7 +68,7 @@
                 <div class="col-md-4 col-body position-relative">
                   <div class="form-group"  >
                     <label class="switch">
-                      <input type="checkbox" name="foservicio" id="foservicio">
+                      <input type="checkbox" name="foservicio" id="foservicio" >
                     <span class="slider round"></span>
                     </label>
                     <span class="checkbox-initial">
@@ -101,8 +100,7 @@
                     </span>
                   </div>
                 </div>
-
-                <div class="col-md-4 col-body position-relative">
+                <div class="col-md-4 col-body position-relative" >
                   <div class="form-group" >
                     <label class="switch">
                       <input type="checkbox" name="todas" id="todas" checked>
@@ -133,9 +131,9 @@
 
 
 </div>
-<button id="graficos_pri" class="btn btn-warning" style="display: none;">Tiempos de Escalamiento</button>
-<button id="graficos_deteccion" class="btn btn-danger" style="display: none;">Tiempos de Deteccion</button>
-<button id="graficos_esc_dt" class="btn btn-success" style="display: none;">Tiempo de Escalamiento + Tiempo de Deteccion</button>
+<button id="graficos_pri" class="btn btn-warning grafico-pri" style="display: none;">Tiempos de Escalamiento</button>
+<button id="graficos_deteccion" class="btn btn-danger graficos_deteccion" style="display: none;">Tiempos de Deteccion</button>
+<button id="graficos_esc_dt" class="btn btn-success graficos_esc_dt" style="display: none;">Tiempo de Escalamiento + Tiempo de Deteccion</button>
 <div id="grahp_prio" style="display: none;">
 <div class="" style="display: flex; width: 100%; align-items: center; margin-top: 50px; flex-wrap: wrap;">
         <div class="col-md-12" id="P1" style=" margin-bottom: 30px; width: 70%;"></div>
@@ -223,19 +221,28 @@ $('#bitacoras-none').on('click', function(){
   }else {
     $('#areas').attr('style', 'display:  none;');
   }
+});
 
 
-})
 // ********************************************Fin Funcion para mostar y ocultar botones de areas****************************************************//
-
 $(function(){
 setInterval(test, 1000);
 });
 
 
+//Validacion para que solo sea seleccionable un checkbox
+$('#areas   input[type=checkbox]').change(function(){
+    if ($(this).is(':checked')) {
+        $('#areas input[type="checkbox"]').not(this).prop('checked', false);
+    }else {
+      $('#todas').not(this).prop('checked', true);
+    }
+});//Cierre del checkbox
+
+
 $('#consult').on('click', function(e) {
     helper.showLoading();
-        
+
       var foservicio=$("#areas input[type='checkbox'][id='foservicio']:checked"); // Esto parece que no va
       var intermitencia=$("#areas input[type='checkbox'][id='intermitencia']:checked"); // Esto parece que no va
       var checks=$("#areas input[type='checkbox']:checked").length;
@@ -251,7 +258,7 @@ $('#consult').on('click', function(e) {
                   })
               setTimeout("location.reload(true);", e);
           } else {
-  
+
               var areas=$("#areas input[type='checkbox']:checked")
               for (i=0; i < areas.length; i++) {
                   console.log(areas[i].name);
@@ -280,15 +287,15 @@ $('#consult').on('click', function(e) {
               }
           }
       }
-  
+
       $('#prioridad1').addClass('active');
       $('#prioridad2').addClass('active');
       $('#prioridad3').addClass('active');
       $('#graficos_pri').attr('style', 'display:block');
-  
+
           var fechaInicio = $('#fechaInicio').val();
           var fechaFinal = $('#fechaFinal').val();
-  
+
           var url = base_url + 'Front_Office_Movil/KPI/cargarInfo' + '/' + moment(fechaInicio, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + moment(fechaFinal, 'DD/MM/YYYY').format('YYYY-MM-DD') ;
           var element = document.getElementById('container-result');
           load(url, element);
@@ -300,8 +307,8 @@ $('#consult').on('click', function(e) {
               element.innerHTML = req.responseText;
               createDatatable(url);
           }
-  
-  
+
+
           function createDatatable(link) {
               if (erTable_FO_table) {
                   var tabla = erTable_FO_table;
@@ -333,7 +340,7 @@ $('#consult').on('click', function(e) {
                       queryValue = settings['json']['query'];
                   }
               });
-          }; 
+          };
 
         $.post(base_url + "Front_Office_Movil/KPI/getGraphInfo", {
             inicio: fechaInicio,
@@ -370,7 +377,7 @@ $('#consult').on('click', function(e) {
 
 
 
-            
+
             insertarGrafica(1, pasaronP1, noPasaronP1, averageP1, category, sql23);
             insertarGrafica(2, pasaronP2, noPasaronP2, averageP2, category, sql23);
             insertarGrafica(3, pasaronP3, noPasaronP3, averageP3, category, sql23);
@@ -382,23 +389,23 @@ $('#consult').on('click', function(e) {
 
             // window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
         });
-  
+
         $('#graficos_pri').on('click', function(){
             $("#grahp_prio").toggle();
         });
-  
-  
+
+
         $('#export-excel').on('click', function() {
           helper.showLoading();
-          
+
                   $.post(base_url + "Front_Office_Movil/KPI/getIncidentsFO", {
                       query: queryValue.replace('LIMIT 10','')
                     }).done(function(){
                       helper.hideLoading();
                       window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
                   });
-  
-  
+
+
         });
 
         $('#FO_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
@@ -470,13 +477,13 @@ $('#consult').on('click', function(e) {
                     events: {
                         click: function () {
                             helper.showLoading();
-    
+
                             var fecha = this.category;
                             var condicion = this.sql23;
                             condicion=sql23.replace(/ /g,'_');
                             condicion=condicion.replace(/'/g,"-");
                             condicion=condicion.replace(/%/g,"=");
-    
+
                             var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha + '/' + numero + '/' + condicion;
                             var element = document.getElementById('insert-content');
                             load(url, element);
@@ -488,8 +495,8 @@ $('#consult').on('click', function(e) {
                                 createDatatable(url);
                                 helper.hideLoading();
                             }
-    
-    
+
+
                             function createDatatable(link) {
                                 erTable_modal_table = $("#modal_table").DataTable({
                                     processing: true,
@@ -518,7 +525,7 @@ $('#consult').on('click', function(e) {
                                                     }
                                 });
                             }
-    
+
                             $('#modalInfo').modal('show');
                             $('#export-excel-modal').on('click', function() {
                                 helper.showLoading();
@@ -532,7 +539,7 @@ $('#consult').on('click', function(e) {
                             $('#modal_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
                             $('#modal_table_filter input').attr('id', 'search-input-modal');
                             let active = false;
-                            $('#modalInfo').on('click', function(e){    
+                            $('#modalInfo').on('click', function(e){
                                 if(e.target.id === 'search' || e.target.id === 'search-input-modal' || e.target.id === 'search-icon') {
                                     if(!active) {
                                         $('#FO_table_filter').addClass('active');
@@ -549,8 +556,8 @@ $('#consult').on('click', function(e) {
                                     active = false;
                                 }
                             });
-    
-    
+
+
                         }
                     }
                 }
