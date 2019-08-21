@@ -1,7 +1,7 @@
 <div id="loader">
-<div  class='wrap1'>
-  <div class='loader' id='lrd1'></div>
-</div>
+    <div  class='wrap1'>
+        <div class='loader' id='lrd1'></div>
+    </div>
 </div>
 
 <!-- /.content -->
@@ -161,6 +161,7 @@ immediately after the control sidebar -->
 <!-- **********************************************END BITACORAS CCIHFC********************************************** -->
 
 <!-- **********************************************BITACORAS FRONTOFFICE********************************************** -->
+
 <?php if ($this->uri->segment(2) === "frontEndBookLogs" ||$this->uri->segment(2) === "export" ): ?>
     <script src="<?= base_url('assets/js/inputAnimations.js'); ?>"></script>
     <script type="text/javascript" src="<?= base_url('assets/js/modules/frontEndBookLog.js?v=' . validarEnProduccion()); ?>"></script>
@@ -185,7 +186,7 @@ immediately after the control sidebar -->
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
-    <script type="text/javascript" src="<?= base_url('assets/plugins/hightchart/code/highcharts.js');?>"></script>
+    <script type="text/javascript" src="<?= base_url('assets/plugins/hightchart/code/highcharts.js'); ?>"></script>
     <script type="text/javascript" src="<?= base_url('assets/js/modules/reporte_sla.js?v=' . validarEnProduccion()); ?>"></script>
 <?php endif ?>
 <!-- **********************************************FIN REPORTE SLAS********************************************** -->
@@ -206,12 +207,16 @@ immediately after the control sidebar -->
     <?php endif ?>
 
 <?php if ($this->uri->segment(2) == 'crear_usuarios'): ?>
-        <script src="<?= base_url("assets/js/modules/crear_usuarios.js?v=" . validarEnProduccion()) ?>"></script>
+    <script src="<?= base_url("assets/js/modules/crear_usuarios.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
 <!-- **********************************************FIN REPORTE SLAS********************************************** -->
 
 <?php if ($this->uri->segment(2) === "exportCciHfc"): ?>
     <script type="text/javascript" src="<?= base_url("assets/js/modules/consultar_cci_hfc.js?v=" . validarEnProduccion()); ?>"></script>
+<?php endif ?>
+
+<?php if ($this->uri->segment(2) == 'generar_reportes'): ?>
+    <script src="<?= base_url("assets/js/modules/generar_reportes.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
 
 <?php if ($this->uri->segment(2) === "volumetria_mesa_calidad"): ?>
@@ -227,7 +232,7 @@ immediately after the control sidebar -->
 </script>
 <!-- ****************************************************MAYA**************************************************** -->
 <?php if ($this->uri->segment(1) == 'Malla'): ?>
-        <script src="<?= base_url("assets/js/modules/loadExcel/loadMalla.js?v=" . validarEnProduccion()) ?>"></script>
+    <script src="<?= base_url("assets/js/modules/loadExcel/loadMalla.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
 
 

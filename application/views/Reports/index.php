@@ -50,6 +50,7 @@ Reportes
                     <option value="7">Tareas FO Performance</option>
                     <option value="8">Tiempo Atención</option>
                     <option value="9">Gestión Performance</option>
+                    <option value="10">Cambio Ventanas Mantenimiento</option>
                 </select>
                 </div>
             </div>
@@ -85,8 +86,24 @@ Reportes
         <input type="date" id="fHasta" value="<?= $f_actual ?>" class="form-control">
     </div>
     <div class="row col-sm-12" style="display: flex; justify-content: center;">
+        <!--        <div class="col-sm-6">
+                    <label for="fHasta"><b>Reporte</b></label>
+                    <select class="form-control" name="" id="selection">
+                        <option value="0">Control Tickets</option>
+                        <option value="1">Alarmas</option>
+                        <option value="2">Incidentes Fija</option>
+                         <option value="3">Tiempos NOC</option>
+                        <option value="4">Tiempos Fija</option>
+                        <option value="5">Workinfo</option>
+                        <option value="6">Alarmas Automatismo</option>
+                        <option value="7">Tareas FO Performance</option>
+                        <option value="8">Tiempo Atención</option>
+                        <option value="9">Gestión Performance</option>
+                    </select>
+
+                </div>-->
         <div class="col-sm-6">
-            <label for="fHasta"><b>Reporte</b></label>
+            <label for="selection"><b>Reporte</b></label>
             <select class="form-control" name="" id="selection">
                 <option value="0">Control Tickets</option>
                 <option value="1">Alarmas</option>
@@ -104,10 +121,12 @@ Reportes
     </div>
 
     <div class="col-sm-12" style="margin-top:1em;">
-        <button id="reportButton" class="btn-cami_cool">Descargar</button>
+        <!--<button id="reportButton" class="btn-cami_cool">Descargar</button>-->
+        <button id="reportButton2" class="btn-cami_cool">Descargar</button>
     </div>
 </div> -->
 
+<script src="<?= base_url("assets/js/utils/helper.js?v=" . validarEnProduccion()) ?>"></script>
 <script type="text/javascript" src="<?= base_url('assets/js/modules/generalReport.js'); ?>"></script>
 
 

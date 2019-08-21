@@ -1,4 +1,3 @@
-
 <div class="main-title" style="width: 60%;">
     <span>
     Control KPI
@@ -13,7 +12,7 @@
     <div class="card-style w-60">
         <div class="general">
 
-            <div class="switch-container col-md-12 position-relative form-group">
+            <div class="switch-container col-md-6 col-body position-relative form-group">
                 <label class="switch">
                 <input type="checkbox" class="form-check-input">
                 <span id="onlyDateInitial" class="slider round"></span>
@@ -23,39 +22,137 @@
                 </span>
             </div>
 
-            <div>
+<!-- ****************************************************Boton de activacion areas*****************************************************-->
+            <div class="switch-container col-md-6 col-body form-group">
+                <label class="switch">
+                <input type="checkbox" class="form-check-input">
+                <span id="bitacoras-none" class="slider round"></span>
+                </label>
+                <span class="checkbox-initial">
+                  Seleccionar Area
+                </span>
+            </div>
+<!-- ****************************************************Fin Boton de activacion areas*****************************************************-->
+
                 <div class="col-md-6 col-body">
                     <div class="form-group">
                     <label class="form-label" for="ticket">Fecha Inicial</label>
                     <input id="fechaInicio" class="form-input required-field" type="text" />
                     </div>
                 </div>
+
                 <div class="col-md-6 col-body">
                     <div class="form-group">
                     <label class="form-label" for="ticket">Fecha Final</label>
                     <input id="fechaFinal" class="form-input required-field" type="text" />
                     </div>
                 </div>
+
+
+                <!-- ****************************************************Botones de areas*****************************************************-->
+
+              <div id="areas"  style="display:none;">
+
+                  <div class="col-md-4 col-body position-relative">
+                    <div class="form-group" >
+                      <label class="switch">
+                        <input type="checkbox" name="foenergia" class="form-check-input" id="foenergia">
+                      <span class="slider round "></span>
+                      <span class="checkbox-initial" >
+                        FOENERGIA
+                      </span>
+                      </label>
+
+                    </div>
+                  </div>
+
+                <div class="col-md-4 col-body position-relative">
+                  <div class="form-group"  >
+                    <label class="switch">
+                      <input type="checkbox" name="foservicio" id="foservicio">
+                    <span class="slider round"></span>
+                    </label>
+                    <span class="checkbox-initial">
+                      FOSERVICIO
+                    </span>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-body position-relative">
+                  <div class="form-group"  >
+                    <label class="switch">
+                      <input type="checkbox" name="intermitencia" id="intermitencia">
+                    <span class="slider round"></span>
+                    </label>
+                    <span class="checkbox-initial">
+                      INTERMITENCIA
+                    </span>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-body position-relative">
+                  <div class="form-group"  >
+                    <label class="switch">
+                      <input type="checkbox" name="plataforma" id="plataforma">
+                    <span class="slider round"></span>
+                    </label>
+                    <span class="checkbox-initial">
+                      PLATAFORMA
+                    </span>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-body position-relative">
+                  <div class="form-group" >
+                    <label class="switch">
+                      <input type="checkbox" name="todas" id="todas" checked>
+                    <span class="slider round"></span>
+                    </label>
+                    <span class="checkbox-initial">
+                      TODAS
+                    </span>
+                  </div>
+                </div>
+
+
             </div>
+<!-- ****************************************************Fin Botones de areas*****************************************************-->
+
+
             <div class="col-md-12 col-body">
                 <div class="wrap" style="margin: auto;">
-                    <button id="consult" type="submit">Consultar</button>
+                    <button id="consult" type="submit" onclick="">Consultar</button>
                     <img src="https://www.dropbox.com/s/qfu4871umzhlcfo/check_arrow_2.svg?dl=1" alt="">
                     <svg width="66px" height="66px">
                     <circle class="circle_2" stroke-position="outside" stroke-width="3" fill="none" cx="34" cy="33" r="29" stroke="#1ECD97"></circle>
                     </svg>
                 </div>
             </div>
-
         </div>
     </div>
 
 
 </div>
+<button id="graficos_pri" class="btn btn-warning" style="display: none;">Tiempos de Escalamiento</button>
+<button id="graficos_deteccion" class="btn btn-danger" style="display: none;">Tiempos de Deteccion</button>
+<button id="graficos_esc_dt" class="btn btn-success" style="display: none;">Tiempo de Escalamiento + Tiempo de Deteccion</button>
+<div id="grahp_prio" style="display: none;">
 <div class="" style="display: flex; width: 100%; align-items: center; margin-top: 50px; flex-wrap: wrap;">
-    <div class="col-md-12" id="prioridad1" style=" margin-bottom: 30px; width: 70%;"></div>
-    <div class="col-md-12" id="prioridad2" style=" margin-bottom: 30px; width: 70%"></div>
-    <div class="col-md-12" id="prioridad3" style=" margin-bottom: 30px; width:70%"></div>
+        <div class="col-md-12" id="prioridad1" style=" margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-12" id="prioridad2" style=" margin-bottom: 30px; width: 70%"></div>
+        <div class="col-md-12" id="prioridad3" style=" margin-bottom: 30px; width:70%"></div>
+    </div>
+</div>
+    <div id="container_graphic" style="background: #26D8B2; display: none;">
+        <div class="col-md-12" id="tiempo_det" style=" margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-12" id="tiempo_det2" style=" margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-12" id="tiempo_det3" style=" margin-bottom: 30px; width: 70%;"></div>
+    </div>
+    <div id="container_grahp_tetd" style="background: #26D8B2; display: none;">
+        <div class="col-md-12" id="tetd1" style="margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-12" id="tetd2" style="margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-12" id="tetd3" style="margin-bottom: 30px; width: 70%;"></div>
+    </div>
     <div class="col-md-12" id="container-graph4" style=" margin-bottom: 30px; width:50%"></div>
     <div class="col-md-12" id="container-result" style="display: flex;"></div>
 </div>
@@ -86,11 +183,19 @@
 <link rel="stylesheet" href="<?= base_url ('assets/css/remake_styles.css');?>">
 
 <script type="text/javascript" src="<?= base_url('assets/plugins/hightchart/code/highcharts.js');?>"></script>
+<script type="text/javascript" src="<?=base_url('assets/plugins/moments/moment.min.js');?>"></script>
+<script type="text/javascript" src="<?=base_url('assets/js/tiempo_deteccion.js');?>"></script>
+<script type="text/javascript" src="<?=base_url('assets/js/escala_deteccion.js');?>"></script>
+<!-- <script type="text/javascript" src="<?=base_url('assets/js/modules/bitacoras.js');?>"></script> -->
+
 
 <script>
+$('#loader').hide();
+$('.spinner-loader').hide();
 var queryValue = "";
 $('#fechaFinal').mask("99/99/9999");
 $('#fechaInicio').mask("99/99/9999");
+
 var activeInitialButton = false;
 $('#onlyDateInitial').on('click', function(){
     activeInitialButton = (activeInitialButton == true) ? false : true ;
@@ -108,22 +213,105 @@ function test() {
     // });
     }
 };
+//*********************************************Funcion para mostar y ocultar botones de areas***************************************************//
+var activarArea = false;
+
+$('#bitacoras-none').on('click', function(){
+  activarArea = (activarArea == true) ? false : true ;
+  if (activarArea === true) {
+    $('#areas').attr('style', 'display:  block;');
+  }else {
+    $('#areas').attr('style', 'display:  none;');
+  }
+
+
+})
+// ********************************************Fin Funcion para mostar y ocultar botones de areas****************************************************//
+
 $(function(){
 setInterval(test, 1000);
 });
 
-$('#consult').on('click', function() {
+
+$('#consult').on('click', function(e) {
+  $('#loader').show();
+      $('.spinner-loader').show();
+    var foservicio=$("#areas input[type='checkbox'][id='foservicio']:checked");
+    /*var foenergia=$("#areas input[type='checkbox'][id='foenergia']:checked");*/
+    var intermitencia=$("#areas input[type='checkbox'][id='intermitencia']:checked");
+    /*var plataforma=$("#areas input[type='checkbox'][id='intermitencia']:checked");
+    var todas=$("#areas input[type='checkbox'][id='todas']:checked");*/
+    var checks=$("#areas input[type='checkbox']:checked").length;
+    var sql23 = "";
+    /*var checkarray=[];*/
+    getarea(e);
+    function getarea(e){
+        if (checks==0) {
+            Swal.fire({
+                type: 'error',
+                title: 'Error',
+                text: 'No se seleciono ningun area',
+                })
+            setTimeout("location.reload(true);", e);
+        }
+        else{
+
+            var areas=$("#areas input[type='checkbox']:checked")
+            for (i=0; i < areas.length; i++) {
+                console.log(areas[i].name);
+                switch (areas[i].name) {
+                    case 'plataforma':
+                        sql23 += "DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
+                    break;
+                    case 'intermitencia':
+                        sql23 += "DESCRIPTION LIKE '%FI:%'";
+                    break;
+                    case 'foservicio':
+                        sql23 += "DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%'";
+                    break;
+                    case 'foenergia':
+                        sql23 += "DESCRIPTION LIKE '%FEE:%'";
+                    break;
+                    case 'todas':
+                        sql23 += "DESCRIPTION LIKE '%FEE:%' OR DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%' OR DESCRIPTION LIKE '%FI:%' OR DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
+                        break;
+                    default:
+                        break;
+                }
+                 if(i != areas.length - 1) {
+                    sql23 += " OR ";
+                };
+            }
+            // console.log(sql23);
+            // if (foservicio.is(':checked')) {
+            //     console.log('foservicio');
+            //     var filtrado="'%FAOC:%' OR `DESCRIPTION` LIKE '%FAOB:%'";
+
+            // }
+            // else{
+            //     if (intermitencia.is(':checked')) {
+            //         console.log('intermitencia');
+            //     }
+            // }
+        }
+    }
+    /*checkarray.push(checks);*/
 
     $('#prioridad1').addClass('active');
     $('#prioridad2').addClass('active');
     $('#prioridad3').addClass('active');
-        $('#loader').show();
-        $('.spinner-loader').show();
+    $('#graficos_pri').attr('style', 'display:block')
+    /*$('#tiempo_det').addClass('active');
+    $('#tiempo_det2').addClass('active');
+    $('#tiempo_det3').addClass('active');*/
+
         var fechaInicio = $('#fechaInicio').val();
         var fechaFinal = $('#fechaFinal').val();
 
         var url = base_url + 'Front_Office_Movil/KPI/cargarInfo' + '/' + moment(fechaInicio, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + moment(fechaFinal, 'DD/MM/YYYY').format('YYYY-MM-DD') ;
         var element = document.getElementById('container-result');
+        /*recibirfechas(fechaInicio,fechaFinal,url,element);*/
+        /*recibirdata();*/
         load(url, element);
         function load(url, element)
         {
@@ -139,6 +327,10 @@ $('#consult').on('click', function() {
 
 
         function createDatatable(link) {
+            if (erTable_FO_table) {
+                var tabla = erTable_FO_table;
+                tabla.destroy();
+            }
             erTable_FO_table = $("#FO_table").DataTable({
                 processing: true,
                 serverSide: true,
@@ -166,11 +358,11 @@ $('#consult').on('click', function() {
                 }
             });
         }
-
-
+console.log('aqui', sql23);
         $.post(base_url + "Front_Office_Movil/KPI/getGraphInfo", {
                     inicio: fechaInicio,
-                    final: fechaFinal
+                    final: fechaFinal,
+                    condicion: sql23,
                   }).done(function(data){
                     var category = [];
                     var pasaronP1 = [];
@@ -213,7 +405,7 @@ $('#consult').on('click', function() {
                             '#ffa524'
                         ],
                         title: {
-                            text: 'Prioridad 1'
+                            text: 'TIEMPO DE ESCALAMIENTO FO MOVIL P1'
                         },
                         xAxis: {
                             categories: category
@@ -249,8 +441,12 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
+var condicion = this.sql23;
+condicion=sql23.replace(/ /g,'_');
+condicion=condicion.replace(/'/g,"-");
+condicion=condicion.replace(/%/g,"=");
 
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/1';
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha + '/1' + '/' + condicion;
 var element = document.getElementById('insert-content');
 load(url, element);
 function load(url, element)
@@ -369,7 +565,7 @@ $('#export-excel-modal').on('click', function() {
 
                     ],
                         title: {
-                            text: 'Prioridad 2'
+                            text: 'TIEMPO DE ESCALAMIENTO FO MOVIL P2'
                         },
                         xAxis: {
                             categories: category
@@ -406,9 +602,23 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
-
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/2';
+var condicion = this.sql23;
+condicion=sql23.replace(/ /g,'_');
+condicion=condicion.replace(/'/g,"-");
+condicion=condicion.replace(/%/g,"=");
+console.log(condicion);
+console.log(condicion);
+console.log(fecha);
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha + '/2' + '/' + condicion;
 var element = document.getElementById('insert-content');
+/*$.post(base_url + 'Front_Office_Movil/KPI/loadModal',{
+    fecha:fecha,
+    condicion:sql23,
+
+}).done(function(data){
+    console.log(fecha);
+    createDatatable(data);
+});*/
 load(url, element);
 function load(url, element)
 {
@@ -528,7 +738,7 @@ $('#export-excel-modal').on('click', function() {
 
                     ],
                         title: {
-                            text: 'Prioridad 3'
+                            text: 'TIEMPO DE ESCALAMIENTO FO MOVIL P3'
                         },
                         xAxis: {
                             categories: category
@@ -551,7 +761,7 @@ $('#export-excel-modal').on('click', function() {
                                 style: {
                                     textOutline: 0
                                 }
-            }
+                }
                             },
 
 
@@ -567,8 +777,11 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
-
-var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/3';
+var condicion = this.sql23;
+condicion=sql23.replace(/ /g,'_');
+condicion=condicion.replace(/'/g,"-");
+condicion=condicion.replace(/%/g,"=");
+var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/3' + '/' + condicion;
 var element = document.getElementById('insert-content');
 load(url, element);
 function load(url, element)
@@ -682,6 +895,10 @@ $('#export-excel-modal').on('click', function() {
                     // window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
                 });
 
+                $('#graficos_pri').on('click', function(){
+                    $("#grahp_prio").toggle();
+                });
+
 
         $('#export-excel').on('click', function() {
         $('#loader').show();
@@ -724,8 +941,6 @@ $('#export-excel-modal').on('click', function() {
             active = false;
             }
         });
-
-
-    });
+});
 </script>
 <script src="<?= base_url("assets/js/backoffice.js?v" . validarEnProduccion())?>"></script>

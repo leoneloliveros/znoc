@@ -492,12 +492,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </li>
                                 </ul>
                             </li>
-<!--                            <li class="" id="malla">
-                              <a href="<?= base_url('Bitacoras/export') ?>">
-                                <i class="fas fa-search"></i>
-                                <span>Consultar Bitacoras</span>
-                              </a>
-                            </li>-->
+                            <!--<li class="" id="malla">
+                                    <a href="<?= base_url('Bitacoras/export') ?>">
+                                        <i class="fas fa-search"></i>
+                                        <span>Consultar Bitacoras</span>
+                                    </a>
+                                </li>-->
                             <li class="" id="malla">
                                 <a href="<?= base_url('Malla') ?>">
                                     <i class="fas fa-edit"></i>
@@ -512,6 +512,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </a>
                                 </li>
                             <?php endif ?>
+                            <li class="" id="createReport">
+                                <a href="<?= base_url('Reportes/generar_reportes') ?>">
+                                    <i class="fas fa-file-download"></i>
+                                    <span>Generar Reporte</span>
+                                </a>
+                            </li>
                             </ul>
                             <!-- /.sidebar-menu -->
                         </section>
@@ -520,7 +526,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                     <!-- Content Wrapper. Contains page content -->
                     <div class="content-wrapper"style="margin-top:7vh;">
-                    <div class="spinner-loader"></div>
+                        <div class="spinner-loader"></div>
                         <!-- Content Header (Page header) -->
                         <!-- <section class="content-header">
                             <h1>

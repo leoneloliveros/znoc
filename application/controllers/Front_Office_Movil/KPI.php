@@ -1,19 +1,15 @@
 <?php
-
 defined('BASEPATH') or exit('No direct script access allowed');
 require_once APPPATH.'libraries/spout/src/Spout/Autoloader/autoload.php';
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 use Box\Spout\Common\Entity\Style\Color;
-
 class KPI extends CI_Controller {
-
     function __construct() {
         parent::__construct();
         $this->load->model('Dao_bitacoras_model');
         $this->load->model('Dao_reportes_model');
     }
-
     public function Control() {
         $data = array(
             'active_sidebar' => false,
@@ -26,7 +22,6 @@ class KPI extends CI_Controller {
         $this->load->view('parts/footer');
     }
     public function cargarInfo($fechaInicio, $fechaFinal) {
-
         $this->load->library('Datatables');
         $FO_table = $this->datatables->init();
         $FO_table  ->select("TICKETID,  TIPO_TKT,  CREATIONDATE,  STATUS,  INTERNALPRIORITY,  CREATEDBY,  OWNERGROUP,  INCEXCLUIR,  INCMEXCLUSION,  PROVEEDORES,  DESCRIPTION,  RUTA_TKT,  REGIONAL,  TIEMPO_VIDA_TKT,  TIEMPO_RESOLUCION_TKT,  TIEMPO_DETECCION, TIEMPO_ESCALA,  TIEMPO_FALLA,  TIEMPO_OT_ALM")
@@ -76,7 +71,6 @@ class KPI extends CI_Controller {
 
         //             $bitacora_BO_table = $this->datatables->init();
         // $bitacora_BO_table->select('*')->from('znoc.BITACORA_BO')->where("DATE_FORMAT(fecha, '%Y-%m-%d') BETWEEN '$fechaInicio' and '$fechaFinal'");
-
         // $bitacora_BO_table
         //     ->style(array(
         //     'class' => 'table table-striped',
@@ -89,8 +83,6 @@ class KPI extends CI_Controller {
         // $this->datatables->create('bitacora_BO_table', $bitacora_BO_table);
         // $this->load->view('bitacoras/loadBOData');
     }
-
-
     public function getIncidentsFO()
     {
       $query = $this->input->post('query');
@@ -125,22 +117,17 @@ class KPI extends CI_Controller {
         $writer->close();
 
     }
-
     public function getGraphInfo() {
         // $inicio = ;
         // $final = $this->input->post('final');
-
         $inicio = str_replace('/', '-', $this->input->post('inicio') );
         $fdesde = date("Y-m-d", strtotime($inicio));
-
         $final = str_replace('/', '-', $this->input->post('final') );
         $fhasta = date("Y-m-d", strtotime($final));
-
         $condicion = $this->input->post('condicion');
         $data = $this->Dao_reportes_model->getGraphInfo($fdesde,$fhasta,$condicion);
     echo json_encode($data);
     }
-
     public function getdetinfo(){
         $inicio = str_replace('/', '-', $this->input->post('inicio'));
         $diaini = date("Y-m-d", strtotime($inicio));
@@ -150,7 +137,6 @@ class KPI extends CI_Controller {
         $data = $this->Dao_reportes_model->getgraphdeteccion($diaini,$diafin,$peticion);
         echo json_encode($data);
     }
-
     public function getetdinfo(){
         $inicial = str_replace('/', '-', $this->input->post('inicial'));
         $diaini = date("Y-m-d", strtotime($inicial));
@@ -160,8 +146,6 @@ class KPI extends CI_Controller {
         $data = $this->Dao_reportes_model->getTETD($diaini,$diafin,$condicional);
         echo json_encode($data);
     }
-
-
     public function loadModal($fecha, $prioridad, $condicion) {
         $condicion=str_replace('_', ' ', $condicion);
         $condicion=str_replace('-', "'", $condicion);
@@ -214,9 +198,7 @@ class KPI extends CI_Controller {
         $this->datatables->create('modal_table', $modal_table);
 
         $this->load->view('Front_Office_Movil/loadModal');
-
     }
-
 }
-// / End of file Bitacoras.php /
+/* End of file Bitacoras.php */
 ?>
