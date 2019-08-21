@@ -483,6 +483,7 @@
                               condicion=condicion.replace(/'/g,"-");
                               condicion=condicion.replace(/%/g,"=");
 
+                              
                               var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha + '/' + numero + '/' + condicion;
                               var element = document.getElementById('insert-content');
                               load(url, element);
