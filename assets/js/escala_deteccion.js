@@ -608,6 +608,7 @@ $('#export-excel-modal').on('click', function() {
     });//Cierre del tercer highchart
  });//Cierre de data
 $('#graficos_esc_dt').on('click', function(){
-    $('#container_grahp_tetd').toggle();
+    $('#content-gaphs .active').removeClass('active');
+    $('#container_grahp_tetd').addClass('active');
 });
 });//Cierre del boton consultar

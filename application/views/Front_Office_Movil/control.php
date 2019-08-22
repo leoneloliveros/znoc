@@ -134,26 +134,37 @@
 <button id="graficos_pri" class="btn btn-warning grafico-pri" style="display: none;">Tiempos de Escalamiento</button>
 <button id="graficos_deteccion" class="btn btn-danger graficos_deteccion" style="display: none;">Tiempos de Deteccion</button>
 <button id="graficos_esc_dt" class="btn btn-success graficos_esc_dt" style="display: none;">Tiempo de Escalamiento + Tiempo de Deteccion</button>
+
+<div id="content-gaphs">
 <div id="grahp_prio" style="display: none;">
 <div class="" style="display: flex; width: 100%; align-items: center; margin-top: 50px; flex-wrap: wrap;">
-        <div class="col-md-12" id="P1" style=" margin-bottom: 30px; width: 70%;"></div>
-        <div class="col-md-12" id="P2" style=" margin-bottom: 30px; width: 70%"></div>
-        <div class="col-md-12" id="P3" style=" margin-bottom: 30px; width:70%"></div>
+        <div class="col-md-8 margin-bottom" id="P1" style=" margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-8 margin-bottom" id="P2" style=" margin-bottom: 30px; width: 70%"></div>
+        <div class="col-md-8 margin-bottom" id="P3" style=" margin-bottom: 30px; width:70%"></div>
     </div>
 </div>
-    <div id="container_graphic" style="background: #26D8B2; display: none;">
-        <div class="col-md-12" id="tiempo_det" style=" margin-bottom: 30px; width: 70%;"></div>
-        <div class="col-md-12" id="tiempo_det2" style=" margin-bottom: 30px; width: 70%;"></div>
-        <div class="col-md-12" id="tiempo_det3" style=" margin-bottom: 30px; width: 70%;"></div>
+
+    <div id="container_grahp_tetd" style="display: none;">
+      <div class="" style="display: flex; width: 100%; align-items: center; margin-top: 50px; flex-wrap: wrap;">
+        <div class="col-md-8 margin-bottom " id="tetd1" style="margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-8 margin-bottom " id="tetd2" style="margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-8 margin-bottom " id="tetd3" style="margin-bottom: 30px; width: 70%;"></div>
+      </div>
     </div>
-    <div id="container_grahp_tetd" style="background: #26D8B2; display: none;">
-        <div class="col-md-12" id="tetd1" style="margin-bottom: 30px; width: 70%;"></div>
-        <div class="col-md-12" id="tetd2" style="margin-bottom: 30px; width: 70%;"></div>
-        <div class="col-md-12" id="tetd3" style="margin-bottom: 30px; width: 70%;"></div>
+
+    <div id="container_graphic" style="display: none;">
+      <div class="" style="display: flex; width: 100%; align-items: center; margin-top: 50px; flex-wrap: wrap;">
+        <div class="col-md-8 margin-bottom " id="tiempo_det" style=" margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-8 margin-bottom " id="tiempo_det2" style=" margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-8 margin-bottom " id="tiempo_det3" style=" margin-bottom: 30px; width: 70%;"></div>
+      </div>
     </div>
+
+  </div>
+
     <div class="col-md-12" id="container-graph4" style=" margin-bottom: 30px; width:50%"></div>
     <div class="col-md-12" id="container-result" style="display: flex;"></div>
-</div>
+
 
 
 <div id="modalInfo" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
@@ -391,7 +402,8 @@ $('#consult').on('click', function(e) {
         });
 
         $('#graficos_pri').on('click', function(){
-            $("#grahp_prio").toggle();
+          $('#content-gaphs .active').removeClass('active');
+            $("#grahp_prio ").addClass('active');
         });
 
 
