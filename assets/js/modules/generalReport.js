@@ -2,14 +2,14 @@ $(function () {
     generalReport = {
         init: function () {
             generalReport.events();
-            generalReport.getReportsDB();
+            // generalReport.getReportsDB();
         },
 
         events: function () {
-            $(`#reportButton`).click(generalReport.getReportAccordingOption);
-            $(`#reportButton2`).click(generalReport.getReportAccordingOption2);
+
             $(`#excelVol`).click(generalReport.createExcel);
         },
+
 
         getReportAccordingOption: function () {
             $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', true);
