@@ -378,7 +378,7 @@ $(function () {
             document.getElementById('fin_actividad').value = fecha;
 
             if ($('#tipo_bitacora option:selected').text() !== "Seleccione...") {
-                $(".err").removeClass("err");
+                $(".form-input-error").removeClass("form-input-error");
                 const campos = $("div.frame input, div.frame select,div.frame textarea").not('#cedulaBitacora, #ot_tarea, #area_asignacion, #responsable');
                 var vacios = [];
                 var data = {};
