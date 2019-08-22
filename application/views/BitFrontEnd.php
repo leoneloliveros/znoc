@@ -207,7 +207,7 @@ input{
 
               <div class="col-md-4 col-body">
                 <div class="form-group">
-                <label class="form-label" for="tipo_incidente">Tipo de Incidente</label>
+                  <label class="form-label" for="tipo_incidente">Tipo de Incidente</label>
                   <select id="tipo_incidente" class="form-control form-input required-field">
                     <option value="">Seleccione...</option>
                     <option value="INTERMITENCIA">INTERMITENCIA</option>
@@ -219,9 +219,10 @@ input{
               </div>
 
 
-
-<div id="validate_selection"></div>
-            </div>
+              </div>
+              </div>
+              <div id="validate_selection"></div>
+            
             </form>
 
 

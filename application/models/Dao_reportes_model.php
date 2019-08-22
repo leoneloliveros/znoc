@@ -733,9 +733,9 @@ class Dao_reportes_model extends CI_Model {
         ");
         return $query->result();
     }
+   
 
-
-    public function getgraphdeteccion($fdesde, $fhasta, $peticion){
+     public function getgraphdeteccion($fdesde, $fhasta, $peticion){
         $condicional="SELECT DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date, COUNT(*) AS count,
             SUM(IF(INTERNALPRIORITY = 1 AND TIEMPO_DETECCION <= 40, 1, 0)) AS 'P1_PASARON',
             SUM(IF(INTERNALPRIORITY = 1, 1, 0)) AS 'P1_TOTAL',
@@ -759,13 +759,37 @@ class Dao_reportes_model extends CI_Model {
             AND `STATUS` != 'ELIMINADO'
             AND `STATUS` != 'CANCELADO'
             and DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
-            GROUP
+            GROUP 
             BY the_date
             ";
             $query=$this->db->query($condicional);
             $data = $query->result();
             return $data;
     }
+    
+
+    public function getIncidentesCerrados($fdesde, $fhasta){
+        $query=$this->db->query("
+            SELECT INC.TICKETID, INC.CREATIONDATE, INC.CREATEDBY, PE.DISPLAYNAME AS 'NOMBRE_CREADOR', INC.DESCRIPTION, INC.STATUS, TK.CHANGEBY, PER.DISPLAYNAME, INC.INTERNALPRIORITY, INC.URGENCY,  INC.CAUSE_CODE, INC.CAUSE_DESCRIPTION, INC.REMEDY_CODE, INC.REMEDY_DESCRIPTION
+            FROM maximo.INCIDENT INC
+            LEFT JOIN maximo.TKSTATUS TK
+            ON INC.TICKETID = TK.TICKETID
+            LEFT JOIN maximo.PERSON PE
+            ON INC.CREATEDBY = PE.PERSONID
+            LEFT JOIN maximo.PERSON PER
+            ON TK.CHANGEBY = PER.PERSONID
+            WHERE  INC.STATUS = 'CERRADO'
+            AND TK.STATUS = 'CERRADO'
+            AND INC.TICKETID LIKE '%INC%'
+            and DATE_FORMAT(INC.CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
+            ");
+             $_SESSION['x'] = $query->result();
+        return $query->result();
+    }
+    
+
+
+    
     public function getTETD ($fdesde,$fhasta, $condicion){
         $query=$this->db->query("
              SELECT DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date, COUNT(*) AS count,

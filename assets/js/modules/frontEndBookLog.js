@@ -68,7 +68,7 @@ $(function () {
             // $(".valD").on('keydown',bitacoras.validateFormat);
             $(`#inicio_actividad,#fin_actividad`).blur({idDStart: 'inicio_actividad', idDEnd: 'fin_actividad', final: 'tiempo_atencion'}, bitacoras.getAttentionTime);
             $(`#inicio_alarma,#creacion_tk`).blur({idDStart: 'inicio_alarma', idDEnd: 'creacion_tk', final: 'tiempo_deteccion'}, bitacoras.getAttentionTime);
-            $(`#num_tk_incidente,#ot_tarea`).on('keypress', bitacoras.validateOnlyNumbers);
+            // $(`#num_tk_incidente,#ot_tarea`).on('keypress', bitacoras.validateOnlyNumbers);
             $('#id_users').on('change', function () {
                 $(`#cedulaBitacora`).val($(this).val())
             });
@@ -378,7 +378,7 @@ $(function () {
             document.getElementById('fin_actividad').value = fecha;
 
             if ($('#tipo_bitacora option:selected').text() !== "Seleccione...") {
-                $(".err").removeClass("err");
+                $(".form-input-error").removeClass("form-input-error");
                 const campos = $("div.frame input, div.frame select,div.frame textarea").not('#cedulaBitacora, #ot_tarea, #area_asignacion, #responsable');
                 var vacios = [];
                 var data = {};
@@ -452,7 +452,7 @@ $(function () {
 
                 } else {
                     $.each(vacios, function (i, id) {
-                        $(`#${id}`).addClass('err');
+                        $(`#${id}`).addClass('form-input-error');
                     });
                     swal({
                         "html": "¡No puede dejar los campo en rojo vacios!",
