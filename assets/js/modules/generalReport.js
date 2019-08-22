@@ -174,13 +174,11 @@ $.post(base_url + "GeneralReports/c_getReportsDB", {
         $.each(obj, function (i, val) {
             $('#selection').append('<option value="' + val.id_reportes + '">' + val.nombre_reporte + '</option>');
         });
+      }
 
+    );
+            helper.hideLoading();
+        },
     }
-);
-helper.hideLoading();
-    }
-}
-generalReport.init();
-    
-})
-
+    generalReport.init();
+});

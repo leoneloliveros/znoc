@@ -1,12 +1,15 @@
 $(function () {
     bitacoras = {
         init: function () {
+
             bitacoras.events();
             bitacoras.checkStateType();
             bitacoras.getAreas();
             // $(".valD").attr("maxlength",19);
             $(`#fechaInicio, #fechaFin`).mask('00/00/0000', {placeholder: "--/--/--"});
             $(`.valD`).mask('00/00/0000', {placeholder: "--/--/--"});
+            $('#loader').hide();
+            $('.spinner-loader').hide();
         },
 
         events: function () {
@@ -18,7 +21,7 @@ $(function () {
                 } else {
                     $(`#fechaInicio, #fechaFin`).attr('disabled', true);
                 }
-                document.getElementById('forExport').reset();
+                // document.getElementById('forExport').reset();
             });
             $('#crearBitacora').click(() => {
                 $('#createContent').show();
@@ -65,7 +68,7 @@ $(function () {
             // $(".valD").on('keydown',bitacoras.validateFormat);
             $(`#inicio_actividad,#fin_actividad`).blur({idDStart: 'inicio_actividad', idDEnd: 'fin_actividad', final: 'tiempo_atencion'}, bitacoras.getAttentionTime);
             $(`#inicio_alarma,#creacion_tk`).blur({idDStart: 'inicio_alarma', idDEnd: 'creacion_tk', final: 'tiempo_deteccion'}, bitacoras.getAttentionTime);
-            $(`#num_tk_incidente,#ot_tarea`).on('keypress', bitacoras.validateOnlyNumbers);
+            // $(`#num_tk_incidente,#ot_tarea`).on('keypress', bitacoras.validateOnlyNumbers);
             $('#id_users').on('change', function () {
                 $(`#cedulaBitacora`).val($(this).val())
             });
@@ -135,7 +138,7 @@ $(function () {
                     }
             );
         },
-      
+
         allTypesDisable: function () {
             $("#validate_selection").children().remove();
             // elimina los ingenieros anteriores para posteriormente volverlos a llenar
@@ -242,11 +245,10 @@ $(function () {
 
                     $("#validate_selection").append(`
 
-            <div class="col-md-4">
-
+            <div class="col-md-4 col-body">
               <div class="form-group">
-                <label for="tk_padre">TK Padre</label>
-                <select id="tk_padre" class="form-control">
+                <label class="form-label" for="tk_padre">TK Padre</label>
+                <select id="tk_padre" class="form-control form-input required-field">
                   <option value="">Seleccione...</option>
                   <option value="SI">SI</option>
                   <option value="NO">NO</option>
@@ -254,10 +256,10 @@ $(function () {
               </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 col-body">
               <div class="form-group">
-                <label for="saltos_validados">Saltos validados</label>
-                <input type="text" class="form-control" id="saltos_validados" placeholder="ingrese número..">
+                <label class="form-label" for="saltos_validados">Saltos validados</label>
+                <input type="text" class="form-control form-input required-field" id="saltos_validados" placeholder="ingrese número..">
               </div>
             </div>
 
@@ -280,41 +282,47 @@ $(function () {
                 case "plataforma": //********************************PLATAFORMA********************************
                     $("#validate_selection").append(`
 
-            <div class="form-group col-md-4">
-              <label for="reporte_proveedores">Reporte con proveedores</label>
-              <select id="reporte_proveedores" class="form-control">
-                <option value="">Seleccione...</option>
-                <option value="ALCATEL">ALCATEL</option>
-                <option value="ANDIRED">ANDIRED</option>
-                <option value="AZTECA">AZTECA</option>
-                <option value="DATOS">DATOS</option>
-                <option value="LAZUS">LAZUS</option>
-                <option value="NO">NO</option>
-                <option value="NOKIA">NOKIA</option>
-                <option value="NOKIA ALCATEL">NOKIA ALCATEL</option>
-                <option value="PLANTA EXTERNA">PLANTA EXTERNA</option>
-                <option value="PROMITEL">PROMITEL</option>
-                <option value="SDH">SDH</option>
-                <option value="SI">SI</option>
-                <option value="UFINET">UFINET</option>
-                <option value="OTRO">OTRO</option>
-              </select>
+            <div class="col-md-4 col-body">
+              <div class="form-group">
+                  <label class="form-label" for="reporte_proveedores">Reporte con proveedores</label>
+                  <select id="reporte_proveedores" class="form-control form-input required-field">
+                    <option value="">Seleccione...</option>
+                    <option value="ALCATEL">ALCATEL</option>
+                    <option value="ANDIRED">ANDIRED</option>
+                    <option value="AZTECA">AZTECA</option>
+                    <option value="DATOS">DATOS</option>
+                    <option value="LAZUS">LAZUS</option>
+                    <option value="NO">NO</option>
+                    <option value="NOKIA">NOKIA</option>
+                    <option value="NOKIA ALCATEL">NOKIA ALCATEL</option>
+                    <option value="PLANTA EXTERNA">PLANTA EXTERNA</option>
+                    <option value="PROMITEL">PROMITEL</option>
+                    <option value="SDH">SDH</option>
+                    <option value="SI">SI</option>
+                    <option value="UFINET">UFINET</option>
+                    <option value="OTRO">OTRO</option>
+                  </select>
+                </div>
             </div>
 
 
-            <div class="form-group col-md-4">
-              <label for="servicios_corporativos">Servicios Corporativos</label>
-              <select id="servicios_corporativos" class="form-control">
-                <option value="">Seleccione...</option>
-                <option value="0 a 9">0 a 9</option>
-                <option value="MAYOR A 10">MAYOR A 10</option>
-              </select>
+            <div class="col-body col-md-4">
+              <div class="form-group">
+                <label class="form-label" for="servicios_corporativos">Servicios Corporativos</label>
+                <select id="servicios_corporativos" class="form-control form-input required-field">
+                  <option value="">Seleccione...</option>
+                  <option value="0 a 9">0 a 9</option>
+                  <option value="MAYOR A 10">MAYOR A 10</option>
+                </select>
+              </div>
             </div>
 
 
-            <div class="form-group servCorpDesc col-sm-12">
-                <label for="servicios_corporativos_descripcion">Servicios Corporativos Descripción</label>
-                <input type="text" class="form-control" id="servicios_corporativos_descripcion">
+            <div class="servCorpDesc col-sm-12 col-body">
+              <div class="form-group">
+                <label class="form-label" for="servicios_corporativos_descripcion">Servicios Corporativos Descripción</label>
+                <input type="text" class="form-control form-input required-field" id="servicios_corporativos_descripcion">
+              </div>
             </div>
           `);
                     $(`#caso_de_uso`).append(`
@@ -331,18 +339,19 @@ $(function () {
                 case "servicios": //********************************SERVICIOS********************************
 
                     $("#validate_selection").append(`
-            <div id="if_servicios" class="col-md-4">
+
+            <div id="if_servicios" class="col-md-4 col-body">
               <div class="form-group">
-                <label for="valida_ruta_tx">Valida Ruta Tx</label>
-                <input type="text" class="form-control" id="valida_ruta_tx" placeholder="ingrese valor...">
+                <label class="form-label" for="valida_ruta_tx">Valida Ruta Tx</label>
+                <input type="text" class="form-control form-input required-field" id="valida_ruta_tx" placeholder="ingrese valor...">
               </div>
             </div>
 
 
-            <div id="if_intermitencias_servicios" class="col-md-4">
+            <div id="if_intermitencias_servicios" class="col-md-4 col-body">
               <div class="form-group">
-                <label for="saltos_validados">Saltos validados</label>
-                <input type="text" class="form-control" id="saltos_validados" placeholder="ingrese número..">
+                <label class="form-label" for="saltos_validados">Saltos validados</label>
+                <input type="text" class="form-control form-input required-field" id="saltos_validados" placeholder="ingrese número..">
               </div>
             </div>
 
@@ -361,6 +370,7 @@ $(function () {
                 default:
                     bitacoras.allTypesDisable();
             }
+            Bitacora.inputAnimations();
         },
 
         validateForm: function () {
@@ -368,7 +378,7 @@ $(function () {
             document.getElementById('fin_actividad').value = fecha;
 
             if ($('#tipo_bitacora option:selected').text() !== "Seleccione...") {
-                $(".err").removeClass("err");
+                $(".form-input-error").removeClass("form-input-error");
                 const campos = $("div.frame input, div.frame select,div.frame textarea").not('#cedulaBitacora, #ot_tarea, #area_asignacion, #responsable');
                 var vacios = [];
                 var data = {};
@@ -432,9 +442,9 @@ $(function () {
                                     document.getElementById('formu').reset();
                                 } else {
                                     swal({
-                                        "title": "Ocurrió un error inesperado",
-                                        "text": data,
-                                        "type": "error",
+                                        title: "Ocurrió un error inesperado",
+                                        text: "data",
+                                        type: "error",
                                     });
                                 }
                             },
@@ -442,7 +452,7 @@ $(function () {
 
                 } else {
                     $.each(vacios, function (i, id) {
-                        $(`#${id}`).addClass('err');
+                        $(`#${id}`).addClass('form-input-error');
                     });
                     swal({
                         "html": "¡No puede dejar los campo en rojo vacios!",

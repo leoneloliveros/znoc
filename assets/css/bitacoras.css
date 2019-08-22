@@ -1,31 +1,3 @@
-.styleInp {
-  display: block;
-  padding: 3px;
-  border: 1px solid #377a9c;
-  width: 100%;
-  border-radius: 2px;
-  outline: none;
-  transition: .5s;
-}
-.styleInp option{
-  background: #000 !important;
-  color: white !important;
-}
-.styleInp:hover {
-  background: #e8e8e8;
-}
-.styleInp:focus {
-  background: black;
-  color: white;
-}
-.t-a-c {
-  text-align: center;
-}
-.frame{
-  background: #fbfbfb;
-  padding: 1em;
-  box-shadow: 0 0 5px 0px black;
-}
 .btnx{
   background: #084c6f;
   border: 1px solid black;

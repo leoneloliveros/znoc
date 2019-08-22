@@ -1,5 +1,6 @@
 
 $('#consult').on('click', function(e) {
+
     var checks=$("#areas input[type='checkbox']:checked").length;
     var sql23= "";
     conseguirarea(e);
@@ -20,13 +21,13 @@ $('#consult').on('click', function(e) {
                 switch (areas[i].name) {
                     case 'plataforma':
                         sql23 += "DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
-                    break; 
+                    break;
                     case 'intermitencia':
                         sql23 += "DESCRIPTION LIKE '%FI:%'";
-                    break; 
+                    break;
                     case 'foservicio':
                         sql23 += "DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%'";
-                    break; 
+                    break;
                     case 'foenergia':
                         sql23 += "DESCRIPTION LIKE '%FEE:%'";
                     break;
@@ -133,9 +134,9 @@ $('#consult').on('click', function(e) {
                         noPasaronP3.push(obj[i].P3_TOTAL - obj[i].P3_PASARON);
                         averageP3.push((obj[i].P3_PASARON * 100) / obj[i].P3_TOTAL);
                     }
-                        
 
-                        
+
+
                     Highcharts.chart('tetd1', {
                         chart: {
                             type: 'column'
@@ -244,8 +245,8 @@ $('#export-excel-modal').on('click', function() {
                     $('.spinner-loader').hide();
                     window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
                 });
-                    
-                      
+
+
     });
     $('#modal_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
         $('#modal_table_filter input').attr('id', 'search-input-modal');
@@ -258,7 +259,7 @@ $('#export-excel-modal').on('click', function() {
                 $('#search-input-modal').addClass('active');
                 $('#search-icon').addClass('active');
                 active = true;
-                } 
+                }
             } else {
                 $('#FO_table_filter').removeClass('active');
                 $('#modal_table_filter').removeClass('active');
@@ -400,8 +401,8 @@ $('#export-excel-modal').on('click', function() {
                     $('.spinner-loader').hide();
                     window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
                 });
-                    
-                      
+
+
     });
     $('#modal_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
         $('#modal_table_filter input').attr('id', 'search-input-modal');
@@ -414,7 +415,7 @@ $('#export-excel-modal').on('click', function() {
                 $('#search-input-modal').addClass('active');
                 $('#search-icon').addClass('active');
                 active = true;
-                } 
+                }
             } else {
                 $('#FO_table_filter').removeClass('active');
                 $('#modal_table_filter').removeClass('active');
@@ -556,8 +557,8 @@ $('#export-excel-modal').on('click', function() {
                     $('.spinner-loader').hide();
                     window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
                 });
-                    
-                      
+
+
     });
     $('#modal_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
         $('#modal_table_filter input').attr('id', 'search-input-modal');
@@ -570,7 +571,7 @@ $('#export-excel-modal').on('click', function() {
                 $('#search-input-modal').addClass('active');
                 $('#search-icon').addClass('active');
                 active = true;
-                } 
+                }
             } else {
                 $('#FO_table_filter').removeClass('active');
                 $('#modal_table_filter').removeClass('active');
@@ -610,5 +611,3 @@ $('#graficos_esc_dt').on('click', function(){
     $('#container_grahp_tetd').toggle();
 });
 });//Cierre del boton consultar
-
-

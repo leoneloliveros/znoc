@@ -23,27 +23,42 @@ $(document).ready(function() {
                 var inputValue = $(this).val();
                 if ( inputValue == "" ) {
                     $(this).removeClass('filled');
-                    $(this).parents('.form-group').removeClass('focused');  
+                    $(this).parents('.form-group').removeClass('focused');
                 } else {
                     $(this).addClass('filled');
                 }
-            });  
-            
+            });
+
             $('select').focus(function(){
                 $(this).parents('.form-group').addClass('focused');
             });
-            
+
             $('select').blur(function(){
                 var selectValue = $(this).val();
                 if ( selectValue == "" ) {
                     $(this).removeClass('filled');
-                    $(this).parents('.form-group').removeClass('focused');  
+                    $(this).parents('.form-group').removeClass('focused');
                 } else {
                     $(this).addClass('filled');
                 }
-            });  
-            
+            });
+
+            $('textarea').focus(function(){
+                $(this).parents('.form-group').addClass('focused');
+            });
+            $('textarea').blur(function(){
+                var selectValue = $(this).val();
+                if ( selectValue == "" ) {
+                    $(this).removeClass('filled');
+                    $(this).parents('.form-group').removeClass('focused');
+                } else {
+                    $(this).addClass('filled');
+                }
+            });
+
         },
+
+
         formatDateInputs: function() {
             $('#fecha').mask("99/99/9999");
             $('#fechaYHoraIngresoTarea').mask("99/99/9999 99:99");
@@ -129,8 +144,8 @@ $(document).ready(function() {
                             timer: 1500
                         });
                         window.setTimeout(function(){ location.reload(true); } ,1500);
-                            
-                        // 
+
+                        //
                     }
                 });
 
