@@ -68,7 +68,7 @@ $(function () {
             // $(".valD").on('keydown',bitacoras.validateFormat);
             $(`#inicio_actividad,#fin_actividad`).blur({idDStart: 'inicio_actividad', idDEnd: 'fin_actividad', final: 'tiempo_atencion'}, bitacoras.getAttentionTime);
             $(`#inicio_alarma,#creacion_tk`).blur({idDStart: 'inicio_alarma', idDEnd: 'creacion_tk', final: 'tiempo_deteccion'}, bitacoras.getAttentionTime);
-            $(`#num_tk_incidente,#ot_tarea`).on('keypress', bitacoras.validateOnlyNumbers);
+            // $(`#num_tk_incidente,#ot_tarea`).on('keypress', bitacoras.validateOnlyNumbers);
             $('#id_users').on('change', function () {
                 $(`#cedulaBitacora`).val($(this).val())
             });
@@ -452,7 +452,7 @@ $(function () {
 
                 } else {
                     $.each(vacios, function (i, id) {
-                        $(`#${id}`).addClass('err');
+                        $(`#${id}`).addClass('form-input-error');
                     });
                     swal({
                         "html": "¡No puede dejar los campo en rojo vacios!",
