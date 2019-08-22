@@ -22,11 +22,7 @@ class KPI extends CI_Controller {
         $this->load->view('parts/footer');
     }
     public function cargarInfo($fechaInicio, $fechaFinal, $condicion) {
-<<<<<<< HEAD
-      $condicion=str_replace('_', ' ', $condicion);
-=======
         $condicion=str_replace('_', ' ', $condicion);
->>>>>>> d318e05f340c5f741fc957d8b6797d490e808f69
         $condicion=str_replace('-', "'", $condicion);
         $condicion2=str_replace('=', '%', $condicion);
         $this->load->library('Datatables');
@@ -46,9 +42,8 @@ class KPI extends CI_Controller {
                     ->where('DESCRIPTION NOT LIKE "%FEE%SIN PE%"')
                     ->where("STATUS !=", "ELIMINADO")
                     ->where("STATUS !=", "CANCELADO")
-                   ->where("CREATIONDATE >=", date("Y-m-d", strtotime($fechaInicio)))
+                    ->where("CREATIONDATE >=", date("Y-m-d", strtotime($fechaInicio)))
                     ->where("CREATIONDATE <=", date("Y-m-d h:m", strtotime($fechaFinal . ' ' . '23:59')));
-
         $FO_table
                     ->column('TICKETID','TICKETID')
                     ->column('TIPO_TKT','TIPO_TKT')
@@ -74,11 +69,19 @@ class KPI extends CI_Controller {
                     ))
                     ->set_options('scrollX', 'true');
         $this->datatables->create('FO_table', $FO_table);
-
-        
         $this->load->view('Front_Office_Movil/loadTable');
-
-       
+        //             $bitacora_BO_table = $this->datatables->init();
+        // $bitacora_BO_table->select('*')->from('znoc.BITACORA_BO')->where("DATE_FORMAT(fecha, '%Y-%m-%d') BETWEEN '$fechaInicio' and '$fechaFinal'");
+        // $bitacora_BO_table
+        //     ->style(array(
+        //     'class' => 'table table-striped',
+        //     ))
+        //     ->column('Fecha', 'fecha')
+        //     ->column('Ticket', 'ticket')
+        //     ->column('Tarea', 'tarea')
+        //     ->column('Estacion', 'estacion');
+        // $this->datatables->create('bitacora_BO_table', $bitacora_BO_table);
+        // $this->load->view('bitacoras/loadBOData');
     }
     public function getIncidentsFO()
     {
@@ -90,19 +93,14 @@ class KPI extends CI_Controller {
     {
       $data = $_SESSION['x'];
       // echo '<pre>'; print_r("lol"); echo '</pre>';
-
-
         $writer = WriterEntityFactory::createXLSXWriter();
         $style = (new StyleBuilder())
         ->setShouldWrapText(false)
         ->build();
-
         $writer->openToBrowser('IncidentesFOMovil('.date('Y-m-d').').xlsx');
         $titles = array('TICKETID', 'TIPO_TKT', 'CREATIONDATE', 'STATUS', 'INTERNALPRIORITY', 'CREATEDBY', 'OWNERGROUP', 'INCEXCLUIR', 'INCMEXCLUSION', 'PROVEEDORES', 'DESCRIPTION', 'RUTA_TKT', 'REGIONAL', 'TIEMPO_VIDA_TKT', 'TIEMPO_RESOLUCION_TKT', 'TIEMPO_DETECCION', 'TIEMPO_ESCALA', 'TIEMPO_FALLA', 'TIEMPO_OT_ALM');
-
         $header = WriterEntityFactory::createRowFromArray($titles);
         $writer->addRow($header);
-
         foreach ($data as $val) {
           $cells = array();
           foreach ($val as $val1) {
@@ -112,7 +110,6 @@ class KPI extends CI_Controller {
           $writer->addRow($rowFromValues);
         }
         $writer->close();
-
     }
     public function getGraphInfo() {
         // $inicio = ;
@@ -125,15 +122,6 @@ class KPI extends CI_Controller {
         $data = $this->Dao_reportes_model->getGraphInfo($fdesde,$fhasta,$condicion);
     echo json_encode($data);
     }
-
-    public function getGraphInfoHM(){
-        $inicio = str_replace('/', '-', $this->input->post('inicio') );
-        $fdesde = date("Y-m-d", strtotime($inicio));
-        $condicion = $this->input->post('condicion');
-        $data = $this->Dao_reportes_model->getescalahm($fdesde,$condicion);
-        echo json_encode($data);
-    }
-
     public function getdetinfo(){
         $inicio = str_replace('/', '-', $this->input->post('inicio'));
         $diaini = date("Y-m-d", strtotime($inicio));
@@ -176,7 +164,6 @@ class KPI extends CI_Controller {
                     ->where("INTERNALPRIORITY =", $prioridad )
                     ->where("CREATIONDATE >=", $fecha)
                     ->where("CREATIONDATE <=", $fecha . ' ' . '23:59');
-
         $modal_table
                     ->column('TICKETID','TICKETID')
                     ->column('TIPO_TKT','TIPO_TKT')
@@ -202,7 +189,6 @@ class KPI extends CI_Controller {
                     ))
                     ->set_options('scrollX', 'true');
         $this->datatables->create('modal_table', $modal_table);
-
         $this->load->view('Front_Office_Movil/loadModal');
     }
 }
