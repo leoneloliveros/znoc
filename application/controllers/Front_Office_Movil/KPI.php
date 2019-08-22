@@ -22,7 +22,11 @@ class KPI extends CI_Controller {
         $this->load->view('parts/footer');
     }
     public function cargarInfo($fechaInicio, $fechaFinal, $condicion) {
+<<<<<<< HEAD
       $condicion=str_replace('_', ' ', $condicion);
+=======
+        $condicion=str_replace('_', ' ', $condicion);
+>>>>>>> d318e05f340c5f741fc957d8b6797d490e808f69
         $condicion=str_replace('-', "'", $condicion);
         $condicion2=str_replace('=', '%', $condicion);
         $this->load->library('Datatables');

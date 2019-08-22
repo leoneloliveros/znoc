@@ -786,10 +786,7 @@ class Dao_reportes_model extends CI_Model {
              $_SESSION['x'] = $query->result();
         return $query->result();
     }
-    
-
-
-    
+        
     public function getTETD ($fdesde,$fhasta, $condicion){
         $query=$this->db->query("
              SELECT DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date, COUNT(*) AS count,

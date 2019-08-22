@@ -2,7 +2,7 @@
 $('#consult').on('click', function(e) {
 
     var checks=$("#areas input[type='checkbox']:checked").length;
-    var descripcion="";
+    var sql23="";
     conseguirarea(e);
     function conseguirarea(e){
         if (checks==0) {
@@ -20,25 +20,25 @@ $('#consult').on('click', function(e) {
                 console.log(areas[i].name);
                 switch (areas[i].name) {
                     case 'plataforma':
-                        descripcion += "DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
+                        sql23 += "DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
                     break;
                     case 'intermitencia':
-                        descripcion += "DESCRIPTION LIKE '%FI:%'";
+                        sql23 += "DESCRIPTION LIKE '%FI:%'";
                     break;
                     case 'foservicio':
-                        descripcion += "DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%'";
+                        sql23 += "DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%'";
                     break;
                     case 'foenergia':
-                        descripcion += "DESCRIPTION LIKE '%FEE:%'";
+                        sql23 += "DESCRIPTION LIKE '%FEE:%'";
                     break;
                     case 'todas':
-                        descripcion += "DESCRIPTION LIKE '%FEE:%' OR DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%' OR DESCRIPTION LIKE '%FI:%' OR DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
+                        sql23 += "DESCRIPTION LIKE '%FEE:%' OR DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%' OR DESCRIPTION LIKE '%FI:%' OR DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
                         break;
                     default:
                         break;
                 }
                  if(i != areas.length - 1) {
-                    descripcion += " OR ";
+                    sql23 += " OR ";
                 };
             }
             // console.log(sql23);
@@ -67,9 +67,8 @@ $('#consult').on('click', function(e) {
         $('.spinner-loader').show();
         var fechaInicio = $('#fechaInicio').val();
         var fechaFinal = $('#fechaFinal').val();
-        console.log(descripcion)
-        var condicion=descripcion;
-            condicion=descripcion.replace(/ /g,'_');
+        var condicion=sql23;
+            condicion=sql23.replace(/ /g,'_');
             condicion=condicion.replace(/'/g,"-");
             condicion=condicion.replace(/%/g,"=");
         var graficacont= document.getElementById('insertar-graficas');
@@ -126,9 +125,9 @@ $('#consult').on('click', function(e) {
         $.post(base_url + "Front_Office_Movil/KPI/getdetinfo", {
                     inicio: fechaInicio,
                     final: fechaFinal,
-                    peticion: descripcion,
+                    peticion: sql23,
                   }).done(function(data){
-                    console.log(descripcion);
+                    console.log(sql23);
                     var category = [];
                     var pasaronP1 = [];
                     var averageP1 = [];
@@ -206,8 +205,8 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
-var peticion= this.descripcion;
-peticion=descripcion.replace(/ /g,'_');
+var peticion= this.sql23;
+peticion=sql23.replace(/ /g,'_');
 peticion=peticion.replace(/'/g,"-");
 peticion=peticion.replace(/%/g,"=");
 
@@ -362,8 +361,8 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
-var peticion= this.descripcion;
-peticion=descripcion.replace(/ /g,'_');
+var peticion= this.sql23;
+peticion=sql23.replace(/ /g,'_');
 peticion=peticion.replace(/'/g,"-");
 peticion=peticion.replace(/%/g,"=");
 
@@ -518,8 +517,8 @@ click: function () {
 $('#loader').show();
 $('.spinner-loader').show();
 var fecha = this.category;
-var peticion= this.descripcion;
-peticion=descripcion.replace(/ /g,'_');
+var peticion= this.sql23;
+peticion=sql23.replace(/ /g,'_');
 peticion=peticion.replace(/'/g,"-");
 peticion=peticion.replace(/%/g,"=");
 var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha  + '/3' + '/' + peticion;
