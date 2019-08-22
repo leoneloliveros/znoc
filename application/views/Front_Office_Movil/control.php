@@ -295,8 +295,12 @@ $('#consult').on('click', function(e) {
 
           var fechaInicio = $('#fechaInicio').val();
           var fechaFinal = $('#fechaFinal').val();
+          var condicion=sql23;
+            condicion=sql23.replace(/ /g,'_');
+            condicion=condicion.replace(/'/g,"-");
+            condicion=condicion.replace(/%/g,"=");
 
-          var url = base_url + 'Front_Office_Movil/KPI/cargarInfo' + '/' + moment(fechaInicio, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + moment(fechaFinal, 'DD/MM/YYYY').format('YYYY-MM-DD') ;
+          var url = base_url + 'Front_Office_Movil/KPI/cargarInfo' + '/' + moment(fechaInicio, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + moment(fechaFinal, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + condicion ;
           var element = document.getElementById('container-result');
           load(url, element);
           function load(url, element)
