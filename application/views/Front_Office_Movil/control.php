@@ -12,7 +12,7 @@
       <div class="card-style w-60">
           <div class="general">
 
-              <div class="switch-container col-md-6 col-body position-relative form-group">
+              <div class="switch-container col-md-6 col-body position-relative form-group" id="solohora">
                   <label class="switch">
                   <input type="checkbox" class="form-check-input">
                   <span id="onlyDateInitial" class="slider round"></span>
@@ -236,12 +236,33 @@
 
   $('#consult').on('click', function(e) {
       helper.showLoading();
-
-        var foservicio=$("#areas input[type='checkbox'][id='foservicio']:checked"); // Esto parece que no va
-        var intermitencia=$("#areas input[type='checkbox'][id='intermitencia']:checked"); // Esto parece que no va
+        validarcheckhoras();
+        /*var foservicio=$("#areas input[type='checkbox'][id='foservicio']:checked");*/ // Esto parece que no va
+        /*var intermitencia=$("#areas input[type='checkbox'][id='intermitencia']:checked");*/ // Esto parece que no va
         var checks=$("#areas input[type='checkbox']:checked").length;
         var sql23 = "";
+    function validarcheckhoras(){
+      if ($("#solohora input[type='checkbox']").prop("checked")) {
+      console.log("Aqui deberia entrar");
+      /*pedirhoras();*/
+      console.log(checks);
 
+      }
+      else{
+        peticiongraficas(e);
+      }
+  
+    }//Cierre de la funcion validarcheckhoras
+      
+        
+    });
+
+
+
+      // numero = 1 o 2 o 3
+      function peticiongraficas(e){
+        var checks=$("#areas input[type='checkbox']:checked").length;
+        var sql23 = "";
         getarea(e);
         function getarea(e){
             if (checks==0) {
@@ -341,7 +362,48 @@
                 });
             };
 
-          $.post(base_url + "Front_Office_Movil/KPI/getGraphInfo", {
+          
+
+          $('#graficos_pri').on('click', function(){
+              $("#grahp_prio").toggle();
+          });
+
+
+          $('#export-excel').on('click', function() {
+            helper.showLoading();
+
+                    $.post(base_url + "Front_Office_Movil/KPI/getIncidentsFO", {
+                        query: queryValue.replace('LIMIT 10','')
+                      }).done(function(){
+                        helper.hideLoading();
+                        window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
+                    });
+
+
+          });
+
+          $('#FO_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
+          $('#FO_table_filter input').attr('id', 'search-input');
+
+          let active = false;
+          $('.contenedorMaestro').on('click', function(e){
+              if(e.target.id === 'search' || e.target.id === 'search-input' || e.target.id === 'search-icon') {
+                  if(!active) {
+                  $('#FO_table_filter').addClass('active');
+                  // $('#modal_table_filter').addClass('active');
+                  $('#search-input').addClass('active');
+                  $('#search-icon').addClass('active');
+                  active = true;
+                  }
+              } else {
+                  $('#FO_table_filter').removeClass('active');
+                  // $('#modal_table_filter').removeClass('active');
+              $('#search-input').removeClass('active');
+              $('#search-icon').removeClass('active');
+              active = false;
+              }
+          });
+        $.post(base_url + "Front_Office_Movil/KPI/getGraphInfo", {
               inicio: fechaInicio,
               final: fechaFinal,
               condicion: sql23,
@@ -388,52 +450,6 @@
 
               // window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
           });
-
-          $('#graficos_pri').on('click', function(){
-              $("#grahp_prio").toggle();
-          });
-
-
-          $('#export-excel').on('click', function() {
-            helper.showLoading();
-
-                    $.post(base_url + "Front_Office_Movil/KPI/getIncidentsFO", {
-                        query: queryValue.replace('LIMIT 10','')
-                      }).done(function(){
-                        helper.hideLoading();
-                        window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
-                    });
-
-
-          });
-
-          $('#FO_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
-          $('#FO_table_filter input').attr('id', 'search-input');
-
-          let active = false;
-          $('.contenedorMaestro').on('click', function(e){
-              if(e.target.id === 'search' || e.target.id === 'search-input' || e.target.id === 'search-icon') {
-                  if(!active) {
-                  $('#FO_table_filter').addClass('active');
-                  // $('#modal_table_filter').addClass('active');
-                  $('#search-input').addClass('active');
-                  $('#search-icon').addClass('active');
-                  active = true;
-                  }
-              } else {
-                  $('#FO_table_filter').removeClass('active');
-                  // $('#modal_table_filter').removeClass('active');
-              $('#search-input').removeClass('active');
-              $('#search-icon').removeClass('active');
-              active = false;
-              }
-          });
-    });
-
-
-
-  // numero = 1 o 2 o 3
-
     function insertarGrafica(numero, pasaron, noPasaron, average, category, sql23) {
       Highcharts.chart("P" + numero, {
           chart: {
@@ -582,6 +598,7 @@
                   }
                   ],
       });
-    }
+    }//Cierre de la funcion insetargrafica
+  }//Cierre de la funcion peticiongraficas
   </script>
   <script src="<?= base_url("assets/js/backoffice.js?v" . validarEnProduccion())?>"></script>
