@@ -567,8 +567,8 @@ top: -30px;
         display: none;
         }
 
-    #prioridad1.active, #prioridad2.active, #prioridad3.active {
-            margin-bottom: 30px;
+    #P1.active, #P2.active, #P3.active {
+    margin-bottom: 30px;
     width: 70%;
     overflow: hidden;
     position: relative;
@@ -639,9 +639,6 @@ top: -30px;
         .slider.round::before {
         border-radius: 50%;
         }
-
-
-
 
 
         .wrap {
@@ -794,12 +791,28 @@ margin-top: 62px;
 
 
 .graficos_esc_dt {
-  margin-left: 483px;
+  margin-left: 488px;
   margin-top: -34px;
 }
 
 
 .graficos_deteccion{
-margin-left: 900px;
+margin-left: 880px;
 margin-top: -33px;
+}
+.margin-bottom {
+  margin: 0 17%;
+  margin-bottom: 35px;
+}
+
+
+@media only screen and (max-width: 600px) {
+.margin-bottom {
+  margin: 0%;
+      margin-bottom: 35px;
+  }
+}
+
+.active {
+  display: block !important;
 }
