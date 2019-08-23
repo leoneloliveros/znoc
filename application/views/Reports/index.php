@@ -7,16 +7,17 @@ Reportes
 <div style="display:flex; justify-content: center;">
     <div class="card-style">
         <div class="general">
-            <div class="switch-container col-md-12 position-relative form-group">
+
+            <div class="switch-container col-md-12 col-body position-relative form-group">
                 <label class="switch">
                 <input type="checkbox" class="form-check-input">
-                <span class="slider round"></span>
+                <span id="hideDateInitial" class="slider round"></span>
                 </label>
                 <span class="checkbox-initial">
                     Solo Fecha de Inicio
                 </span>
-
             </div>
+
             <div>
                 <div class="col-md-6 col-body">
                     <div class="form-group">
@@ -28,8 +29,8 @@ Reportes
                 </div>
                 <div class="col-md-6 col-body">
                     <div class="form-group">
-                    <label class="form-label" for="fHasta"><b>Fecha Final</b></label>
-                    <input type="date" id="fHasta" value="<?= $f_actual ?>" class="form-input required-field">
+                      <label class="form-label" for="fHasta"><b>Fecha Final</b></label>
+                      <input type="date" id="fHasta" value="<?= $f_actual ?>" class="form-input required-field">
                     <!-- <label class="form-label" for="ticket">Fecha Final</label>
                     <input id="ticket" class="form-input required-field" type="text" /> -->
                     </div>
@@ -103,7 +104,7 @@ Reportes
                     </select>
 
                 </div>-->
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
             <label for="selection"><b>Reporte</b></label>
             <select class="form-control" name="" id="selection">
                 <option value="0">Control Tickets</option>
@@ -123,13 +124,26 @@ Reportes
 
     <div class="col-sm-12" style="margin-top:1em;">
         <!--<button id="reportButton" class="btn-cami_cool">Descargar</button>-->
-        <button id="reportButton2" class="btn-cami_cool">Descargar</button>
+        <!-- <button id="reportButton2" class="btn-cami_cool">Descargar</button>
     </div>
 </div> -->
 
 <script src="<?= base_url("assets/js/utils/helper.js?v=" . validarEnProduccion()) ?>"></script>
 <script type="text/javascript" src="<?= base_url('assets/js/modules/generalReport.js'); ?>"></script>
 
+<script type="text/javascript">
+
+  var lol = false;
+    $('#hideDateInitial').on('click', function(){
+        lol = (lol == true) ? false : true ;
+        if (lol == true) {
+            $('#fHasta').parent().attr('style', 'display: none;');
+        } else {
+            $('#fHasta').parent().attr('style', 'display:  block;');
+          };
+    });
+
+</script>
 
 <style>
 #container-result {
@@ -163,8 +177,8 @@ Reportes
     .switch {
         position: relative;
         display: inline-block;
-        width: 90px;
-        height: 51px;
+        width: 50px;
+        height: 25px;
         margin: 0;
         }
 
@@ -210,7 +224,9 @@ Reportes
         }
 
         .slider.round {
-        border-radius: 34px;
+      border-radius: 34px;
+      width: auto;
+      height: auto;
         }
 
         .slider.round::before {

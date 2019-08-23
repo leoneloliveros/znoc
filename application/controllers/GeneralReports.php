@@ -11,7 +11,7 @@ class GeneralReports extends CI_Controller {
     }
     public function showReports() {
         $data = array(
-            'active_sidebar' => true,
+            'active_sidebar' => false,
             'title' => 'Reportes',
             'active' => "Reportes",
             'header' => array('Reportes', 'Generales'),

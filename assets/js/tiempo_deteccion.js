@@ -628,6 +628,7 @@ $('#export-excel-modal').on('click', function() {
     });//Cierre del tercer highchart
  });//Cierre de la funcion de data en el post
 $('#graficos_deteccion').on('click', function(){
-    $("#container_graphic").toggle();
+  $('#content-gaphs .active').removeClass('active');
+    $("#container_graphic").addClass('active');
 });//Cierre del boton de graficos
 });//Cierre del boton consultar
