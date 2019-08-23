@@ -752,7 +752,7 @@ class Dao_reportes_model extends CI_Model {
             AND `DESCRIPTION` NOT LIKE '%FSP%'
             AND `DESCRIPTION` NOT LIKE '%MAIL%'
             AND `DESCRIPTION` NOT LIKE '%MG%'
-            AND `DESCRIPTION` NOT LIKE '%NO EXITOSO%'
+            AND `DESCRIPTION` NOT LIKE '%TRAB%NO EXITOSO%'
             AND `DESCRIPTION` NOT LIKE '%VM%'
             AND `DESCRIPTION` NOT LIKE '%VENTANA MANT%'
             AND `DESCRIPTION` NOT LIKE '%FEE%SIN PE%'
@@ -794,6 +794,19 @@ class Dao_reportes_model extends CI_Model {
             GROUP BY 1
             ");
             return $query->result();
+    }
+    public function getCambiosVentanasMantenimiento($fdesde, $fhasta) {
+        $query = $this->db->query("
+        SELECT AC.WONUM AS NUMERO_CAMBIO, AC.TASKID AS TAREA_CAMBIO, AC.DESCRIPTION AS DESCIPCION_TAREA, AC.SCHEDSTART AS INICIO_PROGRAMA_VENT, AC.SCHEDFINISH AS FINALIZACION_PROFRAMADA_VENT, AC.STATUS AS ESTADO, PER.DISPLAYNAME AS PROPIETARIOS, OWNERGROUP AS GRUPO_PROPIETARIOS
+        FROM maximo.ACTIVITIES AC
+        LEFT JOIN maximo.PERSON PER
+        ON AC.OWNER = PER.PERSONID
+        WHERE AC.WONUM LIKE '%CHG%'
+        and DATE_FORMAT(AC.SCHEDSTART, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
+        ORDER BY AC.SCHEDSTART;");
+        $data = $query->result();
+        $_SESSION['x'] = $data;
+        return $data;
     }
 
     public function getIncidentesCerrados($fdesde, $fhasta){
