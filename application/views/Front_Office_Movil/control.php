@@ -14,7 +14,7 @@
 
             <div class="switch-container col-md-6 col-body position-relative form-group">
                 <label class="switch">
-                <input type="checkbox" class="form-check-input">
+                <input type="checkbox" class="form-check-input" id="solohora">
                 <span id="onlyDateInitial" class="slider round"></span>
                 </label>
                 <span class="checkbox-initial">
@@ -231,13 +231,28 @@ $('#areas   input[type=checkbox]').change(function(){
       $('#todas').not(this).prop('checked', true);
     }
 });//Cierre del checkbox
+var checks=$("#areas input[type='checkbox']:checked").length;
+var sql23 = "";
 $('#consult').on('click', function(e) {
     helper.showLoading();
-      var foservicio=$("#areas input[type='checkbox'][id='foservicio']:checked"); // Esto parece que no va
-      var intermitencia=$("#areas input[type='checkbox'][id='intermitencia']:checked"); // Esto parece que no va
-      var checks=$("#areas input[type='checkbox']:checked").length;
-      var sql23 = "";
-      getarea(e);
+      validarcheckhoras();
+      function validarcheckhoras(){
+        if ($("input[type='checkbox'][id='solohora']").prop("checked")) {
+          console.log("Aqui deberia entrar");
+          graficarhoras(e);
+
+        }//Cierre del if para el switch cuando este seleccionado
+        else{
+          console.log("No entra");
+          peticiongraficas(e);
+        }
+      }//Cierre de la funcion validar checkhoras
+  });
+// numero = 1 o 2 o 3
+  function peticiongraficas(e){
+    /*var checks=$("#areas input[type='checkbox']:checked").length;
+    var sql23 = "";*/
+    getarea(e);
       function getarea(e){
           if (checks==0) {
               Swal.fire({
@@ -394,8 +409,6 @@ $('#consult').on('click', function(e) {
             active = false;
             }
         });
-  });
-// numero = 1 o 2 o 3
   function insertarGrafica(numero, pasaron, noPasaron, average, category, sql23) {
     Highcharts.chart("P" + numero, {
         chart: {
@@ -537,5 +550,351 @@ $('#consult').on('click', function(e) {
                 ],
     });
   }
+}//Cierre de la funcion peticion graficas
+function graficarhoras(e){
+  getarea(e);
+  function getarea(e){
+          if (checks==0) {
+              Swal.fire({
+                  type: 'error',
+                  title: 'Error',
+                  text: 'No se seleciono ningun area',
+                  })
+              setTimeout("location.reload(true);", e);
+          } else {
+              var areas=$("#areas input[type='checkbox']:checked")
+              for (i=0; i < areas.length; i++) {
+                  console.log(areas[i].name);
+                  switch (areas[i].name) {
+                      case 'plataforma':
+                          sql23 += "DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
+                      break;
+                      case 'intermitencia':
+                          sql23 += "DESCRIPTION LIKE '%FI:%'";
+                      break;
+                      case 'foservicio':
+                          sql23 += "DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%'";
+                      break;
+                      case 'foenergia':
+                          sql23 += "DESCRIPTION LIKE '%FEE:%'";
+                      break;
+                      case 'todas':
+                          sql23 += "DESCRIPTION LIKE '%FEE:%' OR DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%' OR DESCRIPTION LIKE '%FI:%' OR DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
+                          break;
+                      default:
+                          break;
+                  }
+                   if(i != areas.length - 1) {
+                      sql23 += " OR ";
+                  };
+              }
+          }
+      }
+      $('#prioridad1').addClass('active');
+      $('#prioridad2').addClass('active');
+      $('#prioridad3').addClass('active');
+      $('#graficos_pri').attr('style', 'display:block');
+      var fechaInicio = $('#fechaInicio').val();
+          var fechaFinal = $('#fechaFinal').val();
+          var condicion=sql23;
+            condicion=sql23.replace(/ /g,'_');
+            condicion=condicion.replace(/'/g,"-");
+            condicion=condicion.replace(/%/g,"=");
+          var url = base_url + 'Front_Office_Movil/KPI/cargarInfo' + '/' + moment(fechaInicio, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + moment(fechaFinal, 'DD/MM/YYYY').format('YYYY-MM-DD') + '/' + condicion ;
+          var element = document.getElementById('container-result');
+          load(url, element);
+          function load(url, element)
+          {
+              req = new XMLHttpRequest();
+              req.open("GET", url, false);
+              req.send(null);
+              element.innerHTML = req.responseText;
+              createDatatable(url);
+          }
+          function createDatatable(link) {
+              if (erTable_FO_table) {
+                  var tabla = erTable_FO_table;
+                  tabla.destroy();
+              }
+              erTable_FO_table = $("#FO_table").DataTable({
+                  processing: true,
+                  serverSide: true,
+                  "scrollX": true,
+                  "searching": true,
+                  dom: 'frtip',
+                  select: true,
+                  "oLanguage": {
+                  "oPaginate": {
+                      "sPrevious": "<i class='fas fa-backward'></i>", // This is the link to the previous page
+                      "sNext": "<i class='fas fa-forward'></i>", // This is the link to the next page
+                  }
+              },
+                  searchDelay: 500,
+                  autoWidth: false,
+                  ajax: {
+                      url: link,
+                      type: "POST",
+                      data: function (d, dt) {
+                      d.dt_name = "FO_table"
+                      }
+                  },
+                  "drawCallback":function( settings, json){
+                      queryValue = settings['json']['query'];
+                  }
+              });
+          };
+          $.post(base_url + "Front_Office_Movil/KPI/getgraphinfohoras",{
+                inicio:fechaInicio,
+                condicion:sql23,
+          }).done(function(data){
+            console.log("la data",data);
+            var category = [];
+            var columnaY=[];
+            var pasaronP1 = [];
+            var averageP1 = [];
+            var noPasaronP1 = [];
+            var pasaronP2 = [];
+            var averageP2 = [];
+            var noPasaronP2 = [];
+            var pasaronP3 = [];
+            var averageP3 = [];
+            var noPasaronP3 = [];
+            helper.hideLoading();
+            var obj = JSON.parse(data);
+            console.log('aqui', obj);
+            columnaY.push(gethoras(obj));
+            for (i = 0; i < obj.length; i++) {
+                category.push(obj[i].the_date) ;
+                
+                pasaronP1.push(Number(obj[i].P1_PASARON));
+                noPasaronP1.push(obj[i].P1_TOTAL - obj[i].P1_PASARON);
+                averageP1.push((obj[i].P1_PASARON * 100) / obj[i].P1_TOTAL);
+                pasaronP2.push(Number(obj[i].P2_PASARON));
+                noPasaronP2.push(obj[i].P2_TOTAL - obj[i].P2_PASARON);
+                averageP2.push((obj[i].P2_PASARON * 100) / obj[i].P2_TOTAL);
+                pasaronP3.push(Number(obj[i].P3_PASARON));
+                noPasaronP3.push(obj[i].P3_TOTAL - obj[i].P3_PASARON);
+                averageP3.push((obj[i].P3_PASARON * 100) / obj[i].P3_TOTAL);
+
+            }
+            /*var arrayprueba=data;*/
+            /*var arrayprueba2=[{the_date:}];*/
+            /*Array.prototype.push.apply(arrayprueba,arrayprueba2);*/
+            /*console.log(arrayprueba);*/
+
+            console.log(pasaronP1);
+            /*console.log("Aqui tambien eh",pasaronP2);*/
+
+           function gethoras(obj){
+              var arreglo=[];
+              var hora;
+              console.log("MIO",obj);
+              var tiempos=[{hora:0, total:0},{hora:1, total:0},{hora:2, total:0},{hora:3, total:0},{hora:4, total:0},{hora:5, total:0},{hora:6, total:0},{hora:7, total:0},{hora:8,total:0},{hora:9, total:0},{hora:10, total:0},{hora:11, total:0},{hora:12, total:0},{hora:13, total:0},{hora:14,total:0},{hora:15, total:0},{hora:16, total:0},{hora:17, total:0},{hora:18, total:0},{hora:19, total:0},{hora:20, total:0},{hora:21, total:0},{hora:22, total:0},{hora:23, total:0}];
+              $.each(tiempos, function (i, element) {
+                $.each(obj, function (i2, element2) {
+                  if (element.hora == element2.hora) {
+                    tiempos[i].total = element2.total;
+                  }
+                });
+              });
+              lashoras=tiempos.map(h=>h.hora);//Arreglo que contiene solo las horas del arreglo tiempos
+              /*lasletras=lashoras.toString();*/
+              /*var separados=lashoras.valueOf();*/
+              /*for(i=0; i<=23;i++){
+               var aux= tiempos.filter(info=>(info.hora == i));
+              if (aux.length == 0) {
+              arreglo.push(0);
+              }
+              else{
+                arreglo.push(aux[0].total);
+               }
+              }*/
+              /*console.log(separados);*/
+              /*console.log("las horas en string",lasletras);*/
+              /*console.log("variable las horas", lashoras);*/
+              console.log("MIO-tiempos",tiempos);
+              return tiempos;
+
+              }//Cierre de la funcion gethoras
+            insertarGrafica(1, pasaronP1, noPasaronP1, averageP1, category, sql23, columnaY);
+            insertarGrafica(2, pasaronP2, noPasaronP2, averageP2, category, sql23, columnaY);
+            insertarGrafica(3, pasaronP3, noPasaronP3, averageP3, category, sql23, columnaY);
+          });//Cierre de la funcion de data
+          $('#graficos_pri').on('click', function(){
+            $("#grahp_prio").toggle();
+        });
+        $('#export-excel').on('click', function() {
+          helper.showLoading();
+                  $.post(base_url + "Front_Office_Movil/KPI/getIncidentsFO", {
+                      query: queryValue.replace('LIMIT 10','')
+                    }).done(function(){
+                      helper.hideLoading();
+                      window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
+                  });
+        });
+        $('#FO_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
+        $('#FO_table_filter input').attr('id', 'search-input');
+        let active = false;
+        $('.contenedorMaestro').on('click', function(e){
+            if(e.target.id === 'search' || e.target.id === 'search-input' || e.target.id === 'search-icon') {
+                if(!active) {
+                $('#FO_table_filter').addClass('active');
+                // $('#modal_table_filter').addClass('active');
+                $('#search-input').addClass('active');
+                $('#search-icon').addClass('active');
+                active = true;
+                }
+            } else {
+                $('#FO_table_filter').removeClass('active');
+                // $('#modal_table_filter').removeClass('active');
+            $('#search-input').removeClass('active');
+            $('#search-icon').removeClass('active');
+            active = false;
+            }
+        });
+        function insertarGrafica(numero, pasaron, noPasaron, average, category, sql23, columnaY) {
+    Highcharts.chart("P" + numero, {
+        chart: {
+            type: 'column'
+        },
+        colors: [
+            '#5ac858',
+            '#ff4c4c',
+            '#ffa524'
+        ],
+        title: {
+            text: 'TIEMPO DE ESCALAMIENTO FO MOVIL ' + 'P' + numero
+        },
+        xAxis: {
+            categories: ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00","13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"]
+        },
+        yAxis: {
+            min: 0,
+                            title: {
+                                text: '# Incidentes'
+                            }
+        },
+        tooltip: {
+            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+            shared: true
+        },
+        plotOptions: {
+            column: {
+                stacking: 'percent',
+                dataLabels: {
+                    enabled: true,
+                    style: {
+                        textOutline: 0
+                    }
+                }
+            },
+            series: {
+                cursor: 'pointer',
+                point: {
+                    events: {
+                        click: function () {
+                            helper.showLoading();
+                            var fecha = this.category;
+                            var condicion = this.sql23;
+                            condicion=sql23.replace(/ /g,'_');
+                            condicion=condicion.replace(/'/g,"-");
+                            condicion=condicion.replace(/%/g,"=");
+                            var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha + '/' + numero + '/' + condicion;
+                            var element = document.getElementById('insert-content');
+                            load(url, element);
+                            function load(url, element) {
+                                req = new XMLHttpRequest();
+                                req.open("GET", url, false);
+                                req.send(null);
+                                element.innerHTML = req.responseText;
+                                createDatatable(url);
+                                helper.hideLoading();
+                            }
+                            function createDatatable(link) {
+                                erTable_modal_table = $("#modal_table").DataTable({
+                                    processing: true,
+                                    serverSide: true,
+                                    "scrollX": true,
+                                    "searching": true,
+                                    dom: 'frtip',
+                                    select: true,
+                                    "oLanguage": {
+                                        "oPaginate": {
+                                            "sPrevious": "<i class='fas fa-backward'></i>", // This is the link to the previous page
+                                            "sNext": "<i class='fas fa-forward'></i>", // This is the link to the next page
+                                        }
+                                    },
+                                    searchDelay: 500,
+                                    autoWidth: false,
+                                    ajax: {
+                                        url: link,
+                                        type: "POST",
+                                        data: function (d, dt) {
+                                            d.dt_name = "modal_table"
+                                        }
+                                    },
+                                    "drawCallback": function( settings, json){
+                                                        queryValue = settings['json']['query'];
+                                                    }
+                                });
+                            }
+                            $('#modalInfo').modal('show');
+                            $('#export-excel-modal').on('click', function() {
+                                helper.showLoading();
+                                $.post(base_url + "Front_Office_Movil/KPI/getIncidentsFO", {
+                                    query: queryValue.replace('LIMIT 10','')
+                                }).done(function(){
+                                    helper.hideLoading();
+                                    window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
+                                });
+                            });
+                            $('#modal_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
+                            $('#modal_table_filter input').attr('id', 'search-input-modal');
+                            let active = false;
+                            $('#modalInfo').on('click', function(e){
+                                if(e.target.id === 'search' || e.target.id === 'search-input-modal' || e.target.id === 'search-icon') {
+                                    if(!active) {
+                                        $('#FO_table_filter').addClass('active');
+                                        $('#modal_table_filter').addClass('active');
+                                        $('#search-input-modal').addClass('active');
+                                        $('#search-icon').addClass('active');
+                                        active = true;
+                                    }
+                                } else {
+                                    $('#FO_table_filter').removeClass('active');
+                                    $('#modal_table_filter').removeClass('active');
+                                    $('#search-input-modal').removeClass('active');
+                                    $('#search-icon').removeClass('active');
+                                    active = false;
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        },
+        series: [{
+                    name: 'SI',
+                    data: pasaron
+                }, {
+                    name: 'NO',
+                    data: noPasaron
+                },
+                {
+                    type: 'spline',
+                    name: 'Cumplimiento',
+                    data: average,
+                    marker: {
+                        lineWidth: 2,
+                        lineColor: Highcharts.getOptions().colors[3],
+                        fillColor: 'white'
+                    },
+                }
+                ],
+                
+    });
+  /*console.log(columnaY);*/
+  }
+}//Cierre de la funcion graficarhoras
 </script>
 <script src="<?= base_url("assets/js/backoffice.js?v" . validarEnProduccion())?>"></script>

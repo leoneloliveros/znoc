@@ -191,6 +191,13 @@ class KPI extends CI_Controller {
         $this->datatables->create('modal_table', $modal_table);
         $this->load->view('Front_Office_Movil/loadModal');
     }
+    public function getgraphinfohoras(){
+        $inicio = str_replace('/', '-', $this->input->post('inicio') );
+        $fdesde = date("Y-m-d", strtotime($inicio));
+        $condicion = $this->input->post('condicion');
+        $data = $this->Dao_reportes_model->graphinfohoras($fdesde, $condicion);
+        echo json_encode($data);
+    }
 }
 /* End of file Bitacoras.php */
 ?>
