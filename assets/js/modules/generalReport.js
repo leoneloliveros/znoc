@@ -110,49 +110,73 @@ $(function () {
                         helper.hideLoading();
                         window.open(base_url + "GeneralReports/excelGestionPerformance");
                     });
-                    break;
-                default:
-                // code block
-            }
+            break;
+            case '10':
+              $.post(base_url + "GeneralReports/c_getCambiosVentanasMantenimiento", {
+                  desde: $(`#fDesde`).val(),
+                  hasta: $(`#fHasta`).val(),
+                }).done(function(){
+                  $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
+                  $('#loader').hide();
+                  $('.spinner-loader').hide();
+                  window.open(base_url + "GeneralReports/excelCambiosVentanasMantenimiento");
+              });
+            break;
+            case '11':
+              $.post(base_url + "GeneralReports/c_getIncidentesCerrados", {
+                  desde: $(`#fDesde`).val(),
+                  hasta: $(`#fHasta`).val(),
+                }).done(function(){
+                  $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
+                  $('#loader').hide();
+                  $('.spinner-loader').hide();
+                  window.open(base_url + "GeneralReports/excelIncidentesCerrados");
+              });
+            break;
+            default:
+              // code block
+          }
+      },
+  
+      
+      getSchedule: function(hora,creador){
+      },
+  
+      
+      createExcel: function(){
+        
+        // window.open(base_url + "Reportes/excelgeneralReports");
+        $.post(base_url + "Reportes/enviarDatosExcel", {
+          data: JSON.stringify(generalReport.dataVoltria),
         },
+    ).done(function () {
+window.open(base_url + "Reportes/excelgeneralReports");
+});
 
-        getSchedule: function (hora, creador) {
-        },
+},
 
-        createExcel: function () {
+getReportAccordingOption2: function () {
+var fDesde = helper.encode($(`#fDesde`).val());
+var fHasta = helper.encode($(`#fHasta`).val());
+var selection = helper.encode($(`#selection`).val());
+window.open(base_url + "GeneralReports/excelReportSelect/" + fDesde + "/" + fHasta + "/" + "/" + selection);
 
-            // window.open(base_url + "Reportes/excelgeneralReports");
-            $.post(base_url + "Reportes/enviarDatosExcel", {
-                data: JSON.stringify(generalReport.dataVoltria),
-            },
-                    ).done(function () {
-                window.open(base_url + "Reportes/excelgeneralReports");
-            });
+},
 
-        },
-
-        getReportAccordingOption2: function () {
-            var fDesde = helper.encode($(`#fDesde`).val());
-            var fHasta = helper.encode($(`#fHasta`).val());
-            var selection = helper.encode($(`#selection`).val());
-            window.open(base_url + "GeneralReports/excelReportSelect/" + fDesde + "/" + fHasta + "/" + "/" + selection);
-
-        },
-
-        getReportsDB: function () {
-            helper.showLoading();
-            $.post(base_url + "GeneralReports/c_getReportsDB", {
-                // parametros
-            },
-                    function (data) {
-                        const obj = JSON.parse(data);
+getReportsDB: function () {
+helper.showLoading();
+$.post(base_url + "GeneralReports/c_getReportsDB", {
+// parametros
+},
+    function (data) {
+        const obj = JSON.parse(data);
 //                        console.log(obj);
-                        $.each(obj, function (i, val) {
-                            $('#selection').append('<option value="' + val.id_reportes + '">' + val.nombre_reporte + '</option>');
-                        });
+        $.each(obj, function (i, val) {
+            $('#selection').append('<option value="' + val.id_reportes + '">' + val.nombre_reporte + '</option>');
+        });
+      }
 
-                    }
-            );
+    );
             helper.hideLoading();
         },
     }

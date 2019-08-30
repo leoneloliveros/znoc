@@ -18,22 +18,25 @@ class KPI extends CI_Controller {
             'sub_bar' => true,
         );
         $this->load->view('parts/header', $data);
-        $this->load->view('Front_Office_Movil/Control');
+        $this->load->view('Front_Office_Movil/control');
+        
         $this->load->view('parts/footer');
     }
-    public function cargarInfo($fechaInicio, $fechaFinal) {
+    public function cargarInfo($fechaInicio, $fechaFinal, $condicion) {
+        $condicion=str_replace('_', ' ', $condicion);
+        $condicion=str_replace('-', "'", $condicion);
+        $condicion2=str_replace('=', '%', $condicion);
         $this->load->library('Datatables');
         $FO_table = $this->datatables->init();
         $FO_table  ->select("TICKETID,  TIPO_TKT,  CREATIONDATE,  STATUS,  INTERNALPRIORITY,  CREATEDBY,  OWNERGROUP,  INCEXCLUIR,  INCMEXCLUSION,  PROVEEDORES,  DESCRIPTION,  RUTA_TKT,  REGIONAL,  TIEMPO_VIDA_TKT,  TIEMPO_RESOLUCION_TKT,  TIEMPO_DETECCION, TIEMPO_ESCALA,  TIEMPO_FALLA,  TIEMPO_OT_ALM")
                     ->from('maximo.INCIDENT')
-                    ->where('(DESCRIPTION LIKE "%FAOC:%" OR DESCRIPTION LIKE "%FAOB:%" OR DESCRIPTION LIKE "%FEE:%"  OR DESCRIPTION LIKE "%FI:%" OR DESCRIPTION LIKE "%FAPP:%" OR DESCRIPTION LIKE "%FOIP:%")')
+                    ->where("(" . $condicion2 . ")")
                     ->where("OWNERGROUP NOT LIKE '%FO_SDH%'")
                     ->where('DESCRIPTION NOT LIKE "%DEPU%" ')
                     ->where('DESCRIPTION NOT LIKE "%FHG%" ')
                     ->where('DESCRIPTION NOT LIKE "%FSP%" ')
-                    ->where('DESCRIPTION NOT LIKE "%MAIL%" ')
                     ->where('DESCRIPTION NOT LIKE "%MG%" ')
-                    ->where('DESCRIPTION NOT LIKE "%NO EXITOSO%"  ')
+                    ->where('DESCRIPTION NOT LIKE "%TRAB%NO EXITOSO%" ')
                     ->where('DESCRIPTION NOT LIKE "%VM%" ')
                     ->where('DESCRIPTION NOT LIKE "%VENTANA MANT%" ')
                     ->where('DESCRIPTION NOT LIKE "%FEE%SIN PE%"')

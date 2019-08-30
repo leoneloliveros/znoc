@@ -320,5 +320,76 @@ class GeneralReports extends CI_Controller {
         }
         $excel->close();
     }
+    public function c_getCambiosVentanasMantenimiento()
+  {
+    $fdesde = $this->input->post('desde');
+    $fhasta = $this->input->post('hasta');
+    $data = $this->Dao_reportes_model->getCambiosVentanasMantenimiento($fdesde,$fhasta);
+    echo json_encode($data);
+  }
+  public function excelCambiosVentanasMantenimiento()
+  {
+    $data = $_SESSION['x'];
+    // echo '<pre>'; print_r("lol"); echo '</pre>';
+    
+
+      $writer = WriterEntityFactory::createXLSXWriter();
+      $style = (new StyleBuilder())
+      ->setShouldWrapText(false)
+      ->build();
+
+      $writer->openToBrowser('CambiosVentanasMantenimiento('.date('Y-m-d').').xlsx');
+      $titles = array('NUMERO_CAMBIO', 'TAREA_CAMBIO', 'DESCIPCION_TAREA', 'INICIO_PROGRAMA_VENT', 'FINALIZACION_PROFRAMADA_VENT', 'ESTADO', 'PROPIETARIOS', 'GRUPO_PROPIETARIOS');
+
+      $header = WriterEntityFactory::createRowFromArray($titles);
+      $writer->addRow($header);
+
+      foreach ($data as $val) {
+        $cells = array();
+        foreach ($val as $val1) {
+          array_push($cells,WriterEntityFactory::createCell($val1,$style));
+        }
+        $rowFromValues = WriterEntityFactory::createRow($cells);
+        $writer->addRow($rowFromValues);
+      }
+      $writer->close();
+
+  }
+
+public function c_getIncidentesCerrados()
+{
+  $fdesde = $this->input->post('desde');
+  $fhasta = $this->input->post('hasta');
+  $data = $this->Dao_reportes_model->getIncidentesCerrados($fdesde,$fhasta);
+  echo json_encode($data);
+}
+public function excelIncidentesCerrados()
+{
+  $data = $_SESSION['x'];
+  // echo '<pre>'; print_r("lol"); echo '</pre>';
+  
+
+    $writer = WriterEntityFactory::createXLSXWriter();
+    $style = (new StyleBuilder())
+    ->setShouldWrapText(false)
+    ->build();
+
+    $writer->openToBrowser('IncidentesCerrados('.date('Y-m-d').').xlsx');
+    $titles = array('TICKETID', 'FECHA CREACION', 'CREADO POR', 'NOMBRE CREADOR', 'DESCRIPCION',  'ESTADO', 'CERRADO POR', 'NOMBRE', 'PRIORIDAD', 'URGENCIA', 'CAUSE_CODE', 'CAUSE_DESCRIPTION', 'REMEDY_CODE', 'REMEDY_DESCRIPTION');
+
+    $header = WriterEntityFactory::createRowFromArray($titles);
+    $writer->addRow($header);
+
+    foreach ($data as $val) {
+      $cells = array();
+      foreach ($val as $val1) {
+        array_push($cells,WriterEntityFactory::createCell($val1,$style));
+      }
+      $rowFromValues = WriterEntityFactory::createRow($cells);
+      $writer->addRow($rowFromValues);
+    }
+    $writer->close();
+
+}
 }
 /* End of file reportes.php */

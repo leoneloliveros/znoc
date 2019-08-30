@@ -52,6 +52,7 @@ Reportes
                     <option value="8">Tiempo Atención</option>
                     <option value="9">Gestión Performance</option>
                     <option value="10">Cambio Ventanas Mantenimiento</option>
+                    <option value="11">Incidentes Cerrados</option>
                 </select>
                 </div>
             </div>
