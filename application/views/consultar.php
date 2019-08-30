@@ -36,7 +36,7 @@ text-align: center;
           </div>
 
 
-          <div class="switch-container col-md-4 position-relative form-group">
+          <div class="switch-container col-md-6 position-relative form-group" style="margin-top: 4px">
             <label class="switch">
               <input id="toggleDate" class="checkbox  form-check-input" type="checkbox" value="" >
               <span class="slider round"></span>

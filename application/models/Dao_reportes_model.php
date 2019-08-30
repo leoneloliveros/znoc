@@ -733,7 +733,7 @@ class Dao_reportes_model extends CI_Model {
         ");
         return $query->result();
     }
-   
+
 
      public function getgraphdeteccion($fdesde, $fhasta, $peticion){
         $condicional="SELECT DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date, COUNT(*) AS count,
@@ -758,7 +758,7 @@ class Dao_reportes_model extends CI_Model {
             AND `STATUS` != 'ELIMINADO'
             AND `STATUS` != 'CANCELADO'
             and DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
-            GROUP 
+            GROUP
             BY the_date
             ";
             $query=$this->db->query($condicional);
@@ -825,7 +825,7 @@ class Dao_reportes_model extends CI_Model {
              $_SESSION['x'] = $query->result();
         return $query->result();
     }
-    
+
 
     public function getGraphInfo($fdesde, $fhasta, $condicion) {
         $str =  "SELECT DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date, COUNT(*) AS count,
@@ -858,5 +858,11 @@ class Dao_reportes_model extends CI_Model {
         // $_SESSION['x'] = $data;
         return $data;
     }
+    public function getIncidentFO($queryresult) {
+        $query = $this->db->query($queryresult);
+        $data = $query->result();
+        $_SESSION['x'] = $data;
+        return $data;
+      }
 }
 /* End of file Dao_reportes_model.php */
