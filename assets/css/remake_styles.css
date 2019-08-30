@@ -381,6 +381,7 @@ align-items: center;
 
 .table-new{
    margin: 0;
+   border-radius:
 }
 
 #FO_table tbody td, #modal_table tbody td {
@@ -815,4 +816,20 @@ margin-top: -33px;
 
 .active {
   display: block !important;
+}
+
+
+.report-label {
+
+  color: #999;
+}
+
+.value-report {
+
+  width: 50% !important;
+}
+
+.style-report-table {
+  z-index: 25;
+  background: transparent;
 }

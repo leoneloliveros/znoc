@@ -188,7 +188,7 @@
 <!-- <div id="container-graph" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div> -->
 
 
-<!-- New view styles  -->
+<!-- New view styles-->
 <link rel="stylesheet" href="<?= base_url ('assets/css/remake_styles.css');?>">
 
 <script type="text/javascript" src="<?= base_url('assets/plugins/hightchart/code/highcharts.js');?>"></script>

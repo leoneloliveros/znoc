@@ -370,7 +370,8 @@ $(function () {
                 default:
                     bitacoras.allTypesDisable();
             }
-            Bitacora.inputAnimations();
+            Bitacora.inputAnimations()
+
         },
 
         validateForm: function () {
@@ -620,7 +621,6 @@ $(function () {
             var num_tk_incidente = $('#num_tk_incidente').val();
             if ((num_tk_incidente != '' && tipo_actividad != '' && (tipo_actividad == 'SEGUIMIENTO' || tipo_actividad == 'CIERRE'))) {
                 helper.showLoading();
-
                 $.post(base_url + "Bitacoras/c_getBinnacleByTypeActivityAndIncident", {
                     tipo_actividad: 'APERTURA',
                     num_tk_incidente: num_tk_incidente,

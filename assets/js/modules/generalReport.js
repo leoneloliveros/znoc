@@ -10,7 +10,7 @@ $(function () {
             $(`#excelVol`).click(generalReport.createExcel);
         },
 
-
+        
         getReportAccordingOption: function () {
             $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', true);
             $("#fDesde, #fHasta").css({'border-color': '#cccccc', 'box-shadow': 'unset'});
