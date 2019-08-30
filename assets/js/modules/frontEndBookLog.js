@@ -145,7 +145,7 @@ $(function () {
             $(`#id_users`).children().not($(`#id_users`).children()[0]).remove();
             $(`#caso_de_uso`).children().not($(`#caso_de_uso`).children()[0]).remove();
             $(".generalFields input, .generalFields select, .generalFields textarea").attr("disabled", true);
-            $("#intermitenciasx").remove();
+            // $("#intermitenciasx").remove();
         },
 
         checkStateType: function () {
@@ -370,7 +370,9 @@ $(function () {
                 default:
                     bitacoras.allTypesDisable();
             }
-            Bitacora.inputAnimations();
+            Bitacora.inputAnimations()
+
+
         },
 
         validateForm: function () {
@@ -620,9 +622,8 @@ $(function () {
             var num_tk_incidente = $('#num_tk_incidente').val();
             if ((num_tk_incidente != '' && tipo_actividad != '' && (tipo_actividad == 'SEGUIMIENTO' || tipo_actividad == 'CIERRE'))) {
                 helper.showLoading();
-
                 $.post(base_url + "Bitacoras/c_getBinnacleByTypeActivityAndIncident", {
-                    tipo_actividad: 'APERTURA',
+                    tipo_actividad: tipo_actividad,
                     num_tk_incidente: num_tk_incidente,
                     tabla: $('#tipo_bitacora option:selected').attr("data-id")
                 },
