@@ -2,7 +2,9 @@ $(function () {
     ccihfc = {
         init: function () {
             ccihfc.events();
-            ccihfc.loadEngineersBackOffice();
+            $('#loader').hide();
+            $('.spinner-loader').hide();
+
         },
 
         events: function () {
@@ -15,8 +17,8 @@ $(function () {
         validateData: function () {
             var hoy = new Date();
             $("#finAct").val(ccihfc.formatDate(hoy.getTime()));
-            
-            $(".err").removeClass("err");
+
+            $(".form-input-error").removeClass("form-input-error");
             const campos = $("div.frame input,div.frame select, div.frame textarea");
             var vacios = [];
             var data = {};
@@ -37,7 +39,7 @@ $(function () {
 //            console.log(data);
             if (vacios.length != 0) {
                 $.each(vacios, function (i, id) {
-                    $(`#${id}`).addClass('err');
+                    $(`#${id}`).addClass('form-input-error');
                 });
                 swal({
                     "html": "¡No puede dejar los campo en rojo vacios!",
@@ -73,7 +75,7 @@ $(function () {
         },
 
         loadEngineersBackOffice: function () {
-            helper.showLoading();
+            /*helper.showLoading();*/
 
             $.post(base_url + "Bitacoras/c_getEngineersByAreaAndRol", {
                 rol: 'ingeniero',
@@ -86,7 +88,7 @@ $(function () {
                             $('#engineer').append('<option value="' + val.id_users + '">' + val.ingeniero + '</option>');
                         });
 
-                        helper.hideLoading();
+                        /*helper.hideLoading();*/
                     }
             );
 
@@ -146,7 +148,7 @@ $(function () {
 //            return [year, month, day].join('-');
             return day + '/' + month + '/' + year + ' ' + hour + ':' + minute;
         },
-        
+
 
         calculateDateIni:function () {
             if (!$("#iniAct").hasClass("ini_form")) {

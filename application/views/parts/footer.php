@@ -1,9 +1,9 @@
 <div id="loader">
-<div  class='wrap1'>
-  <div class='loader' id='lrd1'></div>
+    <div  class='wrap1'>
+        <div class='loader' id='lrd1'></div>
+    </div>
 </div>
-</div>
-</section>
+
 <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
@@ -28,85 +28,15 @@
 
 <!--******************************* SIDEBAR DE LA DERECHA******************************* -->
 <!-- Control Sidebar -->
-<aside class="control-sidebar control-sidebar-dark">
-    Create the tabs
-    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-        <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-        <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-    </ul>
-    Tab panes
-    <div class="tab-content">
-        Home tab content
-        <div class="tab-pane active" id="control-sidebar-home-tab">
-            <h3 class="control-sidebar-heading">Recent Activity</h3>
-            <ul class="control-sidebar-menu">
-                <li>
-                    <a href="javascript:;">
-                        <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
-                        <div class="menu-info">
-                            <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                            <p>Will be 23 on April 24th</p>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-            /.control-sidebar-menu
-
-            <h3 class="control-sidebar-heading">Tasks Progress</h3>
-            <ul class="control-sidebar-menu">
-                <li>
-                    <a href="javascript:;">
-                        <h4 class="control-sidebar-subheading">
-                            Custom Template Design
-                            <span class="pull-right-container">
-                                <span class="label label-danger pull-right">70%</span>
-                            </span>
-                        </h4>
-
-                        <div class="progress progress-xxs">
-                            <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-            /.control-sidebar-menu
-
-        </div>
-        /.tab-pane
-        Stats tab content
-        <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-        /.tab-pane
-        Settings tab content
-        <div class="tab-pane" id="control-sidebar-settings-tab">
-            <form method="post">
-                <h3 class="control-sidebar-heading">General Settings</h3>
-
-                <div class="form-group">
-                    <label class="control-sidebar-subheading">
-                        Report panel usage
-                        <input type="checkbox" class="pull-right" checked>
-                    </label>
-
-                    <p>
-                        Some information about this general settings option
-                    </p>
-                </div>
-                /.form-group
-            </form>
-        </div>
-        /.tab-pane
-    </div>
-</aside>
 <!-- Add the sidebar's background. This div must be placed
 immediately after the control sidebar -->
-<div class="control-sidebar-bg"></div>
+
 </div>
 
 <script src="<?= base_url("assets/plugins/sweetalert2/sweetalert2.all.js") ?>"></script>
 <!-- ********************************************** HELPER FUNCVIONES GLOBALES *********************************************-->
-<script src="<?= base_url("assets/js/utils/helper.js?v=" . validarEnProduccion()) ?>"></script>
+<script src="<?= base_url("assets\js\utils\helper.js?v=" . validarEnProduccion()) ?>"></script>
 
 
 <!-- js para lider -->
@@ -128,6 +58,11 @@ immediately after the control sidebar -->
     <script src="<?= base_url("assets/js/modules/perfil_usuario.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
 
+<!-- **********************************************Crear Usuario********************************************** -->
+<?php if ($this->uri->segment(1) == 'User' && $this->uri->segment(2) == 'crear_usuarios'): ?>
+    <script src="<?= base_url('assets/js/inputAnimations.js'); ?>"></script>
+<?php endif ?>
+<!-- **********************************************Fin Crear Usuario********************************************** -->
 
 
 <!-- **********************************************datatables plus (excel ... ) *********************************************-->
@@ -148,14 +83,17 @@ immediately after the control sidebar -->
 <?php endif ?>
 
 <!-- **********************************************BITACORAS CCIHFC********************************************** -->
-<?php if ($this->uri->segment(2) == 'ccihfc') : ?>
+<?php if ($this->uri->segment(2) == 'ccihfc' ||$this->uri->segment(2) === "exportCciHfc") : ?>
     <script src="<?= base_url("assets/plugins/jquery.mask.js") ?>" type="text/javascript"></script>
     <script src="<?= base_url("assets/js/modules/bitacoras.js?v=" . validarEnProduccion()) ?>"></script>
+  <script src="<?= base_url('assets/js/inputAnimations.js'); ?>"></script>
 <?php endif ?>
 <!-- **********************************************END BITACORAS CCIHFC********************************************** -->
 
 <!-- **********************************************BITACORAS FRONTOFFICE********************************************** -->
+
 <?php if ($this->uri->segment(2) === "frontEndBookLogs" ||$this->uri->segment(2) === "export" ): ?>
+    <script src="<?= base_url('assets/js/inputAnimations.js'); ?>"></script>
     <script type="text/javascript" src="<?= base_url('assets/js/modules/frontEndBookLog.js?v=' . validarEnProduccion()); ?>"></script>
 <?php endif ?>
 <!-- **********************************************END BITACORAS FRONTOFFICE********************************************** -->
@@ -178,7 +116,7 @@ immediately after the control sidebar -->
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
-    <script type="text/javascript" src="<?= base_url('assets/plugins/hightchart/code/highcharts.js');?>"></script>
+    <script type="text/javascript" src="<?= base_url('assets/plugins/hightchart/code/highcharts.js'); ?>"></script>
     <script type="text/javascript" src="<?= base_url('assets/js/modules/reporte_sla.js?v=' . validarEnProduccion()); ?>"></script>
 <?php endif ?>
 <!-- **********************************************FIN REPORTE SLAS********************************************** -->
@@ -194,12 +132,12 @@ immediately after the control sidebar -->
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
     <script type="text/javascript" src="<?= base_url('assets/js/modules/reporte_sla_customer.js?v=' . validarEnProduccion()); ?>"></script>
 <?php endif ?>
-<?php if ($this->uri->segment(2) === "volumetria_fija"): ?>
-    <script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria_fija.js?v=' . validarEnProduccion()); ?>"></script>
-<?php endif ?>
+    <?php if ($this->uri->segment(2) === "volumetria_fija"): ?>
+        <script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria_fija.js?v=' . validarEnProduccion()); ?>"></script>
+    <?php endif ?>
 
 <?php if ($this->uri->segment(2) == 'crear_usuarios'): ?>
-        <script src="<?= base_url("assets/js/modules/crear_usuarios.js?v=" . validarEnProduccion()) ?>"></script>
+    <script src="<?= base_url("assets/js/modules/crear_usuarios.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
 <!-- **********************************************FIN REPORTE SLAS********************************************** -->
 
@@ -207,7 +145,17 @@ immediately after the control sidebar -->
     <script type="text/javascript" src="<?= base_url("assets/js/modules/consultar_cci_hfc.js?v=" . validarEnProduccion()); ?>"></script>
 <?php endif ?>
 
-    <script type="text/javascript">
+<?php if ($this->uri->segment(2) == 'generar_reportes'): ?>
+    <script src="<?= base_url("assets/js/modules/generar_reportes.js?v=" . validarEnProduccion()) ?>"></script>
+    <script src="<?= base_url('assets/js/inputAnimations.js'); ?>"></script>
+
+<?php endif ?>
+
+<?php if ($this->uri->segment(2) === "volumetria_mesa_calidad"): ?>
+    <script type="text/javascript" src="<?= base_url('assets/js/modules/volumetria_mesa_calidad.js?v=' . validarEnProduccion()); ?>"></script>
+<?php endif ?>
+
+<script type="text/javascript">
     // para ponerle active al li seleccionado
     if ('<?= $sub_bar ?>') {
         $('#<?= $active ?>').parents('li').addClass('active');
@@ -216,8 +164,9 @@ immediately after the control sidebar -->
 </script>
 <!-- ****************************************************MAYA**************************************************** -->
 <?php if ($this->uri->segment(1) == 'Malla'): ?>
-        <script src="<?= base_url("assets/js/modules/loadExcel/loadMalla.js?v=" . validarEnProduccion()) ?>"></script>
+    <script src="<?= base_url("assets/js/modules/loadExcel/loadMalla.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
+
 
 </body>
 </html>

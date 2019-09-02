@@ -103,12 +103,12 @@ table thead tr th span.badge{
     vertical-align: bottom;
 }
 
-table{
+/* table{
     background: #084c6f;
     border: 1px solid black;
     width: 100%;
     color: white;
-}
+} */
 
 .btn-cami_cool {
     background: transparent;

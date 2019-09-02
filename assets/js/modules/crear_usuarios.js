@@ -3,10 +3,12 @@ $(function () {
         init: function () {
             usuario.events();
             usuario.loadAreasToCharge();
+            helper.hideLoading();
         },
 
         events: function () {
             $('#newUser').click(usuario.validateData);
+            $('#deleteUser').click(usuario.deleteUser);
             $('#area').change(usuario.loadRolesByArea);
             $("#id_users").on('blur', usuario.validateCedula);
         },
@@ -65,20 +67,19 @@ $(function () {
         },
 
         loadAreasToCharge: function () {
-            helper.showLoading();
+          helper.showLoading();
 
             $.post(base_url + "User/c_getAreasToCharge", {
-                rol: 'ingeniero',
-                area: 'Dilo_BackOffice',
+                //parametros
             },
                     function (data) {
                         const obj = JSON.parse(data);
 
                         $.each(obj, function (i, val) {
-                            $('#area').append('<option value="' + val.area + '">' + val.area + '</option>');
+                            $('#area').append('<option value="' + val.area + '">' + val.texto + '</option>');
                         });
 
-                        helper.hideLoading();
+
                     }
             );
 
@@ -87,44 +88,83 @@ $(function () {
         loadRolesByArea: function () {
             helper.showLoading();
 
-            if ($('#area').val() != '') {
-                $.post(base_url + "User/c_getRolesByArea", {
-                    area: $('#area').val(),
-                },
-                        function (data) {
-                            const obj = JSON.parse(data);
+            $('#role option').each(function () {
+                if ($(this).val() != '') {
+                    $(this).remove();
+                }
+            });
 
-                            $.each(obj, function (i, val) {
-                                $('#role').append('<option value="' + val.id + '">' + val.name + '</option>');
-                            });
+            $.post(base_url + "User/c_getRolesByArea", {
+                area: $('#area').val(),
+            },
+                    function (data) {
+                        const obj = JSON.parse(data);
 
-//                            helper.hideLoading();
-                        }
-                );
-            } else {
-                $('#role option').each(function () {
-                    if ($(this).val() != '') {
-                        $(this).remove();
+                        $.each(obj, function (i, val) {
+                            $('#role').append('<option value="' + val.id + '">' + val.name + '</option>');
+                        });
+
+                           helper.hideLoading();
                     }
-                });
-            }
+            );
 
             helper.hideLoading();
         },
 
         validateCedula: function () {
+            helper.showLoading();
+
             $.post(base_url + "User/c_validateCedula", {
                 id_user: $('#id_users').val()
             },
                     function (data) {
-//                        console.log(data);
-                        if (data == 1) {
-                            helper.miniAlert('La cedula digitada ya se encuentra registrada.');
-                            $('#id_users').val('');
-                            $('#id_users').addClass('err');
+                        const obj = JSON.parse(data);
+
+                        if (obj.length == 1) {
+//                            console.log(obj[0]);
+                            $('#nombres').val(obj[0].nombres);
+                            $('#apellidos').val(obj[0].apellidos);
+                            $('#email').val(obj[0].email);
+                            $('#num_contacto').val(obj[0].num_contacto);
+                            $('#contrasena').val(obj[0].contrasena);
+                            $('#imagen').val(obj[0].imagen);
+                            $('#action').val('update');
+                            $('#deleteUser').css("display", "inline");
                         } else {
-                            $("#id_users").removeClass("err");
+                            $('#nombres').val('');
+                            $('#apellidos').val('');
+                            $('#email').val('');
+                            $('#num_contacto').val('');
+                            $('#contrasena').val('abc123');
+                            $('#imagen').val('default');
+                            $('#action').val('insert');
+                            $('#deleteUser').css("display", "none");
                         }
+
+                    }
+            );
+
+            helper.hideLoading();
+        },
+
+        deleteUser: function () {
+            $.post(base_url + "User/c_deleteUser", {
+                id_user: $('#id_users').val()
+            },
+                    function (bool) {
+                        let msj = '';
+                        if (bool) {
+                            msj = ['Usuario eliminado corectamente.', 'success'];
+                        } else {
+                            msj = ['Hubo un error inesperado.', 'error'];
+                        }
+
+                        swal({
+                            "html": msj[0],
+                            "type": msj[1]
+                        }).then(() => {
+                            location.reload();
+                        });
 
                     }
             );

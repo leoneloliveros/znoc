@@ -81,7 +81,7 @@ $(function() {
             app.post('loadAssignments/countLinesFile', {
                 file: data.path
             }).success(function(response) {
-                console.log(response);
+//                console.log(response);
                 var v = app.successResponse(response);
                 if (v) {
                     if (response.data.notNumerirc <= 0) {
@@ -165,7 +165,7 @@ $(function() {
                             loadAssignment.index += response.data.row;
                             loadAssignment.indexTemp += response.data.row;
                             loadAssignment.selec += response.data.seleccionados;
-                            console.log(loadAssignment.selec);
+//                            console.log(loadAssignment.selec);
                             window.setTimeout(function() {
                                 loadAssignment.processData(data, alert);
                             }, loadAssignment.sleepTime);

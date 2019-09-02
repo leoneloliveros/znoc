@@ -1,12 +1,15 @@
 $(function () {
     bitacoras = {
         init: function () {
+
             bitacoras.events();
             bitacoras.checkStateType();
             bitacoras.getAreas();
             // $(".valD").attr("maxlength",19);
             $(`#fechaInicio, #fechaFin`).mask('00/00/0000', {placeholder: "--/--/--"});
             $(`.valD`).mask('00/00/0000', {placeholder: "--/--/--"});
+            $('#loader').hide();
+            $('.spinner-loader').hide();
         },
 
         events: function () {
@@ -18,7 +21,7 @@ $(function () {
                 } else {
                     $(`#fechaInicio, #fechaFin`).attr('disabled', true);
                 }
-                document.getElementById('forExport').reset();
+                // document.getElementById('forExport').reset();
             });
             $('#crearBitacora').click(() => {
                 $('#createContent').show();
@@ -65,11 +68,11 @@ $(function () {
             // $(".valD").on('keydown',bitacoras.validateFormat);
             $(`#inicio_actividad,#fin_actividad`).blur({idDStart: 'inicio_actividad', idDEnd: 'fin_actividad', final: 'tiempo_atencion'}, bitacoras.getAttentionTime);
             $(`#inicio_alarma,#creacion_tk`).blur({idDStart: 'inicio_alarma', idDEnd: 'creacion_tk', final: 'tiempo_deteccion'}, bitacoras.getAttentionTime);
-            $(`#num_tk_incidente,#ot_tarea`).on('keypress', bitacoras.validateOnlyNumbers);
+            // $(`#num_tk_incidente,#ot_tarea`).on('keypress', bitacoras.validateOnlyNumbers);
             $('#id_users').on('change', function () {
                 $(`#cedulaBitacora`).val($(this).val())
             });
-            $(`#tipo_actividad,#num_tk_incidente`).change(bitacoras.validateOpeningFollowUp);
+            $(`#num_tk_incidente`).change(bitacoras.validateOpeningFollowUp);
 
         },
         serviciosCorporativos: function () {
@@ -134,15 +137,15 @@ $(function () {
                         // $(`.getAreas`).append( `<option class="" data-id="" value="General">Todos</opption>`);
                     }
             );
-
         },
+
         allTypesDisable: function () {
             $("#validate_selection").children().remove();
             // elimina los ingenieros anteriores para posteriormente volverlos a llenar
             $(`#id_users`).children().not($(`#id_users`).children()[0]).remove();
             $(`#caso_de_uso`).children().not($(`#caso_de_uso`).children()[0]).remove();
             $(".generalFields input, .generalFields select, .generalFields textarea").attr("disabled", true);
-            $("#intermitenciasx").remove();
+            // $("#intermitenciasx").remove();
         },
 
         checkStateType: function () {
@@ -171,20 +174,19 @@ $(function () {
             $(`#tipo_incidente option:nth-child(3),#tipo_incidente option:nth-child(5)`).css('display', 'block');
             switch ($('#tipo_bitacora option:selected').text()) {
                 case "energia": //********************************ENERGÍA********************************
-                    $("#validate_selection").append(`
-
-          <div class="form-group col-md-4 input-group-sm">
-          <label for="tipo_falla">Tipo de Falla</label>
-          <select id="tipo_falla" class="form-control">
-            <option value="">Seleccione...</option>
-            <option value="SITIO SIN PLANTA">SITIO SIN PLANTA</option>
-            <option value="SITIO CON PLANTA">SITIO CON PLANTA</option>
-            <option value="RPT">RPT</option>
-            <option value="CCM">CCM</option>
-            <option value="BLOQUEO">BLOQUEO</option>
-          </select>
-        </div>
-        `);
+//                    $("#validate_selection").append(`
+//                        <div class="form-group col-md-4 input-group-sm">
+//                            <label for="tipo_falla">Tipo de Falla</label>
+//                            <select id="tipo_falla" class="form-control">
+//                                <option value="">Seleccione...</option>
+//                                <option value="SITIO SIN PLANTA">SITIO SIN PLANTA</option>
+//                                <option value="SITIO CON PLANTA">SITIO CON PLANTA</option>
+//                                <option value="RPT">RPT</option>
+//                                <option value="CCM">CCM</option>
+//                                <option value="BLOQUEO">BLOQUEO</option>
+//                            </select>
+//                        </div>
+//                    `);
 
                     $(`#tipo_falla`).on('change', function () {
                         const val = $(this).val();
@@ -213,19 +215,16 @@ $(function () {
 
                     // opciones para cada caso de uso
                     $(`#caso_de_uso`).append(`
-        <option value="SITIO CCM">SITIO CCM</option>
-        <option value="FALLA MASIVA">FALLA MASIVA</option>
-        <option value="PLANTA ENCENDIDA">PLANTA ENCENDIDA</option>
-        <option value="BLOQUEO MANUAL">BLOQUEO MANUAL</option>
-        <option value="BLOQUEO AUTOMÁTICO">BLOQUEO AUTOMÁTICO</option>
-        <option value="ALTA TEMPERATURA">ALTA TEMPERATURA</option>
-        <option value="SDH">SDH</option>
-        <option value="DEPURACIÓN">DEPURACIÓN</option>
-        <option value="FUERA SERVICIO">FUERA SERVICIO</option>
-        <option value="POWER BATERÍAS">POWER BATERÍAS</option>
-        <option value="BAJO VOLTAJE">BAJO VOLTAJE</option>
-        <option value="OTROS">OTROS</option>
-        `);
+                        <option value="CCM / RPT">CCM / RPT</option>
+                        <option value="BLOQUEO POR ALARMAS DE ENERGÍA">BLOQUEO POR ALARMAS DE ENERGÍA</option>
+                        <option value="MASIVA">MASIVA</option>
+                        <option value="NOTIFICACIÓN SITIO CON PLANTA ELÉCTRICA">NOTIFICACIÓN SITIO CON PLANTA ELÉCTRICA</option>
+                        <option value="NOTIFICACIÓN SITIO SIN PLANTA ELÉCTRICA">NOTIFICACIÓN SITIO SIN PLANTA ELÉCTRICA</option>
+                        <option value="SDH">SDH</option>
+                        <option value="FUERA DE SERVICIO SITIO CON PLANTA ELÉCTRICA">FUERA DE SERVICIO SITIO CON PLANTA ELÉCTRICA</option>
+                        <option value="FUERA DE SERVICIO SITIO SIN PLANTA ELÉCTRICA">FUERA DE SERVICIO SITIO SIN PLANTA ELÉCTRICA</option>
+                        <option value="OTROS">OTROS</option>
+                    `);
 
                     break;
                 case "intermitencias": //********************************INTERMITENCIAS********************************
@@ -246,11 +245,10 @@ $(function () {
 
                     $("#validate_selection").append(`
 
-            <div class="col-md-4">
-
+            <div class="col-md-4 col-body">
               <div class="form-group">
-                <label for="tk_padre">TK Padre</label>
-                <select id="tk_padre" class="form-control">
+                <label class="form-label" for="tk_padre">TK Padre</label>
+                <select id="tk_padre" class="form-control form-input required-field">
                   <option value="">Seleccione...</option>
                   <option value="SI">SI</option>
                   <option value="NO">NO</option>
@@ -258,10 +256,10 @@ $(function () {
               </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 col-body">
               <div class="form-group">
-                <label for="saltos_validados">Saltos validados</label>
-                <input type="text" class="form-control" id="saltos_validados" placeholder="ingrese número..">
+                <label class="form-label" for="saltos_validados">Saltos validados</label>
+                <input type="text" class="form-control form-input required-field" id="saltos_validados" placeholder="ingrese número..">
               </div>
             </div>
 
@@ -284,41 +282,47 @@ $(function () {
                 case "plataforma": //********************************PLATAFORMA********************************
                     $("#validate_selection").append(`
 
-            <div class="form-group col-md-4">
-              <label for="reporte_proveedores">Reporte con proveedores</label>
-              <select id="reporte_proveedores" class="form-control">
-                <option value="">Seleccione...</option>
-                <option value="ALCATEL">ALCATEL</option>
-                <option value="ANDIRED">ANDIRED</option>
-                <option value="AZTECA">AZTECA</option>
-                <option value="DATOS">DATOS</option>
-                <option value="LAZUS">LAZUS</option>
-                <option value="NO">NO</option>
-                <option value="NOKIA">NOKIA</option>
-                <option value="NOKIA ALCATEL">NOKIA ALCATEL</option>
-                <option value="PLANTA EXTERNA">PLANTA EXTERNA</option>
-                <option value="PROMITEL">PROMITEL</option>
-                <option value="SDH">SDH</option>
-                <option value="SI">SI</option>
-                <option value="UFINET">UFINET</option>
-                <option value="OTRO">OTRO</option>
-              </select>
+            <div class="col-md-4 col-body">
+              <div class="form-group">
+                  <label class="form-label" for="reporte_proveedores">Reporte con proveedores</label>
+                  <select id="reporte_proveedores" class="form-control form-input required-field">
+                    <option value="">Seleccione...</option>
+                    <option value="ALCATEL">ALCATEL</option>
+                    <option value="ANDIRED">ANDIRED</option>
+                    <option value="AZTECA">AZTECA</option>
+                    <option value="DATOS">DATOS</option>
+                    <option value="LAZUS">LAZUS</option>
+                    <option value="NO">NO</option>
+                    <option value="NOKIA">NOKIA</option>
+                    <option value="NOKIA ALCATEL">NOKIA ALCATEL</option>
+                    <option value="PLANTA EXTERNA">PLANTA EXTERNA</option>
+                    <option value="PROMITEL">PROMITEL</option>
+                    <option value="SDH">SDH</option>
+                    <option value="SI">SI</option>
+                    <option value="UFINET">UFINET</option>
+                    <option value="OTRO">OTRO</option>
+                  </select>
+                </div>
             </div>
 
 
-            <div class="form-group col-md-4">
-              <label for="servicios_corporativos">Servicios Corporativos</label>
-              <select id="servicios_corporativos" class="form-control">
-                <option value="">Seleccione...</option>
-                <option value="0 a 9">0 a 9</option>
-                <option value="MAYOR A 10">MAYOR A 10</option>
-              </select>
+            <div class="col-body col-md-4">
+              <div class="form-group">
+                <label class="form-label" for="servicios_corporativos">Servicios Corporativos</label>
+                <select id="servicios_corporativos" class="form-control form-input required-field">
+                  <option value="">Seleccione...</option>
+                  <option value="0 a 9">0 a 9</option>
+                  <option value="MAYOR A 10">MAYOR A 10</option>
+                </select>
+              </div>
             </div>
 
 
-            <div class="form-group servCorpDesc col-sm-12">
-                <label for="servicios_corporativos_descripcion">Servicios Corporativos Descripción</label>
-                <input type="text" class="form-control" id="servicios_corporativos_descripcion">
+            <div class="servCorpDesc col-sm-12 col-body">
+              <div class="form-group">
+                <label class="form-label" for="servicios_corporativos_descripcion">Servicios Corporativos Descripción</label>
+                <input type="text" class="form-control form-input required-field" id="servicios_corporativos_descripcion">
+              </div>
             </div>
           `);
                     $(`#caso_de_uso`).append(`
@@ -335,18 +339,19 @@ $(function () {
                 case "servicios": //********************************SERVICIOS********************************
 
                     $("#validate_selection").append(`
-            <div id="if_servicios" class="col-md-4">
+
+            <div id="if_servicios" class="col-md-4 col-body">
               <div class="form-group">
-                <label for="valida_ruta_tx">Valida Ruta Tx</label>
-                <input type="text" class="form-control" id="valida_ruta_tx" placeholder="ingrese valor...">
+                <label class="form-label" for="valida_ruta_tx">Valida Ruta Tx</label>
+                <input type="text" class="form-control form-input required-field" id="valida_ruta_tx" placeholder="ingrese valor...">
               </div>
             </div>
 
 
-            <div id="if_intermitencias_servicios" class="col-md-4">
+            <div id="if_intermitencias_servicios" class="col-md-4 col-body">
               <div class="form-group">
-                <label for="saltos_validados">Saltos validados</label>
-                <input type="text" class="form-control" id="saltos_validados" placeholder="ingrese número..">
+                <label class="form-label" for="saltos_validados">Saltos validados</label>
+                <input type="text" class="form-control form-input required-field" id="saltos_validados" placeholder="ingrese número..">
               </div>
             </div>
 
@@ -365,6 +370,9 @@ $(function () {
                 default:
                     bitacoras.allTypesDisable();
             }
+            Bitacora.inputAnimations()
+
+
         },
 
         validateForm: function () {
@@ -372,8 +380,8 @@ $(function () {
             document.getElementById('fin_actividad').value = fecha;
 
             if ($('#tipo_bitacora option:selected').text() !== "Seleccione...") {
-                $(".err").removeClass("err");
-                const campos = $("div.frame input, div.frame select,div.frame textarea").not('#cedulaBitacora');
+                $(".form-input-error").removeClass("form-input-error");
+                const campos = $("div.frame input, div.frame select,div.frame textarea").not('#cedulaBitacora, #ot_tarea, #area_asignacion, #responsable');
                 var vacios = [];
                 var data = {};
                 var tipoBitacora = {};
@@ -403,6 +411,24 @@ $(function () {
 
                 });
 
+                const campos2 = $('#area_asignacion, #responsable');
+
+                if ($('#ot_tarea').val() != '') {
+                    data[$('#ot_tarea').attr("id")] = $('#ot_tarea').val();
+
+                    $.each(campos2, function (i, element2) {
+                        if ($(element2).val() == null || $(element2).val() == '' || $(element2).val() == ' ' || $(element2).val() == '  ') {
+                            vacios.push($(element2).attr("id"));
+                        } else {
+                            data[$(element2).attr("id")] = $(element2).val();
+                        }
+                    });
+                } else {
+                    delete data.ot_tarea;
+                    delete data.area_asignacion;
+                    delete data.responsable;
+                }
+//                console.log(data);
 
                 if (vacios.length == 0) {
 
@@ -418,9 +444,9 @@ $(function () {
                                     document.getElementById('formu').reset();
                                 } else {
                                     swal({
-                                        "title": "Ocurrió un error inesperado",
-                                        "text": data,
-                                        "type": "error",
+                                        title: "Ocurrió un error inesperado",
+                                        text: "data",
+                                        type: "error",
                                     });
                                 }
                             },
@@ -428,7 +454,7 @@ $(function () {
 
                 } else {
                     $.each(vacios, function (i, id) {
-                        $(`#${id}`).addClass('err');
+                        $(`#${id}`).addClass('form-input-error');
                     });
                     swal({
                         "html": "¡No puede dejar los campo en rojo vacios!",
@@ -596,9 +622,8 @@ $(function () {
             var num_tk_incidente = $('#num_tk_incidente').val();
             if ((num_tk_incidente != '' && tipo_actividad != '' && (tipo_actividad == 'SEGUIMIENTO' || tipo_actividad == 'CIERRE'))) {
                 helper.showLoading();
-
                 $.post(base_url + "Bitacoras/c_getBinnacleByTypeActivityAndIncident", {
-                    tipo_actividad: 'APERTURA',
+                    tipo_actividad: tipo_actividad,
                     num_tk_incidente: num_tk_incidente,
                     tabla: $('#tipo_bitacora option:selected').attr("data-id")
                 },
@@ -606,7 +631,7 @@ $(function () {
                             const obj = JSON.parse(data);
                             $.each(obj, function (i, val) {
                                 $.each(val, function (i2, val2) {
-                                    if (i2 != 'id_users') {
+                                    if (i2 != 'id_users' || i2 != 'inicio_actividad' || i2 != 'fin_actividad') {
                                         $('#' + i2).val(val2);
                                     }
                                 });

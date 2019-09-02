@@ -1,21 +1,24 @@
-<link rel="stylesheet" href="<?= base_url("assets/css/bitacoras_new-style.css") ?>">
+<!-- New view styles  -->
+<link rel="stylesheet" href="<?= base_url ('assets/css/remake_styles.css');?>">
 <div class="main-title" style="width: 60%;">
-    BackOffice
+Reportes
 </div>
 
 <div style="display:flex; justify-content: center;">
     <div class="card-style">
         <div class="general">
-            <div class="switch-container col-md-12 position-relative form-group">
+
+            <div class="switch-container col-md-12 col-body position-relative form-group">
                 <label class="switch">
-                    <input type="checkbox" class="form-check-input">
-                    <span class="slider round"></span>
+
+                <input type="checkbox" class="form-check-input">
+                <span id="hideDateInitial" class="slider round"></span>
                 </label>
                 <span class="checkbox-initial">
                     Solo Fecha de Inicio
                 </span>
-
             </div>
+
             <div>
                 <div class="col-md-6 col-body">
                     <div class="form-group">
@@ -27,10 +30,10 @@
                 </div>
                 <div class="col-md-6 col-body">
                     <div class="form-group">
-                        <label class="form-label" for="fHasta"><b>Fecha Final</b></label>
-                        <input type="date" id="fHasta" value="<?= $f_actual ?>" class="form-input required-field">
-                        <!-- <label class="form-label" for="ticket">Fecha Final</label>
-                        <input id="ticket" class="form-input required-field" type="text" /> -->
+                      <label class="form-label" for="fHasta"><b>Fecha Final</b></label>
+                      <input type="date" id="fHasta" value="<?= $f_actual ?>" class="form-input required-field">
+                    <!-- <label class="form-label" for="ticket">Fecha Final</label>
+                    <input id="ticket" class="form-input required-field" type="text" /> -->
                     </div>
                 </div>
             </div>
@@ -38,19 +41,21 @@
                 <div class="form-group">
                     <label class="form-label" for="rutaDesactializadaRD">Reporte</label>
                     <select id="selection" class="form-input required-field" type="text">
-                        <option></option>
-                        <option value="0">Control Tickets</option>
-                        <option value="1">Alarmas</option>
-                        <option value="2">Incidentes Fija</option>
-                        <!-- <option value="3">Tiempos NOC</option> -->
-                        <option value="4">Tiempos Fija</option>
-                        <option value="5">Workinfo</option>
-                        <option value="6">Alarmas Automatismo</option>
-                        <option value="7">Tareas FO Performance</option>
-                        <option value="8">Tiempo Atención</option>
-                        <option value="9">Gestión Performance</option>
-                        <option value="10">Reporte GORGT4</option>
-                    </select>
+                    <option></option>
+                    <option value="0">Control Tickets</option>
+                    <option value="1">Alarmas</option>
+                    <option value="2">Incidentes Fija</option>
+                    <!-- <option value="3">Tiempos NOC</option> -->
+                    <option value="4">Tiempos Fija</option>
+                    <option value="5">Workinfo</option>
+                    <option value="6">Alarmas Automatismo</option>
+                    <option value="7">Tareas FO Performance</option>
+                    <option value="8">Tiempo Atención</option>
+                    <option value="9">Gestión Performance</option>
+                    <option value="10">Cambio Ventanas Mantenimiento</option>
+                    <option value="11">Incidentes Cerrados</option>
+                    <option value="12">Reporte GORGT4</option>
+                </select>
                 </div>
             </div>
             <div class="col-md-12 col-body">
@@ -74,7 +79,7 @@
 
 
 
-<!-- 
+<!--
 <div class="row datesRange">
     <div class="col-sm-3 col-sm-offset-3">
         <label for="fDesde"><b>Fecha Inicio</b></label>
@@ -85,31 +90,62 @@
         <input type="date" id="fHasta" value="<?= $f_actual ?>" class="form-control">
     </div>
     <div class="row col-sm-12" style="display: flex; justify-content: center;">
-        <div class="col-sm-6">
-            <label for="fHasta"><b>Reporte</b></label>
+        <!--        <div class="col-sm-6">
+                    <label for="fHasta"><b>Reporte</b></label>
+                    <select class="form-control" name="" id="selection">
+                        <option value="0">Control Tickets</option>
+                        <option value="1">Alarmas</option>
+                        <option value="2">Incidentes Fija</option>
+                         <option value="3">Tiempos NOC</option>
+                        <option value="4">Tiempos Fija</option>
+                        <option value="5">Workinfo</option>
+                        <option value="6">Alarmas Automatismo</option>
+                        <option value="7">Tareas FO Performance</option>
+                        <option value="8">Tiempo Atención</option>
+                        <option value="9">Gestión Performance</option>
+                    </select>
+
+                </div>-->
+        <!-- <div class="col-sm-6">
+            <label for="selection"><b>Reporte</b></label>
             <select class="form-control" name="" id="selection">
                 <option value="0">Control Tickets</option>
                 <option value="1">Alarmas</option>
                 <option value="2">Incidentes Fija</option>
                  <option value="3">Tiempos NOC</option> -->
-<!-- <option value="4">Tiempos Fija</option>
-<option value="5">Workinfo</option>
-<option value="6">Alarmas Automatismo</option>
-<option value="7">Tareas FO Performance</option>
-<option value="8">Tiempo Atención</option>
-<option value="9">Gestión Performance</option>
-</select>
+                <!-- <option value="4">Tiempos Fija</option>
+                <option value="5">Workinfo</option>
+                <option value="6">Alarmas Automatismo</option>
+                <option value="7">Tareas FO Performance</option>
+                <option value="8">Tiempo Atención</option>
+                <option value="9">Gestión Performance</option>
+            </select>
 
-</div>
-</div>
+        </div>
+    </div>
 
-<div class="col-sm-12" style="margin-top:1em;">
-<button id="reportButton" class="btn-cami_cool">Descargar</button>
-</div>
+    <div class="col-sm-12" style="margin-top:1em;">
+        <!--<button id="reportButton" class="btn-cami_cool">Descargar</button>-->
+        <!-- <button id="reportButton2" class="btn-cami_cool">Descargar</button>
+    </div>
 </div> -->
 
+<script src="<?= base_url("assets/js/utils/helper.js?v=" . validarEnProduccion()) ?>"></script>
 <script type="text/javascript" src="<?= base_url('assets/js/modules/generalReport.js'); ?>"></script>
 
+<script type="text/javascript">
+
+  var lol = false;
+    $('#hideDateInitial').on('click', function(){
+        lol = (lol == true) ? false : true ;
+        if (lol == true) {
+            $('#fHasta').parent().attr('style', 'display: none;');
+        } else {
+            $('#fHasta').parent().attr('style', 'display:  block;');
+          };
+    });
+
+</script>
 
 <style>
     #container-result {
@@ -119,9 +155,9 @@
         margin-top: 30px;
     }
     @media only screen and (max-width: 767px)  {
-        .contenedorMaestro {
-            margin-top: 80px;
-        } 
+       .contenedorMaestro {
+        margin-top: 80px;
+       }
     }
 
     .main-footer a {
@@ -143,12 +179,14 @@
     .switch {
         position: relative;
         display: inline-block;
-        width: 90px;
-        height: 51px;
+        width: 50px;
+        height: 25px;
         margin: 0;
     }
 
-    .switch input { 
+
+        .switch input {
+
         display: none;
     }
 
@@ -189,9 +227,12 @@
         transform: translateX(22px);
     }
 
-    .slider.round {
-        border-radius: 34px;
-    }
+
+        .slider.round {
+      border-radius: 34px;
+      width: auto;
+      height: auto;
+        }
 
     .slider.round::before {
         border-radius: 50%;

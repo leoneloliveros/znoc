@@ -151,7 +151,7 @@ class Dao_bitacoras_model extends CI_Model {
           WHERE lb.tipo_actividad = '$tipo_actividad'
           AND lb.num_tk_incidente = $num_tk_incidente
       ");
-        //    print_r($this->db->last_query().';<br>');
+           // print_r($this->db->last_query().';<br>');
         return $query->result();
     }
 
