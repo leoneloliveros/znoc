@@ -1,7 +1,9 @@
-$(function() {
+﻿$(function() {
     helper = {
         init: function() {
             helper.events();
+
+
         },
 
         //Eventos de la ventana.
