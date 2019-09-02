@@ -196,7 +196,7 @@ Reportes
         background-color: #cdcdcd;
         transition: 0.4s;
         width: 54%;
-            height: 54%;
+        height: 54%;
 
         }
 
