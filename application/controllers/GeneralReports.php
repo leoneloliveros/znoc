@@ -23,6 +23,7 @@ class GeneralReports extends CI_Controller {
             'sub_bar' => true,
             'f_actual' => date('Y-m-d')
         );
+
         $this->load->view('parts/header', $data);
         $this->load->view('Reports/index');
         $this->load->view('parts/footer');
@@ -38,14 +39,19 @@ class GeneralReports extends CI_Controller {
     public function excelWorkInfo() {
         $data = $_SESSION['x'];
         // echo '<pre>'; print_r("lol"); echo '</pre>';
+
+
         $writer = WriterEntityFactory::createXLSXWriter();
         $style = (new StyleBuilder())
                 ->setShouldWrapText(false)
                 ->build();
+
         $writer->openToBrowser('workinfo(' . date('Y-m-d') . ').xlsx');
         $titles = array('TICKETID');
+
         $header = WriterEntityFactory::createRowFromArray($titles);
         $writer->addRow($header);
+
         foreach ($data as $val) {
             $cells = array();
             foreach ($val as $val1) {
@@ -71,10 +77,13 @@ class GeneralReports extends CI_Controller {
         $style = (new StyleBuilder())
                 ->setShouldWrapText(false)
                 ->build();
+
         $writer->openToBrowser('workinfo(' . date('Y-m-d') . ').xlsx');
         $titles = array('TICKETID');
+
         $header = WriterEntityFactory::createRowFromArray($titles);
         $writer->addRow($header);
+
         foreach ($data as $val) {
             $cells = array();
             foreach ($val as $val1) {
@@ -100,10 +109,13 @@ class GeneralReports extends CI_Controller {
         $style = (new StyleBuilder())
                 ->setShouldWrapText(false)
                 ->build();
+
         $writer->openToBrowser('IncidentesFija(' . date('Y-m-d') . ').xlsx');
         $titles = array('TICKETID', 'INTERNALPRIORITY', 'REGIONAL', 'PRIMER_GRUPO', 'OWNERGROUP', 'CREATIONDATE', 'CLOSEDATE', 'ACTUALFINISH', 'STATUS', 'STATUSDATE', 'RUTA_TKT', 'ACTIVIDAD', 'FECHAREPORTE_ACTI', 'FECHACAMBIO_ACTI', 'ESTADO_ACTI');
+
         $header = WriterEntityFactory::createRowFromArray($titles);
         $writer->addRow($header);
+
         foreach ($data as $val) {
             $cells = array();
             foreach ($val as $val1) {
@@ -129,6 +141,7 @@ class GeneralReports extends CI_Controller {
         $style = (new StyleBuilder())
                 ->setShouldWrapText(false)
                 ->build();
+
         $writer->openToBrowser('TiempoFija(' . date('Y-m-d') . ').xlsx');
         $titles = array('TICKETID', 'INTERNALPRIORITY', 'STATUS', 'CREATIONDATE', 'ACTUALFINISH', 'FECHA_CIERRE_TKT', 'DESCRIPTION', 'REGIONAL', 'RUTA_TKT', 'OWNERGROUP', 'PRIMER_GRUPO', 'TIEMPO_OTROS_GRUPOS', 'TIEMPO_ESCALA_FO_M', 'T_REAL_FO', 'RG_TIEMPO_ESCALA_FO_M', 'TIEMPO_ESCALA_BO_H', 'RG_TI_ESCALA_BO', 'CAN_OT_FIBRA', 'TI_OT_FIBRA_REAL_H', 'RG_TI_OT_FIBRA', 'CAN_OT_CCOAX', 'TI_OT_CCOAX_REAL_H', 'RG_TI_OT_CCOAX', 'CAN_TAS_QA', 'TI_TAS_QA_REAL_M', 'RG_TI_TAS_QA_M', 'TI_CIERRE_TAS_H', 'TIEMPO_CAMPO_H', 'TIEMPO_VIDA_TKT_H', 'TIEMPO_BO_H');
         $header = WriterEntityFactory::createRowFromArray($titles);
@@ -160,8 +173,10 @@ class GeneralReports extends CI_Controller {
                 ->build();
         $writer->openToBrowser('workinfo(' . date('Y-m-d') . ').xlsx');
         $titles = array('CREADO POR', 'TICKET ID', 'CREACION NOTA', 'RESUMEN NOTA', 'DETALLE NOTA', 'CREACION INCIDENTE', 'ESTADO INCIDENTE', 'INCIDENTE CREADO POR', 'INCIDENTE CREADO NOMBRE', 'DESCRIPCION INCIDENTE', 'FECHA CIERRE INCIDENTE', 'RUTA CLASIFICACION', 'TIPO INCIDENTE', 'ARTICULO DE CONFIGURACION', 'FECHA AFECTACION', 'PRIORIDAD', 'URGENCIA', 'IMPACTO', 'PROVEEDORES', 'UBICACION', 'GRUPO PROPIETARIO');
+
         $header = WriterEntityFactory::createRowFromArray($titles);
         $writer->addRow($header);
+
         foreach ($data as $val) {
             $cells = array();
             foreach ($val as $val1) {
@@ -187,10 +202,13 @@ class GeneralReports extends CI_Controller {
         $style = (new StyleBuilder())
                 ->setShouldWrapText(false)
                 ->build();
+
         $writer->openToBrowser('AlarmasAutomatismo(' . date('Y-m-d') . ').xlsx');
         $titles = array('TICKET ID', 'DESCRIPCION INCIDENTE', 'ESTADO INCIDENTE', 'PRIORIDAD', 'PROVEEDORES', 'FECHA CREACION INCIDENTE', 'FECHA CIERRE INCIDENTE', 'GRUPO PROPIETARIO', 'CREADO POR ID', 'CREADO POR NOMBRE', 'ARTICULO CONFIGURACION', 'RUTA CLASIFICACION', 'ELEMENTO DE RED', 'ID GLOBAL', 'ID ALARMA', 'ALARMA', 'FECHA CREACION ALARMA', 'FECHA CANCELACION ALARMA', 'UBICACION', 'EXCLUSION', 'INCIDENTE EXCLUSION', 'INCIDENTE CODIGO FALLA', 'CODIGO CAUSA CIERRE');
+
         $header = WriterEntityFactory::createRowFromArray($titles);
         $writer->addRow($header);
+
         foreach ($data as $val) {
             $cells = array();
             foreach ($val as $val1) {
@@ -216,11 +234,14 @@ class GeneralReports extends CI_Controller {
         $style = (new StyleBuilder())
                 ->setShouldWrapText(false)
                 ->build();
+
         $writer->openToBrowser('TareasFOPerformance(' . date('Y-m-d') . ').xlsx');
-        $titles = array('TAREA', 'FECHA CREACION DE TAREA', 'DESCRIPCION TAREA', 'ESTADO TAREA', 'PROPIETARIO TAREA', 'INCIDENTE', 'FECHA CREACION INCIDENTE', 'ESTADO INCIDENTE', 'DESCRIPCION INCIDENTE', 'FECHA CIERRE INCIDENTE', 'CREADOR DE NOTA', 'FECHA NOTA', 'RESUMEN NOTA', 'DETALLE NOTA');
+        $titles = array('TAREA', 'FECHA CREACION DE TAREA', 'DESCRIPCION TAREA', 'ESTADO TAREA', 'FECHA ESTADO', 'INCIDENTE', 'INCIDENTE CREADO POR', 'FECHA CREACION INCIDENTE', 'ESTADO INCIDENTE', 'DESCRIPCION INCIDENTE', 'FECHA CIERRE INCIDENTE', 'CREADOR DE NOTA', 'FECHA NOTA', 'RESUMEN NOTA', 'DETALLE NOTA');
+
         $header = WriterEntityFactory::createRowFromArray($titles);
         $writer->addRow($header);
         foreach ($data as $val) {
+
             $cells = array();
             foreach ($val as $val1) {
                 array_push($cells, WriterEntityFactory::createCell($val1, $style));
@@ -245,10 +266,13 @@ class GeneralReports extends CI_Controller {
         $style = (new StyleBuilder())
                 ->setShouldWrapText(false)
                 ->build();
+
         $writer->openToBrowser('TiempoAtencion(' . date('Y-m-d') . ').xlsx');
         $titles = array('INCIDENTE', 'FECHA CREACION INCIDENTE', 'PRIORIDAD INCIDENTE', 'ESTADO INCIDENTE', 'GRUPO PROPIETARIO INCIDENTE', 'FECHA CREACION OT TAS', 'ESTADO ACT', 'REGIONAL ACT', 'GRUPO ACT', 'TIPO ACT', 'TIEMPO ESCALAMIENTO');
+
         $header = WriterEntityFactory::createRowFromArray($titles);
         $writer->addRow($header);
+
         foreach ($data as $val) {
             $cells = array();
             foreach ($val as $val1) {
@@ -274,10 +298,13 @@ class GeneralReports extends CI_Controller {
         $style = (new StyleBuilder())
                 ->setShouldWrapText(false)
                 ->build();
+
         $writer->openToBrowser('ControlTickets(' . date('Y-m-d') . ').xlsx');
         $titles = array('INCIDENTE', 'CREATIONDATE', 'TIEMPO_TRANSCURRIDO', 'ALERTA', 'FECHA_REPORTE', 'INTERNALPRIORITY', 'STATUS', 'OWNERGROUP');
+
         $header = WriterEntityFactory::createRowFromArray($titles);
         $writer->addRow($header);
+
         foreach ($data as $val) {
             $cells = array();
             foreach ($val as $val1) {
@@ -304,9 +331,11 @@ class GeneralReports extends CI_Controller {
                 ->setShouldWrapText(false)
                 ->build();
         $writer->openToBrowser('GestionPerformance(' . date('Y-m-d') . ').xlsx');
-        $titles = array('TICKETID', 'ZONA_TKT', 'TIPO_TKT', 'CREATIONDATE', 'CLOSEDATE', 'ACTUALFINISH', 'STATUS', 'INTERNALPRIORITY', 'URGENCY', 'CREATEDBY', 'CHANGEDATE', 'OWNERGROUP', 'LOCATION', 'MUN100', 'AFECTACION_TOTAL_CORE', 'INCEXCLUIR', 'INCMEXCLUSION', 'PROVEEDORES', 'TICKET_EXT', 'DESCRIPTION', 'EXTERNALSYSTEM', 'RUTA_TKT', 'INC_ALARMA', 'INCSOLUCION', 'GERENTE', 'REGIONAL', 'CIUDAD_MUNICIPIO', 'FAILURECODE', 'PROBLEM_CODE', 'PROBLEM_DESCRIPTION', 'CAUSE_CODE', 'CAUSE_DESCRIPTION', 'REMEDY_CODE', 'REMEDY_DESCRIPTION', 'TIEMPO_VIDA_TKT', 'TIEMPO_RESOLUCION_TKT', 'TIEMPO_DETECCION', 'TIEMPO_ESCALA', 'TIEMPO_FALLA', 'TIEMPO_OT_ALM');
+        $titles = array('RECORDKEY', 'DESCRIPTION_NOTA', 'NOTA_CREATION', 'NOTA_FECHA_MODIFICACION', 'NOTA_MODIFYBY', 'NOMBRE_CREADOR', 'DESCRIPTION_INCIDENT', 'INCIDENT_CREATION', 'INCIDENTE_ESTADO', 'CHANGEDATE', 'INCIDENTE_CREADOR', 'INCIDENTE_CREADOR_NOMBRE');
+
         $header = WriterEntityFactory::createRowFromArray($titles);
         $writer->addRow($header);
+
         foreach ($data as $val) {
             $cells = array();
             foreach ($val as $val1) {
@@ -422,7 +451,7 @@ class GeneralReports extends CI_Controller {
         $data = $this->Dao_reportes_model->c_getReporteGorgt4($fdesde, $fhasta);
         echo json_encode($data);
     }
-    
+
     public function excelReporteGorgt4() {
         $data = $_SESSION['x'];
         // echo '<pre>'; print_r("lol"); echo '</pre>';
@@ -434,7 +463,7 @@ class GeneralReports extends CI_Controller {
                 ->build();
 
         $writer->openToBrowser('Reporte Gorgt4(' . date('Y-m-d') . ').xlsx');
-        $titles = array('TICKETID', 'FECHA_CREA_INCIDENTE', 'ESTADO_INCIDENTE', 'FECHA_ESTADO_INCIDENTE','DESCRIPCION_INCIDENTE', 'CREADOR_NOTA', 'FECHA_NOTA', 'RESUMEN_NOTA', 'FECHA_CREACION_NOTA', 'FECHA_CREACION_TAREA');
+        $titles = array('TICKETID', 'FECHA_CREA_INCIDENTE', 'ESTADO_INCIDENTE', 'FECHA_ESTADO_INCIDENTE', 'DESCRIPCION_INCIDENTE', 'CREADOR_NOTA', 'FECHA_NOTA', 'RESUMEN_NOTA', 'FECHA_CREACION_NOTA', 'FECHA_CREACION_TAREA');
 
         $header = WriterEntityFactory::createRowFromArray($titles);
         $writer->addRow($header);
@@ -447,9 +476,9 @@ class GeneralReports extends CI_Controller {
             $rowFromValues = WriterEntityFactory::createRow($cells);
             $writer->addRow($rowFromValues);
         }
+
         $writer->close();
     }
 
+    /* End of file reportes.php */
 }
-
-/* End of file reportes.php */
