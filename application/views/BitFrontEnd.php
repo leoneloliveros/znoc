@@ -218,8 +218,15 @@ input{
                 </div>
               </div>
 
-
+              <div class="col-md-4 col-body">
+                <div class="form-group">
+                  <label class="form-label" for"puesto">Puesto</label>
+                  <input type="text" class="form-control form-input required-field" id="puesto">
+                </div>
               </div>
+
+            </div>
+
               </div>
               <div id="validate_selection"></div>
 
