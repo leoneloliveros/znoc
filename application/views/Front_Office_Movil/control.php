@@ -649,7 +649,6 @@ function graficarhoras(e){
           }).done(function(data){
             console.log("la data",data);
             var category = [];
-            var columnaY=[];
             var pasaronP1 = [];
             var averageP1 = [];
             var noPasaronP1 = [];
@@ -660,65 +659,59 @@ function graficarhoras(e){
             var averageP3 = [];
             var noPasaronP3 = [];
             helper.hideLoading();
-            var obj = JSON.parse(data);
-            console.log('aqui', obj);
-            columnaY.push(gethoras(obj));
+            var obj1 = JSON.parse(data);
+            // console.log('aqui', obj);
+            function gethoras(obj){
+              var arreglo=[];
+              var tiempos=[{hora:0, total:obj[i].total},{hora:1, total:obj[i].total},{hora:2, total:obj[i].total},{hora:3,total:obj[i].total},{hora:4, total:obj[i].total},{hora:5, total:obj[i].total},{hora:6, total:obj[i].total},{hora:7, total:obj[i].total},{hora:8,total:obj[i].total},{hora:9, total:obj[i].total},{hora:10, total:obj[i].total},{hora:11, total:obj[i].total},{hora:12,total:obj[i].total},{hora:13, total:obj[i].total},{hora:14,total:obj[i].total},{hora:15, total:obj[i].total},{hora:16, total:obj[i].total},{hora:17, total:obj[i].total},{hora:18, total:obj[i].total},{hora:19, total:obj[i].total},{hora:20, total:obj[i].total},{hora:21, total:obj[i].total},{hora:22, total:obj[i].total},{hora:23, total:obj[i].total}];
+              for(i=0; i<=23;i++){
+                var aux= obj.filter(info=>(info.hora==i));
+                if (aux.length==0) {
+                  arreglo.push(
+                    {"the_date": obj[0].the_date ,"total": "0","hora": "0","P1_PASARON": "0","P1_TOTAL":"0","P2_PASARON":"0","P2_TOTAL":"0","P3_PASARON":"0","P3_TOTAL":"0"}
+                    );
+                }
+                else{
+                  arreglo.push(aux[0]);
+                }
+              }
+              // var totales=arreglo.map(Number);
+              // console.log("Funcion de horas",totales);
+              console.log("revision fecha",obj[0].the_date);
+              return arreglo;
+            }
+
+            obj = gethoras(obj1);
+            
             for (i = 0; i < obj.length; i++) {
-                category.push(obj[i].the_date) ;
-                
+                category.push(obj[i].the_date);
                 pasaronP1.push(Number(obj[i].P1_PASARON));
                 noPasaronP1.push(obj[i].P1_TOTAL - obj[i].P1_PASARON);
+                if (obj[i].P1_TOTAL != 0) { 
                 averageP1.push((obj[i].P1_PASARON * 100) / obj[i].P1_TOTAL);
+                } else {
+                  averageP1.push(0);
+                }
                 pasaronP2.push(Number(obj[i].P2_PASARON));
                 noPasaronP2.push(obj[i].P2_TOTAL - obj[i].P2_PASARON);
+                if (obj[i].P2_TOTAL != 0) { 
                 averageP2.push((obj[i].P2_PASARON * 100) / obj[i].P2_TOTAL);
+                } else {
+                  averageP2.push(0);
+                }
                 pasaronP3.push(Number(obj[i].P3_PASARON));
                 noPasaronP3.push(obj[i].P3_TOTAL - obj[i].P3_PASARON);
+                if (obj[i].P3_TOTAL != 0) { 
                 averageP3.push((obj[i].P3_PASARON * 100) / obj[i].P3_TOTAL);
+                } else {
+                  averageP3.push(0);
+                }
 
             }
-            /*var arrayprueba=data;*/
-            /*var arrayprueba2=[{the_date:}];*/
-            /*Array.prototype.push.apply(arrayprueba,arrayprueba2);*/
-            /*console.log(arrayprueba);*/
 
-            console.log(pasaronP1);
-            /*console.log("Aqui tambien eh",pasaronP2);*/
-
-           function gethoras(obj){
-              var arreglo=[];
-              var hora;
-              console.log("MIO",obj);
-              var tiempos=[{hora:0, total:0},{hora:1, total:0},{hora:2, total:0},{hora:3, total:0},{hora:4, total:0},{hora:5, total:0},{hora:6, total:0},{hora:7, total:0},{hora:8,total:0},{hora:9, total:0},{hora:10, total:0},{hora:11, total:0},{hora:12, total:0},{hora:13, total:0},{hora:14,total:0},{hora:15, total:0},{hora:16, total:0},{hora:17, total:0},{hora:18, total:0},{hora:19, total:0},{hora:20, total:0},{hora:21, total:0},{hora:22, total:0},{hora:23, total:0}];
-              $.each(tiempos, function (i, element) {
-                $.each(obj, function (i2, element2) {
-                  if (element.hora == element2.hora) {
-                    tiempos[i].total = element2.total;
-                  }
-                });
-              });
-              lashoras=tiempos.map(h=>h.hora);//Arreglo que contiene solo las horas del arreglo tiempos
-              /*lasletras=lashoras.toString();*/
-              /*var separados=lashoras.valueOf();*/
-              /*for(i=0; i<=23;i++){
-               var aux= tiempos.filter(info=>(info.hora == i));
-              if (aux.length == 0) {
-              arreglo.push(0);
-              }
-              else{
-                arreglo.push(aux[0].total);
-               }
-              }*/
-              /*console.log(separados);*/
-              /*console.log("las horas en string",lasletras);*/
-              /*console.log("variable las horas", lashoras);*/
-              console.log("MIO-tiempos",tiempos);
-              return tiempos;
-
-              }//Cierre de la funcion gethoras
-            insertarGrafica(1, pasaronP1, noPasaronP1, averageP1, category, sql23, columnaY);
-            insertarGrafica(2, pasaronP2, noPasaronP2, averageP2, category, sql23, columnaY);
-            insertarGrafica(3, pasaronP3, noPasaronP3, averageP3, category, sql23, columnaY);
+            insertarGrafica(1, pasaronP1, noPasaronP1, averageP1, category, sql23);
+            insertarGrafica(2, pasaronP2, noPasaronP2, averageP2, category, sql23);
+            insertarGrafica(3, pasaronP3, noPasaronP3, averageP3, category, sql23);
           });//Cierre de la funcion de data
           $('#graficos_pri').on('click', function(){
             $("#grahp_prio").toggle();
@@ -752,7 +745,9 @@ function graficarhoras(e){
             active = false;
             }
         });
-        function insertarGrafica(numero, pasaron, noPasaron, average, category, sql23, columnaY) {
+
+        function insertarGrafica(numero, pasaron, noPasaron, average, category, sql23) {
+          console.log("Prueba fecha",category)
     Highcharts.chart("P" + numero, {
         chart: {
             type: 'column'
@@ -766,13 +761,13 @@ function graficarhoras(e){
             text: 'TIEMPO DE ESCALAMIENTO FO MOVIL ' + 'P' + numero
         },
         xAxis: {
-            categories: ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00","13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"]
+            categories: ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"]
         },
         yAxis: {
             min: 0,
-                            title: {
-                                text: '# Incidentes'
-                            }
+                    title: {
+                        text: '# Incidentes'
+                    }
         },
         tooltip: {
             pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
@@ -794,12 +789,14 @@ function graficarhoras(e){
                     events: {
                         click: function () {
                             helper.showLoading();
-                            var fecha = this.category;
+                            var fecha = category[0];
                             var condicion = this.sql23;
+                            var hora= this.category;
                             condicion=sql23.replace(/ /g,'_');
                             condicion=condicion.replace(/'/g,"-");
                             condicion=condicion.replace(/%/g,"=");
-                            var url = base_url + 'Front_Office_Movil/KPI/loadModal' + '/' + fecha + '/' + numero + '/' + condicion;
+                            console.log("Prueba fecha 2",hora);
+                            var url = base_url + 'Front_Office_Movil/KPI/loadmodalhoras' + '/' + fecha + '/' + numero + '/' + condicion + '/' + hora;
                             var element = document.getElementById('insert-content');
                             load(url, element);
                             function load(url, element) {
@@ -893,8 +890,10 @@ function graficarhoras(e){
                 ],
                 
     });
-  /*console.log(columnaY);*/
+    console.log("pasaron",pasaron);
+    console.log("no pasaron",noPasaron);
   }
+
 }//Cierre de la funcion graficarhoras
 </script>
 <script src="<?= base_url("assets/js/backoffice.js?v" . validarEnProduccion())?>"></script>

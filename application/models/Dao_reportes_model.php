@@ -867,5 +867,11 @@ class Dao_reportes_model extends CI_Model {
             ");
         return $query->result();
     }
+     public function getIncidentFO($queryresult) {
+        $query = $this->db->query($queryresult);
+        $data = $query->result();
+        $_SESSION['x'] = $data;
+        return $data;
+      }
 }
 /* End of file Dao_reportes_model.php */
