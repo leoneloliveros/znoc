@@ -133,6 +133,17 @@ $(function () {
                   window.open(base_url + "GeneralReports/excelIncidentesCerrados");
               });
             break;
+            case '12':
+              $.post(base_url + "GeneralReports/c_getReporteGorgt4", {
+                  desde: $(`#fDesde`).val(),
+                  hasta: $(`#fHasta`).val(),
+                }).done(function(){
+                  $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
+                  $('#loader').hide();
+                  $('.spinner-loader').hide();
+                  window.open(base_url + "GeneralReports/excelReporteGorgt4");
+              });
+            break;
             default:
               // code block
           }

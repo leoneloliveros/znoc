@@ -1,14 +1,19 @@
 <?php
+
 defined('BASEPATH') or exit('No direct script access allowed');
 require_once APPPATH . 'libraries/spout/src/Spout/Autoloader/autoload.php';
+
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 use Box\Spout\Common\Entity\Style\Color;
+
 class GeneralReports extends CI_Controller {
+
     function __construct() {
         parent::__construct();
         $this->load->model('Dao_reportes_model');
     }
+
     public function showReports() {
         $data = array(
             'active_sidebar' => false,
@@ -22,12 +27,14 @@ class GeneralReports extends CI_Controller {
         $this->load->view('Reports/index');
         $this->load->view('parts/footer');
     }
+
     public function c_getDataFromMaximoWorkInfo() {
         $fdesde = $this->input->post('desde');
         $fhasta = $this->input->post('hasta');
         $data = $this->Dao_reportes_model->getDataWorkInfo($fdesde, $fhasta);
         echo json_encode($data);
     }
+
     public function excelWorkInfo() {
         $data = $_SESSION['x'];
         // echo '<pre>'; print_r("lol"); echo '</pre>';
@@ -49,12 +56,14 @@ class GeneralReports extends CI_Controller {
         }
         $writer->close();
     }
+
     public function c_getDataFromTiemposNOCEste() {
         $fdesde = $this->input->post('desde');
         $fhasta = $this->input->post('hasta');
         $data = $this->Dao_reportes_model->getTiempoNOCEste($fdesde, $fhasta);
         echo json_encode($data);
     }
+
     public function excelTiemposNOCEste() {
         $data = $_SESSION['x'];
         // echo '<pre>'; print_r("lol"); echo '</pre>';
@@ -76,12 +85,14 @@ class GeneralReports extends CI_Controller {
         }
         $writer->close();
     }
+
     public function c_getDataFromIncidentesFija() {
         $fdesde = $this->input->post('desde');
         $fhasta = $this->input->post('hasta');
         $data = $this->Dao_reportes_model->getIncidentesFija($fdesde, $fhasta);
         echo json_encode($data);
     }
+
     public function excelIncidentesFija() {
         $data = $_SESSION['x'];
         // echo '<pre>'; print_r("lol"); echo '</pre>';
@@ -103,12 +114,14 @@ class GeneralReports extends CI_Controller {
         }
         $writer->close();
     }
+
     public function c_getDataFromTiempoFija() {
         $fdesde = $this->input->post('desde');
         $fhasta = $this->input->post('hasta');
         $data = $this->Dao_reportes_model->getDataTiempoFija($fdesde, $fhasta);
         echo json_encode($data);
     }
+
     public function excelTiempoFija() {
         $data = $_SESSION['x'];
         // echo '<pre>'; print_r("lol"); echo '</pre>';
@@ -130,12 +143,14 @@ class GeneralReports extends CI_Controller {
         }
         $writer->close();
     }
+
     public function c_getDataFromWorkInfo() {
         $fdesde = $this->input->post('desde');
         $fhasta = $this->input->post('hasta');
         $data = $this->Dao_reportes_model->getWorkInfo($fdesde, $fhasta);
         echo json_encode($data);
     }
+
     public function excelWorkInfoMesaCalidad() {
         $data = $_SESSION['x'];
         // echo '<pre>'; print_r("lol"); echo '</pre>';
@@ -157,12 +172,14 @@ class GeneralReports extends CI_Controller {
         }
         $writer->close();
     }
+
     public function c_getDataFromAlarmasAutomatismo() {
         $fdesde = $this->input->post('desde');
         $fhasta = $this->input->post('hasta');
         $data = $this->Dao_reportes_model->getAlarmasAutomatismo($fdesde, $fhasta);
         echo json_encode($data);
     }
+
     public function excelAlarmasAutomatismo() {
         $data = $_SESSION['x'];
         // echo '<pre>'; print_r("lol"); echo '</pre>';
@@ -184,12 +201,14 @@ class GeneralReports extends CI_Controller {
         }
         $writer->close();
     }
+
     public function c_getDataFromTareasFOPerformance() {
         $fdesde = $this->input->post('desde');
         $fhasta = $this->input->post('hasta');
         $data = $this->Dao_reportes_model->getTareasFOPerformance($fdesde, $fhasta);
         echo json_encode($data);
     }
+
     public function excelTareasFOPerformance() {
         $data = $_SESSION['x'];
         // echo '<pre>'; print_r("lol"); echo '</pre>';
@@ -211,12 +230,14 @@ class GeneralReports extends CI_Controller {
         }
         $writer->close();
     }
+
     public function c_getTiempoAtencion() {
         $fdesde = $this->input->post('desde');
         $fhasta = $this->input->post('hasta');
         $data = $this->Dao_reportes_model->getTiempoAtencion($fdesde, $fhasta);
         echo json_encode($data);
     }
+
     public function excelTiempoAtencion() {
         $data = $_SESSION['x'];
         // echo '<pre>'; print_r("lol"); echo '</pre>';
@@ -238,12 +259,14 @@ class GeneralReports extends CI_Controller {
         }
         $writer->close();
     }
+
     public function c_getControlTicket() {
         $fdesde = $this->input->post('desde');
         $fhasta = $this->input->post('hasta');
         $data = $this->Dao_reportes_model->getControlTicket($fdesde, $fhasta);
         echo json_encode($data);
     }
+
     public function excelControlTicket() {
         $data = $_SESSION['x'];
         // echo '<pre>'; print_r("lol"); echo '</pre>';
@@ -265,12 +288,14 @@ class GeneralReports extends CI_Controller {
         }
         $writer->close();
     }
+
     public function c_getGestionPerformance() {
         $fdesde = $this->input->post('desde');
         $fhasta = $this->input->post('hasta');
         $data = $this->Dao_reportes_model->getGestionPerformance($fdesde, $fhasta);
         echo json_encode($data);
     }
+
     public function excelGestionPerformance() {
         $data = $_SESSION['x'];
         // echo '<pre>'; print_r("lol"); echo '</pre>';
@@ -292,10 +317,12 @@ class GeneralReports extends CI_Controller {
         }
         $writer->close();
     }
+
     public function c_getReportsDB() {
         $data = $this->Dao_reportes_model->getReportsDB();
         echo json_encode($data);
     }
+
     public function excelReportSelect($fdesde, $fhasta, $selection) {
         $desde = base64_decode($fdesde);
         $hasta = base64_decode($fhasta);
@@ -320,76 +347,109 @@ class GeneralReports extends CI_Controller {
         }
         $excel->close();
     }
-    public function c_getCambiosVentanasMantenimiento()
-  {
-    $fdesde = $this->input->post('desde');
-    $fhasta = $this->input->post('hasta');
-    $data = $this->Dao_reportes_model->getCambiosVentanasMantenimiento($fdesde,$fhasta);
-    echo json_encode($data);
-  }
-  public function excelCambiosVentanasMantenimiento()
-  {
-    $data = $_SESSION['x'];
-    // echo '<pre>'; print_r("lol"); echo '</pre>';
-    
 
-      $writer = WriterEntityFactory::createXLSXWriter();
-      $style = (new StyleBuilder())
-      ->setShouldWrapText(false)
-      ->build();
-
-      $writer->openToBrowser('CambiosVentanasMantenimiento('.date('Y-m-d').').xlsx');
-      $titles = array('NUMERO_CAMBIO', 'TAREA_CAMBIO', 'DESCIPCION_TAREA', 'INICIO_PROGRAMA_VENT', 'FINALIZACION_PROFRAMADA_VENT', 'ESTADO', 'PROPIETARIOS', 'GRUPO_PROPIETARIOS');
-
-      $header = WriterEntityFactory::createRowFromArray($titles);
-      $writer->addRow($header);
-
-      foreach ($data as $val) {
-        $cells = array();
-        foreach ($val as $val1) {
-          array_push($cells,WriterEntityFactory::createCell($val1,$style));
-        }
-        $rowFromValues = WriterEntityFactory::createRow($cells);
-        $writer->addRow($rowFromValues);
-      }
-      $writer->close();
-
-  }
-
-public function c_getIncidentesCerrados()
-{
-  $fdesde = $this->input->post('desde');
-  $fhasta = $this->input->post('hasta');
-  $data = $this->Dao_reportes_model->getIncidentesCerrados($fdesde,$fhasta);
-  echo json_encode($data);
-}
-public function excelIncidentesCerrados()
-{
-  $data = $_SESSION['x'];
-  // echo '<pre>'; print_r("lol"); echo '</pre>';
-  
-
-    $writer = WriterEntityFactory::createXLSXWriter();
-    $style = (new StyleBuilder())
-    ->setShouldWrapText(false)
-    ->build();
-
-    $writer->openToBrowser('IncidentesCerrados('.date('Y-m-d').').xlsx');
-    $titles = array('TICKETID', 'FECHA CREACION', 'CREADO POR', 'NOMBRE CREADOR', 'DESCRIPCION',  'ESTADO', 'CERRADO POR', 'NOMBRE', 'PRIORIDAD', 'URGENCIA', 'CAUSE_CODE', 'CAUSE_DESCRIPTION', 'REMEDY_CODE', 'REMEDY_DESCRIPTION');
-
-    $header = WriterEntityFactory::createRowFromArray($titles);
-    $writer->addRow($header);
-
-    foreach ($data as $val) {
-      $cells = array();
-      foreach ($val as $val1) {
-        array_push($cells,WriterEntityFactory::createCell($val1,$style));
-      }
-      $rowFromValues = WriterEntityFactory::createRow($cells);
-      $writer->addRow($rowFromValues);
+    public function c_getCambiosVentanasMantenimiento() {
+        $fdesde = $this->input->post('desde');
+        $fhasta = $this->input->post('hasta');
+        $data = $this->Dao_reportes_model->getCambiosVentanasMantenimiento($fdesde, $fhasta);
+        echo json_encode($data);
     }
-    $writer->close();
+
+    public function excelCambiosVentanasMantenimiento() {
+        $data = $_SESSION['x'];
+        // echo '<pre>'; print_r("lol"); echo '</pre>';
+
+
+        $writer = WriterEntityFactory::createXLSXWriter();
+        $style = (new StyleBuilder())
+                ->setShouldWrapText(false)
+                ->build();
+
+        $writer->openToBrowser('CambiosVentanasMantenimiento(' . date('Y-m-d') . ').xlsx');
+        $titles = array('NUMERO_CAMBIO', 'TAREA_CAMBIO', 'DESCIPCION_TAREA', 'INICIO_PROGRAMA_VENT', 'FINALIZACION_PROFRAMADA_VENT', 'ESTADO', 'PROPIETARIOS', 'GRUPO_PROPIETARIOS');
+
+        $header = WriterEntityFactory::createRowFromArray($titles);
+        $writer->addRow($header);
+
+        foreach ($data as $val) {
+            $cells = array();
+            foreach ($val as $val1) {
+                array_push($cells, WriterEntityFactory::createCell($val1, $style));
+            }
+            $rowFromValues = WriterEntityFactory::createRow($cells);
+            $writer->addRow($rowFromValues);
+        }
+        $writer->close();
+    }
+
+    public function c_getIncidentesCerrados() {
+        $fdesde = $this->input->post('desde');
+        $fhasta = $this->input->post('hasta');
+        $data = $this->Dao_reportes_model->getIncidentesCerrados($fdesde, $fhasta);
+        echo json_encode($data);
+    }
+
+    public function excelIncidentesCerrados() {
+        $data = $_SESSION['x'];
+        // echo '<pre>'; print_r("lol"); echo '</pre>';
+
+
+        $writer = WriterEntityFactory::createXLSXWriter();
+        $style = (new StyleBuilder())
+                ->setShouldWrapText(false)
+                ->build();
+
+        $writer->openToBrowser('IncidentesCerrados(' . date('Y-m-d') . ').xlsx');
+        $titles = array('TICKETID', 'FECHA CREACION', 'CREADO POR', 'NOMBRE CREADOR', 'DESCRIPCION', 'ESTADO', 'CERRADO POR', 'NOMBRE', 'PRIORIDAD', 'URGENCIA', 'CAUSE_CODE', 'CAUSE_DESCRIPTION', 'REMEDY_CODE', 'REMEDY_DESCRIPTION');
+
+        $header = WriterEntityFactory::createRowFromArray($titles);
+        $writer->addRow($header);
+
+        foreach ($data as $val) {
+            $cells = array();
+            foreach ($val as $val1) {
+                array_push($cells, WriterEntityFactory::createCell($val1, $style));
+            }
+            $rowFromValues = WriterEntityFactory::createRow($cells);
+            $writer->addRow($rowFromValues);
+        }
+        $writer->close();
+    }
+
+    public function c_getReporteGorgt4() {
+        $fdesde = $this->input->post('desde');
+        $fhasta = $this->input->post('hasta');
+        $data = $this->Dao_reportes_model->c_getReporteGorgt4($fdesde, $fhasta);
+        echo json_encode($data);
+    }
+    
+    public function excelReporteGorgt4() {
+        $data = $_SESSION['x'];
+        // echo '<pre>'; print_r("lol"); echo '</pre>';
+
+
+        $writer = WriterEntityFactory::createXLSXWriter();
+        $style = (new StyleBuilder())
+                ->setShouldWrapText(false)
+                ->build();
+
+        $writer->openToBrowser('Reporte Gorgt4(' . date('Y-m-d') . ').xlsx');
+        $titles = array('TICKETID', 'FECHA_CREA_INCIDENTE', 'ESTADO_INCIDENTE', 'FECHA_ESTADO_INCIDENTE','DESCRIPCION_INCIDENTE', 'CREADOR_NOTA', 'FECHA_NOTA', 'RESUMEN_NOTA', 'FECHA_CREACION_NOTA', 'FECHA_CREACION_TAREA');
+
+        $header = WriterEntityFactory::createRowFromArray($titles);
+        $writer->addRow($header);
+
+        foreach ($data as $val) {
+            $cells = array();
+            foreach ($val as $val1) {
+                array_push($cells, WriterEntityFactory::createCell($val1, $style));
+            }
+            $rowFromValues = WriterEntityFactory::createRow($cells);
+            $writer->addRow($rowFromValues);
+        }
+        $writer->close();
+    }
 
 }
-}
+
 /* End of file reportes.php */
