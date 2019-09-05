@@ -479,6 +479,41 @@ class GeneralReports extends CI_Controller {
 
         $writer->close();
     }
+    
+    public function c_getReporteIpRan() {
+        $fdesde = $this->input->post('desde');
+        $fhasta = $this->input->post('hasta');
+        $data = $this->Dao_reportes_model->getReporteIpRan($fdesde, $fhasta);
+        echo json_encode($data);
+    }
+
+    public function excelReporteIpRan() {
+        $data = $_SESSION['x'];
+        // echo '<pre>'; print_r("lol"); echo '</pre>';
+
+
+        $writer = WriterEntityFactory::createXLSXWriter();
+        $style = (new StyleBuilder())
+                ->setShouldWrapText(false)
+                ->build();
+
+        $writer->openToBrowser('Reporte IP RAN(' . date('Y-m-d') . ').xlsx');
+        $titles = array('Ticket Incidencia', 'Tipo Ticket', 'Id Ticket', 'Fecha Creacion Nota', 'Clase Tarea', 'Descripcion Ticket', 'Prioridad Actividad', 'Persona Responsable', 'Nombre Responsable', 'Estado Tarea', 'Inicio Real Tarea', 'Finalizacion Real Tarea', 'Grupo Propietario Incidencia', 'Regional', 'Ruta');
+
+        $header = WriterEntityFactory::createRowFromArray($titles);
+        $writer->addRow($header);
+
+        foreach ($data as $val) {
+            $cells = array();
+            foreach ($val as $val1) {
+                array_push($cells, WriterEntityFactory::createCell($val1, $style));
+            }
+            $rowFromValues = WriterEntityFactory::createRow($cells);
+            $writer->addRow($rowFromValues);
+        }
+
+        $writer->close();
+    }
 
     /* End of file reportes.php */
 }

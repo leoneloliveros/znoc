@@ -894,15 +894,51 @@ class Dao_reportes_model extends CI_Model {
 
     public function c_getReporteGorgt4($fdesde, $fhasta) {
         $query = $this->db->query("
-            SELECT IC.TICKETID, IC.CREATIONDATE AS FECHA_CREA_INCIDENTE, IC.STATUS AS ESTADO_INCIDENTE, WO.CHANGEDATE AS FECHA_ESTADO_INCIDENTE,
+            SELECT IC.TICKETID, IC.CREATIONDATE AS FECHA_CREA_INCIDENTE, IC.STATUS AS ESTADO_INCIDENTE, WOS.CHANGEDATE AS FECHA_ESTADO_INCIDENTE,
                 IC.DESCRIPTION AS DESCRIPCION_INCIDENTE, WO.MODIFYBY AS CREADOR_NOTA, WO.MODIFYDATE AS FECHA_NOTA,
                 WO.DESCRIPTION AS RESUMEN_NOTA, WO.CREATEDATE AS FECHA_CREACION_NOTA, AC.REPORTDATE AS FECHA_CREACION_TAREA
             FROM maximo.ACTIVITIES AC
             LEFT JOIN maximo.INCIDENT IC ON AC.TICKETID=IC.TICKETID
             LEFT JOIN maximo.WORKLOG WO ON AC.WONUM=WO.RECORDKEY
-            LEFT JOIN maximo.WOSTATUS WO ON WO.TICKETID=IC.TICKETID
+            LEFT JOIN maximo.WOSTATUS WOS ON WOS.TICKETID=IC.TICKETID
             WHERE IC.DESCRIPTION LIKE '%GORGT4%'      
             AND DATE_FORMAT(IC.CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
+            ");
+        $_SESSION['x'] = $query->result();
+        return $query->result();
+    }
+    
+    public function getReporteIpRan($fdesde, $fhasta) {
+        $query = $this->db->query("
+            SELECT IC.TICKETID AS 'Ticket Incidencia', 
+                (CASE WHEN WO.RECORDKEY LIKE 'TAS%' THEN 'Tareas'
+                    WHEN WO.RECORDKEY LIKE 'INC%' THEN 'Incidentes'
+                    WHEN WO.RECORDKEY LIKE 'CHG%' THEN 'Cambios'
+                    ELSE ''
+                END) AS 'Tipo Ticket',
+                AC.WONUM AS 'Id Ticket',
+                WO.CREATEDATE AS 'Fecha Creacion Nota',
+                WO.CLASS AS 'Clase Tarea',
+                WO.DESCRIPTION AS 'Descripcion Ticket',
+                IC.INTERNALPRIORITY AS 'Prioridad Actividad',
+                IC.CREATEDBY AS 'Persona Responsable',
+                PE.DISPLAYNAME AS 'Nombre Responsable',
+                AC.STATUS AS 'Estado Tarea',
+                AC.REPORTDATE AS 'Inicio Real Tarea',
+                AC.ACTFINISH AS 'Finalizacion Real Tarea',
+                IC.OWNERGROUP AS 'Grupo Propietario Incidencia',
+                IC.REGIONAL AS 'Regional',
+                IC.RUTA_TKT AS 'Ruta'
+            FROM maximo.ACTIVITIES AC
+            LEFT JOIN maximo.INCIDENT IC ON IC.TICKETID=AC.TICKETID
+            LEFT JOIN maximo.WORKLOG WO ON WO.RECORDKEY=AC.WONUM
+            INNER JOIN maximo.PERSON PE ON PE.PERSONID=IC.CREATEDBY
+            WHERE (IC.DESCRIPTION LIKE '%NOC IP%'
+                OR IC.DESCRIPTION LIKE '%NOC OPTICO%'
+                OR IC.DESCRIPTION LIKE '%NOC IPRAN%'
+                OR IC.DESCRIPTION LIKE '%NOC CATX%'
+                OR IC.DESCRIPTION LIKE '%NOC BO MW%') 
+            AND DATE_FORMAT(WO.CREATEDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
             ");
         $_SESSION['x'] = $query->result();
         return $query->result();

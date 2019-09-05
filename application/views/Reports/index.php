@@ -55,6 +55,7 @@ Reportes
                     <option value="10">Cambio Ventanas Mantenimiento</option>
                     <option value="11">Incidentes Cerrados</option>
                     <option value="12">Reporte GORGT4</option>
+                    <option value="13">Reporte IP RAN</option>
                 </select>
                 </div>
             </div>
