@@ -155,6 +155,20 @@ class Dao_bitacoras_model extends CI_Model {
         return $query->result();
     }
 
+    public function getDepartaments($value)
+    {
+      $consulta = $this->db->query("SELECT id_departamentos, sigla, region, departamento FROM departamentos WHERE sigla = '$value'");
+      // print_r($this->db->last_query().';<br>');
+
+      return $consulta->result();
+    }
+
+    public function showdepartamento()
+{
+    $consulta = $this->db->query("SELECT sigla FROM departamentos");
+
+    return $consulta->result();
+  }
 }
 
 /* End of file Dao_bitacoras_model.php */

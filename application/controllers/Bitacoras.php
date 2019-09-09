@@ -177,7 +177,21 @@ class Bitacoras extends CI_Controller {
         $bitac = $this->Dao_bitacoras_model->getBinnacleByTypeActivityAndIncident($tipo_actividad, $num_tk_incidente, $tabla);
         echo json_encode($bitac);
     }
+    public function getDepartaments()
+    {
+      $departamento = $this->input->post('departamento');
+      // echo $departamento;
+      $query = $this->Dao_bitacoras_model->getDepartaments($departamento);
+      // var_dump($query);
+      echo json_encode($query);
+    }
+    public function showdepartamento()
+    {
+      $query = $this->Dao_bitacoras_model->showdepartamento();
 
+      echo json_encode($query);
+
+    }
 
 }
 /* End of file Bitacoras.php */

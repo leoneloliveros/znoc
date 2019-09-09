@@ -72,7 +72,13 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
         <label class="form-label" for="estacion">Estación</label>
-        <input id="estacion" class="form-input required-field" type="text" />
+        <input list="estacionList" id="estacion" class="form-input required-field" type="text">
+<datalist id="estacionList" >
+<option value="">Seleccione</option>
+
+
+
+</datalist>
         </div>
     </div>
 
@@ -168,8 +174,8 @@
 
     <div class="col-md-4 col-body">
         <div class="form-group">
-          <label class="form-label" for="fechaYHoraIngresoTarea">Fecha y Hora Ingreso Tarea</label>
-          <input id="fechaYHoraIngresoTarea" class="form-input required-field" type="text" id="beginDate"/>
+          <label class="form-label" for="fechaYHoraIngresoTarea">Hora Ingreso Tarea</label>
+          <input id="fechaYHoraIngresoTarea" class="form-input required-field" type="text">
         </div>
     </div>
 
@@ -177,7 +183,7 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="horaInicioTrabajo">Hora Inicio Trabajo</label>
-          <input id="horaInicioTrabajo" class="form-input required-field" type="text" id="beginDate"/>
+          <input id="horaInicioTrabajo" class="form-input required-field" type="text">
         </div>
     </div>
 
@@ -186,7 +192,7 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="horaFinalTrabajo">Hora Final Trabajo</label>
-          <input id="horaFinalTrabajo" class="form-input required-field" type="text" id="beginDate"/>
+          <input id="horaFinalTrabajo" class="form-input required-field" type="text">
         </div>
     </div>
 
@@ -194,7 +200,7 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="tiempoRevision">Tiempo Revisión</label>
-          <input id="tiempoRevision" class="form-input required-field" type="text" id="beginDate"/>
+          <input id="tiempoRevision" readonly value="" class="form-input required-field" type="text">
         </div>
     </div>
 

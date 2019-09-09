@@ -10,9 +10,43 @@ $(document).ready(function() {
             Bitacora.inputAnimations();
             Bitacora.formatDateInputs();
             Bitacora.events();
+            Bitacora.estaciones();
 
         },
+
+
+        estaciones: function(){
+          $.post(
+            base_url+'Bitacoras/showdepartamento',
+          function (data) {
+            var almacenamiento = JSON.parse(data)
+            // console.log(almacenamiento[0].sigla);
+            var select = document.getElementById('estacion')
+             for (var i = 0; i < almacenamiento.length; i++) {
+               $('#estacionList').append('<option>' + almacenamiento[i].sigla + '</option>')
+             }
+
+          }
+        )
+        },
+
         events: function(){
+
+            $('#estacion').change(function() {
+              // alert('dsds');
+              $.post(
+                base_url+'Bitacoras/getDepartaments',
+              {departamento:$('#estacion').val().substr(0,4)},
+            ).done(function (data) {
+              var datos = JSON.parse(data);
+              // console.log(obj);
+              var obj = datos[0];
+              $('#regional').val(obj.region);
+              $('#ciudad').val(obj.departamento);
+            });
+
+            })
+            $("#horaFinalTrabajo").on("change", Bitacora.fechas);
             $("#submit-logbook").on("click", Bitacora.validateForm);
         },
         inputAnimations: function() {
@@ -149,7 +183,26 @@ $(document).ready(function() {
                     }
                 });
 
-        }
+        },
+    fechas: function(){
+    let f1= document.querySelector('#fechaYHoraIngresoTarea').value;
+    let f2 = document.querySelector('#horaFinalTrabajo').value;
+
+    console.log(f1 + " " + f2);
+    const fecha1 = moment( f1, 'DD/MM/YYYY HH:mm');
+    const fecha2 = moment( f2,  'HH:mm');
+    console.log(fecha2.diff(fecha1, 'minutes')/60);
+    let diferencia =(fecha2.diff(fecha1,'minutes')/60);
+
+
+    // const now = moment();
+     let tiempoDeHoras = document.getElementById('tiempoRevision');
+     tiempoDeHoras.value = diferencia.toFixed(2);
+
+
+
+}
+
 
     }
     Bitacora.init();
