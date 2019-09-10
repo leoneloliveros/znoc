@@ -1,6 +1,10 @@
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once APPPATH.'libraries/spout/src/Spout/Autoloader/autoload.php';
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
+use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
+use Box\Spout\Common\Entity\Style\Color;
 
 class Bitacoras extends CI_Controller {
 
@@ -139,7 +143,7 @@ class Bitacoras extends CI_Controller {
     public function exportBitacoraBO() {
         $data = array(
             'active_sidebar' => false,
-            'title' => 'Bitacoras CCI Y HFC',
+            'title' => 'BackOffice',
             'active' => 'bitac-cci-hfc',
             'header' => array('Consultar Actividades', 'CCI Y HFC'),
             'sub_bar' => true,
@@ -161,10 +165,32 @@ class Bitacoras extends CI_Controller {
             ->style(array(
             'class' => 'table table-striped',
             ))
-            ->column('Fecha', 'fecha')
-            ->column('Ticket', 'ticket')
-            ->column('Tarea', 'tarea')
-            ->column('Estacion', 'estacion');
+          ->column('Igeniero','ingeniero')
+          ->column('Fecha','fecha')
+          ->column('Horario','horario')
+          ->column('Ticket','ticket')
+          ->column('Tarea','tarea')
+          ->column('Estación','estacion')
+          ->column('Prioridad','prioridad')
+          ->column('Tipo de servicio','tipo_de_servicio')
+          ->column('Detalle de la actividad','detalle_de_actividad')
+          ->column('Regional','regional')
+          ->column('Ciudad','ciudad')
+          ->column('Entrada de ticket','entrada_del_ticket')
+          ->column('Fecha y hora (Ingreso de tarea)','fecha_y_hora_ingreso_tarea')
+          ->column('Hora inicio de trabajo','hora_inicio_trabajo')
+          ->column('Hora final de trabajo','hora_final_trabajo')
+          ->column('Tiempo de revision','tiempo_revision')
+          ->column('Destino del ticket','destino_del_ticket')
+          ->column('Seguimiento','seguimiento')
+          ->column('Causa de falla','causa_de_falla')
+          ->column('Diagnostigo del ticket','diagnostico_ticket')
+          ->column('Tipo de soporte','tipo_de_soporte')
+          ->column('Ticket mal gestionado TMG','ticket_mal_gestionado_TMG')
+          ->column('Area dirigida TMG','area_dirigida_TMG')
+          ->column('Ruta sin documento RSD','ruta_sin_documentar_RSD')
+          ->column('Ruta desactualiazada','ruta_desactualizada')
+          ->column('Excluido','check_de_excluido');
 
         $this->datatables->create('bitacora_BO_table', $bitacora_BO_table);
         $this->load->view('bitacoras/loadBOData');
@@ -177,7 +203,56 @@ class Bitacoras extends CI_Controller {
         $bitac = $this->Dao_bitacoras_model->getBinnacleByTypeActivityAndIncident($tipo_actividad, $num_tk_incidente, $tabla);
         echo json_encode($bitac);
     }
+    public function getDepartaments()
+    {
+      $departamento = $this->input->post('departamento');
+      // echo $departamento;
+      $query = $this->Dao_bitacoras_model->getDepartaments($departamento);
+      // var_dump($query);
+      echo json_encode($query);
+    }
+    public function showdepartamento()
+    {
+      $query = $this->Dao_bitacoras_model->showdepartamento();
 
+      echo json_encode($query);
+
+    }
+    public function getIncidentsFO()
+    {
+      $query = $this->input->post('query');
+      $data = $this->Dao_bitacoras_model->getIncidentFO($query);
+      echo json_encode($data);
+    }
+    public function exportIncidentsFO()
+    {
+      $data = $_SESSION['x'];
+      // echo '<pre>'; print_r("lol"); echo '</pre>';
+
+
+        $writer = WriterEntityFactory::createXLSXWriter();
+        $style = (new StyleBuilder())
+        ->setShouldWrapText(false)
+        ->build();
+
+        $writer->openToBrowser('IncidentesFOMovil('.date('Y-m-d').').xlsx');
+        $titles = array('ID','INGENIERO','FECHA', 'HORARIO','TICKET','TAREA','ESTACION','PRIORIDAD','TIPO DE SERVICIO','DETALLE DE ACTIVIDAD','REGIONAL','CIUDAD','ENTRADA DE TICKET','FECHA Y HORA INGRESO DE TAREA','HORA INICIO DE TRABAJO','HORA FINAL DE TRABAJO','TIEMPO DE REVISION','DESTINO DEL TICKET','SEGUIMIENTO','CAUSA DE FALLA','DIAGNOSTICO DEL TICKET','TIPO DE SOPORTE','TICKET MAL GESTIONADO TMG',
+      'AREA DIRIGIDA TMG','RUTA SIN DOCUMENTAR RSD','RUTA DESACTUALIZADA','EXCLUIDO');
+
+        $header = WriterEntityFactory::createRowFromArray($titles);
+        $writer->addRow($header);
+
+        foreach ($data as $val) {
+          $cells = array();
+          foreach ($val as $val1) {
+            array_push($cells,WriterEntityFactory::createCell($val1,$style));
+          }
+          $rowFromValues = WriterEntityFactory::createRow($cells);
+          $writer->addRow($rowFromValues);
+        }
+        $writer->close();
+
+    }
 
 }
 /* End of file Bitacoras.php */

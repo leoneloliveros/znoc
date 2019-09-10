@@ -19,7 +19,7 @@ class KPI extends CI_Controller {
         );
         $this->load->view('parts/header', $data);
         $this->load->view('Front_Office_Movil/control');
-        
+
         $this->load->view('parts/footer');
     }
     public function cargarInfo($fechaInicio, $fechaFinal, $condicion) {

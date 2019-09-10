@@ -542,6 +542,7 @@ $('#consult').on('click', function(e) {
                                 });
                             }
 
+
                             $('#modalInfo').modal('show');
                             $('#export-excel-modal').on('click', function() {
                                 helper.showLoading();
