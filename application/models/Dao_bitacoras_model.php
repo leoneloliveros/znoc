@@ -169,6 +169,14 @@ class Dao_bitacoras_model extends CI_Model {
 
     return $consulta->result();
   }
+
+  public function getIncidentFO($queryresult) {
+      $query = $this->db->query($queryresult);
+      $data = $query->result();
+      $_SESSION['x'] = $data;
+      return $data;
+  }
+
 }
 
 /* End of file Dao_bitacoras_model.php */

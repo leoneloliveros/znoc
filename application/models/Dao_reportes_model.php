@@ -596,9 +596,11 @@ class Dao_reportes_model extends CI_Model {
     }
 
     public function getTareasFOPerformance($fdesde, $fhasta) {
-        $query = $this->db->query("
-        SELECT AC.WONUM AS TAREA,AC.REPORTDATE AS FECHA_CREACION_TAREA,AC.DESCRIPTION AS DESCRIPTION_TAREA, AC.STATUS, AC.OWNER,AC.TICKETID,IC.CREATIONDATE AS FECHA_CREA_INCIDENTE,IC.STATUS AS ESTADO_INCIDENTE, IC.DESCRIPTION AS DESCRIPCION_INCIDENTE,
-        IC.ACTUALFINISH AS FECHA_CIERRE_INCIDENTE,WO.MODIFYBY AS CREADOR,WO.CREATEDATE AS FECHA_NOTA,WO.DESCRIPTION AS RESUMEN_NOTA,WO.DESCRIPTION_LONGDESCRIPTION AS DETALLE_NOTA
+            $query = $this->db->query("
+            SELECT AC.WONUM AS TAREA,AC.REPORTDATE AS FECHA_CREACION_TAREA,AC.DESCRIPTION AS DESCRIPTION_TAREA, AC.STATUS, AC.STATUSDATE,AC.TICKETID, IC.CREATEDBY, IC.CREATIONDATE AS FECHA_CREA_INCIDENTE,IC.STATUS AS ESTADO_INCIDENTE, IC.DESCRIPTION AS DESCRIPCION_INCIDENTE,
+
+            IC.ACTUALFINISH AS FECHA_CIERRE_INCIDENTE,WO.MODIFYBY AS CREADOR,WO.CREATEDATE AS FECHA_NOTA,WO.DESCRIPTION AS RESUMEN_NOTA,WO.DESCRIPTION_LONGDESCRIPTION AS DETALLE_NOTA
+
         FROM maximo.ACTIVITIES AC
         LEFT JOIN maximo.INCIDENT IC
         ON AC.TICKETID=IC.TICKETID
@@ -901,16 +903,16 @@ class Dao_reportes_model extends CI_Model {
             LEFT JOIN maximo.INCIDENT IC ON AC.TICKETID=IC.TICKETID
             LEFT JOIN maximo.WORKLOG WO ON AC.WONUM=WO.RECORDKEY
             LEFT JOIN maximo.WOSTATUS WOS ON WOS.TICKETID=IC.TICKETID
-            WHERE IC.DESCRIPTION LIKE '%GORGT4%'      
+            WHERE IC.DESCRIPTION LIKE '%GORGT4%'
             AND DATE_FORMAT(IC.CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
             ");
         $_SESSION['x'] = $query->result();
         return $query->result();
     }
-    
+
     public function getReporteIpRan($fdesde, $fhasta) {
         $query = $this->db->query("
-            SELECT IC.TICKETID AS 'Ticket Incidencia', 
+            SELECT IC.TICKETID AS 'Ticket Incidencia',
                 (CASE WHEN WO.RECORDKEY LIKE 'TAS%' THEN 'Tareas'
                     WHEN WO.RECORDKEY LIKE 'INC%' THEN 'Incidentes'
                     WHEN WO.RECORDKEY LIKE 'CHG%' THEN 'Cambios'
@@ -937,7 +939,7 @@ class Dao_reportes_model extends CI_Model {
                 OR IC.DESCRIPTION LIKE '%NOC OPTICO%'
                 OR IC.DESCRIPTION LIKE '%NOC IPRAN%'
                 OR IC.DESCRIPTION LIKE '%NOC CATX%'
-                OR IC.DESCRIPTION LIKE '%NOC BO MW%') 
+                OR IC.DESCRIPTION LIKE '%NOC BO MW%')
             AND DATE_FORMAT(WO.CREATEDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
             ");
         $_SESSION['x'] = $query->result();

@@ -45,14 +45,12 @@
 
 
 </div>
-<div class="row" style="display: flex; width: 100%; align-items: center;">
 
-    <div class="col-md-9" id="container-result" style="display: flex;">
 
-    </div>
+    <div class="col-md-12"  id="container-result" style="display: flex;"></div>
     <div class="col-md-3" id="container-graph" style="min-width: 310px; max-width: 600px; margin: 0 auto"></div>
 
-</div>
+
 
 
 </div>
@@ -61,8 +59,8 @@
     #container-result {
         /* display: none; */
         /* min-height: 500px; */
-        height: auto;
-        margin-top: 30px;
+          height: auto;
+          margin-top: 30px;
     }
     @media only screen and (max-width: 767px)  {
        .contenedorMaestro {
@@ -119,6 +117,7 @@
 $('#fechaFinal').mask("99/99/9999");
 $('#fechaInicio').mask("99/99/9999");
 var activeInitialButton = false;
+var queryValue = "";
 $('#onlyDateInitial').on('click', function(){
     activeInitialButton = (activeInitialButton == true) ? false : true ;
     if (activeInitialButton == true) {
@@ -162,10 +161,12 @@ setInterval(test, 1000);
             $('.spinner-loader').hide();
         }
 
+
         function createDatatable(link) {
             erTable_bitacora_BO_table = $("#bitacora_BO_table").DataTable({
                 processing: true,
                 serverSide: true,
+                "scrollX": true,
                 "searching": false,
                 dom: 'frtip',
                 select: true,
@@ -184,8 +185,24 @@ setInterval(test, 1000);
                     d.dt_name = "bitacora_BO_table"
                     }
                 },
+                "drawCallback": function( settings, json){
+                                    queryValue = settings['json']['query'];
+                                }
             });
         }
+
+        $('#export-excel').on('click', function() {
+          helper.showLoading();
+
+                  $.post(base_url + "Bitacoras/getIncidentsFO", {
+                      query: queryValue.replace('LIMIT 10','')
+                    }).done(function(){
+                      helper.hideLoading();
+                      window.open(base_url + "Bitacoras/exportIncidentsFO");
+                  });
+
+
+        });
 
 
 
@@ -248,6 +265,7 @@ setInterval(test, 1000);
 //         }]
 //     }]
 // });
+
 
     });
 
