@@ -399,24 +399,37 @@ padding: 10px;
 #FO_table_processing, #modal_table_processing {
 display:none !important;
 }
-
-
+div#bitacora_BO_table_filter,#modal_table_filter {
+  height: 40px;
+  width: 40px;
+  border: solid 5px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15PX;
+  transition: 0.3s;
+  position: absolute;
+  top: -46px;
+  left: 47px;
+  cursor: pointer;
+  color: white;
+}
 div#FO_table_filter, #modal_table_filter {
-height: 40px;
-width: 40px;
-border: solid 5px;
-border-radius: 50px;
-display: flex;
-justify-content: center;
-align-items: center;
-font-size: 15PX;
-transition: 0.3s;
-position: absolute;
-top: -46px;
-left: 47px;
-cursor: pointer;
-color: white;
-       }
+  height: 40px;
+  width: 40px;
+  border: solid 5px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15PX;
+  transition: 0.3s;
+  position: absolute;
+  top: -46px;
+  left: 47px;
+  cursor: pointer;
+  color: white;       }
 
        #modal_table_filter {
            color: black;
@@ -448,10 +461,13 @@ color: white;
        #FO_table_filter.active, #modal_table_filter.active {
        width: 209px;
        }
+       #bitacora_BO_table_filter.active,  #modal_table_filter.active {
+       width: 209px;
+       }
 
        #search-input.active, #search-input-modal.active {
        width: 209px;
-       margin-left: 5px;
+       margin-left: 18px;
        visibility: visible;
        margin-top: 9px;
        margin-top: -19px;
@@ -459,15 +475,24 @@ color: white;
        }
 
         #search-icon.active {
-           padding-left: 25px;
+  padding-left: 25px;
+  width: 10px;
+  float: left;
+  margin-left: -19px;
+  margin-top: 8px;
+
        }
        #FO_table_filter label, #modal_table_filter label {
            color: transparent;
+           width: 10%;
+           float: left;
+       }
+       #bitacora_BO_table_filter label, #modal_table_filter label {
+         color: transparent;
+         margin-right: -27px;
        }
 
-       #search-icon {
-           padding-left: 28px;
-       }
+
 
        input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -499,6 +524,23 @@ position: absolute;
 top: -45px;
 color: white;
 cursor: pointer;
+}
+
+#export-excel-bo, #export-excel-modal{
+height: 40px;
+width: 40px;
+border: solid 5px;
+border-radius: 50px;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 15PX;
+transition: 0.3s;
+position: absolute;
+top: 25px;
+color: white;
+cursor: pointer;
+margin-left: 36px
 }
 
 #export-excel-modal {

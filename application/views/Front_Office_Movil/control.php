@@ -432,14 +432,14 @@ $('#consult').on('click', function(e) {
             if(e.target.id === 'search' || e.target.id === 'search-input' || e.target.id === 'search-icon') {
                 if(!active) {
                 $('#FO_table_filter').addClass('active');
-                // $('#modal_table_filter').addClass('active');
+                $('#modal_table_filter').addClass('active');
                 $('#search-input').addClass('active');
                 $('#search-icon').addClass('active');
                 active = true;
                 }
             } else {
                 $('#FO_table_filter').removeClass('active');
-                // $('#modal_table_filter').removeClass('active');
+                $('#modal_table_filter').removeClass('active');
             $('#search-input').removeClass('active');
             $('#search-icon').removeClass('active');
             active = false;

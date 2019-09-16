@@ -174,7 +174,7 @@
 
     <div class="col-md-4 col-body">
         <div class="form-group">
-          <label class="form-label" for="fechaYHoraIngresoTarea">Hora Ingreso Tarea</label>
+          <label class="form-label" for="fechaYHoraIngresoTarea">Fecha y Hora Ingreso Tarea</label>
           <input id="fechaYHoraIngresoTarea" class="form-input required-field" type="text">
         </div>
     </div>

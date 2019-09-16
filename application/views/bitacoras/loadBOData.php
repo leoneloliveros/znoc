@@ -1,4 +1,4 @@
-<div id="export-excel"><i class="far fa-file-excel"></i></div>
+<div id="export-excel-bo"><i class="far fa-file-excel"></i></div>
 <div class="table-new">
     <?php
         $this->datatables->generate('bitacora_BO_table');
@@ -25,7 +25,7 @@
         transition: all 0.3s ease;
         margin: 30px 40px;
         height: 100%;
-        margin-top: 10px;
+        margin-top: 71px;
         white-space: nowrap;
         text-align: center;
 }

@@ -56,6 +56,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <link rel="stylesheet" href="<?= base_url("assets/css/remake_styles.css?v=" . validarEnProduccion()) ?>">
         <?php endif ?>
 
+        <?php if ($this->uri->segment(1) == 'Areas') : ?>
+            <link rel="stylesheet" href="<?= base_url("assets/css/remake_styles.css?v=" . validarEnProduccion()) ?>">
+        <?php endif ?>
+
         <link rel="icon" href="<?= base_url('assets/img/logo_zte.png'); ?>">
         <link rel="stylesheet" href="<?= base_url('assets2/bower_components/bootstrap/dist/css/bootstrap.min.css'); ?>">
         <!-- Font Awesome -->
@@ -521,6 +525,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <span>Generar Reporte</span>
                                 </a>
                             </li>
+
+                            <!-- crear Area  y roles -->
+                            <?php if ($this->session->userdata('lider_area')) : ?>
+                                <li class="" id="generate_areas">
+                                    <a href="<?= base_url('Areas') ?>">
+                                        <i class="fas fa-layer-group"></i>
+                                        <span>Crear Area</span>
+                                    </a>
+                                </li>
+                            <?php endif ?>
+
+
                             </ul>
                             <!-- /.sidebar-menu -->
                         </section>
