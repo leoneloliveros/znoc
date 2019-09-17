@@ -639,6 +639,7 @@ class Dao_reportes_model extends CI_Model {
     OR AC.OWNER LIKE '%ECM5999D%'
     OR AC.OWNER LIKE '%ECM4900E%'
     OR AC.OWNER LIKE '%ECM1362B%'
+    OR AC.OWNER LIKE '%EHT9290A%'
     OR AC.OWNER IS NULL)
 
 
