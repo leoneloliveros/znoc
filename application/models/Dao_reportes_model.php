@@ -884,7 +884,6 @@ class Dao_reportes_model extends CI_Model {
     public function graphinfohoras($fdesde, $condicion){
         $condicional="
             SELECT 
-            DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date,
             count(ticketid) as total,
             hour(CREATIONDATE) as hora,
             SUM(IF(INTERNALPRIORITY = 1 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA) <= 40, 1, 0)) AS 'P1_PASARON',
@@ -908,8 +907,7 @@ class Dao_reportes_model extends CI_Model {
             AND `STATUS` != 'ELIMINADO'
             AND `STATUS` != 'CANCELADO'
             AND date_format( CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fdesde'
-            GROUP 
-            BY hour(CREATIONDATE)  
+            GROUP BY hora  
             ";
             $query=$this->db->query($condicional);
             $data=$query->result();
@@ -918,7 +916,6 @@ class Dao_reportes_model extends CI_Model {
     public function getdeteccionhoras($fdesde, $condicion){
         $condicional="
             SELECT 
-            DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date,
             count(ticketid) as total,
             hour(CREATIONDATE) as hora,
             SUM(IF(INTERNALPRIORITY = 1 AND TIEMPO_DETECCION <= 40, 1, 0)) AS 'P1_PASARON',
@@ -952,7 +949,6 @@ class Dao_reportes_model extends CI_Model {
      public function getEscDethoras($fdesde,$condicion){
         $condicional="
             SELECT 
-            DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date,
             count(ticketid) as total,
             hour(CREATIONDATE) as hora,
             SUM(IF(INTERNALPRIORITY = 1 AND  (TIEMPO_DETECCION + IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA)) <= 40, 1, 0)) AS 'P1_PASARON',

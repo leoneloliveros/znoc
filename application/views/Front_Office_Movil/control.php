@@ -155,7 +155,7 @@
 
     <div id="container_graphic" style="display: none;">
       <div class="" style="display: flex; width: 100%; align-items: center; margin-top: 50px; flex-wrap: wrap;">
-        <div class="col-md-8 margin-bottom " id="tiempo_det" style=" margin-bottom: 30px; width: 70%;"></div>
+        <div class="col-md-8 margin-bottom " id="tiempo_det1" style=" margin-bottom: 30px; width: 70%;"></div>
         <div class="col-md-8 margin-bottom " id="tiempo_det2" style=" margin-bottom: 30px; width: 70%;"></div>
         <div class="col-md-8 margin-bottom " id="tiempo_det3" style=" margin-bottom: 30px; width: 70%;"></div>
       </div>
@@ -424,7 +424,7 @@ $('#consult').on('click', function(e) {
             helper.hideLoading();
             var obj = JSON.parse(data);
             for (i = 0; i < obj.length; i++) {
-                category.push(obj[i].the_date) ;
+                category.push(obj[i].the_date);
                 pasaronP1.push(Number(obj[i].P1_PASARON));
                 noPasaronP1.push(obj[i].P1_TOTAL - obj[i].P1_PASARON);
                 averageP1.push((obj[i].P1_PASARON * 100) / obj[i].P1_TOTAL);
@@ -486,7 +486,8 @@ $('#consult').on('click', function(e) {
                     events: {
                         click: function () {
                             helper.showLoading();
-                            var fecha = this.category;
+                            var fecha = this.category
+                            var nuevaFecha = fecha.split('/').reverse().join('-')
                             var condicion = this.sql23;
                             condicion=sql23.replace(/ /g,'_');
                             condicion=condicion.replace(/'/g,"-");
@@ -611,6 +612,8 @@ $('#consult').on('click', function(e) {
             var obj = JSON.parse(data);
             for (i = 0; i < obj.length; i++) {
                 category.push(obj[i].the_date) ;
+                // category.push(fechaInicio) ;
+                // category.push(fechaInicio) ;
                 pasaronP1.push(Number(obj[i].P1_PASARON));
                 noPasaronP1.push(obj[i].P1_TOTAL - obj[i].P1_PASARON);
                 averageP1.push((obj[i].P1_PASARON * 100) / obj[i].P1_TOTAL);
@@ -670,7 +673,7 @@ $('#consult').on('click', function(e) {
                     events: {
                         click: function () {
                             helper.showLoading();
-                            var fecha = this.category;
+                            var fecha = this.category
                             var condicion = this.sql23;
                             condicion=sql23.replace(/ /g,'_');
                             condicion=condicion.replace(/'/g,"-");
@@ -794,6 +797,7 @@ $('#consult').on('click', function(e) {
             var obj = JSON.parse(data);
             for (i = 0; i < obj.length; i++) {
                 category.push(obj[i].the_date) ;
+                // category.push(fechaInicio) ;
                 pasaronP1.push(Number(obj[i].P1_PASARON));
                 noPasaronP1.push(obj[i].P1_TOTAL - obj[i].P1_PASARON);
                 averageP1.push((obj[i].P1_PASARON * 100) / obj[i].P1_TOTAL);
@@ -853,7 +857,7 @@ $('#consult').on('click', function(e) {
                     events: {
                         click: function () {
                             helper.showLoading();
-                            var fecha = this.category;
+                            var fecha = this.category
                             var condicion = this.sql23;
                             condicion=sql23.replace(/ /g,'_');
                             condicion=condicion.replace(/'/g,"-");
@@ -986,6 +990,7 @@ function graficarhoras(e){
                           sql23 += "DESCRIPTION LIKE '%FEE:%'";
                       break;
                       case 'todas':
+                          sql23 = ""
                           sql23 += "DESCRIPTION LIKE '%FEE:%' OR DESCRIPTION LIKE '%FAOC:%' OR DESCRIPTION LIKE '%FAOB:%' OR DESCRIPTION LIKE '%FI:%' OR DESCRIPTION LIKE '%FAPP:%' OR DESCRIPTION LIKE '%FOIP:%'";
                           break;
                       default:
@@ -1193,13 +1198,14 @@ function graficarhoras(e){
                     events: {
                         click: function () {
                             helper.showLoading();
-                            var fecha = category[0];
+                            var fecha = $('#fechaInicio').val();
+                            var nuevaFecha = fecha.split('/').reverse().join('-')
                             var condicion = this.sql23;
                             var hora= this.category;
                             condicion=sql23.replace(/ /g,'_');
                             condicion=condicion.replace(/'/g,"-");
                             condicion=condicion.replace(/%/g,"=");
-                            var url = base_url + 'Front_Office_Movil/KPI/loadmodalhoras' + '/' + fecha + '/' + numero + '/' + condicion + '/' + hora;
+                            var url = base_url + 'Front_Office_Movil/KPI/loadmodalhoras' + '/' + nuevaFecha + '/' + numero + '/' + condicion + '/' + hora;
                             var element = document.getElementById('insert-content');
                             load(url, element);
                             function load(url, element) {
@@ -1410,13 +1416,14 @@ function graficarhoras(e){
                     events: {
                         click: function () {
                             helper.showLoading();
-                            var fecha = category[0];
+                            var fecha = $('#fechaInicio').val();
+                            var nuevaFecha = fecha.split('/').reverse().join('-')
                             var condicion = this.sql23;
                             var hora= this.category;
                             condicion=sql23.replace(/ /g,'_');
                             condicion=condicion.replace(/'/g,"-");
                             condicion=condicion.replace(/%/g,"=");
-                            var url = base_url + 'Front_Office_Movil/KPI/loadmodalhoras' + '/' + fecha + '/' + numero + '/' + condicion + '/' + hora;
+                            var url = base_url + 'Front_Office_Movil/KPI/loadmodalhoras' + '/' + nuevaFecha + '/' + numero + '/' + condicion + '/' + hora;
                             var element = document.getElementById('insert-content');
                             load(url, element);
                             function load(url, element) {
@@ -1626,13 +1633,14 @@ function graficarhoras(e){
                     events: {
                         click: function () {
                             helper.showLoading();
-                            var fecha = category[0];
+                            var fecha = $('#fechaInicio').val();
+                            var nuevaFecha = fecha.split('/').reverse().join('-')
                             var condicion = this.sql23;
                             var hora= this.category;
                             condicion=sql23.replace(/ /g,'_');
                             condicion=condicion.replace(/'/g,"-");
                             condicion=condicion.replace(/%/g,"=");
-                            var url = base_url + 'Front_Office_Movil/KPI/loadmodalhoras' + '/' + fecha + '/' + numero + '/' + condicion + '/' + hora;
+                            var url = base_url + 'Front_Office_Movil/KPI/loadmodalhoras' + '/' + nuevaFecha + '/' + numero + '/' + condicion + '/' + hora;
                             var element = document.getElementById('insert-content');
                             load(url, element);
                             function load(url, element) {
