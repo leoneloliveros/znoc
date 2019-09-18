@@ -7,29 +7,31 @@ Reportes
 <div style="display:flex; justify-content: center;">
     <div class="card-style">
         <div class="general">
-            <div class="switch-container col-md-12 position-relative form-group">
+
+            <div class="switch-container col-md-12 col-body position-relative form-group">
                 <label class="switch">
+
                 <input type="checkbox" class="form-check-input">
-                <span class="slider round"></span>
+                <span id="hideDateInitial" class="slider round"></span>
                 </label>
                 <span class="checkbox-initial">
                     Solo Fecha de Inicio
                 </span>
-
             </div>
+
             <div>
                 <div class="col-md-6 col-body">
                     <div class="form-group">
-                    <label class="form-label" for="fDesde"><b>Fecha Inicial</b></label>
-                    <input type="date" id="fDesde" value="<?= $f_actual ?>" class="form-input required-field">
-                    <!-- <label class="form-label" for="ticket">Fecha Inicial</label>
-                    <input id="ticket" class="form-input required-field" type="text" /> -->
+                        <label class="form-label" for="fDesde"><b>Fecha Inicial</b></label>
+                        <input type="date" id="fDesde" value="<?= $f_actual ?>" class="form-input required-field">
+                        <!-- <label class="form-label" for="ticket">Fecha Inicial</label>
+                        <input id="ticket" class="form-input required-field" type="text" /> -->
                     </div>
                 </div>
                 <div class="col-md-6 col-body">
                     <div class="form-group">
-                    <label class="form-label" for="fHasta"><b>Fecha Final</b></label>
-                    <input type="date" id="fHasta" value="<?= $f_actual ?>" class="form-input required-field">
+                      <label class="form-label" for="fHasta"><b>Fecha Final</b></label>
+                      <input type="date" id="fHasta" value="<?= $f_actual ?>" class="form-input required-field">
                     <!-- <label class="form-label" for="ticket">Fecha Final</label>
                     <input id="ticket" class="form-input required-field" type="text" /> -->
                     </div>
@@ -37,7 +39,7 @@ Reportes
             </div>
             <div class="col-md-12 col-body">
                 <div class="form-group">
-                <label class="form-label" for="rutaDesactializadaRD">Reporte</label>
+                    <label class="form-label" for="rutaDesactializadaRD">Reporte</label>
                     <select id="selection" class="form-input required-field" type="text">
                     <option></option>
                     <option value="0">Control Tickets</option>
@@ -52,6 +54,8 @@ Reportes
                     <option value="9">Gestión Performance</option>
                     <option value="10">Cambio Ventanas Mantenimiento</option>
                     <option value="11">Incidentes Cerrados</option>
+                    <option value="12">Reporte GORGT4</option>
+                    <option value="13">Reporte IP RAN</option>
                 </select>
                 </div>
             </div>
@@ -103,7 +107,7 @@ Reportes
                     </select>
 
                 </div>-->
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
             <label for="selection"><b>Reporte</b></label>
             <select class="form-control" name="" id="selection">
                 <option value="0">Control Tickets</option>
@@ -123,16 +127,29 @@ Reportes
 
     <div class="col-sm-12" style="margin-top:1em;">
         <!--<button id="reportButton" class="btn-cami_cool">Descargar</button>-->
-        <button id="reportButton2" class="btn-cami_cool">Descargar</button>
+        <!-- <button id="reportButton2" class="btn-cami_cool">Descargar</button>
     </div>
 </div> -->
 
 <script src="<?= base_url("assets/js/utils/helper.js?v=" . validarEnProduccion()) ?>"></script>
 <script type="text/javascript" src="<?= base_url('assets/js/modules/generalReport.js'); ?>"></script>
 
+<script type="text/javascript">
+
+  var lol = false;
+    $('#hideDateInitial').on('click', function(){
+        lol = (lol == true) ? false : true ;
+        if (lol == true) {
+            $('#fHasta').parent().attr('style', 'display: none;');
+        } else {
+            $('#fHasta').parent().attr('style', 'display:  block;');
+          };
+    });
+
+</script>
 
 <style>
-#container-result {
+    #container-result {
         /* display: none; */
         /* min-height: 500px; */
         height: auto;
@@ -163,16 +180,18 @@ Reportes
     .switch {
         position: relative;
         display: inline-block;
-        width: 90px;
-        height: 51px;
+        width: 50px;
+        height: 25px;
         margin: 0;
-        }
+    }
+
 
         .switch input {
-        display: none;
-        }
 
-        .slider {
+        display: none;
+    }
+
+    .slider {
         position: absolute;
         cursor: pointer;
         top: 0;
@@ -182,11 +201,11 @@ Reportes
         background-color: #cdcdcd;
         transition: 0.4s;
         width: 54%;
-            height: 54%;
+        height: 54%;
 
-        }
+    }
 
-        .slider::before {
+    .slider::before {
         position: absolute;
         content: "";
         height: 15px;
@@ -195,87 +214,90 @@ Reportes
         bottom: 6px;
         background-color: #ffffff;
         transition: 0.4s;
-        }
+    }
 
-        input:checked + .slider {
+    input:checked + .slider {
         background-color: #4caf50;
-        }
+    }
 
-        input:focus + .slider {
+    input:focus + .slider {
         box-shadow: 0 0 1px #4caf50;
-        }
+    }
 
-        input:checked + .slider::before {
+    input:checked + .slider::before {
         transform: translateX(22px);
-        }
+    }
+
 
         .slider.round {
-        border-radius: 34px;
+      border-radius: 34px;
+      width: auto;
+      height: auto;
         }
 
-        .slider.round::before {
+    .slider.round::before {
         border-radius: 50%;
-        }
+    }
 
-        input:disabled {
-            background-color: white !important;;
-        }
-
-
+    input:disabled {
+        background-color: white !important;;
+    }
 
 
 
-        .wrap {
-            top: 17px;
-            height: 1px;
-        }
-        .wrap button{
-            background: #1ECD97;
-            color: white;
-            box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
-        }
-        .wrap button:hover{
-            background: #7e65c0;
-            border: 2px solid #7e65c0;
-            color: white;
-        }
-            .card-style{
-                min-height: 164px;
-                width: 60%;
-                display: flex;
-            justify-content: center;
-            }
 
-        #bitacora_BO_table {
-            color: black;
-            background: white;
-            border: none;
-        }
 
-        #bitacora_BO_table_paginate{
-            height: 0px;
-        }
+    .wrap {
+        top: 17px;
+        height: 1px;
+    }
+    .wrap button{
+        background: #1ECD97;
+        color: white;
+        box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
+    }
+    .wrap button:hover{
+        background: #7e65c0;
+        border: 2px solid #7e65c0;
+        color: white;
+    }
+    .card-style{
+        min-height: 164px;
+        width: 60%;
+        display: flex;
+        justify-content: center;
+    }
 
-        li.paginate_button.active {
-            display: none;
-        }
-        li.paginate_button + .paginate_button {
-            display: none;
-        }
-        #bitacora_BO_table_next{
-            display: block;
-            position: absolute;
-            top: 50%;
-            right: -3%;
-            box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
-        }
-        #bitacora_BO_table_previous{
-            display: block;
-            position: absolute;
-            top: 50%;
-            left: -3%;
-            box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
-}
-        }
+    #bitacora_BO_table {
+        color: black;
+        background: white;
+        border: none;
+    }
+
+    #bitacora_BO_table_paginate{
+        height: 0px;
+    }
+
+    li.paginate_button.active {
+        display: none;
+    }
+    li.paginate_button + .paginate_button {
+        display: none;
+    }
+    #bitacora_BO_table_next{
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: -3%;
+        box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
+    }
+    #bitacora_BO_table_previous{
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: -3%;
+        box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
+    }
+
 </style>
-<script src="<?= base_url("assets/js/backoffice.js?v" . validarEnProduccion())?>"></script>
+<script src="<?= base_url("assets/js/backoffice.js?v" . validarEnProduccion()) ?>"></script>

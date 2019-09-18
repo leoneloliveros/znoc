@@ -410,7 +410,38 @@ function graficarlasnormales(){
                         fillColor: 'white'
                     }
                 }
+// <<<<<<< 59-graficas-horas
                 ],
     });
   }
 }
+// =======
+//             }
+//         }
+//                         },
+//                         series: [{
+//                             name: 'SI',
+//                             data: pasaronP3
+//                             }, {
+//                                 name: 'NO',
+//                                 data: noPasaronP3
+//                             },
+//                             {
+//         type: 'spline',
+//         name: 'Cumplimiento',
+//         data: averageP3,
+//         marker: {
+//             lineWidth: 2,
+//             lineColor: Highcharts.getOptions().colors[3],
+//             fillColor: 'white'
+//         }
+//     }
+//                         ],
+//     });//Cierre del tercer highchart
+//  });//Cierre de la funcion de data en el post
+// $('#graficos_deteccion').on('click', function(){
+//   $('#content-gaphs .active').removeClass('active');
+//     $("#container_graphic").addClass('active');
+// });//Cierre del boton de graficos
+// });//Cierre del boton consultar
+// >>>>>>> master

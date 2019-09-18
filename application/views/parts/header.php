@@ -43,6 +43,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/datatables_camilo.css?v=' . validarEnProduccion()); ?>">
         <?php endif ?>
 
+        <?php if ($this->uri->segment(2) == 'generar_reportes') : ?>
+              <link rel="stylesheet" href="<?= base_url("assets/css/remake_styles.css?v=" . validarEnProduccion()) ?>">
+        <?php endif ?>
 
         <?php if ($this->uri->segment(2) == 'perfil') : ?>
             <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/knockout-file-bindings.css'); ?>">

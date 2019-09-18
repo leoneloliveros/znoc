@@ -217,12 +217,30 @@ input{
                   </select>
                 </div>
               </div>
-
-
+              <div class="col-md-4 col-body">
+                <div class="form-group">
+                  <label class="form-label" for"puesto">Puesto</label>
+                  <select id="puesto" class="form-control form-input required-field">
+                    <option value=""></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                  </select>
+                </div>
               </div>
+
+
+            </div>
+
               </div>
               <div id="validate_selection"></div>
-            
+
             </form>
 
 

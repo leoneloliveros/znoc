@@ -18,7 +18,8 @@ class KPI extends CI_Controller {
             'sub_bar' => true,
         );
         $this->load->view('parts/header', $data);
-        $this->load->view('Front_Office_Movil/Control');
+        $this->load->view('Front_Office_Movil/control');
+
         $this->load->view('parts/footer');
     }
     public function cargarInfo($fechaInicio, $fechaFinal, $condicion) {
@@ -34,9 +35,8 @@ class KPI extends CI_Controller {
                     ->where('DESCRIPTION NOT LIKE "%DEPU%" ')
                     ->where('DESCRIPTION NOT LIKE "%FHG%" ')
                     ->where('DESCRIPTION NOT LIKE "%FSP%" ')
-                    ->where('DESCRIPTION NOT LIKE "%MAIL%" ')
                     ->where('DESCRIPTION NOT LIKE "%MG%" ')
-                    ->where('DESCRIPTION NOT LIKE "%NO EXITOSO%"  ')
+                    ->where('DESCRIPTION NOT LIKE "%TRAB%NO EXITOSO%" ')
                     ->where('DESCRIPTION NOT LIKE "%VM%" ')
                     ->where('DESCRIPTION NOT LIKE "%VENTANA MANT%" ')
                     ->where('DESCRIPTION NOT LIKE "%FEE%SIN PE%"')

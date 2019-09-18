@@ -1,6 +1,6 @@
 
 <div id="export-excel"><i class="far fa-file-excel"></i></div>
-        <div class="table-new">
+<div class="table-new">
     <?php
         $this->datatables->generate('FO_table');
         $this->datatables->jquery('FO_table');
@@ -32,5 +32,5 @@
 </style>
 
 <script>
-    
+
 </script>

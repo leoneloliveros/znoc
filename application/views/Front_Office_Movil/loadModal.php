@@ -1,11 +1,11 @@
 
 <div id="export-excel-modal"><i class="far fa-file-excel"></i></div>
-        <div class="table-new">
+  <div class="table-new">
     <?php
         $this->datatables->generate('modal_table');
         $this->datatables->jquery('modal_table');
     ?>
-</div>
+  </div>
 
 <!-- </div> -->
 
@@ -32,5 +32,5 @@
 </style>
 
 <script>
-    
+
 </script>

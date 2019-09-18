@@ -19,6 +19,7 @@ $(function () {
 
         },
 
+
         loadTablesBySchema: function () {
             helper.showLoading();
             reporte.clearSelect('tabla');
@@ -41,6 +42,49 @@ $(function () {
             );
 
             helper.hideLoading();
+        },
+        // Funcion para darle animacion a los Label del id= "#containerConditions_"
+        inputAnimations: function() {
+            $('input').focus(function(){
+                $(this).parents('.form-group').addClass('focused');
+            });
+            $('input').blur(function(){
+                var inputValue = $(this).val();
+                if ( inputValue == "" ) {
+                    $(this).removeClass('filled');
+                    $(this).parents('.form-group').removeClass('focused');
+                } else {
+                    $(this).addClass('filled');
+                }
+            });
+
+            $('select').focus(function(){
+                $(this).parents('.form-group').addClass('focused');
+            });
+
+            $('select').blur(function(){
+                var selectValue = $(this).val();
+                if ( selectValue == "" ) {
+                    $(this).removeClass('filled');
+                    $(this).parents('.form-group').removeClass('focused');
+                } else {
+                    $(this).addClass('filled');
+                }
+            });
+
+            $('textarea').focus(function(){
+                $(this).parents('.form-group').addClass('focused');
+            });
+            $('textarea').blur(function(){
+                var selectValue = $(this).val();
+                if ( selectValue == "" ) {
+                    $(this).removeClass('filled');
+                    $(this).parents('.form-group').removeClass('focused');
+                } else {
+                    $(this).addClass('filled');
+                }
+            });
+
         },
 
         loadColumnByTable: function () {
@@ -82,6 +126,7 @@ $(function () {
         },
 
         generateReport: function () {
+          helper.showLoading();
             if (reporte.tblReport) {
                 var tabla = reporte.tblReport;
                 tabla.destroy();
@@ -190,9 +235,8 @@ $(function () {
                                 }
                                 break;
                         }
-
                     });
-                    
+
                     if ($(".isLike").length > 0) {
                         const campos2 = $(".isLike");
                         where += " (";
@@ -217,7 +261,7 @@ $(function () {
                                     break;
 
                                 case 'valores':
-                                    where += "'%" + $(element).val() + "%' OR ";                                
+                                    where += "'%" + $(element).val() + "%' OR ";
                                     break;
                             }
 
@@ -229,7 +273,7 @@ $(function () {
                     }
                 }
 
-                
+
                 query = "SELECT " + columns + " FROM " + schema + "." + table + where;
                 console.log(query);
 
@@ -238,6 +282,7 @@ $(function () {
 //            console.log(query);
 
                 $.post(base_url + "Reportes/c_getGenerateReport", {
+
                     query: query,
                     columns: columns,
                 },
@@ -250,12 +295,20 @@ $(function () {
                             $('#container').css("display", "block");
 
                         }
-                );
+                ).done(function() {
+                  $('#tblReport_filter').append('<br><br>')
+                  $('#tblReport_length').addClass('report-label')
+                  $('#tblReport_filter').addClass('report-label')
+                  $('#tblReport_length').children().children().addClass('form-input')
+                  $('#tblReport_filter').children().children().addClass('form-input')
 
-                helper.hideLoading();
+                  helper.hideLoading()
+                });
+
             } else {
                 $('#columnas, #esquema, #tabla').addClass('err');
                 helper.miniAlert('los campos Esquema, Tabla y Columnas no deben estar vacios', 'warning');
+                helper.hideLoading();
             }
 
         },
@@ -331,9 +384,11 @@ $(function () {
                 case 'texto':
                 case 'numero':
                     container = `
-                    <div class="col-sm-4 form-group">
-                        <label>Valor</label>
-                        <input type="text" class="styleInp valores" id="valores_${consecutive}">
+                    <div class="col-md-4 col-body">
+                      <div class="form-group">
+                        <label class="form-label">Valor: </label>
+                        <input type="text" class="styleInp valores form-input required-field" id="valores_${consecutive}">
+                      </div>
                     </div>
                     `;
                     break;
@@ -352,19 +407,22 @@ $(function () {
                         `;
                     } else {
                         container = `
-                        <div class="col-sm-6 form-group">
-                            <label>Valor</label>
-                            <input type="date" class="styleInp valores">
+
+                        <div class="col-md-4 col-body">
+                          <div class="form-group">
+                              <label class="form-label">Fecha:</label>
+                              <input type="date" class="styleInp valores form-input required-field">
+                            </div>
                         </div>
                         `;
                     }
 
                     break;
             }
-            
+
 
             $('#containerValCondition_' + consecutive).append(container);
-            
+
             var conditional = $('#conditional_' + consecutive).val();
 //            $(".isLike").removeClass("isLike");
             if (conditional == 'texto_que_contenga' || conditional == 'texto_que_no_contenga') {
@@ -376,7 +434,7 @@ $(function () {
                 $('#conditional_' + consecutive).removeClass('isLike');
                 $('#valores_' + consecutive).removeClass('isLike');
             }
-
+      reporte.inputAnimations();
         },
 
         addConditions: function () {
@@ -385,30 +443,39 @@ $(function () {
 
             var container = `
             <div class="col-sm-12 t-a-c containerConditions panel panel-default" id="containerConditions_${reporte.consecutivo}">
+
                 <div class="col-sm-12 form-group m-t-25">
-                    <button class="btn btn-success" style="margin-left: 90%;" onclick="reporte.addConditions();"><i class="far fa-plus-square"></i></button>
+                    <button class="btn btn-success" style="margin-left: 90%;" ><i class="far fa-plus-square"></i></button>
                     <button class="btn btn-danger" onclick="reporte.removeConditions(${reporte.consecutivo});"><i class="far fa-minus-square"></i></button>
                 </div>
-                <div class="col-sm-3 form-group">
-                    <label for="columnas_conditions_${reporte.consecutivo}">Columna a condicionar</label>
-                    <select id="columnas_conditions_${reporte.consecutivo}" class="styleInp columnas_conditions" onchange="reporte.columnasConditions(${reporte.consecutivo});">
-                        <option value="">Seleccione...</option>
-                    </select>
-                </div>
-                <div class="col-sm-3 form-group">
-                    <label for="conditional_${reporte.consecutivo}">Condicionales</label>
-                    <select name="" id="conditional_${reporte.consecutivo}" class="styleInp conditional" onchange="reporte.inputConditional(${reporte.consecutivo});">
-                        <option value="">Seleccione...</option>
-                    </select>
-                </div>
-                <div id="containerValCondition_${reporte.consecutivo}">
 
+                <div class="col-md-4 col-body">
+                    <div class="form-group">
+                    <label class="form-label" for="columnas_conditions_${reporte.consecutivo}">Columna a condicionar</label>
+                    <select id="columnas_conditions_${reporte.consecutivo}" class="styleInp columnas_conditions form-input required-field" onchange="reporte.columnasConditions(${reporte.consecutivo});">
+                        <option value="">Seleccione...</option>
+                    </select>
                 </div>
+              </div>
+
+                  <div class="col-md-4 col-body">
+                    <div class="form-group">
+                      <label class="form-label" for="conditional_${reporte.consecutivo}">Condicionales</label>
+                      <select name="" id="conditional_${reporte.consecutivo}" class="styleInp conditional form-input required-field" onchange="reporte.inputConditional(${reporte.consecutivo});">
+                        <option value="">Seleccione...</option>
+                      </select>
+                    </div>
+                  </div>
+
+                <div id="containerValCondition_${reporte.consecutivo}"></div>
+
             </div>
             `;
 //            console.log(container);
             $(`#containerConditions_${anterior}`).after(container);
             $('#columnas_conditions_1 option').clone().appendTo(`#columnas_conditions_${reporte.consecutivo}`);
+            reporte.inputAnimations();
+
         },
 
         removeConditions: function (consecutive) {
@@ -417,4 +484,5 @@ $(function () {
 
     }
     reporte.init();
+
 });

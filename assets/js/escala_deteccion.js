@@ -411,7 +411,38 @@ function graficarlasnormalesED(){
                         fillColor: 'white'
                     }
                 }
+// <<<<<<< 59-graficas-horas
                 ],
     });
   }
 }
+// =======
+//             }
+//         }
+//                         },
+//                         series: [{
+//                             name: 'SI',
+//                             data: pasaronP3
+//                             }, {
+//                                 name: 'NO',
+//                                 data: noPasaronP3
+//                             },
+//                             {
+//         type: 'spline',
+//         name: 'Cumplimiento',
+//         data: averageP3,
+//         marker: {
+//             lineWidth: 2,
+//             lineColor: Highcharts.getOptions().colors[3],
+//             fillColor: 'white'
+//         }
+//     }
+//                         ],
+//     });//Cierre del tercer highchart
+//  });//Cierre de data
+// $('#graficos_esc_dt').on('click', function(){
+//     $('#content-gaphs .active').removeClass('active');
+//     $('#container_grahp_tetd').addClass('active');
+// });
+// });//Cierre del boton consultar
+// >>>>>>> master
