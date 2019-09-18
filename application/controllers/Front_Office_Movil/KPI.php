@@ -127,17 +127,17 @@ class KPI extends CI_Controller {
         $diaini = date("Y-m-d", strtotime($inicio));
         $final= str_replace('/', '-', $this->input->post('final'));
         $diafin= date("Y-m-d", strtotime($final));
-        $peticion=$this->input->post('peticion');
-        $data = $this->Dao_reportes_model->getgraphdeteccion($diaini,$diafin,$peticion);
+        $condicion=$this->input->post('condicion');
+        $data = $this->Dao_reportes_model->getgraphdeteccion($diaini,$diafin,$condicion);
         echo json_encode($data);
     }
     public function getetdinfo(){
-        $inicial = str_replace('/', '-', $this->input->post('inicial'));
-        $diaini = date("Y-m-d", strtotime($inicial));
+        $inicio = str_replace('/', '-', $this->input->post('inicio'));
+        $diaini = date("Y-m-d", strtotime($inicio));
         $final= str_replace('/', '-', $this->input->post('final'));
         $diafin= date("Y-m-d", strtotime($final));
-        $condicional=$this->input->post('condicional');
-        $data = $this->Dao_reportes_model->getTETD($diaini,$diafin,$condicional);
+        $condicion=$this->input->post('condicion');
+        $data = $this->Dao_reportes_model->getTETD($diaini,$diafin,$condicion);
         echo json_encode($data);
     }
     public function loadModal($fecha, $prioridad, $condicion) {
@@ -196,6 +196,20 @@ class KPI extends CI_Controller {
         $fdesde = date("Y-m-d", strtotime($inicio));
         $condicion = $this->input->post('condicion');
         $data = $this->Dao_reportes_model->graphinfohoras($fdesde, $condicion);
+        echo json_encode($data);
+    }
+    public function getdetechoras(){
+        $inicio = str_replace('/', '-', $this->input->post('inicio') );
+        $fdesde = date("Y-m-d", strtotime($inicio));
+        $condicion = $this->input->post('condicion');
+        $data = $this->Dao_reportes_model->getdeteccionhoras($fdesde, $condicion);
+        echo json_encode($data);
+    }
+    public function getEDhoras(){
+        $inicio = str_replace('/', '-', $this->input->post('inicio') );
+        $fdesde = date("Y-m-d", strtotime($inicio));
+        $condicion = $this->input->post('condicion');
+        $data = $this->Dao_reportes_model->getEscDethoras($fdesde, $condicion);
         echo json_encode($data);
     }
     public function loadmodalhoras($fecha,$prioridad,$condicion,$hora){
