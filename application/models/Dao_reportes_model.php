@@ -544,14 +544,14 @@ class Dao_reportes_model extends CI_Model {
     public function getAlarmasAutomatismo($fdesde, $fhasta) {
         $query = $this->db->query("
         SELECT inc.TICKETID AS 'TICKET ID',
-		inc.DESCRIPTION AS 'DESCRIPCION INCIDENTE',
+        inc.DESCRIPTION AS 'DESCRIPCION INCIDENTE',
         inc.STATUS AS 'ESTADO INCIDENTE',
          CASE
-		WHEN inc.INTERNALPRIORITY = 3 THEN 'Baja'
-		WHEN inc.INTERNALPRIORITY = 2 THEN 'Media'
+        WHEN inc.INTERNALPRIORITY = 3 THEN 'Baja'
+        WHEN inc.INTERNALPRIORITY = 2 THEN 'Media'
         WHEN inc.INTERNALPRIORITY = 1 THEN 'Alta'
-		ELSE ''
-	END AS 'PRIORIDAD' ,
+        ELSE ''
+    END AS 'PRIORIDAD' ,
         inc.PROVEEDORES AS 'PROVEEDORES',
         inc.CREATIONDATE AS 'FECHA CREACION INCIDENTE',
         inc.ACTUALFINISH AS 'FECHA CIERRE INCIDENTE',
@@ -568,9 +568,9 @@ class Dao_reportes_model extends CI_Model {
         alarm.CANCELADA AS 'FECHA CANCELACION ALARMA',
         inc.LOCATION AS 'UBICACION',
          CASE
-		WHEN inc.INCEXCLUIR = 0 THEN 'No'
-		WHEN inc.INCEXCLUIR = 1 THEN 'Si'
-		ELSE ''
+        WHEN inc.INCEXCLUIR = 0 THEN 'No'
+        WHEN inc.INCEXCLUIR = 1 THEN 'Si'
+        ELSE ''
         END AS 'EXCLUSION',
         '' AS 'INCIDENTE EXCLUSION',
         inc.FAILURECODE AS 'INCIDENTE CODIGO FALLA',
@@ -608,7 +608,6 @@ class Dao_reportes_model extends CI_Model {
         ON AC.WONUM=WO.RECORDKEY
         WHERE AC.WONUM LIKE 'TAS%'
         AND IC.DESCRIPTION LIKE 'MC:%'
-
     AND WO.MODIFYBY NOT LIKE '%MXINTADM%'
     AND IC.DESCRIPTION NOT LIKE '%MC:PERFORMANCE%'
     AND IC.DESCRIPTION NOT LIKE '%MC: PERFORMANCE%'
@@ -625,7 +624,6 @@ class Dao_reportes_model extends CI_Model {
     AND IC.DESCRIPTION NOT LIKE '%MC:SIN TRA%'
         AND IC.DESCRIPTION NOT LIKE '%MC: CRC :PER%'
         AND IC.DESCRIPTION NOT LIKE '%MC: CRC:PER%'
-
     AND ( AC.OWNER LIKE '%EHT3738A%'
     OR AC.OWNER LIKE '%EHT6335B%'
     OR AC.OWNER LIKE '%EHT7557A%'
@@ -641,8 +639,6 @@ class Dao_reportes_model extends CI_Model {
     OR AC.OWNER LIKE '%ECM1362B%'
     OR AC.OWNER LIKE '%EHT9290A%'
     OR AC.OWNER IS NULL)
-
-
             AND DATE_FORMAT(AC.REPORTDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta';");
         $data = $query->result();
         $_SESSION['x'] = $data;
@@ -738,7 +734,6 @@ class Dao_reportes_model extends CI_Model {
             return false;
         }
     }
-
     //Retorna el listado de las consultas que se han generado por la plataforma
     public function getReportsDB() {
         $query = $this->db->query("
@@ -751,7 +746,6 @@ class Dao_reportes_model extends CI_Model {
         ");
         return $query->result();
     }
-
     public function getGetQueryReport($id) {
         $query = $this->db->query("
             SELECT REGEXP_REPLACE(query_reporte, '[0-9]{4}-[0-1][0-9]-[0-3][0-9]', 'fecha') AS query_reporte,
@@ -763,17 +757,17 @@ class Dao_reportes_model extends CI_Model {
         return $query->result();
     }
 
-    public function getgraphdeteccion($fdesde, $fhasta, $peticion) {
-        $condicional = "SELECT DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date, COUNT(*) AS count,
+     public function getgraphdeteccion($fdesde, $fhasta, $condicion){
+        $condicional="SELECT DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date, COUNT(*) AS count,
+
             SUM(IF(INTERNALPRIORITY = 1 AND TIEMPO_DETECCION <= 40, 1, 0)) AS 'P1_PASARON',
             SUM(IF(INTERNALPRIORITY = 1, 1, 0)) AS 'P1_TOTAL',
             SUM(IF(INTERNALPRIORITY = 2 AND TIEMPO_DETECCION <= 80, 1, 0)) AS 'P2_PASARON',
             SUM(IF(INTERNALPRIORITY = 2, 1, 0)) AS 'P2_TOTAL',
             SUM(IF(INTERNALPRIORITY = 3 AND TIEMPO_DETECCION <= 100, 1, 0)) AS 'P3_PASARON',
             SUM(IF(INTERNALPRIORITY = 3, 1, 0)) AS 'P3_TOTAL'
-
             FROM maximo.INCIDENT
-            WHERE (" . $peticion . ")
+            WHERE (" . $condicion . ")
             AND `OWNERGROUP` NOT LIKE '%FO_SDH%'
             AND `DESCRIPTION` NOT LIKE '%DEPU%'
             AND `DESCRIPTION` NOT LIKE '%FHG%'
@@ -803,7 +797,6 @@ class Dao_reportes_model extends CI_Model {
             SUM(IF(INTERNALPRIORITY = 2, 1, 0)) AS 'P2_TOTAL',
             SUM(IF(INTERNALPRIORITY = 3 AND (TIEMPO_DETECCION + IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA)) <= 100, 1, 0)) AS 'P3_PASARON',
             SUM(IF(INTERNALPRIORITY = 3, 1, 0)) AS 'P3_TOTAL'
-
             FROM maximo.INCIDENT
             WHERE (" . $condicion . ")
             AND `OWNERGROUP` NOT LIKE '%FO_SDH%'
@@ -823,6 +816,7 @@ class Dao_reportes_model extends CI_Model {
         return $query->result();
     }
 
+
     public function getCambiosVentanasMantenimiento($fdesde, $fhasta) {
         $query = $this->db->query("
         SELECT AC.WONUM AS NUMERO_CAMBIO, AC.TASKID AS TAREA_CAMBIO, AC.DESCRIPTION AS DESCIPCION_TAREA, AC.SCHEDSTART AS INICIO_PROGRAMA_VENT, AC.SCHEDFINISH AS FINALIZACION_PROFRAMADA_VENT, AC.STATUS AS ESTADO, PER.DISPLAYNAME AS PROPIETARIOS, OWNERGROUP AS GRUPO_PROPIETARIOS
@@ -839,6 +833,7 @@ class Dao_reportes_model extends CI_Model {
 
     public function getIncidentesCerrados($fdesde, $fhasta) {
         $query = $this->db->query("
+
             SELECT INC.TICKETID, INC.CREATIONDATE, INC.CREATEDBY, PE.DISPLAYNAME AS 'NOMBRE_CREADOR', INC.DESCRIPTION, INC.STATUS, TK.CHANGEBY, PER.DISPLAYNAME, INC.INTERNALPRIORITY, INC.URGENCY,  INC.CAUSE_CODE, INC.CAUSE_DESCRIPTION, INC.REMEDY_CODE, INC.REMEDY_DESCRIPTION
             FROM maximo.INCIDENT INC
             LEFT JOIN maximo.TKSTATUS TK
@@ -881,18 +876,120 @@ class Dao_reportes_model extends CI_Model {
             GROUP
             BY the_date ";
         $query = $this->db->query($str);
-
-
         $data = $query->result();
         // $_SESSION['x'] = $data;
         return $data;
     }
 
-    public function getIncidentFO($queryresult) {
+    public function graphinfohoras($fdesde, $condicion){
+        $condicional="
+            SELECT 
+            DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date,
+            count(ticketid) as total,
+            hour(CREATIONDATE) as hora,
+            SUM(IF(INTERNALPRIORITY = 1 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA) <= 40, 1, 0)) AS 'P1_PASARON',
+            SUM(IF(INTERNALPRIORITY = 1, 1, 0)) AS 'P1_TOTAL',
+            SUM(IF(INTERNALPRIORITY = 2 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA) <= 80, 1, 0)) AS 'P2_PASARON',
+            SUM(IF(INTERNALPRIORITY = 2, 1, 0)) AS 'P2_TOTAL',
+            SUM(IF(INTERNALPRIORITY = 3 AND IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA) <= 100, 1, 0)) AS 'P3_PASARON',
+            SUM(IF(INTERNALPRIORITY = 3, 1, 0)) AS 'P3_TOTAL'
+            FROM maximo.INCIDENT 
+            WHERE (" . $condicion .")
+            AND `OWNERGROUP` NOT LIKE '%FO_SDH%'
+            AND `DESCRIPTION` NOT LIKE '%DEPU%'
+            AND `DESCRIPTION` NOT LIKE '%FHG%'
+            AND `DESCRIPTION` NOT LIKE '%FSP%'
+            AND `DESCRIPTION` NOT LIKE '%MAIL%'
+            AND `DESCRIPTION` NOT LIKE '%MG%'
+            AND `DESCRIPTION` NOT LIKE '%NO EXITOSO%'
+            AND `DESCRIPTION` NOT LIKE '%VM%'
+            AND `DESCRIPTION` NOT LIKE '%VENTANA MANT%'
+            AND `DESCRIPTION` NOT LIKE '%FEE%SIN PE%'
+            AND `STATUS` != 'ELIMINADO'
+            AND `STATUS` != 'CANCELADO'
+            AND date_format( CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fdesde'
+            GROUP 
+            BY hour(CREATIONDATE)  
+            ";
+            $query=$this->db->query($condicional);
+            $data=$query->result();
+            return $data;
+    }
+    public function getdeteccionhoras($fdesde, $condicion){
+        $condicional="
+            SELECT 
+            DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date,
+            count(ticketid) as total,
+            hour(CREATIONDATE) as hora,
+            SUM(IF(INTERNALPRIORITY = 1 AND TIEMPO_DETECCION <= 40, 1, 0)) AS 'P1_PASARON',
+            SUM(IF(INTERNALPRIORITY = 1, 1, 0)) AS 'P1_TOTAL',
+            SUM(IF(INTERNALPRIORITY = 2 AND TIEMPO_DETECCION <= 80, 1, 0)) AS 'P2_PASARON',
+            SUM(IF(INTERNALPRIORITY = 2, 1, 0)) AS 'P2_TOTAL',
+            SUM(IF(INTERNALPRIORITY = 3 AND TIEMPO_DETECCION <= 100, 1, 0)) AS 'P3_PASARON',
+            SUM(IF(INTERNALPRIORITY = 3, 1, 0)) AS 'P3_TOTAL'
+            FROM maximo.INCIDENT
+            WHERE (" . $condicion .")
+            AND `OWNERGROUP` NOT LIKE '%FO_SDH%'
+            AND `DESCRIPTION` NOT LIKE '%DEPU%'
+            AND `DESCRIPTION` NOT LIKE '%FHG%'
+            AND `DESCRIPTION` NOT LIKE '%FSP%'
+            AND `DESCRIPTION` NOT LIKE '%MAIL%'
+            AND `DESCRIPTION` NOT LIKE '%MG%'
+            AND `DESCRIPTION` NOT LIKE '%NO EXITOSO%'
+            AND `DESCRIPTION` NOT LIKE '%VM%'
+            AND `DESCRIPTION` NOT LIKE '%VENTANA MANT%'
+            AND `DESCRIPTION` NOT LIKE '%FEE%SIN PE%'
+            AND `STATUS` != 'ELIMINADO'
+            AND `STATUS` != 'CANCELADO'
+            AND date_format( CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fdesde'
+            GROUP 
+            BY hour(CREATIONDATE)
+            ";
+            $query=$this->db->query($condicional);
+            $data=$query->result();
+            return $data;
+    }
+     public function getEscDethoras($fdesde,$condicion){
+        $condicional="
+            SELECT 
+            DATE_FORMAT(CREATIONDATE, '%Y-%m-%d') AS the_date,
+            count(ticketid) as total,
+            hour(CREATIONDATE) as hora,
+            SUM(IF(INTERNALPRIORITY = 1 AND  (TIEMPO_DETECCION + IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA)) <= 40, 1, 0)) AS 'P1_PASARON',
+            SUM(IF(INTERNALPRIORITY = 1, 1, 0)) AS 'P1_TOTAL',
+            SUM(IF(INTERNALPRIORITY = 2 AND (TIEMPO_DETECCION + IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA)) <= 80, 1, 0)) AS 'P2_PASARON',
+            SUM(IF(INTERNALPRIORITY = 2, 1, 0)) AS 'P2_TOTAL',
+            SUM(IF(INTERNALPRIORITY = 3 AND (TIEMPO_DETECCION + IF(TIEMPO_ESCALA = '0.000', TIEMPO_FALLA, TIEMPO_ESCALA)) <= 100, 1, 0)) AS 'P3_PASARON',
+            SUM(IF(INTERNALPRIORITY = 3, 1, 0)) AS 'P3_TOTAL'
+            FROM maximo.INCIDENT
+            WHERE (" . $condicion .")
+            AND `OWNERGROUP` NOT LIKE '%FO_SDH%'
+            AND `DESCRIPTION` NOT LIKE '%DEPU%'
+            AND `DESCRIPTION` NOT LIKE '%FHG%'
+            AND `DESCRIPTION` NOT LIKE '%FSP%'
+            AND `DESCRIPTION` NOT LIKE '%MAIL%'
+            AND `DESCRIPTION` NOT LIKE '%MG%'
+            AND `DESCRIPTION` NOT LIKE '%NO EXITOSO%'
+            AND `DESCRIPTION` NOT LIKE '%VM%'
+            AND `DESCRIPTION` NOT LIKE '%VENTANA MANT%'
+            AND `DESCRIPTION` NOT LIKE '%FEE%SIN PE%'
+            AND `STATUS` != 'ELIMINADO'
+            AND `STATUS` != 'CANCELADO'
+            AND date_format( CREATIONDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fdesde'
+            GROUP 
+            BY hour(CREATIONDATE)
+            ";
+            $query=$this->db->query($condicional);
+            $data=$query->result();
+            return $data;
+     }
+     public function getIncidentFO($queryresult) {
+
         $query = $this->db->query($queryresult);
         $data = $query->result();
         $_SESSION['x'] = $data;
         return $data;
+
     }
 
     public function c_getReporteGorgt4($fdesde, $fhasta) {
@@ -950,3 +1047,4 @@ class Dao_reportes_model extends CI_Model {
 }
 
 /* End of file Dao_reportes_model.php */
+
