@@ -463,7 +463,7 @@ class GeneralReports extends CI_Controller {
                 ->build();
 
         $writer->openToBrowser('Reporte Gorgt4(' . date('Y-m-d') . ').xlsx');
-        $titles = array('TICKETID', 'FECHA_CREA_INCIDENTE', 'ESTADO_INCIDENTE', 'FECHA_ESTADO_INCIDENTE', 'DESCRIPCION_INCIDENTE', 'CREADOR_NOTA', 'FECHA_NOTA', 'RESUMEN_NOTA', 'FECHA_CREACION_NOTA', 'FECHA_CREACION_TAREA');
+        $titles = array('TICKETID', 'FECHA_CREA_INCIDENTE', 'ESTADO_INCIDENTE', 'FECHA_ESTADO_INCIDENTE', 'DESCRIPCION_INCIDENTE', 'CREADOR_NOTA', 'FECHA_NOTA', 'RESUMEN_NOTA', 'FECHA_CREACION_NOTA', 'FECHA_CREACION_TAREA', 'TIEMPO_VIDA_TKT', 'TIEMPO_RESOLUCION_TKT', 'TIEMPO_DETECCION', 'TIEMPO_ESCALA', 'TIEMPO_FALLA', 'TIEMPO_OT_ALM');
 
         $header = WriterEntityFactory::createRowFromArray($titles);
         $writer->addRow($header);
