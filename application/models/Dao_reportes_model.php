@@ -1038,7 +1038,7 @@ class Dao_reportes_model extends CI_Model {
         ON CH.TICKETID=COL.TICKETID
         LEFT JOIN maximo.ACTIVITIES ACK
         ON COL.ID_NOTA=ACK.WONUM
-        WHERE DATE_FORMAT(WO.CREATEDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
+        WHERE DATE_FORMAT(COL.FECHA_CREA_NOTA, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
             ");
         $_SESSION['x'] = $query->result();
         return $query->result();
