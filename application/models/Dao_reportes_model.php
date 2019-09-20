@@ -1006,35 +1006,39 @@ class Dao_reportes_model extends CI_Model {
 
     public function getReporteIpRan($fdesde, $fhasta) {
         $query = $this->db->query("
-            SELECT IC.TICKETID AS 'Ticket Incidencia',
-                (CASE WHEN WO.RECORDKEY LIKE 'TAS%' THEN 'Tareas'
-                    WHEN WO.RECORDKEY LIKE 'INC%' THEN 'Incidentes'
-                    WHEN WO.RECORDKEY LIKE 'CHG%' THEN 'Cambios'
-                    ELSE ''
-                END) AS 'Tipo Ticket',
-                AC.WONUM AS 'Id Ticket',
-                WO.CREATEDATE AS 'Fecha Creacion Nota',
-                WO.CLASS AS 'Clase Tarea',
-                WO.DESCRIPTION AS 'Descripcion Ticket',
-                IC.INTERNALPRIORITY AS 'Prioridad Actividad',
-                IC.CREATEDBY AS 'Persona Responsable',
-                PE.DISPLAYNAME AS 'Nombre Responsable',
-                AC.STATUS AS 'Estado Tarea',
-                AC.REPORTDATE AS 'Inicio Real Tarea',
-                AC.ACTFINISH AS 'Finalizacion Real Tarea',
-                IC.OWNERGROUP AS 'Grupo Propietario Incidencia',
-                IC.REGIONAL AS 'Regional',
-                IC.RUTA_TKT AS 'Ruta'
-            FROM maximo.ACTIVITIES AC
-            LEFT JOIN maximo.INCIDENT IC ON IC.TICKETID=AC.TICKETID
-            LEFT JOIN maximo.WORKLOG WO ON WO.RECORDKEY=AC.WONUM
-            INNER JOIN maximo.PERSON PE ON PE.PERSONID=IC.CREATEDBY
-            WHERE (IC.DESCRIPTION LIKE '%NOC IP%'
-                OR IC.DESCRIPTION LIKE '%NOC OPTICO%'
-                OR IC.DESCRIPTION LIKE '%NOC IPRAN%'
-                OR IC.DESCRIPTION LIKE '%NOC CATX%'
-                OR IC.DESCRIPTION LIKE '%NOC BO MW%')
-            AND DATE_FORMAT(WO.CREATEDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
+        SELECT COL.*, CH.DESCRIPTION AS DESCRIPCION_TK_CH, CH.RUTA_TKT,CH.INTERNALPRIORITY AS PRIORIDAD_ACTIVIDAD, ACK.DESCRIPTION AS DESCRIPTION_ACTIVIDAD,ACK.STATUS AS ESTADO_ACTIVIDAD,ACK.ACTSTART,ACK.ACTFINISH, CH.OWNERGROUP AS GRUPO_TKT_CH,CH.REGIONAL FROM 
+        (SELECT AR.TICKETID, TAL.* FROM (SELECT RECORDKEY AS ID_NOTA,CREATEDATE AS FECHA_CREA_NOTA,CLASS,MODIFYBY AS CREADOR_NOTA, DESCRIPTION AS DESCRIPTION_NOTA,
+        CASE 
+            WHEN DESCRIPTION LIKE 'NOC IPRAN%' THEN 'NOC IPRAN'
+            WHEN DESCRIPTION LIKE 'NOC IP%' THEN 'NOC IP'
+            WHEN DESCRIPTION LIKE 'NOC OPTICO%' THEN 'NOC OPTICO'
+            WHEN DESCRIPTION LIKE 'NOC CATX%' THEN 'NOC CATX'
+            WHEN DESCRIPTION LIKE 'NOC BO MW%' THEN 'NOC BO MW' 
+        END AS NEMO
+        FROM maximo.WORKLOG
+        WHERE UPPER(MODIFYBY) IN (
+        'ECF6529C','ECF2347CC','ECF6895A','ECF2800B','EHT4174A','YULY.ARDILA','ECF4330CC','EII9470A','EOY5561A','ECM9581C' ,'ECM5250CC','ECM8047AA','ECF5715A')
+        
+        ) TAL
+        
+        LEFT JOIN (
+        SELECT DISTINCT TICKETID, WONUM FROM maximo.ACTIVITIES WHERE TICKETID IS NOT NULL
+        UNION ALL
+        SELECT DISTINCT PARENT, WONUM FROM maximo.ACTIVITIES WHERE PARENT IS NOT NULL
+        ) AR 
+        ON  TAL.ID_NOTA  = AR.WONUM) COL
+        
+        LEFT JOIN (
+        
+        SELECT WONUM AS TICKETID, DESCRIPTION, OWNERGROUP, REGIONAL, '' AS RUTA_TKT, '' AS INTERNALPRIORITY
+        FROM maximo.ACTIVITIES WHERE WONUM LIKE '%CHG%'
+        UNION ALL
+        SELECT TICKETID, DESCRIPTION, OWNERGROUP, REGIONAL, RUTA_TKT, INTERNALPRIORITY
+        FROM maximo.INCIDENT ) CH
+        ON CH.TICKETID=COL.TICKETID
+        LEFT JOIN maximo.ACTIVITIES ACK
+        ON COL.ID_NOTA=ACK.WONUM
+        WHERE DATE_FORMAT(WO.CREATEDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
             ");
         $_SESSION['x'] = $query->result();
         return $query->result();
