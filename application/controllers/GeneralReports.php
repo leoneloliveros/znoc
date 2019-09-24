@@ -463,7 +463,7 @@ class GeneralReports extends CI_Controller {
                 ->build();
 
         $writer->openToBrowser('Reporte Gorgt4(' . date('Y-m-d') . ').xlsx');
-        $titles = array('TICKETID', 'FECHA_CREA_INCIDENTE', 'ESTADO_INCIDENTE', 'FECHA_ESTADO_INCIDENTE', 'DESCRIPCION_INCIDENTE', 'CREADOR_NOTA', 'FECHA_NOTA', 'RESUMEN_NOTA', 'FECHA_CREACION_NOTA', 'FECHA_CREACION_TAREA', 'TIEMPO_VIDA_TKT', 'TIEMPO_RESOLUCION_TKT', 'TIEMPO_DETECCION', 'TIEMPO_ESCALA', 'TIEMPO_FALLA', 'TIEMPO_OT_ALM');
+        $titles = array('TICKETID', 'FECHA_CREA_INCIDENTE', 'ESTADO_INCIDENTE', 'FECHA_ESTADO_INCIDENTE', 'DESCRIPCION_INCIDENTE', 'CREADOR_NOTA', 'FECHA_NOTA', 'RESUMEN_NOTA', 'FECHA_CREACION_NOTA', 'FECHA_CREACION_TAREA');
 
         $header = WriterEntityFactory::createRowFromArray($titles);
         $writer->addRow($header);
@@ -498,7 +498,7 @@ class GeneralReports extends CI_Controller {
                 ->build();
 
         $writer->openToBrowser('Reporte IP RAN(' . date('Y-m-d') . ').xlsx');
-        $titles = array('TICKETID', 'ID_NOTA', 'FECHA_CREA_NOTA', 'CLASS', 'CREADOR_NOTA', 'DESCRIPTION_NOTA', 'NEMO', 'DESCRIPCION_TK_CH', 'RUTA_TKT', 'PRIORIDAD_ACTIVIDAD', 'DESCRIPTION_ACTIVIDAD', 'ESTADO_ACTIVIDAD', 'ACTSTART', 'ACTFINISH', 'GRUPO_TKT_CH', 'REGIONAL');
+        $titles = array('Ticket Incidencia', 'Tipo Ticket', 'Id Ticket', 'Fecha Creacion Nota', 'Clase Tarea', 'Descripcion Ticket', 'Prioridad Actividad', 'Persona Responsable', 'Nombre Responsable', 'Estado Tarea', 'Inicio Real Tarea', 'Finalizacion Real Tarea', 'Grupo Propietario Incidencia', 'Regional', 'Ruta');
 
         $header = WriterEntityFactory::createRowFromArray($titles);
         $writer->addRow($header);

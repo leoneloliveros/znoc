@@ -44,6 +44,7 @@ class KPI extends CI_Controller {
                     ->where("STATUS !=", "CANCELADO")
                     ->where("CREATIONDATE >=", date("Y-m-d", strtotime($fechaInicio)))
                     ->where("CREATIONDATE <=", date("Y-m-d h:m", strtotime($fechaFinal . ' ' . '23:59')));
+
         $FO_table
                     ->column('TICKETID','TICKETID')
                     ->column('TIPO_TKT','TIPO_TKT')
@@ -70,6 +71,7 @@ class KPI extends CI_Controller {
                     ->set_options('scrollX', 'true');
         $this->datatables->create('FO_table', $FO_table);
         $this->load->view('Front_Office_Movil/loadTable');
+
         //             $bitacora_BO_table = $this->datatables->init();
         // $bitacora_BO_table->select('*')->from('znoc.BITACORA_BO')->where("DATE_FORMAT(fecha, '%Y-%m-%d') BETWEEN '$fechaInicio' and '$fechaFinal'");
         // $bitacora_BO_table
@@ -80,6 +82,7 @@ class KPI extends CI_Controller {
         //     ->column('Ticket', 'ticket')
         //     ->column('Tarea', 'tarea')
         //     ->column('Estacion', 'estacion');
+
         // $this->datatables->create('bitacora_BO_table', $bitacora_BO_table);
         // $this->load->view('bitacoras/loadBOData');
     }
@@ -93,14 +96,19 @@ class KPI extends CI_Controller {
     {
       $data = $_SESSION['x'];
       // echo '<pre>'; print_r("lol"); echo '</pre>';
+
+
         $writer = WriterEntityFactory::createXLSXWriter();
         $style = (new StyleBuilder())
         ->setShouldWrapText(false)
         ->build();
+
         $writer->openToBrowser('IncidentesFOMovil('.date('Y-m-d').').xlsx');
         $titles = array('TICKETID', 'TIPO_TKT', 'CREATIONDATE', 'STATUS', 'INTERNALPRIORITY', 'CREATEDBY', 'OWNERGROUP', 'INCEXCLUIR', 'INCMEXCLUSION', 'PROVEEDORES', 'DESCRIPTION', 'RUTA_TKT', 'REGIONAL', 'TIEMPO_VIDA_TKT', 'TIEMPO_RESOLUCION_TKT', 'TIEMPO_DETECCION', 'TIEMPO_ESCALA', 'TIEMPO_FALLA', 'TIEMPO_OT_ALM');
+
         $header = WriterEntityFactory::createRowFromArray($titles);
         $writer->addRow($header);
+
         foreach ($data as $val) {
           $cells = array();
           foreach ($val as $val1) {
@@ -110,6 +118,7 @@ class KPI extends CI_Controller {
           $writer->addRow($rowFromValues);
         }
         $writer->close();
+
     }
     public function getGraphInfo() {
         // $inicio = ;
@@ -127,17 +136,17 @@ class KPI extends CI_Controller {
         $diaini = date("Y-m-d", strtotime($inicio));
         $final= str_replace('/', '-', $this->input->post('final'));
         $diafin= date("Y-m-d", strtotime($final));
-        $condicion=$this->input->post('condicion');
-        $data = $this->Dao_reportes_model->getgraphdeteccion($diaini,$diafin,$condicion);
+        $peticion=$this->input->post('peticion');
+        $data = $this->Dao_reportes_model->getgraphdeteccion($diaini,$diafin,$peticion);
         echo json_encode($data);
     }
     public function getetdinfo(){
-        $inicio = str_replace('/', '-', $this->input->post('inicio'));
-        $diaini = date("Y-m-d", strtotime($inicio));
+        $inicial = str_replace('/', '-', $this->input->post('inicial'));
+        $diaini = date("Y-m-d", strtotime($inicial));
         $final= str_replace('/', '-', $this->input->post('final'));
         $diafin= date("Y-m-d", strtotime($final));
-        $condicion=$this->input->post('condicion');
-        $data = $this->Dao_reportes_model->getTETD($diaini,$diafin,$condicion);
+        $condicional=$this->input->post('condicional');
+        $data = $this->Dao_reportes_model->getTETD($diaini,$diafin,$condicional);
         echo json_encode($data);
     }
     public function loadModal($fecha, $prioridad, $condicion) {
@@ -164,92 +173,6 @@ class KPI extends CI_Controller {
                     ->where("INTERNALPRIORITY =", $prioridad )
                     ->where("CREATIONDATE >=", $fecha)
                     ->where("CREATIONDATE <=", $fecha . ' ' . '23:59');
-        $modal_table
-                    ->column('TICKETID','TICKETID')
-                    ->column('TIPO_TKT','TIPO_TKT')
-                    ->column('CREATIONDATE','CREATIONDATE')
-                    ->column('STATUS','STATUS')
-                    ->column('INTERNALPRIORITY','INTERNALPRIORITY')
-                    ->column('CREATEDBY','CREATEDBY')
-                    ->column('OWNERGROUP','OWNERGROUP')
-                    ->column('INCEXCLUIR','INCEXCLUIR')
-                    ->column('INCMEXCLUSION','INCMEXCLUSION')
-                    ->column('PROVEEDORES','PROVEEDORES')
-                    ->column('DESCRIPTION','DESCRIPTION')
-                    ->column('RUTA_TKT','RUTA_TKT')
-                    ->column('REGIONAL','REGIONAL')
-                    ->column('TIEMPO_VIDA_TKT','TIEMPO_VIDA_TKT')
-                    ->column('TIEMPO_RESOLUCION_TKT','TIEMPO_RESOLUCION_TKT')
-                    ->column('TIEMPO_DETECCION','TIEMPO_DETECCION')
-                    ->column('TIEMPO_ESCALA','TIEMPO_ESCALA')
-                    ->column('TIEMPO_FALLA','TIEMPO_FALLA')
-                    ->column('TIEMPO_OT_ALM','TIEMPO_OT_ALM');
-                    $modal_table ->style(array(
-                        'class' => 'table table-striped',
-                    ))
-                    ->set_options('scrollX', 'true');
-        $this->datatables->create('modal_table', $modal_table);
-        $this->load->view('Front_Office_Movil/loadModal');
-    }
-    public function getgraphinfohoras(){
-        $inicio = str_replace('/', '-', $this->input->post('inicio') );
-        $fdesde = date("Y-m-d", strtotime($inicio));
-        $condicion = $this->input->post('condicion');
-        $data = $this->Dao_reportes_model->graphinfohoras($fdesde, $condicion);
-        echo json_encode($data);
-    }
-    public function getdetechoras(){
-        $inicio = str_replace('/', '-', $this->input->post('inicio') );
-        $fdesde = date("Y-m-d", strtotime($inicio));
-        $condicion = $this->input->post('condicion');
-        $data = $this->Dao_reportes_model->getdeteccionhoras($fdesde, $condicion);
-        echo json_encode($data);
-    }
-    public function getEDhoras(){
-        $inicio = str_replace('/', '-', $this->input->post('inicio') );
-        $fdesde = date("Y-m-d", strtotime($inicio));
-        $condicion = $this->input->post('condicion');
-        $data = $this->Dao_reportes_model->getEscDethoras($fdesde, $condicion);
-        echo json_encode($data);
-    }
-    public function loadmodalhoras($fecha,$prioridad,$condicion,$hora){
-        $condicion=str_replace('_', ' ', $condicion);
-        $condicion=str_replace('-', "'", $condicion);
-        $condicion2=str_replace('=', '%', $condicion);
-        $this->load->library('Datatables');
-        $modal_table = $this->datatables->init();
-        $modal_table  ->select("TICKETID,  TIPO_TKT,  CREATIONDATE,  STATUS,  INTERNALPRIORITY,  CREATEDBY,  OWNERGROUP,  INCEXCLUIR,  INCMEXCLUSION,  PROVEEDORES,  DESCRIPTION,  RUTA_TKT,  REGIONAL,  TIEMPO_VIDA_TKT,  TIEMPO_RESOLUCION_TKT,  TIEMPO_DETECCION, TIEMPO_ESCALA,  TIEMPO_FALLA,  TIEMPO_OT_ALM")
-                    ->from('maximo.INCIDENT')
-                    ->where("(" . $condicion2 . ")")
-                    ->where("OWNERGROUP NOT LIKE '%FO_SDH%'")
-                    ->where('DESCRIPTION NOT LIKE "%DEPU%" ')
-                    ->where('DESCRIPTION NOT LIKE "%FHG%" ')
-                    ->where('DESCRIPTION NOT LIKE "%FSP%" ')
-                    ->where('DESCRIPTION NOT LIKE "%MAIL%" ')
-                    ->where('DESCRIPTION NOT LIKE "%MG%" ')
-                    ->where('DESCRIPTION NOT LIKE "%NO EXITOSO%"  ')
-                    ->where('DESCRIPTION NOT LIKE "%VM%" ')
-                    ->where('DESCRIPTION NOT LIKE "%VENTANA MANT%" ')
-                    ->where('DESCRIPTION NOT LIKE "%FEE%SIN PE%"')
-                    ->where("STATUS !=", "ELIMINADO")
-                    ->where("STATUS !=", "CANCELADO")
-                    ->where("INTERNALPRIORITY =", $prioridad )
-                    ->where("CREATIONDATE>=",$fecha . ' ' . $hora)
-                    ->where("CREATIONDATE<=",$fecha . ' ' . $hora[0] . $hora[1] . ':59');
-                    
-
-
-
-
-
-                    
-
-
-
-
-
-
-                    
 
         $modal_table
                     ->column('TICKETID','TICKETID')
@@ -276,6 +199,7 @@ class KPI extends CI_Controller {
                     ))
                     ->set_options('scrollX', 'true');
         $this->datatables->create('modal_table', $modal_table);
+
         $this->load->view('Front_Office_Movil/loadModal');
     }
 }
