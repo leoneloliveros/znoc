@@ -234,6 +234,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <div class="pull-right">
                                             <a href="<?= base_url('User/logout'); ?>" class="btn btn-default btn-flat">Sign out</a>
                                         </div>
+
+                                          <!-- crear Area  y roles -->
+
+                                        <div class="" id="generate_areas" style="">
+                                            <a href="<?= base_url('Areas') ?>" style="margin-left: 25px">
+                                                <i class="fas fa-layer-group"></i>
+                                                <span>Areas</span>
+                                            </a>
+                                        </div>
+                                            <!--Fin crear Area  y roles -->
                                     </li>
                                 </ul>
                             </li>
@@ -526,15 +536,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </a>
                             </li>
 
-                            <!-- crear Area  y roles -->
-                            <?php if ($this->session->userdata('lider_area')) : ?>
-                                <li class="" id="generate_areas">
-                                    <a href="<?= base_url('Areas') ?>">
-                                        <i class="fas fa-layer-group"></i>
-                                        <span>Crear Area</span>
-                                    </a>
-                                </li>
-                            <?php endif ?>
+
+
 
 
                             </ul>
