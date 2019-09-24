@@ -1,11 +1,10 @@
-<style type="text/css">
+<style type="text/css"> 
 	.well {
 		display: inline-block;
 	}
 </style>
 <form method="POST" action="<?= base_url('User/configurar_perfil') ?>" class="formulario" id="form_configurar_perfil" enctype="multipart/form-data">
 	<h1 class="formulario_titulo">Configurar Perfil</h1>
-
 	<div class="col-md-8">
 		<input type="password" class="formulario_input" id="old_password" name="old_password">
 		<label for="old_password" class="formulario_label">ingrese su password</label>
@@ -17,7 +16,7 @@
 			<input type="button" class="formulario_input btn btn-success" id="confirmar" value="validar">
 			<!-- <label for="old_password" class="formulario_label">ingrese su password</label> -->
 		</div>
-
+		
 	<div style="display: none;" id="rest_form_content">
 		<div class="alert alert-dismissible col-sm-10 col-sm-offset-1">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -32,7 +31,7 @@
 			<input type="text" class="formulario_input" id="new_password_2" name="new_password_2">
 			<label for="new_password_2" class="formulario_label">Confirmar Password</label>
 		</div>
-
+		
 
 		<legend class="col-sm-12"  style="margin-bottom: 30px;">Cambiar Foto?</legend>
 		<div class="well" data-bind="fileDrag: fileData">
@@ -61,7 +60,7 @@
 <script src="<?= base_url("assets/plugins/sweetalert2/sweetalert2.all.js") ?>"></script>
 
 <?php $msj =$this->session->flashdata('msj'); ?>
-
+	
 <?php if (isset($msj)): ?>
-	<script> swal("<?= $msj['title'] ?>", "<?= $msj['cuerpo'] ?>", "<?= $msj['tipo'] ?>"); </script>
+	<script> swal("<?= $msj['title'] ?>", "<?= $msj['cuerpo'] ?>", "<?= $msj['tipo'] ?>"); </script>	
 <?php endif ?>

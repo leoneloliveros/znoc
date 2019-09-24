@@ -177,7 +177,7 @@ class User extends CI_Controller {
 
         $config_page = array(
             'subproyecto' => 'Microondas',
-            'active_sidebar' => false,
+            'active_sidebar' => true,
             'title' => 'ZOLID | Perfil',
             'active' => 'perLi',
             'sub_bar' => false,

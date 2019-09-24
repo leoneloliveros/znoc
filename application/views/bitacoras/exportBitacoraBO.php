@@ -63,7 +63,9 @@
           margin-top: 30px;
     }
     @media only screen and (max-width: 767px)  {
-
+       .contenedorMaestro {
+        margin-top: 80px;
+       }
     }
 
     .main-footer a {
@@ -165,7 +167,7 @@ setInterval(test, 1000);
                 processing: true,
                 serverSide: true,
                 "scrollX": true,
-                "searching": true,
+                "searching": false,
                 dom: 'frtip',
                 select: true,
                 "oLanguage": {
@@ -189,7 +191,7 @@ setInterval(test, 1000);
             });
         }
 
-        $('#export-excel-bo').on('click', function() {
+        $('#export-excel').on('click', function() {
           helper.showLoading();
 
                   $.post(base_url + "Bitacoras/getIncidentsFO", {
@@ -200,29 +202,6 @@ setInterval(test, 1000);
                   });
 
 
-        });
-
-
-        $('#bitacora_BO_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
-        $('#bitacora_BO_table_filter input').attr('id', 'search-input');
-
-        let active = false;
-        $('.contenedorMaestro').on('click', function(e){
-            if(e.target.id === 'search' || e.target.id === 'search-input' || e.target.id === 'search-icon') {
-                if(!active) {
-                $('#bitacora_BO_table_filter').addClass('active');
-                $('#modal_table_filter').addClass('active');
-                $('#search-input').addClass('active');
-                $('#search-icon').addClass('active');
-                active = true;
-                }
-            } else {
-                $('#bitacora_BO_table_filter').removeClass('active');
-                $('#modal_table_filter').removeClass('active');
-            $('#search-input').removeClass('active');
-            $('#search-icon').removeClass('active');
-            active = false;
-            }
         });
 
 
