@@ -40,12 +40,12 @@ $(function () {
       },
 
       // Muestra un pequeño mensaje (alert) en la parte superior derecha comunicando que se canceló la accion
-      miniAlert: function (title = 'Acción Cancelada', tipo = 'error',tiempo=3000) {
+      miniAlert: function (title = 'Acción Cancelada', tipo = 'error') {
           const toast = swal.mixin({
               toast: true,
               position: 'top-end',
               showConfirmButton: false,
-              timer: tiempo
+              timer: 3000
           });
           toast({
               type: tipo,

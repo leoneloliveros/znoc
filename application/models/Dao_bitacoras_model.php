@@ -166,6 +166,7 @@ class Dao_bitacoras_model extends CI_Model {
     public function showdepartamento()
 {
     $consulta = $this->db->query("SELECT sigla FROM departamentos");
+
     return $consulta->result();
   }
 
