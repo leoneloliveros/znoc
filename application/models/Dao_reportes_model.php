@@ -412,6 +412,7 @@ class Dao_reportes_model extends CI_Model {
         return $query->result();
     }
 
+
     public function export($opcion, $ini, $fin) {
         if ($ini == "" || $fin == "") {
             // echo "fechas vacias";
@@ -446,15 +447,16 @@ class Dao_reportes_model extends CI_Model {
                         l.responsable,
                         l.caso_de_uso,
                         l.prioridad,
+                        l.estaciones_afectadas,
                         l.tipo_incidente,
-                        l.estaciones_afectadas
+                        l.puesto
                     FROM $opcion o
                     INNER JOIN logbooks l
                     ON o.id_logbooks = l.id_logbooks
                     INNER JOIN users u
                     ON l.id_users = u.id_users"
             );
-            return $query2->result();
+
             // print_r($this->db->last_query());
         } else {
             if ($opcion == "energia") {
@@ -471,30 +473,33 @@ class Dao_reportes_model extends CI_Model {
             }
             $query2 = $this->db->query(
                     "SELECT $nameColumns
-                        l.id_logbooks,
-                        l.inicio_actividad,
-                        l.fin_actividad,
-                        l.tipo_actividad,
-                        l.estado,
-                        l.num_tk_incidente,
-                        l.descripcion,
-                        CONCAT(u.nombres,' ',u.apellidos) AS ing,
-                        l.id_users,
-                        l.turno,
-                        l.ot_tarea,
-                        l.area_asignacion,
-                        l.responsable,
-                        l.caso_de_uso,
-                        l.prioridad,
-                        l.tipo_incidente,
-                        l.estaciones_afectadas
+                    l.id_logbooks,
+                    l.inicio_actividad,
+                    l.fin_actividad,
+                    l.tipo_actividad,
+                    l.estado,
+                    l.num_tk_incidente,
+                    l.descripcion,
+                    CONCAT(u.nombres,' ',u.apellidos) AS ing,
+                    l.id_users,
+                    l.turno,
+                    l.ot_tarea,
+                    l.area_asignacion,
+                    l.responsable,
+                    l.caso_de_uso,
+                    l.prioridad,
+                    l.estaciones_afectadas,
+                    l.tipo_incidente,
+                    l.puesto
                     FROM $opcion o INNER JOIN logbooks l ON o.id_logbooks = l.id_logbooks
                     INNER JOIN users u
                     ON l.id_users = u.id_users
-                    WHERE l.inicio_actividad BETWEEN $ini AND $fin"
+                    WHERE DATE_FORMAT(l.inicio_actividad, '%Y-%m-%d') BETWEEN '$ini' AND '$fin'"
             );
-            // print_r($this->db->last_query());
         }
+        return $query2->result();
+
+
     }
 
     public function getWorkInfo($fdesde, $fhasta) {

@@ -17,8 +17,17 @@ class Exports extends CI_Controller {
     public function Reporte() {
         $opcion = $this->input->post('opcion');
         $tituloExcel = strtolower(substr($opcion, strrpos($opcion, "_") + 1));
-        $ini = $this->input->post('fechaIni');
-        $fin = $this->input->post('fechaFin');
+        $ini2 = $this->input->post('fechaIni');
+        $fin2 = $this->input->post('fechaFin');
+        $date_1 = DateTime::createFromFormat('d/m/Y', $ini2);
+        $date_2 = DateTime::createFromFormat('d/m/Y', $fin2);
+        if ($date_1 || $date_2 ) {
+          $fin = $date_2->format('Y-m-d');
+          $ini = $date_1->format('Y-m-d');
+        }
+
+        // print_r($ini);
+        // exit();
 
         if ($opcion == "General") {
             echo "accion PENDIENTE, no deverias estar aquí";
@@ -31,7 +40,7 @@ class Exports extends CI_Controller {
                     ->build();
 
             $writer->openToBrowser("Bitacora " . $tituloExcel . ".xlsx"); // stream data directly to the browser
-            $titles = array('id_energias', 'id_logbooks', 'tiempo_deteccion', 'tipo_falla', 'id_logbooks', 'inicio_actividad', 'fin_actividad', 'tipo_actividad', 'estado', 'num_tk_incidente', 'descripcion', 'ingeniero', 'id_users', 'turno', 'ot_tarea', 'area_asignacion', 'responsable', 'caso_de_uso', 'prioridad', 'tipo_incidente', 'estaciones_afectadas');
+            $titles = array('id_energias', 'id_logbooks', 'tiempo_deteccion', 'tipo_falla', 'inicio_actividad', 'fin_actividad', 'tipo_actividad', 'estado', 'num_tk_incidente', 'descripcion', 'ingeniero', 'id_users', 'turno', 'ot_tarea', 'area_asignacion', 'responsable', 'caso_de_uso', 'prioridad','estaciones_afectadas','tipo_incidente','puesto');
 
             $styleHeader = (new StyleBuilder())
                     ->setBackgroundColor(Color::rgb(12, 65, 117))
@@ -57,14 +66,14 @@ class Exports extends CI_Controller {
         $opcion = $this->input->post('opcion');
         $ini = $this->input->post('fechaIni');
         $fin = $this->input->post('fechaFin');
-        
+
         $date_1 = DateTime::createFromFormat('d/m/Y', $ini);
         $ini = $date_1->format('Y-m-d');
         $date_2 = DateTime::createFromFormat('d/m/Y', $fin);
         $fin = $date_2->format('Y-m-d');
-        
+
         $data_report = $this->Dao_reportes_model->ReporteCciHfc($opcion, $ini, $fin);
-        
+
         $excel = WriterEntityFactory::createXLSXWriter();
         $excel->openToBrowser("Bitacora " . $opcion . ".xlsx");
         // $wrapText = (new StyleBuilder())->setShouldWrapText(false)->build();
@@ -82,7 +91,7 @@ class Exports extends CI_Controller {
             $row = WriterEntityFactory::createRowFromArray((array) $dataReport);
             $excel->addRow($row);
         }
-        
+
         $excel->close();
     }
 

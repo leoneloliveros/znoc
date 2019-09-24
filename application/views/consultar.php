@@ -50,14 +50,14 @@ text-align: center;
           <div class="col-md-6 col-body">
             <div class="form-group">
               <label class="form-label">Desde:</label>
-              <input type="" id="fechaInicio" class="formu inicio form-control form-input required-field" placeholder="Fecha inicio" name="fechaIni" value="" disabled>
+              <input type="" id="fechaInicio" class="formu inicio form-control form-input required-field" placeholder="Fecha inicio" name="fechaIni" disabled>
             </div>
           </div>
 
           <div class="col-md-6 col-body">
             <div class="form-group">
               <label class="form-label">Hasta:</label>
-              <input type="" id="fechaFin" class="formu fin form-control form-input required-field" placeholder="Fecha fin" name="fechaFin" value="" disabled>
+              <input type="" id="fechaFin" class="formu fin form-control form-input required-field" placeholder="Fecha fin" name="fechaFin" disabled>
             </div>
           </div>
 

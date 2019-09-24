@@ -444,7 +444,51 @@ $('#consult').on('click', function(e) {
           $('#content-gaphs .active').removeClass('active');
             $("#grahp_prio ").addClass('active');
         });
-        function insertarGrafica(numero, pasaron, noPasaron, average, category, sql23) {
+
+
+
+        $('#export-excel').on('click', function() {
+          helper.showLoading();
+
+                  $.post(base_url + "Front_Office_Movil/KPI/getIncidentsFO", {
+                      query: queryValue.replace('LIMIT 10','')
+                    }).done(function(){
+                      helper.hideLoading();
+                      window.open(base_url + "Front_Office_Movil/KPI/exportIncidentsFO");
+                  });
+
+
+        });
+
+        $('#FO_table_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
+        $('#FO_table_filter input').attr('id', 'search-input');
+
+        let active = false;
+        $('.contenedorMaestro').on('click', function(e){
+            if(e.target.id === 'search' || e.target.id === 'search-input' || e.target.id === 'search-icon') {
+                if(!active) {
+                $('#FO_table_filter').addClass('active');
+                $('#modal_table_filter').addClass('active');
+                $('#search-input').addClass('active');
+                $('#search-icon').addClass('active');
+                active = true;
+                }
+            } else {
+                $('#FO_table_filter').removeClass('active');
+                $('#modal_table_filter').removeClass('active');
+            $('#search-input').removeClass('active');
+            $('#search-icon').removeClass('active');
+            active = false;
+            }
+        });
+  });
+
+
+
+// numero = 1 o 2 o 3
+
+  function insertarGrafica(numero, pasaron, noPasaron, average, category, sql23) {
+    
     Highcharts.chart("P" + numero, {
         chart: {
             type: 'column'
