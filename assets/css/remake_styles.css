@@ -399,37 +399,24 @@ padding: 10px;
 #FO_table_processing, #modal_table_processing {
 display:none !important;
 }
-div#bitacora_BO_table_filter,#modal_table_filter {
-  height: 40px;
-  width: 40px;
-  border: solid 5px;
-  border-radius: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 15PX;
-  transition: 0.3s;
-  position: absolute;
-  top: -46px;
-  left: 47px;
-  cursor: pointer;
-  color: white;
-}
+
+
 div#FO_table_filter, #modal_table_filter {
-  height: 40px;
-  width: 40px;
-  border: solid 5px;
-  border-radius: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 15PX;
-  transition: 0.3s;
-  position: absolute;
-  top: -46px;
-  left: 47px;
-  cursor: pointer;
-  color: white;       }
+height: 40px;
+width: 40px;
+border: solid 5px;
+border-radius: 50px;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 15PX;
+transition: 0.3s;
+position: absolute;
+top: -46px;
+left: 47px;
+cursor: pointer;
+color: white;
+       }
 
        #modal_table_filter {
            color: black;
@@ -461,13 +448,10 @@ div#FO_table_filter, #modal_table_filter {
        #FO_table_filter.active, #modal_table_filter.active {
        width: 209px;
        }
-       #bitacora_BO_table_filter.active,  #modal_table_filter.active {
-       width: 209px;
-       }
 
        #search-input.active, #search-input-modal.active {
        width: 209px;
-       margin-left: 18px;
+       margin-left: 5px;
        visibility: visible;
        margin-top: 9px;
        margin-top: -19px;
@@ -475,24 +459,15 @@ div#FO_table_filter, #modal_table_filter {
        }
 
         #search-icon.active {
-  padding-left: 25px;
-  width: 10px;
-  float: left;
-  margin-left: -19px;
-  margin-top: 8px;
-
+           padding-left: 25px;
        }
        #FO_table_filter label, #modal_table_filter label {
            color: transparent;
-           width: 10%;
-           float: left;
-       }
-       #bitacora_BO_table_filter label, #modal_table_filter label {
-         color: transparent;
-         margin-right: -27px;
        }
 
-
+       #search-icon {
+           padding-left: 28px;
+       }
 
        input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -524,23 +499,6 @@ position: absolute;
 top: -45px;
 color: white;
 cursor: pointer;
-}
-
-#export-excel-bo, #export-excel-modal{
-height: 40px;
-width: 40px;
-border: solid 5px;
-border-radius: 50px;
-display: flex;
-justify-content: center;
-align-items: center;
-font-size: 15PX;
-transition: 0.3s;
-position: absolute;
-top: 25px;
-color: white;
-cursor: pointer;
-margin-left: 36px
 }
 
 #export-excel-modal {
@@ -611,6 +569,7 @@ top: -30px;
         }
 
     #P1.active, #P2.active, #P3.active {
+
     margin-bottom: 30px;
     width: 70%;
     overflow: hidden;
@@ -634,6 +593,56 @@ top: -30px;
     /* min-height: 655px; */
     /* height: 100%; */
     margin-top: 10px;
+        }
+        #tiempo_det1.active, #tiempo_det2.active, #tiempo_det3.active {
+            margin-bottom: 30px;
+            width: 70%;
+            overflow: hidden;
+            position: relative;
+            overflow: hidden;
+            /* width: 772px;
+            height: 400px; */
+            text-align: left;
+            line-height: normal;
+            z-index: 0;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            background-color: #FFFFFF;
+            box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: -50px;
+            position: relative;
+            /* z-index: 4; */
+            transition: all 0.3s ease;
+            margin: 30px 40px;
+            /* min-height: 655px;
+            height: 100%; */
+            margin-top: 10px;
+        }
+        #tetd1.active, #tetd2.active, #tetd3.active {
+            margin-bottom: 30px;
+            width: 70%;
+            overflow: hidden;
+            position: relative;
+            overflow: hidden;
+            /* width: 772px;
+            height: 400px; */
+            text-align: left;
+            line-height: normal;
+            z-index: 0;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            background-color: #FFFFFF;
+            box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: -50px;
+            position: relative;
+            /* z-index: 4; */
+            transition: all 0.3s ease;
+            margin: 30px 40px;
+           /*  min-height: 655px;
+           height: 100%; */
+            margin-top: 10px;
         }
 
         .slider {
