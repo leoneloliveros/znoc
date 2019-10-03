@@ -1,51 +1,23 @@
 area = {
   init: function () {
     area.events();
-
-    $.post(base_url + 'Areas/getUsers',
-    {$users:$('#responsableArea').val()}
-  ).done(function(data){
-    var datos = JSON.parse(data);
-    // console.log(datos);
-    // $('#responsableArea').val(datos.nombres)
-    var select = document.getElementById('responsableArea')
-     for (var i = 0; i < datos.length; i++) {
-         $('#users').append('<option>' + datos[i].nombres + '</option>')
-     }
-
-  })
-
-  // $.post(base_url + 'Areas/getIdUser',
-  // {idUsers:$('#idUser').val()})
-// ).done(function(data){
-//   var datos= JSON.parse(data);
-//   $('#idUser').val()
-// })
+    area.tooltips();
+    area.inputsAbiertos();
+    area.getUsers();
 
   },
   events: function() {
     $("#newArea").on("click",area.validateForm);
-    //
-    // var activarRol = false;
-    // $('#newRol').on('click', function(){
-    //    activarRol = ( activarRol == true) ? false : true ;
-    //   if ( activarRol === true) {
-    //     $('#roles').attr('style', 'display:  block;');
-    //   }else {
-    //     $('#roles').attr('style', 'display:  none;');
-    //   }
-    // });
 
     $('#responsableArea').change(function() {
-// alert('JSJDFGF')
-      $.post(base_url + 'Areas/getIdUser',
-      {idUsers:$('#responsableArea').val()}
-    ).done(function (data) {
-      var datos = JSON.parse(data);
-      console.log(datos);
-
-      $('#idUser').val(datos[0].id_users);
-    });
+    //   $.post(base_url + 'Areas/getIdUser',
+    //   {idUsers:$('#responsableArea').val()}
+    // ).done(function (data) {
+    //   var datos = JSON.parse(data);
+    //   console.log(datos);
+    //   $('#idUser').val(datos[0].id_users);
+    // });
+    $('#idUser').val($('#responsableArea').val());
 
     })
 
@@ -59,6 +31,12 @@ area = {
               $('#' + this.id ).removeClass('form-input-error');
           }
       });
+      var expresion = /([\'\".,/:;+_-])/i;
+      cadena = document.getElementById('area').value
+      if (cadena.match(expresion)) {
+        helper.miniAlert('No se permiten caracteres Especiales');
+        return false;
+      }
       var flag = true;
       $('.required-field').each(function() {
           if ($('#' + this.id).hasClass("form-input-error")) {
@@ -106,13 +84,17 @@ area = {
 
  newArea:()=>{
    return new Promise((resolve,reject) => {
+      var nombreArea = $('#area').val()
         datosArea = {
-          nombreArea : $('#area').val(),
-          responsableArea : $('#responsableArea').val(),
-          id_user : $('#idUser').val(),
+          nombreArea : nombreArea.replace(/ /gi,"-"),
+        }
+
+        datosManager ={
+          area :"Dilo_"+nombreArea.replace(/ /gi,"-"),
+          user_id:$('#idUser').val(),
         }
         const url= base_url+'Areas/saveArea'
-         const opts = {guardarArea:datosArea}
+         const opts = {guardarArea:datosArea,guardarManager:datosManager }
         $.post(url, opts, function (data) {
           resolve(data)
         }
@@ -120,72 +102,34 @@ area = {
    })
   },
 
-//
-// getuser:()=>{
-//   return new Promise((resolve,reject)=>{
-//     usuarios = {
-//       responsableArea : $('#responsableArea').val(),
-//       id_user : id_user,
-//     }
-//     const url= 'Areas/getUsers'
-//     const opts = {guardarArea:datosArea}
-//
-//   })
-// }
+  tooltips: () => {
+  $('[data-toggle="tooltip"]').tooltip()
+},
 
+inputsAbiertos:()=>{
+   var x = document.getElementsByClassName("required-field");
+   for (i = 0; i < x.length; i++) {
+     if (x[i].value != "") {
+       x[i].classList.add("filled");
+       x[i].parentElement.classList.add("focused");
+     }
+   }
+ },
 
-//   otroRol: () => {
-//
-//         var iCnt = 0;
-//
-// // Crear un elemento div añadiendo estilos CSS
-//         var container = $(document.createElement('div')).addClass('form-input');
-//
-//         $('#btAdd').click(function() {
-//             if (iCnt <= 19) {
-//
-//                 iCnt = iCnt + 1;
-//                 // Añadir caja de texto.
-//                 $(container).append(`
-//                   <div class="col-md-6">
-//                   <input class="input" id="tb${iCnt}"
-//                   value="" />
-//                   </div>        `);
-//
-//
-//  $('#main').after(container);
-//             }
-//             else {      //se establece un limite para añadir elementos, 20 es el limite
-//
-//                 $(container).append('<label>Limite Alcanzado</label>');
-//                 $('#btAdd').attr('class', 'bt-disable');
-//                 $('#btAdd').attr('disabled', 'disabled');
-//
-//             }
-//         });
-//
-//         $('#btRemove').click(function() {   // Elimina un elemento por click
-//             if (iCnt != 0) { $('#tb' + iCnt).remove(); iCnt = iCnt - 1; }
-//
-//             if (iCnt == 0) { $(container).empty();
-//
-//                 $(container).remove();
-//                 $('#btSubmit').remove();
-//                 $('#btAdd').removeAttr('disabled');
-//                 $('#btAdd').attr('class', 'bt')
-//
-//             }
-//         });
-//
-//         $('#btRemoveAll').click(function() {    // Elimina todos los elementos del contenedor
-//
-//             $(container).empty();
-//             $(container).remove();
-//             $('#btSubmit').remove(); iCnt = 0;
-//             $('#btAdd').removeAttr('disabled');
-//             $('#btAdd').attr('class', 'bt');
-//
-//         });
-//     },
+getUsers: ()=> {
+  $.post(base_url + 'Areas/getUsers',
+  {$users:$('#responsableArea').val()}
+ ).done(function(data){
+  var datos = JSON.parse(data);
+  // console.log(datos);
+  // $('#responsableArea').val(datos.nombres)
+  var select = document.getElementById('responsableArea')
+   for (var i = 0; i < datos.length; i++) {
+       $('#users').append('<option value="' + datos[i].id_users + '" label = "'+datos[i].nombresUsuarios +'"></option>')
+   }
+
+ })
+},
+
 }
 area.init();

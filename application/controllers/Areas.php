@@ -34,8 +34,11 @@ class Areas extends CI_Controller {
 
   public function saveArea(){
     $guardarArea = $this->input->post('guardarArea');
-    // var_dump($guardarArea);
+    $guardarManager = $this->input->post('guardarManager');
     $query = $this->Areas_model->saveArea($guardarArea);
+    $query2 = $this->Areas_model->saveManager($guardarManager);
+
+    // var_dump($guardarArea);
 
   }
   public function getIdRol()
@@ -48,10 +51,10 @@ class Areas extends CI_Controller {
   }
 
   public function consultArea(){
-    // $getArea = $this->input->post('area')
     $id = $this->session->userdata('id');
     $query = $this->Areas_model->getArea($id);
     return (Array)$query;
+    // var_dump($query);
   }
 
   public function generate_areas() {
@@ -83,7 +86,7 @@ class Areas extends CI_Controller {
     echo json_encode($query);
 
   }
-  public function viewArea() {
+  public function viewArea($area) {
       $data = array(
           'active_sidebar' => false,
           'title' => 'Consultar Area',
@@ -91,10 +94,76 @@ class Areas extends CI_Controller {
           'header' => array('Consult', 'Areas'),
           'sub_bar' => true,
       );
+      $getCordinadores =  $this->getCordinadores($area);
+      $getUsuarios = $this->getUsuarios($area);
+      $getRol = $this->getRol($area);
+
+      $data['cordinadores'] = $getCordinadores;
+      $data['nombre_area'] = $area;
+      $data['usuarios'] = $getUsuarios;
+      $data['roles'] = $getRol;
+
+
       $this->load->view('parts/header', $data);
       $this->load->view('consultArea');
       $this->load->view('parts/footer');
   }
+  public function getCordinadores($area)
+  {
+    $query = $this->Areas_model->getCordinadores($area);
+    return (Array)$query;
+  }
+  public function getUsuarios($area)
+  {
+    $query = $this->Areas_model->getUsuarios($area);
+    // var_dump($query);
+    return (Array)$query;
+  }
+  public function getRol($area)
+  {
+   $query = $this->Areas_model->getRol($area);
+   // var_dump($query);
+   return (Array)$query;
+  }
+  public function generateRol($area)
+  {
+    $data = array(
+        'active_sidebar' => false,
+        'title' => 'Crear Roles',
+        'active' => 'generateRol',
+        'header' => array('Crear', 'Rol'),
+        'sub_bar' => true,
+    );
+    $data['nombre_area'] = $area;
+    $this->load->view('parts/header', $data);
+    $this->load->view('generateRol' );
+    $this->load->view('parts/footer');
+  }
+
+  public function postRol()
+  {
+    $nuevoRol = $this->input->post('nuevoRol');
+    $query=$this->Areas_model->postRol($nuevoRol);
+  }
+    public function generateCordinator($area)
+    {
+      $data = array(
+          'active_sidebar' => false,
+          'title' => 'Crear Cordinador',
+          'active' => 'generateCordinator',
+          'header' => array('Crear', 'Cordinador'),
+          'sub_bar' => true,
+      );
+      $data['nombre_area'] = $area;
+      $this->load->view('parts/header', $data);
+      $this->load->view('generateCordinator');
+      $this->load->view('parts/footer');
+    }
+    public function saveCordinator()
+    {
+      $guardarCordinador = $this->input->post('guardarCordinador');
+      $query2 = $this->Areas_model->saveCordinator($guardarCordinador);
+    }
 
 }
 

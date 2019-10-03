@@ -52,6 +52,14 @@ Crear Usuario
 
 
 
+        <div class="col-md-6 col-body">
+          <div class="form-group">
+            <label class="form-label" for="">Area</label>
+            <select name="" id="area" class="styleInp form-input required-field">
+              <option value=""></option>
+            </select>
+          </div>
+        </div>
 
 
     <div class="col-md-6 col-body">
@@ -63,18 +71,6 @@ Crear Usuario
         </div>
     </div>
 
-
-
-
-
-    <div class="col-md-6 col-body">
-      <div class="form-group">
-        <label class="form-label" for="">Area</label>
-        <select name="" id="area" class="styleInp form-input required-field">
-            <option value=""></option>
-        </select>
-      </div>
-    </div>
 
     <div class="col-md-12 col-body">
         <div class="wrap" style="margin: auto;">

@@ -317,7 +317,143 @@ class Reportes extends CI_Controller {
         $this->load->view('volumetria_fija');
         $this->load->view('parts/footer');
     }
+    public function volumetria_mesa_calidad() {
 
+    $data = array(
+        'active_sidebar' => false,
+        'title' => 'Volumetrías',
+        'active' => "areali",
+        'header' => array('Mesa de Calidad', 'Volumetría'),
+        'sub_bar' => true,
+        'f_actual' => date('Y-m-d'),
+        'f_inicio' => date('Y-m') . '-01'
+    );
+    $this->load->view('parts/header', $data);
+    $this->load->view('volumetria_mesa_calidad');
+    $this->load->view('parts/footer');
+}
+
+public function c_getNemonicosQualityTabledAccordingDate() {
+    $fdesde = $this->input->post('desde');
+    $fhasta = $this->input->post('hasta');
+    $data = $this->Dao_reportes_model->getNemonicosQualityTabledAccordingDate($fdesde, $fhasta);
+    echo json_encode($data);
+}
+public function excelVolumetriasMesaCalidad($fdesde, $fhasta) {
+        set_time_limit(-1);
+        ini_set('memory_limit', '1500M');
+        $data_mc_aict5 = $this->Dao_reportes_model->getWorklogByCoordination($fdesde, $fhasta, 'MC_AICT5');
+        $data_mc_gorgt4 = $this->Dao_reportes_model->getWorklogByCoordination($fdesde, $fhasta, 'MC_GORGT4');
+        $data_mc_gpt5 = $this->Dao_reportes_model->getWorklogByCoordination($fdesde, $fhasta, 'MC_GPT5');
+        $data_mc_rpt1 = $this->Dao_reportes_model->getWorklogByCoordination($fdesde, $fhasta, 'MC_RPT1');
+        $data_mc_rpt2 = $this->Dao_reportes_model->getWorklogByCoordination($fdesde, $fhasta, 'MC_RPT2');
+        $data_mc_rpt3 = $this->Dao_reportes_model->getWorklogByCoordination($fdesde, $fhasta, 'MC_RPT3');
+        $data_mc_tpt1 = $this->Dao_reportes_model->getWorklogByCoordination($fdesde, $fhasta, 'MC_T&PT1');
+        $data_mc_tpt2 = $this->Dao_reportes_model->getWorklogByCoordination($fdesde, $fhasta, 'MC_T&PT2');
+        $data_mc_tp_soct1 = $this->Dao_reportes_model->getWorklogByCoordination($fdesde, $fhasta, 'MC_T&P_SOCT1');
+        $data_mc_tp_soct2 = $this->Dao_reportes_model->getWorklogByCoordination($fdesde, $fhasta, 'MC_T&P_SOCT2');
+
+//         echo '<pre>'; print_r($data_tgr); echo '</pre>';
+        $excel = WriterEntityFactory::createXLSXWriter();
+        $excel->openToBrowser('Volumetrias Mesa de Calidad(' . date('Y-m-d') . ').xlsx');
+        // $wrapText = (new StyleBuilder())->setShouldWrapText(false)->build();
+
+        $titles = array('RECORDKEY','CREATEDATE','DESCRIPTION','MODIFYDATE','MODIFYBY','DESCRIPTION_LONGDESCRIPTION','CLASS','LOGTYPE');
+        $header = WriterEntityFactory::createRowFromArray($titles);
+
+        $mc_aict5 = $excel->getCurrentSheet();
+        $mc_aict5->setName('MC_AICT5');
+        $excel->addRow($header);
+
+        foreach ($data_mc_aict5 as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+        // // $ejmplo = WriterEntityFactory::createRowFromArray(array("hola",'qie','pex'));
+
+        $mc_gorgt4 = $excel->addNewSheetAndMakeItCurrent();
+        $mc_gorgt4->setName('MC_GORGT4');
+        $excel->addRow($header);
+
+        foreach ($data_mc_gorgt4 as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $mc_gpt5 = $excel->addNewSheetAndMakeItCurrent();
+        $mc_gpt5->setName('MC_GPT5');
+        $excel->addRow($header);
+
+        foreach ($data_mc_gpt5 as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $mc_rpt1 = $excel->addNewSheetAndMakeItCurrent();
+        $mc_rpt1->setName('MC_RPT1');
+        $excel->addRow($header);
+
+        foreach ($data_mc_rpt1 as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $mc_rpt2 = $excel->addNewSheetAndMakeItCurrent();
+        $mc_rpt2->setName('MC_RPT2');
+        $excel->addRow($header);
+
+        foreach ($data_mc_rpt2 as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $mc_rpt3 = $excel->addNewSheetAndMakeItCurrent();
+        $mc_rpt3->setName('MC_RPT3');
+        $excel->addRow($header);
+
+        foreach ($data_mc_rpt3 as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $mc_tpt1 = $excel->addNewSheetAndMakeItCurrent();
+        $mc_tpt1->setName('MC_TPT1');
+        $excel->addRow($header);
+
+        foreach ($data_mc_tpt1 as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $mc_tpt2 = $excel->addNewSheetAndMakeItCurrent();
+        $mc_tpt2->setName('MC_TPT2');
+        $excel->addRow($header);
+
+        foreach ($data_mc_tpt2 as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $mc_tp_soct1 = $excel->addNewSheetAndMakeItCurrent();
+        $mc_tp_soct1->setName('MC_TP_SOCT1');
+        $excel->addRow($header);
+
+        foreach ($data_mc_tp_soct1 as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $mc_tp_soct2 = $excel->addNewSheetAndMakeItCurrent();
+        $mc_tp_soct2->setName('MC_TP_SOCT2');
+        $excel->addRow($header);
+
+        foreach ($data_mc_tp_soct2 as $volumetrias) {
+            $row = WriterEntityFactory::createRowFromArray((array) $volumetrias);
+            $excel->addRow($row);
+        }
+
+        $excel->close();
+      }
     public function c_getNemonicosFixedAccordingDate() {
         $fdesde = $this->input->post('desde');
         $fhasta = $this->input->post('hasta');

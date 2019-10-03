@@ -28,16 +28,16 @@ Areas a cargo
 
                 <div class="panel-body">
                   <?php
-                  // var_dump($rol);
+                  // var_dump($data);
                   foreach ($data as $key) { ?>
                     <div class="panel panel-primary">
 
                         <div class="panel-heading" style="height: 10vh; display: flex; flex-flow: row nowrap; align-items: center; justify-content: space-between; box-shadow: 0px 20px 5px 5px">
 
-                            <h1 class="" style="font-size: 20px;"><?php echo ($key->area);?></h1>
+                            <h1 class="" style="font-size: 20px;"><?php if (strrpos( $key->area,"_")) {echo str_replace('-',' ',substr( $key->area, strrpos( $key->area,"_")+1));}else {echo str_replace('%20',' ', $key->area);};?></h1>
 
                             <div class="">
-                              <a href="<?= base_url('Areas/viewArea') ?>" style="color:white">
+                              <a href="<?= base_url('Areas/viewArea').'/'.$key->area ?>" style="color:white">
                                   <i class="fas fa-search" style="font-size: 30px" ></i>
                               </a>
 

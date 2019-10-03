@@ -63,14 +63,25 @@ immediately after the control sidebar -->
     <script src="<?= base_url('assets/js/inputAnimations.js'); ?>"></script>
 <?php endif ?>
 <!-- **********************************************Fin Crear Usuario********************************************** -->
-<!-- **********************************************Crear Area y Roles********************************************** -->
+<!-- **********************************************Crear Areas********************************************** -->
 <?php if ($this->uri->segment(1) == 'Areas'): ?>
     <script src="<?= base_url('assets/js/inputAnimations.js'); ?>"></script>
-    <script src="<?= base_url("assets\js\areas.js?v=" . validarEnProduccion()) ?>"></script>
+    <script src="<?= base_url("assets/js/areas.js?v=" . validarEnProduccion()) ?>"></script>
 
 <?php endif ?>
 <!-- **********************************************Fin Crear Area y Roles********************************************** -->
-
+<!-- **********************************************Crear Roles********************************************** -->
+<?php if ($this->uri->segment(1) == 'Areas' && $this->uri->segment(2) == 'generateRol'): ?>
+    <script src="<?= base_url('assets/js/inputAnimations.js'); ?>"></script>
+    <script src="<?= base_url("assets/js/roles.js?v=" . validarEnProduccion()) ?>"></script>
+<?php endif ?>
+<!-- **********************************************Fin Crear Roles********************************************** -->
+<!-- **********************************************Fin Crear Cordinadores********************************************** -->
+<?php if ($this->uri->segment(1) == 'Areas' && $this->uri->segment(2) == 'generateCordinator'): ?>
+    <script src="<?= base_url('assets/js/inputAnimations.js'); ?>"></script>
+    <script src="<?= base_url("assets/js/generateCordinadores.js?v=" . validarEnProduccion()) ?>"></script>
+<?php endif ?>
+<!-- **********************************************Fin Crear Cordinadores********************************************** -->
 
 <!-- **********************************************datatables plus (excel ... ) *********************************************-->
 <?php if ($this->uri->segment(1) == 'User' && $this->uri->segment(2) == 'principal'): ?>

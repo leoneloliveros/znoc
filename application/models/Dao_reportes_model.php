@@ -19,6 +19,55 @@ class Dao_reportes_model extends CI_Model {
         return $query->result();
         // echo '<pre>'; print_r($query->result()); echo '</pre>';
     }
+    public function getNemonicosQualityTabledAccordingDate($fi, $ff) {
+    $query = $this->db->query("
+        SELECT
+            (CASE WHEN DESCRIPTION LIKE '%MC_AICT5:%' THEN 'mc_aict5'
+                WHEN DESCRIPTION LIKE '%MC_GORGT4:%' THEN 'mc_gorgt4'
+                WHEN DESCRIPTION LIKE '%MC_GPT5:%' THEN 'mc_gpt5'
+                WHEN DESCRIPTION LIKE '%MC_RPT1:%' THEN 'mc_rpt1'
+                WHEN DESCRIPTION LIKE '%MC_RPT2:%' THEN 'mc_rpt2'
+                WHEN DESCRIPTION LIKE '%MC_RPT3:%' THEN 'mc_rpt3'
+                WHEN DESCRIPTION LIKE '%MC_T&PT1:%' THEN 'mc_tpt1'
+                WHEN DESCRIPTION LIKE '%MC_T&PT2:%' THEN 'mc_tpt2'
+                WHEN DESCRIPTION LIKE '%MC_T&P_SOCT1:%' THEN 'mc_tp_soct1'
+                WHEN DESCRIPTION LIKE '%MC_T&P_SOCT2:%' THEN 'mc_tp_soct2'
+                ELSE 'Sin coordinación'
+            END) AS nemonicos,
+            COUNT(RECORDKEY) AS total_incidentes
+        FROM maximo.WORKLOG
+        WHERE DATE_FORMAT(CREATEDATE, '%Y-%m-%d') BETWEEN '$fi' AND '$ff'
+        GROUP BY (CASE WHEN DESCRIPTION LIKE '%MC_AICT5:%' THEN 'MC_AICT5'
+                    WHEN DESCRIPTION LIKE '%MC_GORGT4:%' THEN 'MC_GORGT4'
+                    WHEN DESCRIPTION LIKE '%MC_GPT5:%' THEN 'MC_GPT5'
+                    WHEN DESCRIPTION LIKE '%MC_RPT1:%' THEN 'MC_RPT1'
+                    WHEN DESCRIPTION LIKE '%MC_RPT2:%' THEN 'MC_RPT2'
+                    WHEN DESCRIPTION LIKE '%MC_RPT3:%' THEN 'MC_RPT3'
+                    WHEN DESCRIPTION LIKE '%MC_T&PT1:%' THEN 'MC_TPT1'
+                    WHEN DESCRIPTION LIKE '%MC_T&PT2:%' THEN 'MC_TPT2'
+                    WHEN DESCRIPTION LIKE '%MC_T&P_SOCT1:%' THEN 'MC_TP_SOCT1'
+                    WHEN DESCRIPTION LIKE '%MC_T&P_SOCT2:%' THEN 'MC_TP_SOCT2'
+                    ELSE 'Sin coordinación'
+                END)
+    ");
+    return $query->result();
+}
+public function getWorklogByCoordination($fdesde, $fhasta, $nemonico) {
+    $query = $this->db->query("
+        SELECT RECORDKEY,
+            CREATEDATE,
+            DESCRIPTION,
+            MODIFYDATE,
+            MODIFYBY,
+            DESCRIPTION_LONGDESCRIPTION,
+            CLASS,
+            LOGTYPE
+        FROM maximo.WORKLOG
+        WHERE DESCRIPTION LIKE '%$nemonico%'
+        AND DATE_FORMAT(CREATEDATE, '%Y-%m-%d') BETWEEN '$fdesde' AND '$fhasta'
+    ");
+    return $query->result();
+}
 
     public function getNemonicosCCAccordingDate($fi, $ff) {
         $this->db->where(' (DESCRIPTION LIKE "%CCPYR_PRUEB%"');
