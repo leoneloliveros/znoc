@@ -111,7 +111,7 @@ input{
               <div class="col-md-4 col-body">
                 <div class="form-group">
                   <label class="form-label" for="id_users">Ingeniero</label>
-                  <input type="text" class="form-control form-input required-field" id="cedulaBitacora" value="<?php echo $this->session->userdata('name'); ?>" disabled>
+                  <input type="text" class="form-control form-input required-field" id="cedulaBitacora" value="<?php echo $this->session->userdata('name'); ?>" disabled="disabled">
                 </div>
               </div>
 
