@@ -23,6 +23,23 @@
           <option>ROBINSON LOPEZ</option>
           <option>MIGAN GALBAN</option>
           <option>JAIME CASANOVA</option>
+          <option>DARIO CARDONA</option>
+          <option>JOHN CASTRO</option>
+          <option>GIOVANNY ROA</option>
+          <option>MARCO CATOLICO</option>
+          <option>LUBIAN VILLADA</option>
+          <option>NEFTALY PERDOMO</option>
+          <option>LUIS GUAYANA</option>
+          <option>EDISON SIERRA</option>
+          <option>DANIEL CASTAÑEDA</option>
+          <option>JONATHAN PUENTES</option>
+          <option>LORENA RODRIGUEZ</option>
+          <option>OSCAR GAMA</option>
+          <option>CAMILO RAMIREZ</option>
+          <option>DIEGO ARMANDO</option>
+          <option>JOSE MONROY</option>
+          <option>WILMAR CACERES</option>
+          <option>CAMILO LOZADA</option>
         </select>
         </div>
     </div>
@@ -31,7 +48,7 @@
     <div class="col-md-4 col-body">
         <div class="form-group">
           <label class="form-label" for="fecha">Fecha</label>
-          <input class="form-input required-field" type="text" id="fecha"/>
+          <input class="form-input required-field" type="text" id="fecha" readonly/>
         </div>
     </div>
 

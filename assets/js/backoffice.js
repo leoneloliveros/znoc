@@ -11,7 +11,8 @@ $(document).ready(function() {
             Bitacora.formatDateInputs();
             Bitacora.events();
             Bitacora.estaciones();
-
+            Bitacora.fechaActual();
+            Bitacora.inputsAbiertos();
         },
 
 
@@ -198,10 +199,21 @@ $(document).ready(function() {
     // const now = moment();
      let tiempoDeHoras = document.getElementById('tiempoRevision');
      tiempoDeHoras.value = diferencia.toFixed(2);
+},
+fechaActual: ()=>{
+document.querySelector('#fecha').value =  moment().format('DD/MM/YYYY');
+document.querySelector('#fechaYHoraIngresoTarea').value = moment().format('DD/MM/YYYY HH:mm:ss');
+},
+inputsAbiertos:()=>{
+   var x = document.getElementsByClassName("required-field");
+   for (i = 0; i < x.length; i++) {
+     if (x[i].value != "") {
+       x[i].classList.add("filled");
+       x[i].parentElement.classList.add("focused");
+     }
+   }
+ },
 
-
-
-}
 
 
     }

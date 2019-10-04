@@ -8,17 +8,8 @@ area = {
   },
   events: function() {
     $("#newArea").on("click",area.validateForm);
-
     $('#responsableArea').change(function() {
-    //   $.post(base_url + 'Areas/getIdUser',
-    //   {idUsers:$('#responsableArea').val()}
-    // ).done(function (data) {
-    //   var datos = JSON.parse(data);
-    //   console.log(datos);
-    //   $('#idUser').val(datos[0].id_users);
-    // });
     $('#idUser').val($('#responsableArea').val());
-
     })
 
   },
