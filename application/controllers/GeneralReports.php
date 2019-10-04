@@ -236,7 +236,7 @@ class GeneralReports extends CI_Controller {
                 ->build();
 
         $writer->openToBrowser('TareasFOPerformance(' . date('Y-m-d') . ').xlsx');
-        $titles = array('TAREA', 'FECHA CREACION DE TAREA', 'DESCRIPCION TAREA', 'ESTADO TAREA', 'FECHA ESTADO', 'INCIDENTE', 'INCIDENTE CREADO POR',  'FECHA CREACION INCIDENTE', 'ESTADO INCIDENTE', 'DESCRIPCION INCIDENTE', 'FECHA CIERRE INCIDENTE', 'CREADOR DE NOTA', 'FECHA NOTA', 'RESUMEN NOTA', 'DETALLE NOTA');
+        $titles = array('TAREA', 'FECHA CREACION DE TAREA', 'DESCRIPCION TAREA', 'ESTADO TAREA', 'FECHA ESTADO', 'INCIDENTE', 'INCIDENTE CREADO POR',  'FECHA CREACION INCIDENTE', 'ESTADO INCIDENTE', 'DESCRIPCION INCIDENTE', 'FECHA CIERRE INCIDENTE', 'CREADOR DE NOTA', 'FECHA NOTA', 'RESUMEN NOTA', 'DETALLE NOTA', 'ELEMENTO DE RED', 'KPI', 'INICIO ALARMA', 'FIN ALARMA');
 
         $header = WriterEntityFactory::createRowFromArray($titles);
         $writer->addRow($header);
