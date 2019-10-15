@@ -432,6 +432,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                         <span>Volumetrías</span>
                                                     </a>
                                                 </li>
+                                            <!-- Bitacora Mesa e Calidad  -->
+                                                <li id="bitacora_mc">
+                                                    <a href="<?= base_url('BitacoraMC') ?>">
+                                                        <i class="fas fa-clipboard-list"></i>&nbsp;&nbsp;
+                                                        <span>Crear Bitacoras</span>
+                                                    </a>
+                                                </li>
+                                            <!--Fin Bitacora Mesa e Calidad  -->
+                                            <!-- Consultar Bitacora Mesa e Calidad  -->
+                                            <li id="bitacora_mc">
+                                                <a href="<?= base_url('BitacoraMC/ConsultarBitacorasMC') ?>">
+                                                    <i class="fas fa-search"></i>&nbsp;&nbsp;
+                                                    <span>Consultar Bitacora</span>
+                                                </a>
+                                            </li>
+                                            <!-- Fin Consultar Bitacora Mesa e Calidad  -->
+
                                             </ul>
                                         </li>
 

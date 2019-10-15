@@ -15,7 +15,6 @@ $(document).ready(function() {
             Bitacora.inputsAbiertos();
         },
 
-
         estaciones: function(){
           $.post(
             base_url+'Bitacoras/showdepartamento',
@@ -200,6 +199,7 @@ $(document).ready(function() {
      let tiempoDeHoras = document.getElementById('tiempoRevision');
      tiempoDeHoras.value = diferencia.toFixed(2);
 },
+
 fechaActual: ()=>{
 document.querySelector('#fecha').value =  moment().format('DD/MM/YYYY');
 document.querySelector('#fechaYHoraIngresoTarea').value = moment().format('DD/MM/YYYY HH:mm:ss');

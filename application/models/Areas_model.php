@@ -58,7 +58,7 @@ class Areas_model extends CI_Model {
     }
     public function getIdRol($value)
     {
-      $consulta = $this->db->query("SELECT user_id FROM role_user WHERE role_id = 5 ");
+      $consulta = $this->db->query("SELECT user_id FROM role_user WHERE role_id = 13 ");
       return $consulta->result();
     }
     public function getCordinadores($value)
