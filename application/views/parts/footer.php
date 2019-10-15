@@ -82,6 +82,13 @@ immediately after the control sidebar -->
     <script src="<?= base_url("assets/js/generateCordinadores.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
 <!-- **********************************************Fin Crear Cordinadores********************************************** -->
+<!-- **********************************************Bitacora Mesa de Calidad********************************************** -->
+<?php if ($this->uri->segment(1) == 'BitacoraMC'): ?>
+    <script src="<?= base_url('assets/js/inputAnimations.js'); ?>"></script>
+    <script src="<?= base_url("assets/js/BitacoraMC.js?v=" . validarEnProduccion()) ?>"></script>
+    <script src="<?= base_url('assets/js/exportBitMc.js'); ?>"></script>
+<?php endif ?>
+<!-- **********************************************Fin Bitacora Mesa de Calidad********************************************** -->
 
 <!-- **********************************************datatables plus (excel ... ) *********************************************-->
 <?php if ($this->uri->segment(1) == 'User' && $this->uri->segment(2) == 'principal'): ?>
