@@ -404,7 +404,7 @@ padding: 10px;
 #FO_table_processing, #modal_table_processing {
 display:none !important;
 }
-div#bitacora_BO_table_filter,#modal_table_filter {
+div#bitacora_BO_table_filter,#modal_table_filter,#bitacora_MC_table_filter{
   height: 40px;
   width: 40px;
   border: solid 5px;
@@ -466,7 +466,7 @@ div#FO_table_filter, #modal_table_filter {
        #FO_table_filter.active, #modal_table_filter.active {
        width: 209px;
        }
-       #bitacora_BO_table_filter.active,  #modal_table_filter.active {
+       #bitacora_BO_table_filter.active,  #modal_table_filter.active, #bitacora_MC_table_filter.active {
        width: 209px;
        }
 
@@ -492,7 +492,7 @@ div#FO_table_filter, #modal_table_filter {
            width: 10%;
            float: left;
        }
-       #bitacora_BO_table_filter label, #modal_table_filter label {
+       #bitacora_BO_table_filter label, #modal_table_filter label, #bitacora_MC_table_filter label {
          color: transparent;
          margin-right: -27px;
        }
@@ -515,7 +515,7 @@ transition: background-color 5000s ease-in-out 0s;
 }
 
 
-#export-excel, #export-excel-modal{
+#export-excel, #export-excel-modal, #export-excel-ti, #export-excel-mc{
 height: 40px;
 width: 40px;
 border: solid 5px;
@@ -531,7 +531,7 @@ color: white;
 cursor: pointer;
 }
 
-#export-excel-bo, #export-excel-modal{
+#export-excel-bo, #export-excel-modal, #export-excel-ti, #export-excel-mc{
 height: 40px;
 width: 40px;
 border: solid 5px;
@@ -548,7 +548,7 @@ cursor: pointer;
 margin-left: 36px
 }
 
-#export-excel-modal {
+#export-excel-modal{
 color: black;
 top: -30px;
 }

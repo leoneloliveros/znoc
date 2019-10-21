@@ -498,7 +498,7 @@ class GeneralReports extends CI_Controller {
                 ->build();
 
         $writer->openToBrowser('Reporte IP RAN(' . date('Y-m-d') . ').xlsx');
-        $titles = array('Ticket Incidencia', 'Tipo Ticket', 'Id Ticket', 'Fecha Creacion Nota', 'Clase Tarea', 'Descripcion Ticket', 'Prioridad Actividad', 'Persona Responsable', 'Nombre Responsable', 'Estado Tarea', 'Inicio Real Tarea', 'Finalizacion Real Tarea', 'Grupo Propietario Incidencia', 'Regional', 'Ruta');
+        $titles = array('TICKETID', 'ID_NOTA', 'FECHA_CREA_NOTA', 'CLASS', 'CREADOR_NOTA', 'DESCRIPTION_NOTA', 'NEMO', 'DESCRIPCION_TK_CH', 'RUTA_TKT', 'PRIORIDAD_ACTIVIDAD', 'DESCRIPTION_ACTIVIDAD', 'ESTADO_ACTIVIDAD', 'ACTSTART', 'ACTFINISH', 'GRUPO_TKT_CH', 'REGIONAL');
 
         $header = WriterEntityFactory::createRowFromArray($titles);
         $writer->addRow($header);

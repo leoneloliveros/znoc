@@ -15,6 +15,20 @@ public function saveBinnacle($value, $tabla)
       }
   }
 
+  public function getIncidentMC($queryresult) {
+      $query = $this->db->query($queryresult);
+      $data = $query->result();
+      $_SESSION['x'] = $data;
+      return $data;
+  }
+
+  public function getIncidentsTI($queryresult) {
+      $query = $this->db->query($queryresult);
+      $data = $query->result();
+      $_SESSION['x'] = $data;
+      return $data;
+  }
+
 
 }
 ?>
