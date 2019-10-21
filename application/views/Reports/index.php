@@ -133,6 +133,8 @@ Reportes
 
 <script src="<?= base_url("assets/js/utils/helper.js?v=" . validarEnProduccion()) ?>"></script>
 <script type="text/javascript" src="<?= base_url('assets/js/modules/generalReport.js'); ?>"></script>
+<script src="<?= base_url('assets/js/inputAnimations.js'); ?>"></script>
+
 
 <script type="text/javascript">
 
@@ -300,4 +302,3 @@ Reportes
     }
 
 </style>
-<script src="<?= base_url("assets/js/backoffice.js?v" . validarEnProduccion()) ?>"></script>

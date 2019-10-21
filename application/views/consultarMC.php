@@ -2,6 +2,16 @@
 Consultar Bitacoras Mesa De Calidad
 </div>
 
+<style>
+.valD::placeholder{
+  color: black;
+  text-align: center;
+}
+
+input{
+  text-align: center;
+}
+</style>
 
 <div style="display:flex; justify-content: center;">
   <div class="card-style w-60">
@@ -10,8 +20,10 @@ Consultar Bitacoras Mesa De Calidad
           <div class="col-md-6 position-relative switch-container ">
             <div class="form-group">
               <label class="form-label"> Tipo de bitácora</label>
-              <select id="bitac" name="opcion" class="form-control form-input required-field">
-                <option value="">Seleccione...</option>
+              <select id="bitacoras" name="opcion" class="form-control form-input required-field">
+                <option value=""></option>
+                <option value="general">General</option>
+                <option value="turno_integral">Turno Integral</option>
               </select>
             </div>
           </div>
@@ -19,11 +31,11 @@ Consultar Bitacoras Mesa De Calidad
 
           <div class="switch-container col-md-6 position-relative form-group" style="margin-top: 4px">
             <label class="switch">
-              <input id="toggleDate" class="checkbox form-check-input" type="checkbox" value="" >
+              <input id="filtroFehca" class="checkbox form-check-input" type="checkbox" value="" >
               <span class="slider round"></span>
             </label>
             <span class="checkbox-initial">
-              Filtro inicio de actividad:
+              Solo fehca de inicio
             </span>
           </div>
 
@@ -44,16 +56,17 @@ Consultar Bitacoras Mesa De Calidad
 
           <div class="col-md-12 col-body">
             <div class="wrap" style="margin: auto;">
-              <button type="submit" id="buscar" class="btnx" >Buscar</button>
-              <div id="#">
+              <button type="submit" id="showDataTable" class="btnx" >Buscar</button>
                 <img src="https://www.dropbox.com/s/qfu4871umzhlcfo/check_arrow_2.svg?dl=1">
                 <svg width="66px" height="66px">
                   <circle class="circle_2" stroke-position="outside" stroke-width="3" fill="none" cx="34" cy="33" r="29" stroke="#1ECD97"></circle>
                 </svg>
-              </div>
             </div>
           </div>
 
     </div>
   </div>
+</div>
+<div id="container-result" class="col-md-12">
+
 </div>

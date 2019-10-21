@@ -113,7 +113,11 @@
         <div class="col-md-4 col-body">
           <div class="form-group">
             <label class="form-label">Incidente</label>
-            <input type="text" post-data = "incidente" class="form-control  form-input required-field act" id="incidente">
+            <input list="incidents" type="text" post-data = "incidente" class="form-control  form-input required-field act" id="incidente">
+            <datalist id="incidents">
+              <option value=""></option>
+              <option value="N.A"></option>
+            </datalist>
           </div>
         </div>
 
@@ -121,14 +125,22 @@
         <div class="col-md-4 col-body">
           <div class="form-group">
             <label class="form-label">Tarea</label>
-            <input type="text" post-data = "tarea" class="form-control form-input required-field act" id="tarea">
+            <input list="tareas" type="text" post-data = "tarea" class="form-control form-input required-field act" id="tarea">
+            <datalist id="tareas">
+              <option value=""></option>
+              <option value="N.A"></option>
+            </datalist>
           </div>
         </div>
 
         <div class="col-md-4 col-body">
           <div class="form-group">
             <label class="form-label">Tk Creado</label>
-            <input type="text" post-data = "tk_creado" class="form-control  form-input required-field act" id="tkcreado">
+            <input list="tksCreados" type="text" post-data = "tk_creado" class="form-control  form-input required-field act" id="tkcreado">
+            <datalist id="tksCreados">
+              <option value=""></option>
+              <option value="N.A"></option>
+            </datalist>
           </div>
         </div>
 
