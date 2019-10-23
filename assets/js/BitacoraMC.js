@@ -4,7 +4,6 @@ Bitacora = {
     Bitacora.disabledInitial();
     Bitacora.formatDateInputs();
     Bitacora.inputsAbiertos();
-    Bitacora.activeResumen();
     Bitacora.fechaActual();
 
   },
@@ -16,7 +15,28 @@ Bitacora = {
   },
   envents: () => {
     $('#actividad').change(function() {
-      Bitacora.activeResumen();
+      var actividad = document.querySelector('#actividad').value;
+        if (actividad === 'OFENSORES') {
+            Bitacora.activeOfensores();
+            document.querySelector('#Nreport').setAttribute('style', 'display:none;');
+            document.querySelector('#NombreDelReporte').classList.remove('required-field')
+        }else if (actividad === 'REPORTES') {
+          Bitacora.activeReportes();
+          document.querySelector('#active').setAttribute('style', 'display:none;');
+          document.querySelector('#resumen').classList.remove('required-field')
+        }else {
+          document.querySelector('#active').setAttribute('style', 'display:none;');
+          document.querySelector('#resumen').classList.remove('required-field')
+          $('.remove').css('display' ,'block');
+          $('#causalCierre, #idAlarma, #tarea, #fmasiva, #degradacionAbis').addClass('required-field')
+
+
+          document.querySelector('#Nreport').setAttribute('style', 'display:none;');
+          document.querySelector('#NombreDelReporte').classList.remove('required-field')
+          $('.remove').css('display' ,'block');
+          $('#tkcreado, #causalCierre, #tarea, #fmasiva, #degradacionAbis').addClass('required-field')
+        }
+
     });
 
     $('#causalCierre').change(function() {
@@ -66,19 +86,23 @@ Bitacora = {
        $('#fechaInicio, #fechaFin, #fechaInicio2 , #fechaRespuesta,#dateInitial, #finalDay').mask("99/99/9999 99:99",{placeholder: "--/--/----   --:--"});
    },
 
-    activeResumen: () => {
-      var resume = document.querySelector('#actividad').value;
-      if (resume === 'OFENSORES') {
-      document.querySelector('#active').setAttribute('style', 'display:block;');
-      document.querySelector('#resumen').classList.add('required-field')
+    activeOfensores: () => {
+        document.querySelector('#active').setAttribute('style', 'display:block;');
+        document.querySelector('#resumen').classList.add('required-field')
+        $('.remove').css('display' ,'none');
+        $('#causalCierre, #idAlarma, #tarea, #fmasiva, #degradacionAbis').removeClass('required-field')
+    },
 
-    }else {
-        document.querySelector('#active').setAttribute('style', 'display:none;');
-        document.querySelector('#resumen').classList.remove('required-field')
+    activeReportes: () => {
 
-    }
+  document.querySelector('#Nreport').setAttribute('style', 'display:block;');
+  document.querySelector('#NombreDelReporte').classList.add('required-field')
+  $('.removeR').css('display' ,'none');
+  $('#tkcreado, #causalCierre, #tarea, #fmasiva, #degradacionAbis').removeClass('required-field')
 
-  },
+},
+
+
 
   desbloqueardisables: () =>{
       var bitacora =  document.querySelector('#bitacora').value;
@@ -94,7 +118,7 @@ Bitacora = {
          divs[i].value = "";
        }
        Bitacora.inputsAbiertos();
-       Bitacora.activeResumen();
+       Bitacora.activeOfensores();
      }
    },
 
@@ -131,8 +155,8 @@ Bitacora = {
         case '10':
         helper.miniAlert("Se presenta falla masiva escalada bajo INC.", 'warning','6000');
         break;
-               default:
-               helper.miniAlert("nada", 'warning');
+        default:
+        helper.miniAlert("No aplica", 'warning');
       }
 
    },
@@ -238,22 +262,32 @@ Bitacora = {
    },
 
    Calculofechas: function(){
-     var f1= document.querySelector('#fechaInicio').value;
-     var f2 = document.querySelector('#fechaFin').value;
-     var fecha1 = moment( f1, 'DD/MM/YYYY HH:mm');
-     var fecha2 = moment( f2, 'DD/MM/YYYY HH:mm');
+     var fechaIncio = document.getElementById('fechaInicio').value
+     var fechaFin = document.getElementById('fechaFin').value
+     var fecha1 = moment( fechaIncio, 'DD/MM/YYYY HH:mm');
+     var fecha2 = moment( fechaFin, 'DD/MM/YYYY HH:mm');
+     var minutosF1 = fechaIncio.substring((fechaIncio.length-2))
+     var minutosF2 = fechaFin.substring((fechaFin.length-2))
+     var minutosF1N = parseInt(minutosF1)
+     var minutosF2N = parseInt(minutosF2)
+     var totalMinutos= minutosF2N - minutosF1N
      var duracion = document.querySelector('#duracion')
-     var diferencia = (fecha2.diff(fecha1, 'hours') +' '+ 'horas')
+     var diferencia = (fecha2.diff(fecha1, 'hours') +' '+ 'Horas' + ' ' + totalMinutos + ' ' + 'Minutos' )
      duracion.value = diferencia;
    },
 
    CalculofechasTI_S: function(){
-     var f1= document.querySelector('#fechaInicio2').value;
-     var f2 = document.querySelector('#fechaRespuesta').value;
-     var fecha1 = moment( f1, 'DD/MM/YYYY HH:mm');
-     var fecha2 = moment( f2, 'DD/MM/YYYY HH:mm');
+     var fechaIncio = document.getElementById('fechaInicio2').value
+     var fechaFin = document.getElementById('fechaRespuesta').value
+     var fecha1 = moment( fechaIncio, 'DD/MM/YYYY HH:mm');
+     var fecha2 = moment( fechaFin, 'DD/MM/YYYY HH:mm');
+     var minutosF1 = fechaIncio.substring((fechaIncio.length-2))
+     var minutosF2 = fechaFin.substring((fechaFin.length-2))
+     var minutosF1N = parseInt(minutosF1)
+     var minutosF2N = parseInt(minutosF2)
+     var totalMinutos= minutosF2N - minutosF1N
      var duracion = document.querySelector('#tiempoRespuesta')
-     var diferencia = (fecha2.diff(fecha1, 'hours') +' '+ 'horas')
+     var diferencia = (fecha2.diff(fecha1, 'hours') +' '+ 'Horas' + ' ' + totalMinutos + ' ' + 'Minutos' )
      duracion.value = diferencia;
    },
    fechaActual: ()=>{

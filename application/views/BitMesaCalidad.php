@@ -69,6 +69,13 @@
           </div>
         </div>
 
+        <div class="col-md-4 col-body" id="Nreport" hidden>
+          <div class="form-group">
+            <label class="form-label">Nombre del Reporte</label>
+            <input type="text" post-data = "nombre_reporte" class="form-control form-input" id="NombreDelReporte">
+          </div>
+        </div>
+
         <div class="col-md-4 col-body">
           <div class="form-group">
             <label class="form-label">Turno</label>
@@ -103,7 +110,7 @@
           </div>
         </div>
 
-        <div class="col-md-4 col-body">
+        <div class="col-md-4 col-body remove">
           <div class="form-group">
             <label class="form-label">ID Alarma</label>
             <input type="text" post-data = "id_alarma" class="form-control  form-input required-field act" id="idAlarma">
@@ -122,7 +129,7 @@
         </div>
 
 
-        <div class="col-md-4 col-body">
+        <div class="col-md-4 col-body remove removeR">
           <div class="form-group">
             <label class="form-label">Tarea</label>
             <input list="tareas" type="text" post-data = "tarea" class="form-control form-input required-field act" id="tarea">
@@ -133,7 +140,7 @@
           </div>
         </div>
 
-        <div class="col-md-4 col-body">
+        <div class="col-md-4 col-body removeR">
           <div class="form-group">
             <label class="form-label">Tk Creado</label>
             <input list="tksCreados" type="text" post-data = "tk_creado" class="form-control  form-input required-field act" id="tkcreado">
@@ -144,7 +151,7 @@
           </div>
         </div>
 
-        <div class="col-md-4 col-body ">
+        <div class="col-md-4 col-body remove removeR">
           <div class="form-group">
             <label class="form-label">Falla Masiva</label>
             <select  id="fmasiva" post-data = "falla_masiva" class="form-control  form-input required-field">
@@ -156,7 +163,7 @@
           </div>
         </div>
 
-        <div class="col-md-4 col-body ">
+        <div class="col-md-4 col-body remove removeR">
           <div class="form-group">
             <label class="form-label">Cusal De Cierre</label>
             <select  id="causalCierre" post-data = "causal_de_cierre" class="form-control  form-input required-field">
@@ -171,6 +178,7 @@
               <option value="8">8</option>
               <option value="9">9</option>
               <option value="10">10</option>
+              <option value="N.A">N.A</option>
             </select>
           </div>
         </div>
@@ -189,7 +197,7 @@
           </div>
         </div>
 
-        <div class="col-md-4 col-body ">
+        <div class="col-md-4 col-body remove removeR">
           <div class="form-group">
             <label class="form-label">Degradacion por Packet Abis</label>
             <select  id="degradacionAbis" post-data = "degradacion_por_packet_abis" class="form-control form-input required-field">
@@ -203,14 +211,14 @@
         <div class="col-md-4 col-body ">
           <div class="form-group">
             <label class="form-label">Observaciones</label>
-            <textarea class="form-control form-input required-field" post-data = "obaservaciones" id="observaciones" rows="1"></textarea>
+            <textarea class="form-control form-input" post-data = "obaservaciones" id="observaciones" rows="1"></textarea>
           </div>
         </div>
 
-        <div class="col-md-4 col-body" id="active">
+        <div class="col-md-4 col-body" id="active" hidden>
           <div class="form-group">
             <label class="form-label">Resumen</label>
-            <textarea class="control form-input " post-data = "resumen" id="resumen" rows="1"></textarea>
+            <textarea class="form-control form-input" post-data = "resumen" id="resumen" rows="1"></textarea>
           </div>
         </div>
 
