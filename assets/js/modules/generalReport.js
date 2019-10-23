@@ -154,6 +154,39 @@ $(function () {
                         window.open(base_url + "GeneralReports/excelReporteIpRan");
                     });
                     break;
+                    case '14':
+                    $.post(base_url + "GeneralReports/c_getDataFromTiempoAtencionMC", {
+                        desde: $(`#fDesde`).val(),
+                        hasta: $(`#fHasta`).val(),
+                    }).done(function () {
+                        $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
+                        $('#loader').hide();
+                        $('.spinner-loader').hide();
+                        window.open(base_url + "GeneralReports/excelTiempoAtencionMC");
+                    });
+                    break;
+                    case '15':
+                    $.post(base_url + "GeneralReports/c_getDataFromMapasCalor", {
+                        desde: $(`#fDesde`).val(),
+                        hasta: $(`#fHasta`).val(),
+                    }).done(function () {
+                        $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
+                        $('#loader').hide();
+                        $('.spinner-loader').hide();
+                        window.open(base_url + "GeneralReports/excelMapasCalor");
+                    });
+                    break;
+                    case '16':
+                    $.post(base_url + "GeneralReports/c_getDataFromGestionOfensores", {
+                        desde: $(`#fDesde`).val(),
+                        hasta: $(`#fHasta`).val(),
+                    }).done(function () {
+                        $("#newDate,#fDesde, #fHasta, #selection").attr('disabled', false);
+                        $('#loader').hide();
+                        $('.spinner-loader').hide();
+                        window.open(base_url + "GeneralReports/excelGestionOfensores");
+                    });
+                    break;
                 default:
                 // code block
             }
