@@ -56,6 +56,9 @@ Reportes
                     <option value="11">Incidentes Cerrados</option>
                     <option value="12">Reporte GORGT4</option>
                     <option value="13">Reporte IP RAN</option>
+                    <option value="14">Tiempo Atencion MC</option>
+                    <option value="15">Mapas de Calor</option>
+                    <option value="16">Gestion Ofensores</option>
                 </select>
                 </div>
             </div>

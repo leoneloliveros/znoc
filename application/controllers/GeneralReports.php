@@ -219,6 +219,100 @@ class GeneralReports extends CI_Controller {
         }
         $writer->close();
     }
+    public function c_getDataFromGestionOfensores() {
+        $fdesde = $this->input->post('desde');
+        $fhasta = $this->input->post('hasta');
+        $data = $this->Dao_reportes_model->getGestionOfensores($fdesde, $fhasta);
+        echo json_encode($data);
+    }
+
+    public function excelGestionOfensores() {
+        $data = $_SESSION['x'];
+        // echo '<pre>'; print_r("lol"); echo '</pre>';
+        $writer = WriterEntityFactory::createXLSXWriter();
+        $style = (new StyleBuilder())
+                ->setShouldWrapText(false)
+                ->build();
+
+        $writer->openToBrowser('GestionOfensores(' . date('Y-m-d') . ').xlsx');
+        $titles = array('TICKETID', 'ZONA_TKT', 'TIPO_TKT', 'CREATIONDATE', 'CLOSEDATE', 'ACTUALFINISH', 'STATUSDATE', 'STATUS', 'INTERNALPRIORITY', 'URGENCY', 'IMPACT', 'INCMESTADO', 'CREATEDBY', 'CHANGEDATE', 'OWNER', 'OWNERGROUP', 'LOCATION', 'MUN100', 'AFECTACION_TOTAL_CORE', 'INCEXCLUIR', 'INCMEXCLUSION', 'PROVEEDORES', 'TICKET_EXT', 'DESCRIPTION', 'EXTERNALSYSTEM', 'RUTA_TKT', 'INC_ALARMA', 'INCSOLUCION', 'GERENTE', 'REGIONAL', 'CIUDAD_MUNICIPIO', 'FAILURECODE', 'PROBLEM_CODE', 'PROBLEM_DESCRIPTION', 'CAUSE_CODE', 'CAUSE_DESCRIPTION', 'REMEDY_CODE', 'REMEDY_DESCRIPTION', 'TIEMPO_VIDA_TKT', 'TIEMPO_RESOLUCION_TKT', 'TIEMPO_DETECCION', 'TIEMPO_ESCALA', 'TIEMPO_FALLA', 'TIEMPO_OT_ALM' );
+
+        $header = WriterEntityFactory::createRowFromArray($titles);
+        $writer->addRow($header);
+        foreach ($data as $val) {
+
+            $cells = array();
+            foreach ($val as $val1) {
+                array_push($cells, WriterEntityFactory::createCell($val1, $style));
+            }
+            $rowFromValues = WriterEntityFactory::createRow($cells);
+            $writer->addRow($rowFromValues);
+        }
+        $writer->close();
+    }
+
+    public function c_getDataFromMapasCalor() {
+        $fdesde = $this->input->post('desde');
+        $fhasta = $this->input->post('hasta');
+        $data = $this->Dao_reportes_model->getMapasCalor($fdesde, $fhasta);
+        echo json_encode($data);
+    }
+
+    public function excelMapasCalor() {
+        $data = $_SESSION['x'];
+        // echo '<pre>'; print_r("lol"); echo '</pre>';
+        $writer = WriterEntityFactory::createXLSXWriter();
+        $style = (new StyleBuilder())
+                ->setShouldWrapText(false)
+                ->build();
+
+        $writer->openToBrowser('MapasCalor(' . date('Y-m-d') . ').xlsx');
+        $titles = array('TICKETID', 'ZONA_TKT', 'TIPO_TKT', 'CREATIONDATE', 'CLOSEDATE', 'ACTUALFINISH', 'STATUSDATE', 'STATUS', 'DESCRIPTION','RUTA_TKT', 'CREACION NOTA', 'DESCRIPTION');
+
+        $header = WriterEntityFactory::createRowFromArray($titles);
+        $writer->addRow($header);
+        foreach ($data as $val) {
+
+            $cells = array();
+            foreach ($val as $val1) {
+                array_push($cells, WriterEntityFactory::createCell($val1, $style));
+            }
+            $rowFromValues = WriterEntityFactory::createRow($cells);
+            $writer->addRow($rowFromValues);
+        }
+        $writer->close();
+    }
+    public function c_getDataFromTiempoAtencionMC() {
+        $fdesde = $this->input->post('desde');
+        $fhasta = $this->input->post('hasta');
+        $data = $this->Dao_reportes_model->getTiempoAtencionMC($fdesde, $fhasta);
+        echo json_encode($data);
+    }
+
+    public function excelTiempoAtencionMC() {
+        $data = $_SESSION['x'];
+        // echo '<pre>'; print_r("lol"); echo '</pre>';
+        $writer = WriterEntityFactory::createXLSXWriter();
+        $style = (new StyleBuilder())
+                ->setShouldWrapText(false)
+                ->build();
+
+        $writer->openToBrowser('TareasTiempoAtencionMC(' . date('Y-m-d') . ').xlsx');
+        $titles = array('TAREA', 'FECHA CREACION DE TAREA', 'DESCRIPCION TAREA', 'ESTADO TAREA', 'FECHA ESTADO', 'INCIDENTE', 'INCIDENTE CREADO POR', 'FECHA CREACION INCIDENTE', 'ESTADO INCIDENTE', 'DESCRIPCION INCIDENTE', 'FECHA CIERRE INCIDENTE', 'CREADOR DE NOTA', 'NOMBRE INGENIERO', 'FECHA NOTA', 'RESUMEN NOTA', 'DETALLE NOTA', 'ELEMENTO DE RED', 'KPI', 'INICIO ALARMA', 'FIN ALARMA', 'MES ATENCION', 'DIA ATENCION', 'TIEMPO PRIMERA ATENCION', 'TIEMPO DIAGNOSTICO');
+
+        $header = WriterEntityFactory::createRowFromArray($titles);
+        $writer->addRow($header);
+        foreach ($data as $val) {
+
+            $cells = array();
+            foreach ($val as $val1) {
+                array_push($cells, WriterEntityFactory::createCell($val1, $style));
+            }
+            $rowFromValues = WriterEntityFactory::createRow($cells);
+            $writer->addRow($rowFromValues);
+        }
+        $writer->close();
+    }
 
     public function c_getDataFromTareasFOPerformance() {
         $fdesde = $this->input->post('desde');
@@ -236,7 +330,7 @@ class GeneralReports extends CI_Controller {
                 ->build();
 
         $writer->openToBrowser('TareasFOPerformance(' . date('Y-m-d') . ').xlsx');
-        $titles = array('TAREA', 'FECHA CREACION DE TAREA', 'DESCRIPCION TAREA', 'ESTADO TAREA', 'FECHA ESTADO', 'INCIDENTE', 'INCIDENTE CREADO POR',  'FECHA CREACION INCIDENTE', 'ESTADO INCIDENTE', 'DESCRIPCION INCIDENTE', 'FECHA CIERRE INCIDENTE', 'CREADOR DE NOTA', 'FECHA NOTA', 'RESUMEN NOTA', 'DETALLE NOTA', 'ELEMENTO DE RED', 'KPI', 'INICIO ALARMA', 'FIN ALARMA');
+        $titles = array('TAREA', 'FECHA CREACION DE TAREA', 'DESCRIPCION TAREA', 'ESTADO TAREA', 'FECHA ESTADO', 'INCIDENTE', 'INCIDENTE CREADO POR', 'FECHA CREACION INCIDENTE', 'ESTADO INCIDENTE', 'DESCRIPCION INCIDENTE', 'FECHA CIERRE INCIDENTE', 'CREADOR DE NOTA', 'NOMBRE INGENIERO', 'FECHA NOTA', 'RESUMEN NOTA', 'DETALLE NOTA', 'ELEMENTO DE RED', 'KPI', 'INICIO ALARMA', 'FIN ALARMA', 'MES ATENCION', 'DIA ATENCION', 'TIEMPO PRIMERA ATENCION', 'TIEMPO DIAGNOSTICO');
 
         $header = WriterEntityFactory::createRowFromArray($titles);
         $writer->addRow($header);
@@ -251,6 +345,7 @@ class GeneralReports extends CI_Controller {
         }
         $writer->close();
     }
+
 
     public function c_getTiempoAtencion() {
         $fdesde = $this->input->post('desde');
