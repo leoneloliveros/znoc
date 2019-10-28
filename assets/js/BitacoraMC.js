@@ -15,28 +15,7 @@ Bitacora = {
   },
   envents: () => {
     $('#actividad').change(function() {
-      var actividad = document.querySelector('#actividad').value;
-        if (actividad === 'OFENSORES') {
-            Bitacora.activeOfensores();
-            document.querySelector('#Nreport').setAttribute('style', 'display:none;');
-            document.querySelector('#NombreDelReporte').classList.remove('required-field')
-        }else if (actividad === 'REPORTES') {
-          Bitacora.activeReportes();
-          document.querySelector('#active').setAttribute('style', 'display:none;');
-          document.querySelector('#resumen').classList.remove('required-field')
-        }else {
-          document.querySelector('#active').setAttribute('style', 'display:none;');
-          document.querySelector('#resumen').classList.remove('required-field')
-          $('.remove').css('display' ,'block');
-          $('#causalCierre, #idAlarma, #tarea, #fmasiva, #degradacionAbis').addClass('required-field')
-
-
-          document.querySelector('#Nreport').setAttribute('style', 'display:none;');
-          document.querySelector('#NombreDelReporte').classList.remove('required-field')
-          $('.remove').css('display' ,'block');
-          $('#tkcreado, #causalCierre, #tarea, #fmasiva, #degradacionAbis').addClass('required-field')
-        }
-
+        Bitacora.activityChange();
     });
 
     $('#causalCierre').change(function() {
@@ -94,14 +73,16 @@ Bitacora = {
     },
 
     activeReportes: () => {
+      document.querySelector('#Nreport').setAttribute('style', 'display:block;');
+      document.querySelector('#NombreDelReporte').classList.add('required-field')
+      $('.removeR').css('display' ,'none');
+      $('#tkcreado, #idAlarma, #causalCierre, #tarea, #fmasiva, #degradacionAbis').removeClass('required-field')
+    },
 
-  document.querySelector('#Nreport').setAttribute('style', 'display:block;');
-  document.querySelector('#NombreDelReporte').classList.add('required-field')
-  $('.removeR').css('display' ,'none');
-  $('#tkcreado, #causalCierre, #tarea, #fmasiva, #degradacionAbis').removeClass('required-field')
-
-},
-
+    activeGestionProblemas: ()=> {
+      $('.removeR').css('display' ,'none');
+      $('#tkcreado, #idAlarma, #causalCierre, #tarea, #fmasiva, #degradacionAbis').removeClass('required-field')
+    },
 
 
   desbloqueardisables: () =>{
@@ -120,6 +101,40 @@ Bitacora = {
        Bitacora.inputsAbiertos();
        Bitacora.activeOfensores();
      }
+   },
+
+   activityChange:()=>{
+     var actividad = document.querySelector('#actividad').value;
+     if (actividad == 'OFENSORES'  || actividad == 'GESTION PROBLEMAS' || actividad == 'CONTROL DE CALIDAD' || actividad == 'REPORTES') {
+       if (actividad == 'OFENSORES') {
+         document.querySelector('#active').setAttribute('style', 'display:block;');
+         document.querySelector('#resumen').classList.add('required-field')
+       } if (actividad != 'OFENSORES') {
+         document.querySelector('#active').setAttribute('style', 'display:none;');
+         document.querySelector('#resumen').classList.remove('required-field')
+       }if (actividad == 'REPORTES') {
+         $('#tk-remove').css('display' ,'none');
+         $('#tkcreado').removeClass('required-field')
+         document.querySelector('#Nreport').setAttribute('style', 'display:block;');
+         document.querySelector('#NombreDelReporte').classList.add('required-field')
+       } if (actividad != 'REPORTES') {
+         $('#tk-remove').css('display' ,'block');
+         document.querySelector('#tkcreado').classList.add('required-field')
+         document.querySelector('#Nreport').setAttribute('style', 'display:none;');
+         document.querySelector('#NombreDelReporte').classList.remove('required-field')
+       }
+       $('.removeR').css('display' ,'none');
+       $('#idAlarma, #causalCierre, #tarea, #fmasiva, #degradacionAbis').removeClass('required-field')
+       }else {
+       $('.removeR').css('display' ,'block');
+       $('#idAlarma, #causalCierre, #tarea, #fmasiva, #degradacionAbis, #tkcreado').addClass('required-field')
+       document.querySelector('#active').setAttribute('style', 'display:none;');
+       document.querySelector('#resumen').classList.remove('required-field')
+       $('#tk-remove').css('display' ,'block');
+       document.querySelector('#tkcreado').classList.add('required-field')
+       document.querySelector('#Nreport').setAttribute('style', 'display:none;');
+       document.querySelector('#NombreDelReporte').classList.remove('required-field')
+       }
    },
 
    alertsForCDC: ()=>{

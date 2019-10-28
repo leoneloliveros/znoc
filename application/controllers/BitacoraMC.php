@@ -86,6 +86,7 @@ class BitacoraMC extends CI_Controller {
         ->column('Duracion','duracion')
         ->column('Semana','semana')
         ->column('Actividad','actividad')
+        ->column('Nombre del Reporte','nombre_reporte')
         ->column('Turno','turno')
         ->column('Nemonico','nemonico')
         ->column('ID alarma','id_alarma')
@@ -97,7 +98,15 @@ class BitacoraMC extends CI_Controller {
         ->column('Causal de Cierre','causal_de_cierre')
         ->column('Estado','estado')
         ->column('Degradacion por packet Abis','degradacion_por_packet_abis')
-        ->column('Obseraciones','obaservaciones');
+        ->column('Obseraciones','obaservaciones')
+        ->column('Editar','id', function($data){
+          // href='".base_url('BitacoraMC/EditarBitacorasMC/').$data."'
+          $input = "
+            <a  class=\"openFormAcces\" title=\"Editar Bitacora\">
+              <i class=\"fas fa-edit\"></i>
+            </a>";
+            return $input;
+        });
 
       $this->datatables->create('bitacoraMC', $bitacoraMC);
       $this->load->view('bitacoras/loadBitacoraMC');
@@ -200,6 +209,20 @@ class BitacoraMC extends CI_Controller {
         }
         $writer->close();
 
+    }
+
+    public function EditarBitacorasMC()
+    {
+    $data = array(
+        'active_sidebar' => false,
+        'title' => 'Consultar Bitacoras MC',
+        'active' => "editar_bitacora_mc",
+        'header' => array('Editar Bitacora', 'Mesa de Calidad'),
+        'sub_bar' => true
+    );
+      $this->load->view('parts/header', $data);
+      $this->load->view('EditarBitacoraMC');
+      $this->load->view('parts/footer');
     }
 
 
