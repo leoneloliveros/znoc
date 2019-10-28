@@ -35,7 +35,7 @@ input{
               <span class="slider round"></span>
             </label>
             <span class="checkbox-initial">
-              Solo fehca de inicio
+              Solo fecha de inicio
             </span>
           </div>
 

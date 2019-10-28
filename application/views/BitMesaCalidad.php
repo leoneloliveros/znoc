@@ -7,7 +7,7 @@
       <div class="col-md-12">
         <div class=" col-md-4 col-sm-offset-4">
           <div class="form-group">
-            <label class="form-label">Tipo de Bitacora</label>
+            <label class="form-label" for="bitacora">Tipo de Bitacora</label>
             <select  id="bitacora" class="form-input required-field act">
               <option value=""></option>
               <option value="BITACORA GENERAL">BITACORA GENERAL</option>
@@ -19,7 +19,7 @@
 
       <div class="col-md-4 col-body">
         <div class="form-group">
-          <label class="form-label">Ingeniero</label>
+          <label class="form-label" for="ingeniero">Ingeniero</label>
           <input type="text" post-data = "ingeniero" post-datos = "ingeniero" class="form-control form-input required-field act" value="<?php echo $this->session->userdata('name'); ?>" id="ingeniero" readonly>
         </div>
       </div>
@@ -27,36 +27,36 @@
     <div class="generalForm" id="generalForm">
 
         <div class="col-md-4 col-body">
-          <div class="form-group">
-            <label class="form-label">Fecha y Hora Inicio</label>
+          <div class="form-group" foreach>
+            <label class="form-label" for="fechaInicio">Fecha y Hora Inicio</label>
             <input type="text" post-data = "fecha_hora_inicio" class="form-control form-input required-field act" id="fechaInicio">
           </div>
         </div>
 
       <div class="col-md-4 col-body">
           <div class="form-group">
-            <label class="form-label">Fecha y Hora Fin</label>
+            <label class="form-label" for="fechaFin">Fecha y Hora Fin</label>
             <input type="text" post-data = "fecha_hora_fin" class="form-control form-input required-field act" id="fechaFin">
           </div>
         </div>
 
         <div class="col-md-4 col-body">
           <div class="form-group">
-            <label class="form-label">Duracion</label>
+            <label class="form-label" for="duracion">Duracion</label>
             <input type="text" post-data = "duracion" class="form-control form-input required-field act" id="duracion">
           </div>
         </div>
 
-        <div class="col-md-4 col-body">
+        <!-- <div class="col-md-4 col-body">
           <div class="form-group">
-            <label class="form-label">Semana</label>
+            <label class="form-label" for="semana">Semana</label>
             <input type="text" post-data = "semana" class="form-control form-input required-field act" id="semana">
           </div>
-        </div>
+        </div> -->
 
         <div class="col-md-4 col-body">
           <div class="form-group">
-            <label class="form-label">Actividad</label>
+            <label class="form-label" for="actividad">Actividad</label>
             <select  id="actividad" post-data = "actividad" class="form-control form-input required-field">
               <option value=""></option>
               <option value="GESTION T&P">GESTION T&P</option>
@@ -71,14 +71,14 @@
 
         <div class="col-md-4 col-body" id="Nreport" hidden>
           <div class="form-group">
-            <label class="form-label">Nombre del Reporte</label>
+            <label class="form-label" for="NombreDelReporte">Nombre del Reporte</label>
             <input type="text" post-data = "nombre_reporte" class="form-control form-input" id="NombreDelReporte">
           </div>
         </div>
 
         <div class="col-md-4 col-body">
           <div class="form-group">
-            <label class="form-label">Turno</label>
+            <label class="form-label" for="turno">Turno</label>
             <select  id="turno" post-data = "turno" class="form-control form-input required-field">
               <option value=""></option>
               <option value="T1">T1</option>
@@ -92,7 +92,7 @@
 
         <div class="col-md-4 col-body">
           <div class="form-group">
-            <label class="form-label">Nemonico</label>
+            <label class="form-label" for="nemonico">Nemonico</label>
             <select  id="nemonico" post-data = "nemonico" class="form-control  form-input required-field">
               <option value=""></option>
               <option value="MC_AICT5">MC_AICT5</option>
@@ -110,16 +110,16 @@
           </div>
         </div>
 
-        <div class="col-md-4 col-body remove">
+        <div class="col-md-4 col-body remove removeR">
           <div class="form-group">
-            <label class="form-label">ID Alarma</label>
+            <label class="form-label" for="idAlarma">ID Alarma</label>
             <input type="text" post-data = "id_alarma" class="form-control  form-input required-field act" id="idAlarma">
           </div>
         </div>
 
         <div class="col-md-4 col-body">
           <div class="form-group">
-            <label class="form-label">Incidente</label>
+            <label class="form-label" for="incidente">Incidente</label>
             <input list="incidents" type="text" post-data = "incidente" class="form-control  form-input required-field act" id="incidente">
             <datalist id="incidents">
               <option value=""></option>
@@ -131,7 +131,7 @@
 
         <div class="col-md-4 col-body remove removeR">
           <div class="form-group">
-            <label class="form-label">Tarea</label>
+            <label class="form-label" for="tarea">Tarea</label>
             <input list="tareas" type="text" post-data = "tarea" class="form-control form-input required-field act" id="tarea">
             <datalist id="tareas">
               <option value=""></option>
@@ -140,9 +140,9 @@
           </div>
         </div>
 
-        <div class="col-md-4 col-body removeR">
+        <div class="col-md-4 col-body" id="tk-remove">
           <div class="form-group">
-            <label class="form-label">Tk Creado</label>
+            <label class="form-label" for="tkcreado">Tk Creado</label>
             <input list="tksCreados" type="text" post-data = "tk_creado" class="form-control  form-input required-field act" id="tkcreado">
             <datalist id="tksCreados">
               <option value=""></option>
@@ -153,7 +153,7 @@
 
         <div class="col-md-4 col-body remove removeR">
           <div class="form-group">
-            <label class="form-label">Falla Masiva</label>
+            <label class="form-label" for="fmasiva">Falla Masiva</label>
             <select  id="fmasiva" post-data = "falla_masiva" class="form-control  form-input required-field">
               <option value=""></option>
               <option value="SI">SI</option>
@@ -165,7 +165,7 @@
 
         <div class="col-md-4 col-body remove removeR">
           <div class="form-group">
-            <label class="form-label">Cusal De Cierre</label>
+            <label class="form-label" for="causalCierre">Cusal De Cierre</label>
             <select  id="causalCierre" post-data = "causal_de_cierre" class="form-control  form-input required-field">
               <option value=""></option>
               <option value="1">1</option>
@@ -185,7 +185,7 @@
 
         <div class="col-md-4 col-body ">
           <div class="form-group">
-            <label class="form-label">Estado</label>
+            <label class="form-label" for="estado">Estado</label>
             <input list="esatdos" post-data = "estado" id="estado" class="form-control  form-input required-field" type="text">
               <datalist id="esatdos">
                 <option value=""></option>
@@ -199,7 +199,7 @@
 
         <div class="col-md-4 col-body remove removeR">
           <div class="form-group">
-            <label class="form-label">Degradacion por Packet Abis</label>
+            <label class="form-label" for="degradacionAbis">Degradacion por Packet Abis</label>
             <select  id="degradacionAbis" post-data = "degradacion_por_packet_abis" class="form-control form-input required-field">
               <option value=""></option>
               <option value="Si">Si</option>
@@ -210,14 +210,14 @@
 
         <div class="col-md-4 col-body ">
           <div class="form-group">
-            <label class="form-label">Observaciones</label>
+            <label class="form-label" for="observaciones">Observaciones</label>
             <textarea class="form-control form-input" post-data = "obaservaciones" id="observaciones" rows="1"></textarea>
           </div>
         </div>
 
         <div class="col-md-4 col-body" id="active" hidden>
           <div class="form-group">
-            <label class="form-label">Resumen</label>
+            <label class="form-label" for="resumen">Resumen</label>
             <textarea class="form-control form-input" post-data = "resumen" id="resumen" rows="1"></textarea>
           </div>
         </div>
@@ -239,14 +239,14 @@
 
       <div class="col-md-4 col-body">
         <div class="form-group">
-          <label class="form-label">Fecha y Hora Inicio</label>
+          <label class="form-label" for="fechaInicio2">Fecha y Hora Inicio</label>
           <input type="text" post-datos = "fecha_hora_solicitud" class="form-control form-input required-field act" id="fechaInicio2">
         </div>
       </div>
 
       <div class="col-md-4 col-body ">
         <div class="form-group">
-          <label class="form-label">Solicitante</label>
+          <label class="form-label" for="solicitante">Solicitante</label>
           <input list="solicitantes"  post-datos = "solicitante"  id="solicitante" class="form-control  form-input required-field" type="text">
             <datalist id="solicitantes">
               <option value=""></option>
@@ -263,14 +263,14 @@
 
       <div class="col-md-4 col-body">
         <div class="form-group">
-          <label class="form-label">Incidente</label>
+          <label class="form-label" for="incidente2">Incidente</label>
           <input type="text" post-datos = "incidente"  class="form-control  form-input required-field act" id="incidente2">
         </div>
       </div>
 
       <div class="col-md-4 col-body">
         <div class="form-group">
-          <label class="form-label">Medio</label>
+          <label class="form-label" for="medio">Medio</label>
           <select  id="medio" post-datos = "medio"  class="form-control  form-input required-field">
             <option value=""></option>
             <option value="chat">CHAT</option>
@@ -282,7 +282,7 @@
 
       <div class="col-md-4 col-body">
         <div class="form-group">
-          <label class="form-label">Tipificación</label>
+          <label class="form-label"for="tipificacion">Tipificación</label>
           <input list="tipificaciones" post-datos = "tipificacion"  id="tipificacion" class="form-control  form-input required-field" type="text">
             <datalist id="tipificaciones">
               <option value=""></option>
@@ -298,7 +298,7 @@
 
       <div class="col-md-4 col-body">
         <div class="form-group">
-          <label class="form-label">Turno</label>
+          <label class="form-label" for="turno2">Turno</label>
           <select  id="turno2" post-datos = "turno"  class="form-control form-input required-field">
             <option value=""></option>
             <option value="T1">T1</option>
@@ -312,7 +312,7 @@
 
       <div class="col-md-4 col-body">
         <div class="form-group">
-          <label class="form-label">Nemonico</label>
+          <label class="form-label" for="nemonico2">Nemonico</label>
           <select  id="nemonico2" post-datos = "nemonicon"  class="form-control  form-input required-field">
             <option value=""></option>
             <option value="MC_AICT5">MC_AICT5</option>
@@ -332,28 +332,28 @@
 
       <div class="col-md-4 col-body ">
         <div class="form-group">
-          <label class="form-label">Fecha y Hora Respuesta</label>
+          <label class="form-label" for="fechaRespuesta">Fecha y Hora Respuesta</label>
           <input type="text" post-datos = "fecha_hora_respuesta"  class="form-control form-input required-field act" id="fechaRespuesta">
         </div>
       </div>
 
       <div class="col-md-4 col-body ">
         <div class="form-group">
-          <label class="form-label">Tiempo de Respuesta</label>
+          <label class="form-label" for="tiempoRespuesta">Tiempo de Respuesta</label>
           <input type="text" post-datos = "tiempo_respuesta"  class="form-control form-input required-field act" id="tiempoRespuesta">
         </div>
       </div>
 
       <div class="col-md-4 col-body ">
         <div class="form-group">
-          <label class="form-label">Observaciones</label>
+          <label class="form-label" for="observaciones2">Observaciones</label>
           <textarea class="form-control form-input required-field" post-datos = "observaciones"  id="observaciones2" rows="1"></textarea>
         </div>
       </div>
 
       <div class="col-md-4 col-body ">
         <div class="form-group">
-          <label class="form-label">Resumen de solicitud</label>
+          <label class="form-label" for="resumenSolicitud">Resumen de solicitud</label>
           <textarea class="form-control form-input required-field" post-datos = "resumen_solicitud"  id="resumenSolicitud" rows="1"></textarea>
         </div>
       </div>
