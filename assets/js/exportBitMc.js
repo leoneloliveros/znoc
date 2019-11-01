@@ -58,6 +58,7 @@ exportar = {
           processing: true,
           serverSide: true,
           "scrollX": true,
+
           "searching": true,
           dom: 'frtip',
           select: true,
@@ -79,6 +80,7 @@ exportar = {
           },
           "drawCallback": function( settings, json){
                               queryValue = settings['json']['query'];
+                              // console.log(queryValue);
                           }
       });
   }
@@ -93,6 +95,26 @@ exportar = {
                 helper.hideLoading();
                 window.open(base_url + "BitacoraMC/exportIncidentsMC/" + parametrosFechas );
             });
+  });
+  $('#bitacoraMC_filter, #bitacoraTI_filter').prepend('<i class="fas fa-search" id="search-icon"></i>');
+  $('#bitacoraMC_filter input, #bitacoraTI_filter input').attr('id', 'search-input');
+  let active = false;
+  $('.contenedorMaestro').on('click', function(e){
+      if(e.target.id === 'search' || e.target.id === 'search-input' || e.target.id === 'search-icon') {
+          if(!active) {
+          $('#bitacoraMC_filter, #bitacoraTI_filter').addClass('active');
+          $('#bitacoraMC_filter, #bitacoraTI_filter').addClass('active');
+          $('#search-input').addClass('active');
+          $('#search-icon').addClass('active');
+          active = true;
+          }
+      } else {
+          $('#bitacoraMC_filter, #bitacoraTI_filter').removeClass('active');
+          $('#bitacoraMC_filter, #bitacoraTI_filter').removeClass('active');
+      $('#search-input').removeClass('active');
+      $('#search-icon').removeClass('active');
+      active = false;
+      }
   });
 
   $('#export-excel-ti').on('click', function() {

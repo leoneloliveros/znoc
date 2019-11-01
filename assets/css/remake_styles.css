@@ -26,6 +26,8 @@
 #loader {
   justify-content: center;
   display: flex;
+  width: 100%;
+  height: 100%;
 }
 
 .loader{
@@ -308,6 +310,10 @@ transition: all 0.7s ease-in-out;
     transform: translateY(-125%);
     font-size: .75em;
   }
+  .focuseds .form-label{
+    transform: translateY(-125%);
+    font-size: .75em;
+  }
 
   .form-input {
     position: relative;
@@ -404,7 +410,7 @@ padding: 10px;
 #FO_table_processing, #modal_table_processing {
 display:none !important;
 }
-div#bitacora_BO_table_filter,#modal_table_filter,#bitacora_MC_table_filter{
+div#bitacora_BO_table_filter,#modal_table_filter{
   height: 40px;
   width: 40px;
   border: solid 5px;
@@ -420,7 +426,7 @@ div#bitacora_BO_table_filter,#modal_table_filter,#bitacora_MC_table_filter{
   cursor: pointer;
   color: white;
 }
-div#FO_table_filter, #modal_table_filter {
+div#FO_table_filter, #modal_table_filter, #bitacoraMC_filter, #bitacoraTI_filter {
   height: 40px;
   width: 40px;
   border: solid 5px;
@@ -463,23 +469,23 @@ div#FO_table_filter, #modal_table_filter {
            color: black
        }
 
-       #FO_table_filter.active, #modal_table_filter.active {
+       #FO_table_filter.active, #modal_table_filter.active, #bitacoraMC_filter.active, #bitacoraTI_filter.active {
        width: 209px;
        }
-       #bitacora_BO_table_filter.active,  #modal_table_filter.active, #bitacora_MC_table_filter.active {
+       #bitacora_BO_table_filter.active,  #modal_table_filter.active{
        width: 209px;
        }
 
        #search-input.active, #search-input-modal.active {
        width: 209px;
-       margin-left: 18px;
+       margin-left: 10px;
        visibility: visible;
        margin-top: 9px;
        margin-top: -19px;
        padding-right: 42px;
        }
 
-        #search-icon.active {
+  #search-icon.active {
   padding-left: 25px;
   width: 10px;
   float: left;
@@ -487,12 +493,12 @@ div#FO_table_filter, #modal_table_filter {
   margin-top: 8px;
 
        }
-       #FO_table_filter label, #modal_table_filter label {
+       #FO_table_filter label, #modal_table_filter label, #bitacoraMC_filter label, #bitacoraTI_filter label {
            color: transparent;
            width: 10%;
            float: left;
        }
-       #bitacora_BO_table_filter label, #modal_table_filter label, #bitacora_MC_table_filter label {
+       #bitacora_BO_table_filter label, #modal_table_filter label{
          color: transparent;
          margin-right: -27px;
        }
@@ -754,7 +760,22 @@ top: -30px;
             top: 50%;
             left: -1%;
             box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
-}
+        }
+        #bitacoraMC_next, #bitacoraTI_next{
+          display: block;
+          position: absolute;
+          top: 50%;
+          right: -1%;
+          box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
+        }
+        #bitacoraMC_previous, #bitacoraTI_previous{
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: -1%;
+          box-shadow: 0 29px 32px -20px rgba(0,0,0,0.5), 0 4px 11px -3px rgba(0,0,0,0.25);
+        }
+
         }
 
 

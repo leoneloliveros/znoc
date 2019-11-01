@@ -5,7 +5,6 @@ Bitacora = {
     Bitacora.formatDateInputs();
     Bitacora.inputsAbiertos();
     Bitacora.fechaActual();
-
   },
   disabledInitial:()=>{
     divs = document.querySelectorAll(".generalForm input, .generalForm select, .generalForm textarea");
@@ -22,7 +21,6 @@ Bitacora = {
       Bitacora.alertsForCDC();
     });
       Bitacora.changeofBinnacle()
-
       $("#saveGeneral").on("click",()=>{Bitacora.validateForm('generalForm')});
       $("#saveTurnoIntegral").on("click",()=>{Bitacora.validateForm('formTurnoIntegral')});
       $("#fechaFin").on("change", Bitacora.Calculofechas);
@@ -65,26 +63,6 @@ Bitacora = {
        $('#fechaInicio, #fechaFin, #fechaInicio2 , #fechaRespuesta,#dateInitial, #finalDay').mask("99/99/9999 99:99",{placeholder: "--/--/----   --:--"});
    },
 
-    activeOfensores: () => {
-        document.querySelector('#active').setAttribute('style', 'display:block;');
-        document.querySelector('#resumen').classList.add('required-field')
-        $('.remove').css('display' ,'none');
-        $('#causalCierre, #idAlarma, #tarea, #fmasiva, #degradacionAbis').removeClass('required-field')
-    },
-
-    activeReportes: () => {
-      document.querySelector('#Nreport').setAttribute('style', 'display:block;');
-      document.querySelector('#NombreDelReporte').classList.add('required-field')
-      $('.removeR').css('display' ,'none');
-      $('#tkcreado, #idAlarma, #causalCierre, #tarea, #fmasiva, #degradacionAbis').removeClass('required-field')
-    },
-
-    activeGestionProblemas: ()=> {
-      $('.removeR').css('display' ,'none');
-      $('#tkcreado, #idAlarma, #causalCierre, #tarea, #fmasiva, #degradacionAbis').removeClass('required-field')
-    },
-
-
   desbloqueardisables: () =>{
       var bitacora =  document.querySelector('#bitacora').value;
    if (bitacora === 'BITACORA GENERAL' || bitacora === 'TURNO INTEGRAL-SOLICITUDES') {
@@ -99,44 +77,62 @@ Bitacora = {
          divs[i].value = "";
        }
        Bitacora.inputsAbiertos();
-       Bitacora.activeOfensores();
+       Bitacora.activityChange();
      }
    },
 
    activityChange:()=>{
      var actividad = document.querySelector('#actividad').value;
-     if (actividad == 'OFENSORES'  || actividad == 'GESTION PROBLEMAS' || actividad == 'CONTROL DE CALIDAD' || actividad == 'REPORTES') {
-       if (actividad == 'OFENSORES') {
-         document.querySelector('#active').setAttribute('style', 'display:block;');
-         document.querySelector('#resumen').classList.add('required-field')
-       } if (actividad != 'OFENSORES') {
-         document.querySelector('#active').setAttribute('style', 'display:none;');
-         document.querySelector('#resumen').classList.remove('required-field')
-       }if (actividad == 'REPORTES') {
-         $('#tk-remove').css('display' ,'none');
-         $('#tkcreado').removeClass('required-field')
-         document.querySelector('#Nreport').setAttribute('style', 'display:block;');
-         document.querySelector('#NombreDelReporte').classList.add('required-field')
-       } if (actividad != 'REPORTES') {
-         $('#tk-remove').css('display' ,'block');
-         document.querySelector('#tkcreado').classList.add('required-field')
-         document.querySelector('#Nreport').setAttribute('style', 'display:none;');
-         document.querySelector('#NombreDelReporte').classList.remove('required-field')
-       }
-       $('.removeR').css('display' ,'none');
-       $('#idAlarma, #causalCierre, #tarea, #fmasiva, #degradacionAbis').removeClass('required-field')
-       }else {
-       $('.removeR').css('display' ,'block');
-       $('#idAlarma, #causalCierre, #tarea, #fmasiva, #degradacionAbis, #tkcreado').addClass('required-field')
-       document.querySelector('#active').setAttribute('style', 'display:none;');
-       document.querySelector('#resumen').classList.remove('required-field')
-       $('#tk-remove').css('display' ,'block');
-       document.querySelector('#tkcreado').classList.add('required-field')
-       document.querySelector('#Nreport').setAttribute('style', 'display:none;');
-       document.querySelector('#NombreDelReporte').classList.remove('required-field')
-       }
-   },
+      if (actividad == 'OFENSORES'  || actividad == 'GESTION PROBLEMAS' || actividad == 'CONTROL DE CALIDAD' || actividad == 'REPORTES') {
+        $('.removeR').css('display' ,'none');
+        $('#idAlarma, #causalCierre, #tarea, #fmasiva, #degradacionAbis').removeClass('required-field filled').val("")
+        $('#idAlarma, #causalCierre, #tarea, #fmasiva, #degradacionAbis').parent().removeClass('focused');
+        if (actividad == 'OFENSORES') {
+          // alert('si llego a ofensores')
+          $('#active').css('display','block');
+          $('#resumen').addClass('required-field')
+          $('#tk-remove').css('display' ,'block');
+        } if (actividad != 'OFENSORES') {
+          $('#active').css('display','none');
+          $('#resumen').removeClass('required-field filled ').val("");
+          $('#resumen').parent().removeClass('focused');
+          $('#tk-remove').css('display' ,'none');
+          $('#tkcreado').removeClass('required-field filled').val("");
+          $('#tkcreado').parent().removeClass('focused');
+        }if (actividad == 'REPORTES') {
+          $('#tk-remove').css('display' ,'none');
+          $('#tkcreado').removeClass('required-field filled').val("");
+          $('#tkcreado').parent().removeClass('focused');
+          $('#Nreport').css('display','block');
+          $('#NombreDelReporte').addClass('required-field')
+        } if (actividad != 'REPORTES') {
+          $('#tk-remove').css('display' ,'block');
+          $('#tkcreado').addClass('required-field');
+          $('#Nreport').css('display','none');
+          $('#NombreDelReporte').removeClass('required-field filled').val("");
+          $('#NombreDelReporte').parent().removeClass('focused');
+        }if (actividad == 'GESTION PROBLEMAS' || actividad == 'CONTROL DE CALIDAD') {
+          $('#tk-remove').css('display' ,'none');
+          $('#tkcreado').removeClass('required-field filled').val("");
+          $('#tkcreado').parent().removeClass('focused');
+        }
 
+        }else {
+          $('.removeR').css('display' ,'block');
+          $('#idAlarma, #causalCierre, #tarea, #fmasiva, #degradacionAbis, #tkcreado').addClass('required-field');
+
+          $('#active').css('display','none');
+          $('#resumen').removeClass('required-field filled ').val("");
+          $('#resumen').parent().removeClass('focused');
+
+          $('#tk-remove').css('display' ,'block');
+          $('#tkcreado').addClass('required-field');
+
+          $('#Nreport').css('display','none');
+          $('#NombreDelReporte').removeClass('required-field filled').val("");
+          $('#NombreDelReporte').parent().removeClass('focused');
+        }
+   },
    alertsForCDC: ()=>{
      let options = document.querySelector('#causalCierre').value
      switch (options) {
@@ -266,7 +262,7 @@ Bitacora = {
          var titulos = info[i].getAttribute('post-datos')
          var datos = info[i].value
          datosBitacoraTI[titulos] = datos
-         console.log(datosBitacoraTI);
+         // console.log(datosBitacoraTI);
         }
         const url = base_url + 'BitacoraMC/saveBitTI'
         const opts = {datosBitacoraTI2:datosBitacoraTI}
@@ -286,6 +282,9 @@ Bitacora = {
      var minutosF1N = parseInt(minutosF1)
      var minutosF2N = parseInt(minutosF2)
      var totalMinutos= minutosF2N - minutosF1N
+     if (totalMinutos<0) {
+       totalMinutos = 60+totalMinutos;
+     }
      var duracion = document.querySelector('#duracion')
      var diferencia = (fecha2.diff(fecha1, 'hours') +' '+ 'Horas' + ' ' + totalMinutos + ' ' + 'Minutos' )
      duracion.value = diferencia;
@@ -301,6 +300,9 @@ Bitacora = {
      var minutosF1N = parseInt(minutosF1)
      var minutosF2N = parseInt(minutosF2)
      var totalMinutos= minutosF2N - minutosF1N
+     if (totalMinutos<0) {
+       totalMinutos = 60+totalMinutos;
+     }
      var duracion = document.querySelector('#tiempoRespuesta')
      var diferencia = (fecha2.diff(fecha1, 'hours') +' '+ 'Horas' + ' ' + totalMinutos + ' ' + 'Minutos' )
      duracion.value = diferencia;
@@ -313,5 +315,4 @@ Bitacora = {
 
 
 }
-
 Bitacora.init();

@@ -103,11 +103,11 @@ class Areas extends CI_Controller {
       $data['usuarios'] = $getUsuarios;
       $data['roles'] = $getRol;
 
-
       $this->load->view('parts/header', $data);
       $this->load->view('consultArea');
       $this->load->view('parts/footer');
   }
+
   public function getCordinadores($area)
   {
     $query = $this->Areas_model->getCordinadores($area);
