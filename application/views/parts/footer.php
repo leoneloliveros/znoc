@@ -83,12 +83,24 @@ immediately after the control sidebar -->
 <?php endif ?>
 <!-- **********************************************Fin Crear Cordinadores********************************************** -->
 <!-- **********************************************Bitacora Mesa de Calidad********************************************** -->
-<?php if ($this->uri->segment(1) == 'BitacoraMC'): ?>
+<?php if ($this->uri->segment(1) == 'BitacoraMC' && $this->uri->segment(2) != 'EditarBitacorasMC' && $this->uri->segment(2) != 'EditarBitacoraTI'): ?>
     <script src="<?= base_url('assets/js/inputAnimations.js'); ?>"></script>
     <script src="<?= base_url("assets/js/BitacoraMC.js?v=" . validarEnProduccion()) ?>"></script>
     <script src="<?= base_url('assets/js/exportBitMc.js'); ?>"></script>
 <?php endif ?>
 <!-- **********************************************Fin Bitacora Mesa de Calidad********************************************** -->
+<!-- **********************************************Editar Bitacora Mesa de Calidad********************************************** -->
+<?php if ($this->uri->segment(1) == 'BitacoraMC' && $this->uri->segment(2) == 'EditarBitacorasMC'): ?>
+    <script src="<?= base_url('assets/js/inputAnimations.js'); ?>"></script>
+    <script src="<?= base_url("assets/js/editarBitacoraMC.js?v=" . validarEnProduccion()) ?>"></script>
+<?php endif ?>
+<!-- **********************************************Fin Editar Bitacora Mesa de Calidad********************************************** -->
+<!-- **********************************************Editar Bitacora Turno Integral********************************************** -->
+<?php if ($this->uri->segment(1) == 'BitacoraMC' && $this->uri->segment(2) == 'EditarBitacoraTI'): ?>
+    <script src="<?= base_url('assets/js/inputAnimations.js'); ?>"></script>
+    <script src="<?= base_url("assets/js/editarBitTI.js?v=" . validarEnProduccion()) ?>"></script>
+<?php endif ?>
+<!-- **********************************************Fin Editar Bitacora Turno Integral********************************************** -->
 
 <!-- **********************************************datatables plus (excel ... ) *********************************************-->
 <?php if ($this->uri->segment(1) == 'User' && $this->uri->segment(2) == 'principal'): ?>
